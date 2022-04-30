@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"target": "ES2022",
+		"module": "CommonJS",
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"useDefineForClassFields": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"ts-node": {
+		"swc": true
+	}
+}

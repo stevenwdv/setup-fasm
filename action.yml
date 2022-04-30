@@ -1,0 +1,34 @@
+name: Setup fasm
+author: stevenwdv
+description: Set up the flat assembler compiler
+
+inputs:
+  edition:
+    description: Edition to install; fasm1, fasmg, or fasmarm
+    required: true
+  version:
+    description: Version of edition to install; e.g. 1.73.30, 1.73.*, or latest
+    required: false
+    default: latest
+  download-unknown:
+    description: Try to download unknown versions; one of never, secure, a hash, or insecure
+    required: false
+    default: never
+
+outputs:
+  path:
+    description: Path to which binaries are installed
+  edition:
+    description: Installed edition, same as input
+  version:
+    description: Full installed version
+  platform:
+    description: Platform for which fasm was installed
+
+runs:
+  using: node16
+  main: dist/setup.js
+
+branding:
+  icon: cpu
+  color: blue

@@ -1,0 +1,24 @@
+﻿root: true
+parser: "@typescript-eslint/parser"
+plugins: ["@typescript-eslint"]
+
+overrides:
+  - files: ["*.ts"]
+    excludedFiles: ["*.d.ts"]
+    parserOptions:
+      project: ./tsconfig.json
+    extends:
+      - eslint:recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:@typescript-eslint/recommended-requiring-type-checking
+    rules:
+      no-constant-condition:
+        - error
+        - checkLoops: false
+      no-debugger: warn # no error
+      no-inner-declarations: off # allow functions inside blocks
+      no-loss-of-precision: warn
+      no-promise-executor-return: warn
+      no-mixed-spaces-and-tabs: off # allow smart tabs
+      "@typescript-eslint/explicit-module-boundary-types": off
+      "@typescript-eslint/no-non-null-assertion": off
