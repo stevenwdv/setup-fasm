@@ -136,6 +136,15 @@ function returnVersion(edition: string, platform: PlatformStr, versionName: stri
 		  : extractPath;
 	core.addPath(binPath);
 
+	const executables = ['fasm.x64', 'fasm', 'fasm.o', 'fasm.exe'];
+	for (const executable of executables) {
+		const exePath = path.join(binPath, executable);
+		if (fs.existsSync(exePath)) {
+			const stat = fs.statSync(exePath);
+			if (stat.isFile()) fs.chmodSync(exePath, stat.mode | 0o111);  // Make executable
+		}
+	}
+
 	core.setOutput('path', binPath);
 	core.setOutput('edition', edition);
 	core.setOutput('version', versionName);
@@ -211,7 +220,7 @@ async function main() {
 					if (actualHash !== expectedHash) {
 						core.warning(`expected hash ${expectedHash} but got ${actualHash} for ${url}${
 							  ['never', 'secure', 'insecure'].includes(downloadUnknown) ?
-								    'you may want to report this to the setup-fasm action maintainer' : ''
+									'you may want to report this to the setup-fasm action maintainer' : ''
 						}; not using this file`);
 						fs.unlinkSync(packedPath);
 						continue;
