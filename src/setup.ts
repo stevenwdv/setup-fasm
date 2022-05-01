@@ -7,8 +7,6 @@ import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
 import * as dataRaw from '../fasm_versions.json';
 
-//TODO cleanup
-
 /* For past versions, see:
 WHATSNEW.TXT in releases
 https://github.com/tgrysztar/fasm/commits
@@ -213,7 +211,7 @@ async function main() {
 					if (actualHash !== expectedHash) {
 						core.warning(`expected hash ${expectedHash} but got ${actualHash} for ${url}${
 							  ['never', 'secure', 'insecure'].includes(downloadUnknown) ?
-									`you may want to report this to the setup-fasm action maintainer` : ''
+								    'you may want to report this to the setup-fasm action maintainer' : ''
 						}; not using this file`);
 						fs.unlinkSync(packedPath);
 						continue;

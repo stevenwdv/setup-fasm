@@ -1,10 +1,10 @@
 ﻿root: true
 parser: "@typescript-eslint/parser"
-plugins: ["@typescript-eslint"]
+plugins: [ "@typescript-eslint" ]
 
 overrides:
-  - files: ["*.ts"]
-    excludedFiles: ["*.d.ts"]
+  - files: [ "*.ts" ]
+    excludedFiles: [ "*.d.ts" ]
     parserOptions:
       project: ./tsconfig.json
     extends:
@@ -15,10 +15,14 @@ overrides:
       no-constant-condition:
         - error
         - checkLoops: false
-      no-debugger: warn # no error
-      no-inner-declarations: off # allow functions inside blocks
+      no-debugger: warn  # no error
+      no-inner-declarations: off  # allow functions inside blocks
       no-loss-of-precision: warn
       no-promise-executor-return: warn
-      no-mixed-spaces-and-tabs: off # allow smart tabs
+      no-mixed-spaces-and-tabs: off  # allow smart tabs
+      quotes:
+        - warn
+        - single
+        - avoidEscape: true
       "@typescript-eslint/explicit-module-boundary-types": off
       "@typescript-eslint/no-non-null-assertion": off

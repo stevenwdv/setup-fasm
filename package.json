@@ -1,26 +1,31 @@
 {
 	"name": "setup-fasm",
 	"version": "0.0.1",
+	"private": true,
 	"author": "stevenwdv",
+	"license": "MIT",
 	"scripts": {
 		"build": "webpack --mode=production",
 		"start-ts": "node --require=ts-node/register src/setup.ts",
-		"lint": "tsc && eslint ."
+		"lint": "tsc --noEmit && eslint .",
+		"lint-only": "eslint .",
+		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@actions/core": "^1.6.0",
+		"@actions/core": "^1.7.0",
 		"@actions/tool-cache": "^1.7.2"
 	},
 	"devDependencies": {
-		"@swc/core": "^1.2.168",
-		"@types/node": "^17.0.25",
+		"@swc/core": "^1.2.174",
+		"@types/node": "^17.0.30",
 		"@types/webpack": "^5.28.0",
-		"@typescript-eslint/eslint-plugin": "^5.20.0",
-		"@typescript-eslint/parser": "^5.20.0",
-		"eslint": "^8.13.0",
+		"@typescript-eslint/eslint-plugin": "^5.21.0",
+		"@typescript-eslint/parser": "^5.21.0",
+		"eslint": "^8.14.0",
+		"husky": "^7.0.4",
 		"ts-loader": "^9.3.0",
 		"ts-node": "^10.7.0",
-		"typescript": "^4.6.3",
+		"typescript": "^4.6.4",
 		"webpack": "^5.72.0",
 		"webpack-cli": "^4.9.2"
 	}

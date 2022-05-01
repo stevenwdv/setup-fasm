@@ -9,17 +9,29 @@ module.exports = (env, argv) => ({
 		filename: '[name].js',
 	},
 	target: 'node',
+
 	devtool: argv.mode === 'development' ? 'inline-source-map' : undefined,
 	resolve: {
 		extensions: ['.js', '.ts'],
 	},
+
+	// Do not inline JSON
 	externalsType: 'commonjs',
 	externals: ['../fasm_versions.json'],
+
 	module: {
 		rules: [
 			{
 				test: /\.ts$/i,
-				use: 'ts-loader',
+				use: [{
+					loader: 'ts-loader',
+					options: {
+						compilerOptions: {
+							noEmit: false,
+							outDir: 'ts-tmp',
+						},
+					},
+				}],
 			},
 		],
 	},
