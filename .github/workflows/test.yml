@@ -5,9 +5,16 @@ on: [ push, pull_request ]
 jobs:
   test-latest:
     name: Test install latest fasm 1 version
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
-      - run: fasm.x64 || [ $? = 1 ]
+      - name: setup-fasm
+        uses: ./
+      - run: fasm.x64 || [ $? = 1 ] || fasm || [ $? = 1 ]
+        shell: sh
