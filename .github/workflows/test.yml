@@ -1,0 +1,12 @@
+name: Test action
+
+on: [ push, pull_request ]
+
+jobs:
+  test-latest:
+    name: Test install latest fasm 1 version
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
