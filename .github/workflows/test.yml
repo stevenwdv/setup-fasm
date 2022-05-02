@@ -3,8 +3,29 @@ name: Test action
 on: [ push, pull_request ]
 
 jobs:
-  test-latest:
-    name: Test install latest fasm 1 version
+  test-fasm1:
+    name: Test install some fasm 1 versions
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        version: [ latest, 1.71.* ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run setup-fasm
+        id: fasm
+        uses: ./
+        with:
+          edition: fasm1
+          version: ${{ matrix.version }}
+      - run: (fasm.x64 || fasm || fasm.o) 2>&1 | grep -qF 'flat assembler  version ${{ steps.fasm.outputs.version }}'
+        shell: sh
+
+  test-fasmg:
+    name: Test install latest fasm g version
     strategy:
       fail-fast: false
       matrix:
@@ -14,7 +35,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: setup-fasm
+      - name: Run setup-fasm
+        id: fasm
         uses: ./
-      - run: fasm.x64 || [ $? = 1 ] || fasm || [ $? = 1 ] || fasm.o || [ $? = 1 ]
+        with:
+          edition: fasmg
+      - run: (fasmg.x64 || fasmg || fasmg.o) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
+        shell: sh
+
+  test-fasmarm:
+    name: Test install latest FASMARM version
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run setup-fasm
+        id: fasm
+        uses: ./
+        with:
+          edition: fasmarm
+      - run: (fasmarm.x64 || fasmarm || fasmarm.o) 2>&1 | grep -qF 'flat assembler for ARM'
         shell: sh
