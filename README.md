@@ -4,7 +4,7 @@ setup-fasm
 This action downloads the specified edition and version of [flat assembler](https://flatassembler.net/) and adds it to
 PATH.
 
-Available for Windows, Linux, and *nix systems supporting ELF binaries (not macOS).
+Available for Windows, Linux, and \*nix systems supporting ELF binaries (not macOS).
 
 Usage
 -----
@@ -16,13 +16,19 @@ Use latest fasm 1 version:
 - name: Test fasm
   run: fasm
 ```
-Note: Executable name may differ. `fasm.x64` may also be available on x86-64 Linux. Use `fasm.o` for macOS.
 
-Use latest fasmg version:
+Note: Executable name may differ. `fasm.x64` may also be available on x86-64 Linux. Use `fasm.o` for \*nix systems (none
+currently supported by GitHub).
+
+Use latest fasm g version:
+
 ```yaml
 - uses: stevenwdv/setup-fasm@0.0.1
   with:
     edition: fasmg
+
+- name: Test fasm g
+  run: fasmg
 ```
 FASMARM is also available.
 
