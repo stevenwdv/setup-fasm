@@ -203,16 +203,20 @@ async function main() {
 			return;
 		}
 
+		const expectedHash = (typeof version === 'object' && version.hashes || {})[platformStr];
+
 		/** Non-404 status */
 		let unexpectedError = false;
-		const urls          = getUrls[requestedEdition]!(version, platformStr);
+		let hashProblems    = false;
+
+		const urls = getUrls[requestedEdition]!(version, platformStr);
 		for (const url of urls) {
 			core.debug(`trying ${url}`);
 			try {
-				const secure       = new URL(url).protocol === 'https:';
-				const expectedHash = (typeof version === 'object' && version.hashes || {})[platformStr];
+				const secure = new URL(url).protocol === 'https:';
 
 				if (!secure && !expectedHash && !(typeof version === 'object' && version.allowInsecure)) {
+					hashProblems = true;
 					core.warning(`no hash found for insecure URL ${url} for ${fullVersion}; not using this file`);
 					continue;
 				}
@@ -222,6 +226,7 @@ async function main() {
 				if (expectedHash) {
 					const actualHash = hashFile(packedPath);
 					if (actualHash !== expectedHash) {
+						hashProblems = true;
 						core.warning(`expected hash ${expectedHash} but got ${actualHash} for ${url}${
 							  ['never', 'secure', 'insecure'].includes(downloadUnknown) ?
 									'you may want to report this to the setup-fasm action maintainer' : ''
@@ -231,7 +236,7 @@ async function main() {
 					}
 				}
 
-				const extract     = url.endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
+				const extract     = url.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
 				const extractPath = await extract(packedPath);
 				fs.unlinkSync(packedPath);
 				await toolCache.cacheDir(extractPath, cacheName, versionName, fasmArch);
@@ -248,8 +253,9 @@ async function main() {
 		}
 
 		core.warning(`all attempts at downloading ${fullVersion} failed; ` + (
-			  unexpectedError ? 'some servers seem to have problems with the requests'
-					: `${requestedEdition} ${versionName} not found for ${platformStr}`
+			  hashProblems ? 'some hash problems were encountered'
+					: unexpectedError ? 'some servers seem to have problems with the requests'
+						  : `${requestedEdition} ${versionName} not found for ${platformStr}`
 		));
 
 		core.endGroup();
