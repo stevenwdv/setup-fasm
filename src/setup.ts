@@ -28,7 +28,7 @@ const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 };
 
 /** Install found version */
-function returnVersion(edition: string, platform: PlatformStr, versionName: string, extractPath: string) {
+function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string) {
 	const files   = fs.readdirSync(extractPath);
 	// If extracted directory contains a single directory, add that to PATH instead
 	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
@@ -36,7 +36,11 @@ function returnVersion(edition: string, platform: PlatformStr, versionName: stri
 		  : extractPath;
 	core.addPath(binPath);
 
-	const executables = ['fasm.x64', 'fasm', 'fasm.o', 'fasm.exe'];
+	const executables = ['.x64', '', '.exe', '.o'].map(ext => `${{
+		fasm1: 'fasm',
+		fasmg: 'fasmg',
+		fasmarm: 'fasmarm',
+	}[edition]}${ext}`);
 	for (const executable of executables) {
 		const exePath = path.join(binPath, executable);
 		if (fs.existsSync(exePath)) {
@@ -64,11 +68,12 @@ async function main() {
 		core.setFailed(`requested edition '${requestedEdition}' not found`);
 		return;
 	}
+	const editionStr = requestedEdition as FasmEditionStr;
 
 	// Get requested version candidates
 	const tryVersions = getMatchingVersions(edition, requestedVersion, downloadUnknown);
 	if (!tryVersions.length) {
-		core.setFailed(`requested version '${requestedVersion}' not found for edition ${requestedEdition}`);
+		core.setFailed(`requested version '${requestedVersion}' not found for edition ${editionStr}`);
 		return;
 	}
 
@@ -90,11 +95,11 @@ async function main() {
 		const versionName = getVersionName(version);
 
 		core.startGroup(`using ${versionName}`);
-		const extractPath = await downloadVersion(requestedEdition as FasmEditionStr, version, platformStr);
+		const extractPath = await downloadVersion(editionStr, version, platformStr);
 		core.endGroup();
 
 		if (extractPath) {
-			returnVersion(requestedEdition, platformStr, versionName, extractPath);
+			returnVersion(editionStr, platformStr, versionName, extractPath);
 			return;
 		}
 

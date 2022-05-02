@@ -165,7 +165,7 @@ export class HashMismatchError extends DownloadError {
 
 export class HttpError extends DownloadError {
 	constructor(url: URL, readonly httpStatusCode?: number, options?: ErrorOptions) {
-		super(url, `HTTP error while downloading ${url.href}${httpStatusCode !== undefined ? ` (${httpStatusCode})` : ''}`, options);
+		super(url, `HTTP error${httpStatusCode !== undefined ? ` (${httpStatusCode})` : ''} while downloading ${url.href}`, options);
 	}
 }
 
