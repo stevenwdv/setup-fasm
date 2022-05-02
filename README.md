@@ -1,9 +1,10 @@
 setup-fasm
 ==========
 
-This action downloads the specified edition and version of [flat assembler](https://flatassembler.net/) and adds it to PATH.
+This action downloads the specified edition and version of [flat assembler](https://flatassembler.net/) and adds it to
+PATH.
 
-Available for Windows, Linux, and *nix.
+Available for Windows, Linux, and *nix systems supporting ELF binaries (not macOS).
 
 Usage
 -----

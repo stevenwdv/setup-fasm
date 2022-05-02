@@ -21,14 +21,14 @@ const data: FasmData = dataRaw;
 const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 	aix: 'unix',
 	android: 'linux',
-	darwin: 'unix',
+	cygwin: 'windows',
 	freebsd: 'unix',
+	haiku: 'unix',
 	linux: 'linux',
+	netbsd: 'unix',
 	openbsd: 'unix',
 	sunos: 'unix',
 	win32: 'windows',
-	cygwin: 'windows',
-	netbsd: 'unix',
 };
 
 // Currently, all versions are at least 32-bit x86, although some may also contain x86-64 versions
@@ -174,7 +174,11 @@ async function main() {
 
 	// Get current platform
 	const nodePlatform = os.platform();
-	let platformStr    = platformMap[nodePlatform];
+	if (nodePlatform === 'darwin') {
+		core.setFailed('macOS does not support ELF binaries, so fasm is not available');
+		return;
+	}
+	let platformStr = platformMap[nodePlatform];
 	if (!platformStr) {
 		core.warning(`unknown current platform ${nodePlatform}, trying unix`);
 		platformStr = 'unix';
