@@ -9,7 +9,7 @@
 		"start-ts": "node --require=ts-node/register src/setup.ts",
 		"lint": "tsc --noEmit && eslint .",
 		"lint-only": "eslint .",
-		"prepare": "husky install"
+		"prepare": "husky install .hooks"
 	},
 	"dependencies": {
 		"@actions/core": "^1.7.0",
