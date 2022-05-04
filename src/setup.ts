@@ -5,20 +5,13 @@ import process from 'process';
 
 import * as core from '@actions/core';
 
-import {
-	data,
-	downloadVersion,
-	FasmEdition,
-	FasmEditionStr,
-	getMatchingVersions,
-	getVersionName,
-	PlatformStr,
-} from './lib';
+import {data, downloadVersion, FasmEdition, FasmEditionStr, getMatchingVersions, PlatformStr} from './lib';
 
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
+	      assumeDynamicUnchanged                                    = core.getBooleanInput('assume-dynamic-unchanged'),
 	      setIncludeEnvvar                                          = core.getBooleanInput('set-include-envvar');
 
 	// Get requested edition
@@ -51,19 +44,17 @@ async function main() {
 	// Try version candidates
 	let triesLeft = 10;
 	for (const version of tryVersions) {
-		const versionName = getVersionName(version);
-
-		core.startGroup(`using ${versionName}`);
-		let extractPath = await downloadVersion(editionStr, version, platformStr);
+		core.startGroup(`using ${version.name}`);
+		let extractPath = await downloadVersion(editionStr, version, platformStr, assumeDynamicUnchanged);
 		if (!extractPath && platformStr === 'linux') {
 			core.debug('no linux version found, trying unix instead');
-			extractPath = await downloadVersion(editionStr, version, 'unix');
+			extractPath = await downloadVersion(editionStr, version, 'unix', assumeDynamicUnchanged);
 			if (extractPath) platformStr = 'unix';
 		}
 		core.endGroup();
 
 		if (extractPath) {
-			returnVersion(editionStr, platformStr, versionName, extractPath, setIncludeEnvvar);
+			returnVersion(editionStr, platformStr, version.name, extractPath, setIncludeEnvvar);
 			return;
 		}
 

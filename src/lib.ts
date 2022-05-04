@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import fs from 'fs';
 import os from 'os';
+import path from 'path';
 
 import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
@@ -21,15 +22,9 @@ Some releases that are not in WHATSNEW.TXT do have binaries online
  */
 export const data: FasmData = dataRaw;
 
-export function getVersionName(version: FasmVersion) {
-	return typeof version === 'string' ? version : version.name;
-}
-
 export const getUrls: { [platform in FasmEditionStr]: (version: FasmVersion, platform: PlatformStr) => string[] } = {
 	fasm1(version, platform) {
-		const versionName = getVersionName(version);
-
-		const names = (typeof version === 'object' && version.alt ? [versionName, version.alt] : [versionName]).map(name => {
+		const names = (version.alt ? [version.alt, version.name] : [version.name]).map(name => {
 			const versionNameDotless = name.replace(/\./g, '');
 			return {
 				windows: parseInt(versionNameDotless) < parseInt('1.54'.replace(/\./g, ''))
@@ -49,10 +44,8 @@ export const getUrls: { [platform in FasmEditionStr]: (version: FasmVersion, pla
 		return sites.flatMap(site => names.map(name => site + name));
 	},
 	fasmg(version) {
-		const versionName = getVersionName(version);
-
 		const sites = ['https://flatassembler.net/'];
-		const names = (typeof version === 'object' && version.alt ? [versionName, version.alt] : [versionName])
+		const names = (version.alt ? [version.alt, version.name] : [version.name])
 			  .map(name => `fasmg.${name}.zip`);
 		return sites.flatMap(site => names.map(name => site + name));
 	},
@@ -74,14 +67,11 @@ export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'lat
 	else if (requestedVersion.endsWith('.*')) {
 		const requestedVersionBase = requestedVersion.slice(0, -2);
 		return edition.versions
-			  .filter(version => {
-				  const name = getVersionName(version);
-				  return name.toLowerCase().startsWith(requestedVersionBase)
-						&& ['.', undefined].includes(name[requestedVersionBase.length]);
-			  });
+			  .filter(version => version.name.toLowerCase().startsWith(requestedVersionBase)
+					&& ['.', undefined].includes(version.name[requestedVersionBase.length]));
 	} else {
 		const version = edition.versions
-			  .find(version => getVersionName(version).toLowerCase() === requestedVersion);
+			  .find(version => version.name.toLowerCase() === requestedVersion);
 		if (!version) {
 			if (downloadUnknown === 'never') return [];
 			if (['secure', 'insecure'].includes(downloadUnknown)) return [{
@@ -100,11 +90,11 @@ export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'lat
 			}];
 		} else if (downloadUnknown !== 'secure') {
 			if (downloadUnknown === 'insecure') return [{
-				...(typeof version === 'object' ? version : {name: version}),
+				...version,
 				allowInsecure: true,
 			}];
 			if (downloadUnknown) return [{
-				...(typeof version === 'object' ? version : {name: version}),
+				...version,
 				hashes: new Proxy({}, {
 					get() {
 						return downloadUnknown;
@@ -125,24 +115,32 @@ export async function hashFile(filePath: string): Promise<string> {
 	return hasher.read() as string;
 }
 
+/** File was not modified since last download */
+export const NOT_MODIFIED = Symbol('not changed');
 
 /**
  * @param allowInsecure Allow downloading insecure URLs without hash
- * @return Path of raw downloaded file
+ * @return Path of raw downloaded file or {@link NOT_MODIFIED}
  * @throws DownloadError
  */
-export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string): Promise<string> {
+export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string, ifModifiedSince?: Date)
+	  : Promise<string | typeof NOT_MODIFIED> {
 	const secure = url.protocol === 'https:';
 
 	if (!secure && !expectedHash && !allowInsecure) throw new MissingHashError(url);
 
+	const headers = ifModifiedSince ? {
+		'If-Modified-Since': ifModifiedSince.toUTCString(),
+	} : {};
+
 	let packedPath;
 	try {
-		packedPath = await toolCache.downloadTool(url.href, destinationFilePath);
+		packedPath = await toolCache.downloadTool(url.href, destinationFilePath, undefined, headers);
 	} catch (err) {
-		if (err instanceof toolCache.HTTPError)
+		if (err instanceof toolCache.HTTPError) {
+			if (err.httpStatusCode === 304) return NOT_MODIFIED;
 			throw new HttpError(url, err.httpStatusCode, {cause: err});
-		else throw err;
+		} else throw err;
 	}
 
 	if (expectedHash) {
@@ -183,13 +181,14 @@ export class HttpError extends DownloadError {
 
 /**
  * @param userProvided If version is unknown and was provided by the user
- * @return Path to archive and downloaded URL
+ * @return Path to archive and downloaded URL or {@link NOT_MODIFIED} or null on failure
  */
-export async function downloadVersionArchive(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, destinationFilePath?: string): Promise<{ path: string, url: URL } | null> {
-	const versionName = getVersionName(version);
-	const fullVersion = `${edition} ${versionName} for ${platform}`;
+export async function downloadVersionArchive(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr,
+                                             destinationFilePath?: string, ifModifiedSince?: Date)
+	  : Promise<{ path: string, url: URL } | typeof NOT_MODIFIED | null> {
+	const fullVersion = `${edition} ${version.name} for ${platform}`;
 
-	const expectedHash = (typeof version === 'object' && version.hashes || {})[platform];
+	const expectedHash = (version.hashes || {})[platform];
 
 	/** Non-404 status */
 	let unexpectedError = false;
@@ -200,8 +199,10 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 		core.debug(`trying ${url.href}`);
 
 		try {
+			const downloadResult = await downloadUrl(url, !!version.allowInsecure, expectedHash, destinationFilePath, ifModifiedSince);
+			if (downloadResult === NOT_MODIFIED) return NOT_MODIFIED;
 			return {
-				path: await downloadUrl(url, typeof version === 'object' && !!version.allowInsecure, expectedHash, destinationFilePath),
+				path: downloadResult,
 				url,
 			};
 		} catch (err) {
@@ -213,8 +214,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 			if (err instanceof HashMismatchError) {
 				hashProblems = true;
 				core.warning(`${err.message} for ${fullVersion}${
-					  typeof version === 'object' && version.userProvided ? ''
-							: 'you may want to report this to the setup-fasm action maintainer'
+					  version.userProvided ? '' : 'you may want to report this to the setup-fasm action maintainer'
 				}; not using this file`);
 				continue;
 			}
@@ -230,7 +230,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 	core.warning(`all attempts at downloading ${fullVersion} failed; ` + (
 		  hashProblems ? 'some hash problems were encountered'
 				: unexpectedError ? 'some servers seem to have problems with the requests'
-					  : `${edition} ${versionName} not found for ${platform}`
+					  : `${edition} ${version.name} not found for ${platform}`
 	));
 	return null;
 }
@@ -241,33 +241,48 @@ const fasmArch: ReturnType<typeof os.arch> = 'ia32';
 
 /**
  * @param userProvided If version is unknown and was provided by the user
- * @return Path to extracted directory
+ * @return Path to extracted directory or null on failure
  */
-export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr): Promise<string | null> {
-	const versionName = getVersionName(version);
+export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, assumeDynamicUnchanged = false)
+	  : Promise<string | null> {
+
+	const downloadDateFileName = 'DOWNLOAD_DATE';
+	let ifModifiedSince: Date | undefined;
 
 	const cacheName  = `${edition}-${platform}`;
-	const cachedPath = toolCache.find(cacheName, versionName, fasmArch);
+	const cachedPath = toolCache.find(cacheName, version.name, fasmArch);
 	if (cachedPath) {
-		// Use cached version
 		core.debug('found cached');
-		return cachedPath;
+
+		if (!version.dynamic || assumeDynamicUnchanged) {
+			// Use cached version
+			return cachedPath;
+		} else {
+			const dateFilePath = path.join(cachedPath, downloadDateFileName);
+			if (fs.existsSync(dateFilePath)) ifModifiedSince = new Date(fs.readFileSync(dateFilePath, 'utf8'));
+			core.debug(`but may be updated, last modified: ${ifModifiedSince?.toUTCString() || 'unknown'}`);
+		}
 	}
 
-	const result = await downloadVersionArchive(edition, version, platform);
+	const preDownloadDate = new Date();
+	const result          = await downloadVersionArchive(edition, version, platform, undefined, ifModifiedSince);
+	if (result === NOT_MODIFIED) return cachedPath;
 	if (!result) return null;
 	const {path: packedPath, url} = result;
 
 	const extract     = url.pathname.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
 	const extractPath = await extract(packedPath);
 	fs.unlinkSync(packedPath);
-	await toolCache.cacheDir(extractPath, cacheName, versionName, fasmArch);
+	// Ideally, we would look at the date in the response, but tool-cache doesn't allow us
+	// Even more ideally, we would use ETags -- same issue
+	fs.writeFileSync(path.join(extractPath, downloadDateFileName), preDownloadDate.toString(), 'utf8');
+	await toolCache.cacheDir(extractPath, cacheName, version.name, fasmArch);
 	return extractPath;
 }
 
 
 export type FasmData = {
-	editions: { [edition in FasmEditionStr]: FasmEdition }
+	editions: { [edition in FasmEditionStr]: FasmEdition },
 };
 
 export type FasmEdition = {
@@ -275,14 +290,20 @@ export type FasmEdition = {
 	versions: FasmVersion[],
 };
 
-export type FasmVersion = string | {
+export type FasmVersion = {
+	/** Version number */
 	name: string,
+	/** Can the file for this version change? */
+	dynamic?: boolean,
 	hashes?: { [platform in PlatformStr]?: string },
+	/** Alternative version number if file online is named differently */
 	alt?: string,
 };
 
-export type FasmVersionEx = string | FasmVersion & {
+export type FasmVersionEx = FasmVersion & {
+	/** Version and/or hashes were provided by the user */
 	userProvided?: boolean,
+	/** Allow downloads using an insecure connection without hash */
 	allowInsecure?: boolean,
 };
 

@@ -15,6 +15,10 @@ inputs:
     description: Try to download unknown versions; one of never, secure, a hash, or insecure
     required: false
     default: never
+  assume-dynamic-unchanged:
+    description: Assume dynamic versions (FASMARM) do not change compared to the cache; true or false
+    required: false
+    default: 'false'
   set-include-envvar:
     description: Set INCLUDE environment variable to the INCLUDE folder of the fasm installation, if it was found; true or false
     required: false
