@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import fs from 'fs';
 import os from 'os';
-import path from 'path';
 
 import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
@@ -115,30 +114,21 @@ export async function hashFile(filePath: string): Promise<string> {
 	return hasher.read() as string;
 }
 
-/** File was not modified since last download */
-export const NOT_MODIFIED = Symbol('not changed');
-
 /**
  * @param allowInsecure Allow downloading insecure URLs without hash
- * @return Path of raw downloaded file or {@link NOT_MODIFIED}
+ * @return Path of raw downloaded file
  * @throws DownloadError
  */
-export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string, ifModifiedSince?: Date)
-	  : Promise<string | typeof NOT_MODIFIED> {
+export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string): Promise<string> {
 	const secure = url.protocol === 'https:';
 
 	if (!secure && !expectedHash && !allowInsecure) throw new MissingHashError(url);
 
-	const headers = ifModifiedSince ? {
-		'If-Modified-Since': ifModifiedSince.toUTCString(),
-	} : {};
-
 	let packedPath;
 	try {
-		packedPath = await toolCache.downloadTool(url.href, destinationFilePath, undefined, headers);
+		packedPath = await toolCache.downloadTool(url.href, destinationFilePath);
 	} catch (err) {
 		if (err instanceof toolCache.HTTPError) {
-			if (err.httpStatusCode === 304) return NOT_MODIFIED;
 			throw new HttpError(url, err.httpStatusCode, {cause: err});
 		} else throw err;
 	}
@@ -181,11 +171,10 @@ export class HttpError extends DownloadError {
 
 /**
  * @param userProvided If version is unknown and was provided by the user
- * @return Path to archive and downloaded URL or {@link NOT_MODIFIED} or null on failure
+ * @return Path to archive and downloaded URL or null on failure
  */
 export async function downloadVersionArchive(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr,
-                                             destinationFilePath?: string, ifModifiedSince?: Date)
-	  : Promise<{ path: string, url: URL } | typeof NOT_MODIFIED | null> {
+                                             destinationFilePath?: string): Promise<{ path: string, url: URL } | null> {
 	const fullVersion = `${edition} ${version.name} for ${platform}`;
 
 	const expectedHash = (version.hashes || {})[platform];
@@ -199,10 +188,8 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 		core.debug(`trying ${url.href}`);
 
 		try {
-			const downloadResult = await downloadUrl(url, !!version.allowInsecure, expectedHash, destinationFilePath, ifModifiedSince);
-			if (downloadResult === NOT_MODIFIED) return NOT_MODIFIED;
 			return {
-				path: downloadResult,
+				path: await downloadUrl(url, !!version.allowInsecure, expectedHash, destinationFilePath),
 				url,
 			};
 		} catch (err) {
@@ -246,11 +233,9 @@ const fasmArch: ReturnType<typeof os.arch> = 'ia32';
 export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, assumeDynamicUnchanged = false)
 	  : Promise<string | null> {
 
-	const downloadDateFileName = '.download_date';
-	let ifModifiedSince: Date | undefined;
-
-	const cacheName  = `${edition}-${platform}`;
-	const cachedPath = toolCache.find(cacheName, version.name, fasmArch);
+	// Don't use tool-cache version field as it only does semver x.x.x
+	const cacheName  = `${edition}-${platform}-${version.name}`;
+	const cachedPath = toolCache.find(cacheName, '0.0.0', fasmArch);
 	if (cachedPath) {
 		core.debug('found cached');
 
@@ -258,28 +243,22 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 			// Use cached version
 			return cachedPath;
 		} else {
-			const dateFilePath = path.join(cachedPath, downloadDateFileName);
-			if (fs.existsSync(dateFilePath)) ifModifiedSince = new Date(fs.readFileSync(dateFilePath, 'utf8'));
-			core.debug(`but may be updated, last modified: ${ifModifiedSince?.toUTCString() || 'unknown'}`);
+			// Ideally, we would look at the date in the response and use If-Modified-Since, but tool-cache doesn't let us
+			// Even more ideally, we would use ETags -- same issue
+			// Using the download date for If-Modified-Since instead doesn't work,
+			//   as HeavyThing rwasa replies with 200 to dates after the last modification date
+			core.debug('but may be updated');
 		}
 	}
 
-	const preDownloadDate = new Date();
-	const result          = await downloadVersionArchive(edition, version, platform, undefined, ifModifiedSince);
-	if (result === NOT_MODIFIED) {
-		core.debug('server said not modified');
-		return cachedPath;
-	}
+	const result = await downloadVersionArchive(edition, version, platform);
 	if (!result) return null;
 	const {path: packedPath, url} = result;
 
 	const extract     = url.pathname.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
 	const extractPath = await extract(packedPath);
 	fs.unlinkSync(packedPath);
-	// Ideally, we would look at the date in the response, but tool-cache doesn't allow us
-	// Even more ideally, we would use ETags -- same issue
-	fs.writeFileSync(path.join(extractPath, downloadDateFileName), preDownloadDate.toUTCString(), 'utf8');
-	await toolCache.cacheDir(extractPath, cacheName, version.name, fasmArch);
+	await toolCache.cacheDir(extractPath, cacheName, '0.0.0', fasmArch);
 	return extractPath;
 }
 
