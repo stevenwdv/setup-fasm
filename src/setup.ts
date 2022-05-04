@@ -85,7 +85,7 @@ const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 /** Install found version */
 function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
                        setIncludeEnvvar: boolean) {
-	const files   = fs.readdirSync(extractPath);
+	const files = fs.readdirSync(extractPath).filter(name => !name.startsWith('.'));  // Filter out .download_date
 	// If extracted directory contains a single directory, add that to PATH instead
 	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
 		  ? path.join(extractPath, files[0]!)

@@ -246,7 +246,7 @@ const fasmArch: ReturnType<typeof os.arch> = 'ia32';
 export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, assumeDynamicUnchanged = false)
 	  : Promise<string | null> {
 
-	const downloadDateFileName = 'DOWNLOAD_DATE';
+	const downloadDateFileName = '.download_date';
 	let ifModifiedSince: Date | undefined;
 
 	const cacheName  = `${edition}-${platform}`;
@@ -266,7 +266,10 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 
 	const preDownloadDate = new Date();
 	const result          = await downloadVersionArchive(edition, version, platform, undefined, ifModifiedSince);
-	if (result === NOT_MODIFIED) return cachedPath;
+	if (result === NOT_MODIFIED) {
+		core.debug('server said not modified');
+		return cachedPath;
+	}
 	if (!result) return null;
 	const {path: packedPath, url} = result;
 
@@ -275,7 +278,7 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 	fs.unlinkSync(packedPath);
 	// Ideally, we would look at the date in the response, but tool-cache doesn't allow us
 	// Even more ideally, we would use ETags -- same issue
-	fs.writeFileSync(path.join(extractPath, downloadDateFileName), preDownloadDate.toString(), 'utf8');
+	fs.writeFileSync(path.join(extractPath, downloadDateFileName), preDownloadDate.toUTCString(), 'utf8');
 	await toolCache.cacheDir(extractPath, cacheName, version.name, fasmArch);
 	return extractPath;
 }
