@@ -40,15 +40,27 @@ Use specific version (accepts wildcard at the end):
     version: 1.71.*
 ```
 
-Notes
+Additional notes
 -----
 
-Not all versions are archived (for all platforms). This utility searches https://flatassembler.net/, http://fasm.sourceforge.net/archive/recent/, and http://comrade.ownz.com/docs/fasm.html#pastversions for archived versions, as long as the version number is found in [`fasm_version.json`](https://github.com/stevenwdv/setup-fasm/blob/main/fasm_version.json).
+Not all versions are archived (for all platforms). This utility searches https://flatassembler.net/
+, http://fasm.sourceforge.net/archive/recent/, and http://comrade.ownz.com/docs/fasm.html#pastversions for archived
+versions, as long as the version number is found
+in [`fasm_version.json`](https://github.com/stevenwdv/setup-fasm/blob/main/fasm_version.json).
 
 For FASMARM, only an unnamed latest version is available.
 
-To download unknown versions, set `version` to a specific version number without wildcards and set the `download-unknown` input to one of the following values:
+To download unknown versions, set `version` to a specific version number without wildcards and set
+the `download-unknown` input to one of the following values:
 
-  - `secure`: Allow downloading unknown versions via a secure connection (not all archives support HTTPS).
-  - _some [BLAKE2](https://www.blake2.net/)b-512 hash_: Allow downloading unknown versions via any connection, but verify that the hash corresponds to the given value.
-  - `insecure`: Allow downloading unknown versions via any, possibly insecure, connection (not recommended except for testing).
+- `secure`: Allow downloading unknown versions via a secure connection (not all archives support HTTPS).
+- _some [BLAKE2](https://www.blake2.net/)b-512 hash_: Allow downloading unknown versions via any connection, but verify
+  that the hash corresponds to the given value.
+- `insecure`: Allow downloading unknown versions via any, possibly insecure, connection (not recommended except for
+  testing).
+
+This script automatically sets the `INCLUDE` environment variable to the path of the `INCLUDE` folder in the fasm
+installation, if one exists, unless the `set-include-envvar` input is set to `false`.
+
+See [`action.yml`](https://github.com/stevenwdv/setup-fasm/blob/main/action.yml) for all inputs and outputs of this
+action.
