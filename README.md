@@ -11,7 +11,7 @@ Usage
 Use latest fasm 1 version:
 
 ```yaml
-- uses: stevenwdv/setup-fasm@0.0.1
+- uses: stevenwdv/setup-fasm@v1
 
 - name: Test fasm
   run: fasm
@@ -22,7 +22,7 @@ Note: Executable name may differ. `fasm.x64` may also be available on x86-64 Lin
 Use latest fasm g version:
 
 ```yaml
-- uses: stevenwdv/setup-fasm@0.0.1
+- uses: stevenwdv/setup-fasm@v1
   with:
     edition: fasmg
 
@@ -35,7 +35,7 @@ FASMARM is also available.
 Use specific version (accepts wildcard at the end):
 
 ```yaml
-- uses: stevenwdv/setup-fasm@0.0.1
+- uses: stevenwdv/setup-fasm@v1
   with:
     edition: fasm1
     version: 1.71.*
