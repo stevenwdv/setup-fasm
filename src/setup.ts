@@ -1,6 +1,7 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import process from 'process';
 
 import * as core from '@actions/core';
 
@@ -14,53 +15,11 @@ import {
 	PlatformStr,
 } from './lib';
 
-const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
-	aix: 'unix',
-	android: 'linux',
-	cygwin: 'windows',
-	freebsd: 'unix',
-	haiku: 'unix',
-	linux: 'linux',
-	netbsd: 'unix',
-	openbsd: 'unix',
-	sunos: 'unix',
-	win32: 'windows',
-};
-
-/** Install found version */
-function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string) {
-	const files   = fs.readdirSync(extractPath);
-	// If extracted directory contains a single directory, add that to PATH instead
-	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
-		  ? path.join(extractPath, files[0]!)
-		  : extractPath;
-	core.addPath(binPath);
-
-	const executables = ['.x64', '', '.exe', '.o'].map(ext => `${{
-		fasm1: 'fasm',
-		fasmg: 'fasmg',
-		fasmarm: 'fasmarm',
-	}[edition]}${ext}`);
-	for (const executable of executables) {
-		const exePath = path.join(binPath, executable);
-		if (fs.existsSync(exePath)) {
-			const stat = fs.statSync(exePath);
-			if (stat.isFile()) fs.chmodSync(exePath, stat.mode | 0o111);  // Make executable
-		}
-	}
-
-	core.setOutput('path', binPath);
-	core.setOutput('edition', edition);
-	core.setOutput('version', versionName);
-	core.setOutput('platform', platform);
-
-	core.info(`successfully installed ${edition} ${versionName} for ${platform} to ${binPath}`);
-}
-
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
-	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase();
+	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
+	      setIncludeEnvvar                                          = core.getBooleanInput('set-include-envvar');
 
 	// Get requested edition
 	const edition = (data.editions as { [edition: string]: FasmEdition })[requestedEdition];
@@ -95,11 +54,16 @@ async function main() {
 		const versionName = getVersionName(version);
 
 		core.startGroup(`using ${versionName}`);
-		const extractPath = await downloadVersion(editionStr, version, platformStr);
+		let extractPath = await downloadVersion(editionStr, version, platformStr);
+		if (!extractPath && platformStr === 'linux') {
+			core.debug('no linux version found, trying unix instead');
+			extractPath = await downloadVersion(editionStr, version, 'unix');
+			if (extractPath) platformStr = 'unix';
+		}
 		core.endGroup();
 
 		if (extractPath) {
-			returnVersion(editionStr, platformStr, versionName, extractPath);
+			returnVersion(editionStr, platformStr, versionName, extractPath, setIncludeEnvvar);
 			return;
 		}
 
@@ -111,6 +75,61 @@ async function main() {
 
 	core.setFailed(`could not download ${requestedEdition} ${requestedVersion} for ${platformStr}`);
 	return;
+}
+
+
+const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
+	aix: 'unix',
+	android: 'linux',
+	cygwin: 'windows',
+	freebsd: 'unix',
+	haiku: 'unix',
+	linux: 'linux',
+	netbsd: 'unix',
+	openbsd: 'unix',
+	sunos: 'unix',
+	win32: 'windows',
+};
+
+/** Install found version */
+function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
+                       setIncludeEnvvar: boolean) {
+	const files   = fs.readdirSync(extractPath);
+	// If extracted directory contains a single directory, add that to PATH instead
+	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
+		  ? path.join(extractPath, files[0]!)
+		  : extractPath;
+	core.addPath(binPath);
+
+	{
+		const executables = ['.x64', '', '.exe', '.o'].map(ext => `${{
+			fasm1: 'fasm',
+			fasmg: 'fasmg',
+			fasmarm: 'fasmarm',
+		}[edition]}${ext}`);
+		for (const executable of executables) {
+			const exePath = path.join(binPath, executable);
+			const stat    = fs.statSync(exePath, {throwIfNoEntry: false});
+			if (stat?.isFile()) fs.chmodSync(exePath, stat.mode | 0o111);  // Make executable
+		}
+	}
+
+	if (setIncludeEnvvar) {
+		const includePath = path.join(binPath, 'INCLUDE');
+		if (fs.statSync(includePath, {throwIfNoEntry: false})?.isDirectory()) {
+			let includeConcat = process.env['INCLUDE'] || '';
+			if (includeConcat) includeConcat += ';';  // This is the only separator recognized by fasm
+			includeConcat += includePath;
+			core.exportVariable('INCLUDE', includeConcat);
+		}
+	}
+
+	core.setOutput('path', binPath);
+	core.setOutput('edition', edition);
+	core.setOutput('version', versionName);
+	core.setOutput('platform', platform);
+
+	core.info(`successfully installed ${edition} ${versionName} for ${platform} to ${binPath}`);
 }
 
 void (async () => {

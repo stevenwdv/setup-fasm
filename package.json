@@ -11,6 +11,9 @@
 		"lint-only": "eslint .",
 		"prepare": "husky install .hooks"
 	},
+	"sideEffects": [
+		"./src/setup.ts"
+	],
 	"dependencies": {
 		"@actions/core": "^1.7.0",
 		"@actions/tool-cache": "^1.7.2"

@@ -220,7 +220,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 			}
 			if (err instanceof HttpError) {
 				if (err.httpStatusCode !== undefined) unexpectedError ||= err.httpStatusCode !== 404;
-				core.warning(`${err.message} for ${fullVersion}; not using this file`);
+				(err.httpStatusCode === 404 ? core.debug : core.warning)(`${err.message} for ${fullVersion}`);
 				continue;
 			}
 			throw err;
