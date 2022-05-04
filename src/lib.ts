@@ -8,6 +8,7 @@ import * as toolCache from '@actions/tool-cache';
 import {equalsIgnoreCase} from './utils';
 
 import dataRaw from '../fasm_versions.json';
+import {pipeline} from 'stream/promises';
 
 /* For past versions, see:
 WHATSNEW.TXT in releases
@@ -24,7 +25,7 @@ export function getVersionName(version: FasmVersion) {
 	return typeof version === 'string' ? version : version.name;
 }
 
-const getUrls: { [platform in FasmEditionStr]: (version: FasmVersion, platform: PlatformStr) => string[] } = {
+export const getUrls: { [platform in FasmEditionStr]: (version: FasmVersion, platform: PlatformStr) => string[] } = {
 	fasm1(version, platform) {
 		const versionName = getVersionName(version);
 
@@ -83,13 +84,9 @@ export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'lat
 			  .find(version => getVersionName(version).toLowerCase() === requestedVersion);
 		if (!version) {
 			if (downloadUnknown === 'never') return [];
-			if (downloadUnknown === 'secure') return [{
+			if (['secure', 'insecure'].includes(downloadUnknown)) return [{
 				name: requestedVersion,
-				userProvided: true,
-			}];
-			if (downloadUnknown === 'insecure') return [{
-				name: requestedVersion,
-				allowInsecure: true,
+				allowInsecure: downloadUnknown === 'insecure',
 				userProvided: true,
 			}];
 			return [{
@@ -101,33 +98,47 @@ export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'lat
 				}),
 				userProvided: true,
 			}];
+		} else if (downloadUnknown !== 'secure') {
+			if (downloadUnknown === 'insecure') return [{
+				...(typeof version === 'object' ? version : {name: version}),
+				allowInsecure: true,
+			}];
+			if (downloadUnknown) return [{
+				...(typeof version === 'object' ? version : {name: version}),
+				hashes: new Proxy({}, {
+					get() {
+						return downloadUnknown;
+					},
+				}),
+				userProvided: true,
+			}];
 		}
-		return edition.versions
-			  .filter(version => getVersionName(version) === requestedVersion);
+		return [version];
 	}
 }
 
-function hashFile(filePath: string): string {
+/** Hash file using BLAKE2b-512 */
+export async function hashFile(filePath: string): Promise<string> {
 	const packedStream = fs.createReadStream(filePath);
 	const hasher       = crypto.createHash('BLAKE2b512').setEncoding('hex');
-	packedStream.pipe(hasher);
+	await pipeline(packedStream, hasher);
 	return hasher.read() as string;
 }
 
 
 /**
  * @param allowInsecure Allow downloading insecure URLs without hash
- * @return Path of downloaded archive file
+ * @return Path of raw downloaded file
  * @throws DownloadError
  */
-export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string): Promise<string> {
+export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string): Promise<string> {
 	const secure = url.protocol === 'https:';
 
 	if (!secure && !expectedHash && !allowInsecure) throw new MissingHashError(url);
 
 	let packedPath;
 	try {
-		packedPath = await toolCache.downloadTool(url.href);
+		packedPath = await toolCache.downloadTool(url.href, destinationFilePath);
 	} catch (err) {
 		if (err instanceof toolCache.HTTPError)
 			throw new HttpError(url, err.httpStatusCode, {cause: err});
@@ -135,7 +146,7 @@ export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash
 	}
 
 	if (expectedHash) {
-		const actualHash = hashFile(packedPath);
+		const actualHash = await hashFile(packedPath);
 		if (!equalsIgnoreCase(actualHash, expectedHash)) {
 			fs.unlinkSync(packedPath);
 			throw new HashMismatchError(url, expectedHash, actualHash);
@@ -170,23 +181,13 @@ export class HttpError extends DownloadError {
 }
 
 
-// Currently, all versions are at least 32-bit x86, although some may also contain x86-64 versions
-const fasmArch: ReturnType<typeof os.arch> = 'ia32';
-
 /**
  * @param userProvided If version is unknown and was provided by the user
+ * @return Path to archive and downloaded URL
  */
-export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr): Promise<string | null> {
+export async function downloadVersionArchive(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, destinationFilePath?: string): Promise<{ path: string, url: URL } | null> {
 	const versionName = getVersionName(version);
 	const fullVersion = `${edition} ${versionName} for ${platform}`;
-
-	const cacheName  = `${edition}-${platform}`;
-	const cachedPath = toolCache.find(cacheName, versionName, fasmArch);
-	if (cachedPath) {
-		// Use cached version
-		core.debug('found cached');
-		return cachedPath;
-	}
 
 	const expectedHash = (typeof version === 'object' && version.hashes || {})[platform];
 
@@ -194,13 +195,15 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 	let unexpectedError = false;
 	let hashProblems    = false;
 
-	const urls = getUrls[edition]!(version, platform);
+	const urls = getUrls[edition](version, platform).map(url => new URL(url));
 	for (const url of urls) {
-		core.debug(`trying ${url}`);
+		core.debug(`trying ${url.href}`);
 
-		let packedPath;
 		try {
-			packedPath = await downloadUrl(new URL(url), typeof version === 'object' && !!version.allowInsecure, expectedHash);
+			return {
+				path: await downloadUrl(url, typeof version === 'object' && !!version.allowInsecure, expectedHash, destinationFilePath),
+				url,
+			};
 		} catch (err) {
 			if (err instanceof MissingHashError) {
 				hashProblems = true;
@@ -222,12 +225,6 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 			}
 			throw err;
 		}
-
-		const extract     = url.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
-		const extractPath = await extract(packedPath);
-		fs.unlinkSync(packedPath);
-		await toolCache.cacheDir(extractPath, cacheName, versionName, fasmArch);
-		return extractPath;
 	}
 
 	core.warning(`all attempts at downloading ${fullVersion} failed; ` + (
@@ -236,6 +233,36 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 					  : `${edition} ${versionName} not found for ${platform}`
 	));
 	return null;
+}
+
+
+// Currently, all versions are at least 32-bit x86, although some may also contain x86-64 versions
+const fasmArch: ReturnType<typeof os.arch> = 'ia32';
+
+/**
+ * @param userProvided If version is unknown and was provided by the user
+ * @return Path to extracted directory
+ */
+export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr): Promise<string | null> {
+	const versionName = getVersionName(version);
+
+	const cacheName  = `${edition}-${platform}`;
+	const cachedPath = toolCache.find(cacheName, versionName, fasmArch);
+	if (cachedPath) {
+		// Use cached version
+		core.debug('found cached');
+		return cachedPath;
+	}
+
+	const result = await downloadVersionArchive(edition, version, platform);
+	if (!result) return null;
+	const {path: packedPath, url} = result;
+
+	const extract     = url.pathname.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
+	const extractPath = await extract(packedPath);
+	fs.unlinkSync(packedPath);
+	await toolCache.cacheDir(extractPath, cacheName, versionName, fasmArch);
+	return extractPath;
 }
 
 

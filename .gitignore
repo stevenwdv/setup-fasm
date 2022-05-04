@@ -1,4 +1,6 @@
 /ts-tmp/
+/tmp/
+/cache/
 
 # Logs
 logs
