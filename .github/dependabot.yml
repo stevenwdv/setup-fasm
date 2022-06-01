@@ -10,7 +10,9 @@ updates:
       - dependency-name: husky
     schedule:
       interval: weekly
+    open-pull-requests-limit: 20
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    open-pull-requests-limit: 20
