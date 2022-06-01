@@ -1,6 +1,6 @@
-#!/bin/sh
-if [ -f "$(dirname "$0")/_/husky.sh" ]; then
-  . "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+if [ -f "$(dirname -- "$0")/_/husky.sh" ]; then
+  . "$(dirname -- "$0")/_/husky.sh"
 fi
 
 npm run build && npm run lint-only
