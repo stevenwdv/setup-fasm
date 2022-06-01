@@ -5,6 +5,8 @@ on: [ push, pull_request ]
 jobs:
   build-lint:
     name: Check build & lint
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     steps:
@@ -60,6 +62,7 @@ jobs:
 
   test-fasmg:
     name: Test install latest fasm g version
+    needs: build-lint
     strategy:
       fail-fast: false
       matrix:
@@ -83,6 +86,7 @@ jobs:
 
   test-fasmarm:
     name: Test install latest FASMARM version
+    needs: build-lint
     strategy:
       fail-fast: false
       matrix:
