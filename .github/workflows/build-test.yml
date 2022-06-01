@@ -1,10 +1,40 @@
-name: Test action
+name: Build, lint, test
 
 on: [ push, pull_request ]
 
 jobs:
+  build-lint:
+    name: Check build & lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Lint
+        run: npm run lint-only
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+      - name: Commit setup.js
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: Update built file
+          add: dist/
+          default_author: github_actions
+          pathspec_error_handling: exitImmediately
+
   test-fasm1:
     name: Test install some fasm 1 versions
+    needs: build-lint
     strategy:
       fail-fast: false
       matrix:
@@ -15,6 +45,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
       - name: Run setup-fasm
         id: fasm
         uses: ./
@@ -35,6 +69,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
       - name: Run setup-fasm
         id: fasm
         uses: ./
@@ -54,6 +92,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
       - name: Run setup-fasm
         id: fasm
         uses: ./
