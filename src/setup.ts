@@ -8,6 +8,7 @@ import * as core from '@actions/core';
 import {data, downloadVersion, FasmEdition, FasmEditionStr, getMatchingVersions, PlatformStr} from './lib';
 
 async function main() {
+	console.log('TEST');
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
