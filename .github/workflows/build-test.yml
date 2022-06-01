@@ -17,7 +17,7 @@ jobs:
         run: npm run build
       - name: Check if setup.js up-to-date
         if: github.event != 'push'
-        run: git diff --exit-code dist/ || echo "::warning::setup.js should be updated"
+        run: git diff --exit-code -s -- dist/ || echo "::warning::setup.js should be updated"
       - name: Lint
         run: npm run lint-only
 
