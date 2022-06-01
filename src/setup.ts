@@ -85,6 +85,7 @@ const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 /** Install found version */
 function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
                        setIncludeEnvvar: boolean) {
+	console.log('hi');
 	const files = fs.readdirSync(extractPath);
 	// If extracted directory contains a single directory, add that to PATH instead
 	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
