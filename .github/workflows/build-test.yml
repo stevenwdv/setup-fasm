@@ -47,6 +47,7 @@ jobs:
           message: Update setup.js
           add: dist/
           default_author: github_actions
+          author_name: Build bot
           pathspec_error_handling: exitImmediately
 
   test-fasm1:
