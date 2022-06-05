@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
   build-lint:
-    name: Check build & lint
+    name: Build & lint
     runs-on: ubuntu-latest
 
     steps:
@@ -122,3 +122,19 @@ jobs:
           edition: fasmarm
       - run: (fasmarm.x64 || fasmarm || fasmarm.o || fasmarm.exe) 2>&1 | grep -qF 'flat assembler for ARM'
         shell: sh
+
+  build-lint-check-versions:
+    name: Build & lint check-version script
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: check-versions/
+
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: npm ci
+        - name: Build & lint
+          run: npm run lint

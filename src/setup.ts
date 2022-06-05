@@ -5,7 +5,8 @@ import process from 'process';
 
 import * as core from '@actions/core';
 
-import {data, downloadVersion, FasmEdition, FasmEditionStr, getMatchingVersions, PlatformStr} from './lib';
+import {downloadVersion, getMatchingVersions} from './lib';
+import {data, FasmEdition, FasmEditionStr, PlatformStr} from './version-data';
 
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
@@ -127,7 +128,6 @@ void (async () => {
 	try {
 		await main();
 	} catch (error) {
-		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-		core.setFailed(error instanceof Error ? error : `${error}`);
+		core.setFailed(error instanceof Error ? error : String(error));
 	}
 })();
