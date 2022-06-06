@@ -12,7 +12,7 @@ inputs:
     required: false
     default: latest
   download-unknown:
-    description: Try to download unknown versions; one of never, secure, a hash, or insecure
+    description: Try to download unknown versions; one of never, secure, a BLAKE2b-512 hash, or insecure
     required: false
     default: never
   assume-dynamic-unchanged:

@@ -15,10 +15,6 @@ module.exports = (env, argv) => ({
 		extensions: ['.js', '.ts'],
 	},
 
-	// Do not inline JSON
-	externalsType: 'commonjs',
-	externals: ['../fasm_versions.json'],
-
 	module: {
 		rules: [
 			{
@@ -26,6 +22,7 @@ module.exports = (env, argv) => ({
 				use: [{
 					loader: 'ts-loader',
 					options: {
+						allowTsInNodeModules: true,
 						compilerOptions: {
 							noEmit: false,
 							outDir: 'ts-tmp',

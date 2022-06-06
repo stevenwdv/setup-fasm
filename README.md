@@ -44,7 +44,7 @@ Use specific version (accepts wildcard at the end):
 Additional notes
 ----------------
 
-Not all versions are archived (for all platforms). This utility searches https://flatassembler.net/, http://fasm.sourceforge.net/archive/recent/, and http://comrade.ownz.com/docs/fasm.html#pastversions for archived versions, as long as the version number is found in [`fasm_versions.json`](https://github.com/stevenwdv/setup-fasm/blob/main/fasm_versions.json). Note that while some archives only support insecure HTTP, this script checks the hash of the downloaded file to make sure it has not been tampered with.
+Not all versions are archived (for all platforms). This utility searches https://flatassembler.net/, http://fasm.sourceforge.net/archive/recent/, and http://comrade.ownz.com/docs/fasm.html#pastversions for archived versions, as long as the version number is found in [`stevenwdv/fasm-versions/fasm_versions.json`](https://github.com/stevenwdv/fasm-versions/blob/v1/fasm_versions.json). Note that while some archives only support insecure HTTP, this script checks the hash of the downloaded file to make sure it has not been tampered with.
 
 For FASMARM, only an unnamed latest version is available.
 

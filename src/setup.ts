@@ -1,12 +1,16 @@
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
-import process from 'process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import process from 'node:process';
+import consumers from 'node:stream/consumers';
 
 import * as core from '@actions/core';
 
 import {downloadVersion, getMatchingVersions} from './lib';
-import {data, FasmEdition, FasmEditionStr, PlatformStr} from './version-data';
+import {FasmData, FasmEdition, FasmEditionStr, PlatformStr} from 'fasm-versions';
+import https from 'https';
+
+const versionsUrl = new URL('https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json');
 
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
@@ -14,6 +18,16 @@ async function main() {
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
 	      assumeDynamicUnchanged                                    = core.getBooleanInput('assume-dynamic-unchanged'),
 	      setIncludeEnvvar                                          = core.getBooleanInput('set-include-envvar');
+
+	core.debug('downloading version list');
+	const data = await new Promise<FasmData>((resolve, reject) =>
+		  // eslint-disable-next-line no-promise-executor-return
+		  void https.get(versionsUrl, res => {
+			  if (res.statusCode !== 200)
+				  reject(new Error(`failed to download ${versionsUrl.href}: HTTP ${res.statusCode!} ${res.statusMessage!}`));
+			  else resolve(consumers.json(res) as Promise<FasmData>);
+		  }).on('error', err => reject(new Error(`failed to download ${versionsUrl.href}`, {cause: err}))),
+	);
 
 	// Get requested edition
 	const edition = (data.editions as { [edition: string]: FasmEdition })[requestedEdition];

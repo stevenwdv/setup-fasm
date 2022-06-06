@@ -1,6 +1,6 @@
-import crypto from 'crypto';
-import fs from 'fs';
-import os from 'os';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
 
 import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
@@ -8,7 +8,7 @@ import * as toolCache from '@actions/tool-cache';
 import {equalsIgnoreCase} from './utils';
 
 import {pipeline} from 'stream/promises';
-import {FasmEdition, FasmEditionStr, FasmVersionEx, getUrls, PlatformStr} from './version-data';
+import {FasmEdition, FasmEditionStr, FasmVersion, getUrls, PlatformStr} from 'fasm-versions';
 
 /** Get matching versions according to semver */
 export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'latest' | string,
@@ -214,3 +214,10 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 	await toolCache.cacheDir(extractPath, cacheName, '0.0.0', fasmArch);
 	return extractPath;
 }
+
+export type FasmVersionEx = FasmVersion & {
+	/** Version and/or hashes were provided by the user */
+	userProvided?: boolean,
+	/** Allow downloads using an insecure connection without hash */
+	allowInsecure?: boolean,
+};
