@@ -19,10 +19,22 @@ inputs:
     description: Assume dynamic versions (FASMARM) do not change compared to the cache; true or false
     required: false
     default: 'false'
+  fasmg-download-packages:
+    description: Download fasm g packages from tgrysztar/fasmg/packages; one of false, true, or some branch or commit or tags/<tag>
+    required: false
+    default: 'false'
   set-include-envvar:
-    description: Set INCLUDE environment variable to the INCLUDE folder of the fasm installation, if it was found; true or false
+    description: >-
+      Set INCLUDE environment variable to the include folder(s) of the fasm installation, if found
+      (for fasm g with input fasmg-download-packages on, this is the packages folder; also see fasmg-include-packages); true or false
     required: false
     default: 'true'
+  fasmg-include-packages:
+    description: >-
+      Add specific packages (or the include folder inside them) to the INCLUDE environment variable,
+      requires fasmg-download-packages input to be on, but not necessarily set-include-envvar; comma-separated list of package names
+    required: false
+    default: ''
 
 outputs:
   path:
@@ -33,6 +45,8 @@ outputs:
     description: Full installed version
   platform:
     description: Platform for which fasm was installed
+  fasmg-packages:
+    description: Path to fasm g packages directory, if downloaded; see fasmg-download-packages input
 
 runs:
   using: node16

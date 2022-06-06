@@ -19,16 +19,20 @@ Use latest fasm 1 version:
 
 Note: Executable name may differ. `fasm.x64` may also be available on x86-64 Linux. Use `fasm.o` for \*nix systems (none currently supported by GitHub).
 
-Use latest fasm g version:
+Use latest fasm g version with some packages:
 
 ```yaml
 - uses: stevenwdv/setup-fasm@v1
   with:
     edition: fasmg
+    fasmg-download-packages: true
+    fasmg-include-packages: utility,x86
 
 - name: Test fasm g
   run: fasmg
 ```
+
+The `fasmg-download-packages` input specifies that [`tgrysztar/fasmg/packages`](https://github.com/tgrysztar/fasmg/tree/master/packages) should be downloaded (and can also be a commit hash, for example). By default, this directory then gets added to the `INCLUDE` environment variable such that you can use e.g. `include 'x86/win64w.inc'`, but you can also include specific packages using `fasmg-include-packages` such that you can include files in these directly, like `include 'win64w.inc'`.
 
 FASMARM is also available.
 

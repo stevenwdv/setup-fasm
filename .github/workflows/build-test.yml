@@ -97,6 +97,8 @@ jobs:
         uses: ./
         with:
           edition: fasmg
+          fasmg-download-packages: true
+          fasmg-include-packages: utility, x86
       - run: (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
         shell: sh
 

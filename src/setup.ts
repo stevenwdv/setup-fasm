@@ -1,22 +1,27 @@
+import {randomUUID} from 'node:crypto';
 import fs from 'node:fs';
+import https from 'node:https';
 import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
 import consumers from 'node:stream/consumers';
 
 import * as core from '@actions/core';
+import simplegit from 'simple-git';
 
-import {downloadVersion, getMatchingVersions} from './lib';
 import {FasmData, FasmEdition, FasmEditionStr, PlatformStr} from 'fasm-versions';
-import https from 'https';
+import {downloadVersion, getMatchingVersions} from './lib';
 
-const versionsUrl = new URL('https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json');
+const versionsUrl  = new URL('https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json');
+const fasmgRepoUrl = new URL('https://github.com/tgrysztar/fasmg.git');
 
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
 	      assumeDynamicUnchanged                                    = core.getBooleanInput('assume-dynamic-unchanged'),
+	      fasmgDownloadPackages                                     = core.getInput('fasmg-download-packages'),
+	      fasmgIncludePackages                                      = core.getInput('fasmg-include-packages').toLowerCase().split(/,\s*/).filter(v => v),
 	      setIncludeEnvvar                                          = core.getBooleanInput('set-include-envvar');
 
 	core.debug('downloading version list');
@@ -70,6 +75,10 @@ async function main() {
 
 		if (extractPath) {
 			returnVersion(editionStr, platformStr, version.name, extractPath, setIncludeEnvvar);
+
+			if (editionStr === 'fasmg' && fasmgDownloadPackages.toLowerCase() !== 'false')
+				await downloadFasmgPackages(fasmgDownloadPackages.toLowerCase() === 'true' ? null : fasmgDownloadPackages,
+					  fasmgIncludePackages, setIncludeEnvvar);
 			return;
 		}
 
@@ -100,7 +109,7 @@ const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 /** Install found version */
 function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
                        setIncludeEnvvar: boolean) {
-	const files = fs.readdirSync(extractPath);
+	const files   = fs.readdirSync(extractPath);
 	// If extracted directory contains a single directory, add that to PATH instead
 	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
 		  ? path.join(extractPath, files[0]!)
@@ -122,12 +131,8 @@ function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionNa
 
 	if (setIncludeEnvvar) {
 		const includePath = path.join(binPath, 'INCLUDE');
-		if (fs.statSync(includePath, {throwIfNoEntry: false})?.isDirectory()) {
-			let includeConcat = process.env['INCLUDE'] || '';
-			if (includeConcat) includeConcat += ';';  // This is the only separator recognized by fasm
-			includeConcat += includePath;
-			core.exportVariable('INCLUDE', includeConcat);
-		}
+		if (fs.statSync(includePath, {throwIfNoEntry: false})?.isDirectory())
+			addInclude(includePath);
 	}
 
 	core.setOutput('path', binPath);
@@ -136,6 +141,44 @@ function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionNa
 	core.setOutput('platform', platform);
 
 	core.info(`successfully installed ${edition} ${versionName} for ${platform} to ${binPath}`);
+}
+
+async function downloadFasmgPackages(checkoutRef: string | null, includePackages: string[], addDirToIncludeEnvvar: boolean) {
+	core.startGroup('downloading fasm g packages');
+	const packagesRepoDir = path.join(process.env['RUNNER_TEMP'] || os.tmpdir(), randomUUID());
+	await simplegit()
+		  .clone(fasmgRepoUrl.href, packagesRepoDir, ['--filter=blob:none', '--sparse', '--no-checkout'])
+		  .cwd(packagesRepoDir)
+		  .checkout(checkoutRef ?? 'HEAD')
+		  .raw('sparse-checkout', 'add', '/packages/');
+	core.debug('checked out fasm g packages repository');
+
+	const packagesDir = path.join(packagesRepoDir, 'packages');
+	if (!fs.statSync(packagesDir, {throwIfNoEntry: false})?.isDirectory())
+		throw new Error('cannot find fasm g packages directory');
+
+	core.setOutput('fasmg-packages', packagesDir);
+	if (addDirToIncludeEnvvar)
+		addInclude(packagesDir);
+	for (const packageName of includePackages) {
+		const packageDir = path.join(packagesDir, packageName);
+		if (!fs.statSync(packagesDir, {throwIfNoEntry: false})?.isDirectory())
+			throw new Error(`fasm g package ${packageName} not found`);
+
+		const includeDir = path.join(packageDir, 'include');
+		if (fs.statSync(includeDir, {throwIfNoEntry: false})?.isDirectory())
+			addInclude(includeDir);
+		else addInclude(packageDir);
+	}
+	core.endGroup();
+}
+
+function addInclude(path: string) {
+	core.debug(`adding to include: ${path}`);
+	let includeConcat = process.env['INCLUDE'] || '';
+	if (includeConcat) includeConcat += ';';  // This is the only separator recognized by fasm
+	includeConcat += path;
+	core.exportVariable('INCLUDE', includeConcat);
 }
 
 void (async () => {

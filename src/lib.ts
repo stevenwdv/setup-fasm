@@ -1,14 +1,14 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
+import {pipeline} from 'node:stream/promises';
 
 import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
 
-import {equalsIgnoreCase} from './utils';
-
-import {pipeline} from 'stream/promises';
 import {FasmEdition, FasmEditionStr, FasmVersion, getUrls, PlatformStr} from 'fasm-versions';
+
+import {equalsIgnoreCase} from './utils';
 
 /** Get matching versions according to semver */
 export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'latest' | string,
@@ -206,8 +206,12 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 
 	const result = await downloadVersionArchive(edition, version, platform);
 	if (!result) return null;
-	const {path: packedPath, url} = result;
+	// eslint-disable-next-line prefer-const
+	let {path: packedPath, url} = result;
 
+	// Windows PowerShell Expand-Archive fix
+	if (url.pathname.toLowerCase().endsWith('.zip') && !packedPath.endsWith('.zip'))
+		fs.renameSync(packedPath, packedPath = `${packedPath}.zip`);
 	const extract     = url.pathname.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
 	const extractPath = await extract(packedPath);
 	fs.unlinkSync(packedPath);
