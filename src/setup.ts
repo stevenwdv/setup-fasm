@@ -28,6 +28,10 @@ async function main() {
 		core.setFailed('fasm g packages option set but requested edition is not fasmg');
 		return;
 	}
+	if (fasmgIncludePackages.length && fasmgDownloadPackages.toLowerCase() === 'false') {
+		core.setFailed('fasmg-include-packages set without fasmg-download-packages');
+		return;
+	}
 
 	core.debug('downloading version list');
 	const data = await new Promise<FasmData>((resolve, reject) =>
@@ -176,7 +180,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 		else addInclude(packageDir);
 	}
 	core.endGroup();
-	core.info('successfully set up fasm g packages');
+	core.info(`successfully installed fasm g packages to ${packagesDir}`);
 }
 
 function addInclude(path: string) {
