@@ -1,11 +1,13 @@
-﻿const path = require('path');
-
-module.exports = (env, argv) => ({
+﻿/**
+ * @param {*} env
+ * @param {{mode: ("none" | "development" | "production")}} argv
+ * @return {import('webpack').Configuration}
+ */
+export default (env, argv) => ({
 	entry: {
 		setup: './src/setup.ts',
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
 	},
 	target: 'node',
@@ -25,7 +27,9 @@ module.exports = (env, argv) => ({
 						allowTsInNodeModules: true,
 						compilerOptions: {
 							noEmit: false,
-							outDir: 'ts-tmp',
+							emitDeclarationOnly: false,
+							declaration: false,
+							outDir: 'ts-out',
 						},
 					},
 				}],

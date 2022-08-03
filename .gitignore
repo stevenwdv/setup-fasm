@@ -1,6 +1,7 @@
-/ts-tmp/
+/ts-out/
 /tmp/
 /cache/
+/dist/*.map.js
 
 # Logs
 logs
