@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
 import consumers from 'node:stream/consumers';
+import util from 'node:util';
 
 import * as core from '@actions/core';
 import simplegit from 'simple-git';
@@ -159,7 +160,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 		  .clone(fasmgRepoUrl.href, packagesRepoDir, ['--filter=blob:none', '--sparse', '--no-checkout'])
 		  .cwd(packagesRepoDir)
 		  .checkout(checkoutRef ?? 'HEAD')
-		  .raw('sparse-checkout', 'add', '/packages/');
+		  .raw('sparse-checkout', 'add', '--cone', 'packages');
 	core.debug('checked out fasm g packages repository');
 
 	const packagesDir = path.join(packagesRepoDir, 'packages');
@@ -185,7 +186,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 
 function addInclude(path: string) {
 	core.debug(`adding to include: ${path}`);
-	let includeConcat = process.env['INCLUDE'] || '';
+	let includeConcat = process.env['INCLUDE'] ?? '';
 	if (includeConcat) includeConcat += ';';  // This is the only separator recognized by fasm
 	includeConcat += path;
 	core.exportVariable('INCLUDE', includeConcat);
@@ -195,6 +196,6 @@ void (async () => {
 	try {
 		await main();
 	} catch (error) {
-		core.setFailed(error instanceof Error ? error : String(error));
+		core.setFailed(util.inspect(error));
 	}
 })();
