@@ -18,17 +18,17 @@
 		"node": ">=16"
 	},
 	"dependencies": {
-		"@actions/core": "^1.9.0",
+		"@actions/core": "^1.9.1",
 		"@actions/tool-cache": "^2.0.1",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1",
-		"simple-git": "^3.11.0"
+		"simple-git": "^3.13.0"
 	},
 	"devDependencies": {
-		"@types/node": "^16.11.47",
+		"@types/node": "^16.11.54",
 		"@types/webpack": "^5.28.0",
-		"@typescript-eslint/eslint-plugin": "^5.32.0",
-		"@typescript-eslint/parser": "^5.32.0",
-		"eslint": "^8.21.0",
+		"@typescript-eslint/eslint-plugin": "^5.34.0",
+		"@typescript-eslint/parser": "^5.34.0",
+		"eslint": "^8.22.0",
 		"husky": "^8.0.1",
 		"ts-loader": "^9.3.1",
 		"ts-node": "^10.9.1",
