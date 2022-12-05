@@ -21,7 +21,7 @@
 		"@actions/core": "^1.9.1",
 		"@actions/tool-cache": "^2.0.1",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1",
-		"simple-git": "^3.15.0"
+		"simple-git": "^3.15.1"
 	},
 	"devDependencies": {
 		"@types/node": "^16.11.54",
