@@ -8,8 +8,6 @@ updates:
       - dependency-name: eslint
       - dependency-name: '@typescript-eslint/*'
       - dependency-name: husky
-      # Present notifications for additions to fasm-versions.json, which is downloaded each time anyway
-      - dependency-name: fasm-versions
     schedule:
       interval: weekly
     open-pull-requests-limit: 20
