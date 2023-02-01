@@ -34,7 +34,7 @@ async function main() {
 		return;
 	}
 
-	core.debug('downloading version list');
+	core.info('downloading version list');
 	const data = await new Promise<FasmData>((resolve, reject) =>
 		  // eslint-disable-next-line no-promise-executor-return
 		  void https.get(versionsUrl, res => {
@@ -77,7 +77,7 @@ async function main() {
 		core.startGroup(`using ${version.name}`);
 		let extractPath = await downloadVersion(editionStr, version, platformStr, assumeDynamicUnchanged);
 		if (!extractPath && platformStr === 'linux') {
-			core.debug('no linux version found, trying unix instead');
+			core.info('no linux version found, trying unix instead');
 			extractPath = await downloadVersion(editionStr, version, 'unix', assumeDynamicUnchanged);
 			if (extractPath) platformStr = 'unix';
 		}
@@ -161,7 +161,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 		  .cwd(packagesRepoDir)
 		  .checkout(checkoutRef ?? 'HEAD')
 		  .raw('sparse-checkout', 'add', '--cone', 'packages');
-	core.debug('checked out fasm g packages repository');
+	core.info('checked out fasm g packages repository');
 
 	const packagesDir = path.join(packagesRepoDir, 'packages');
 	if (!fs.statSync(packagesDir, {throwIfNoEntry: false})?.isDirectory())
@@ -185,7 +185,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 }
 
 function addInclude(path: string) {
-	core.debug(`adding to include: ${path}`);
+	core.info(`adding to include: ${path}`);
 	let includeConcat = process.env['INCLUDE'] ?? '';
 	if (includeConcat) includeConcat += ';';  // This is the only separator recognized by fasm
 	includeConcat += path;

@@ -138,7 +138,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 
 	const urls = getUrls[edition](version, platform).map(url => new URL(url));
 	for (const url of urls) {
-		core.debug(`trying ${url.href}`);
+		core.info(`trying ${url.href}`);
 
 		try {
 			return {
@@ -160,7 +160,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 			}
 			if (err instanceof HttpError) {
 				if (err.httpStatusCode !== undefined) unexpectedError ||= err.httpStatusCode !== 404;
-				(err.httpStatusCode === 404 ? core.debug : core.warning)(`${err.message} for ${fullVersion}`);
+				(err.httpStatusCode === 404 ? core.info : core.warning)(`${err.message} for ${fullVersion}`);
 				continue;
 			}
 			throw err;
@@ -190,7 +190,7 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 	const cacheName  = `${edition}-${platform}-${version.name}`;
 	const cachedPath = toolCache.find(cacheName, '0.0.0', fasmArch);
 	if (cachedPath) {
-		core.debug('found cached');
+		core.info('found cached');
 
 		if (!version.dynamic || assumeDynamicUnchanged) {
 			// Use cached version
@@ -200,7 +200,7 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 			// Even more ideally, we would use ETags -- same issue
 			// Using the download date for If-Modified-Since instead doesn't work,
 			//   as HeavyThing rwasa replies with 200 to dates after the last modification date
-			core.debug('but may be updated');
+			core.info('but may be updated');
 		}
 	}
 
