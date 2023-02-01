@@ -1,4 +1,6 @@
-﻿/**
+﻿import TerserPlugin from 'terser-webpack-plugin';
+
+/**
  * @param {*} env
  * @param {{mode: ("none" | "development" | "production")}} argv
  * @return {import('webpack').Configuration}
@@ -12,7 +14,6 @@ export default (env, argv) => ({
 	},
 	target: 'node',
 
-	devtool: argv.mode === 'development' ? 'inline-source-map' : undefined,
 	resolve: {
 		extensions: ['.js', '.ts'],
 	},
@@ -36,4 +37,17 @@ export default (env, argv) => ({
 			},
 		],
 	},
+
+	optimization: {
+		minimizer: [
+			new TerserPlugin({
+				terserOptions: {
+					format: {
+						semicolons: false,  // Newlines instead of semicolons where possible
+					},
+				},
+			}),
+		],
+	},
+	devtool: argv.mode === 'development' ? 'inline-source-map' : undefined,
 });
