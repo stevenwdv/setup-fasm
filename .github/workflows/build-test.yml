@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        version: [ latest, 1.71.* ]
+        version: [ latest, 1.67.* ]
 
     runs-on: ${{ matrix.os }}
 
