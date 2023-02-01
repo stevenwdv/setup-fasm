@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import os from 'node:os';
 import {pipeline} from 'node:stream/promises';
 
@@ -89,7 +90,7 @@ export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash
 	if (expectedHash) {
 		const actualHash = await hashFile(packedPath);
 		if (!equalsIgnoreCase(actualHash, expectedHash)) {
-			fs.unlinkSync(packedPath);
+			await fsp.unlink(packedPath);
 			throw new HashMismatchError(url, expectedHash, actualHash);
 		}
 	}
@@ -211,10 +212,10 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 
 	// Windows PowerShell Expand-Archive fix
 	if (url.pathname.toLowerCase().endsWith('.zip') && !packedPath.endsWith('.zip'))
-		fs.renameSync(packedPath, packedPath = `${packedPath}.zip`);
+		await fsp.rename(packedPath, packedPath = `${packedPath}.zip`);
 	const extract     = url.pathname.toLowerCase().endsWith('.zip') ? toolCache.extractZip : toolCache.extractTar;
 	const extractPath = await extract(packedPath);
-	fs.unlinkSync(packedPath);
+	await fsp.unlink(packedPath);
 	await toolCache.cacheDir(extractPath, cacheName, '0.0.0', fasmArch);
 	return extractPath;
 }

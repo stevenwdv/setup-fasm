@@ -1,5 +1,6 @@
 import {randomUUID} from 'node:crypto';
 import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import https from 'node:https';
 import os from 'node:os';
 import path from 'node:path';
@@ -20,6 +21,7 @@ async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
+	      customVersionList                                         = core.getInput('custom-version-list'),
 	      assumeDynamicUnchanged                                    = core.getBooleanInput('assume-dynamic-unchanged'),
 	      fasmgDownloadPackages                                     = core.getInput('fasmg-download-packages'),
 	      fasmgIncludePackages                                      = core.getInput('fasmg-include-packages').toLowerCase().split(/,\s*/).filter(v => v),
@@ -34,15 +36,21 @@ async function main() {
 		return;
 	}
 
-	core.info('downloading version list');
-	const data = await new Promise<FasmData>((resolve, reject) =>
-		  // eslint-disable-next-line no-promise-executor-return
-		  void https.get(versionsUrl, res => {
-			  if (res.statusCode !== 200)
-				  reject(new Error(`failed to download ${versionsUrl.href}: HTTP ${res.statusCode!} ${res.statusMessage!}`));
-			  else resolve(consumers.json(res) as Promise<FasmData>);
-		  }).on('error', err => reject(new Error(`failed to download ${versionsUrl.href}`, {cause: err}))),
-	);
+	let data: FasmData;
+	if (customVersionList) {
+		core.info('reading version list');
+		data = await consumers.json(fs.createReadStream(customVersionList)) as FasmData;
+	} else {
+		core.info('downloading version list');
+		data = await new Promise<FasmData>((resolve, reject) =>
+			  // eslint-disable-next-line no-promise-executor-return
+			  void https.get(versionsUrl, res => {
+				  if (res.statusCode !== 200)
+					  reject(new Error(`failed to download ${versionsUrl.href}: HTTP ${res.statusCode!} ${res.statusMessage!}`));
+				  else resolve(consumers.json(res) as Promise<FasmData>);
+			  }).on('error', err => reject(new Error(`failed to download ${versionsUrl.href}`, {cause: err}))),
+		);
+	}
 
 	// Get requested edition
 	const edition = (data.editions as { [edition: string]: FasmEdition })[requestedEdition];
@@ -84,7 +92,7 @@ async function main() {
 		core.endGroup();
 
 		if (extractPath) {
-			returnVersion(editionStr, platformStr, version.name, extractPath, setIncludeEnvvar);
+			await returnVersion(editionStr, platformStr, version.name, extractPath, setIncludeEnvvar);
 
 			if (editionStr === 'fasmg' && fasmgDownloadPackages.toLowerCase() !== 'false')
 				await downloadFasmgPackages(fasmgDownloadPackages.toLowerCase() === 'true' ? null : fasmgDownloadPackages,
@@ -117,11 +125,12 @@ const platformMap: { [platform in NodeJS.Platform]?: PlatformStr } = {
 };
 
 /** Install found version */
-function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
-                       setIncludeEnvvar: boolean) {
-	const files   = fs.readdirSync(extractPath);
+async function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionName: string, extractPath: string,
+	  setIncludeEnvvar: boolean,
+) {
+	const files   = await fsp.readdir(extractPath);
 	// If extracted directory contains a single directory, add that to PATH instead
-	const binPath = files.length === 1 && fs.statSync(path.join(extractPath, files[0]!)).isDirectory()
+	const binPath = files.length === 1 && (await fsp.stat(path.join(extractPath, files[0]!))).isDirectory()
 		  ? path.join(extractPath, files[0]!)
 		  : extractPath;
 	core.addPath(binPath);
@@ -132,16 +141,16 @@ function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionNa
 			fasmg: 'fasmg',
 			fasmarm: 'fasmarm',
 		}[edition]}${ext}`);
-		for (const executable of executables) {
+		await Promise.all(executables.map(async executable => {
 			const exePath = path.join(binPath, executable);
-			const stat    = fs.statSync(exePath, {throwIfNoEntry: false});
-			if (stat?.isFile()) fs.chmodSync(exePath, stat.mode | 0o111);  // Make executable
-		}
+			const stat    = await fsp.stat(exePath).catch(() => null);
+			if (stat?.isFile()) await fsp.chmod(exePath, stat.mode | 0o111);  // Make executable
+		}));
 	}
 
 	if (setIncludeEnvvar) {
 		const includePath = path.join(binPath, 'INCLUDE');
-		if (fs.statSync(includePath, {throwIfNoEntry: false})?.isDirectory())
+		if ((await fsp.stat(includePath).catch(() => null))?.isDirectory())
 			addInclude(includePath);
 	}
 
@@ -153,7 +162,8 @@ function returnVersion(edition: FasmEditionStr, platform: PlatformStr, versionNa
 	core.info(`successfully installed ${edition} ${versionName} for ${platform} to ${binPath}`);
 }
 
-async function downloadFasmgPackages(checkoutRef: string | null, includePackages: string[], addDirToIncludeEnvvar: boolean) {
+async function downloadFasmgPackages(
+	  checkoutRef: string | null, includePackages: string[], addDirToIncludeEnvvar: boolean) {
 	core.startGroup('downloading fasm g packages');
 	const packagesRepoDir = path.join(process.env['RUNNER_TEMP'] || os.tmpdir(), randomUUID());
 	await simplegit()
@@ -164,7 +174,7 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 	core.info('checked out fasm g packages repository');
 
 	const packagesDir = path.join(packagesRepoDir, 'packages');
-	if (!fs.statSync(packagesDir, {throwIfNoEntry: false})?.isDirectory())
+	if (!(await fsp.stat(packagesDir).catch(() => null))?.isDirectory())
 		throw new Error('cannot find fasm g packages directory');
 
 	core.setOutput('fasmg-packages', packagesDir);
@@ -172,11 +182,11 @@ async function downloadFasmgPackages(checkoutRef: string | null, includePackages
 		addInclude(packagesDir);
 	for (const packageName of includePackages) {
 		const packageDir = path.join(packagesDir, packageName);
-		if (!fs.statSync(packagesDir, {throwIfNoEntry: false})?.isDirectory())
+		if (!(await fsp.stat(packagesDir).catch(() => null))?.isDirectory())
 			throw new Error(`fasm g package ${packageName} not found`);
 
 		const includeDir = path.join(packageDir, 'include');
-		if (fs.statSync(includeDir, {throwIfNoEntry: false})?.isDirectory())
+		if ((await fsp.stat(includeDir).catch(() => null))?.isDirectory())
 			addInclude(includeDir);
 		else addInclude(packageDir);
 	}

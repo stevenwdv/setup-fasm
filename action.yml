@@ -15,6 +15,9 @@ inputs:
     description: Try to download unknown versions; one of never, secure, a BLAKE2b-512 hash, or insecure
     required: false
     default: never
+  custom-version-list:
+    description: Specify a path to a local versions list file to use instead of stevenwdv/fasm-versions
+    required: false
   assume-dynamic-unchanged:
     description: Assume dynamic versions (FASMARM) do not change compared to the cache; true or false
     required: false
