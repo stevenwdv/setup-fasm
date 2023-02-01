@@ -75,6 +75,10 @@ jobs:
           version: ${{ matrix.version }}
       - run: (fasm.x64 || fasm || fasm.o || fasm.exe) 2>&1 | grep -qF 'flat assembler  version ${{ steps.fasm.outputs.version }}'
         shell: sh
+      - name: Check INCLUDE envvar
+        run: |
+          echo INCLUDE = $INCLUDE
+          [ -d "$INCLUDE" ]
 
   test-fasmg:
     name: Test install latest fasm g version
@@ -101,6 +105,16 @@ jobs:
           fasmg-include-packages: utility, x86
       - run: (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
         shell: sh
+      - name: Check INCLUDE envvar
+        run: |
+          echo INCLUDE = $INCLUDE
+          set -e
+          IFS=';' read -ra dirs <<< "$INCLUDE"
+          for dir in "${dirs[@]}"
+          do
+            [ -d "$dir" ]  # Exists and is directory?
+          done
+          [ ${#dirs[@]} -eq 3 ]  # 3 items (packages root, utility, x86)
 
   test-fasmarm:
     name: Test install latest FASMARM version
@@ -125,3 +139,7 @@ jobs:
           edition: fasmarm
       - run: (fasmarm.x64 || fasmarm || fasmarm.o || fasmarm.exe) 2>&1 | grep -qF 'flat assembler for ARM'
         shell: sh
+      - name: Check INCLUDE envvar
+        run: |
+          echo INCLUDE = $INCLUDE
+          [ -d "$INCLUDE" ]
