@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        version: [ latest, 1.67.* ]
+        version: [ latest, 1.73.* ]
 
     runs-on: ${{ matrix.os }}
 
@@ -73,12 +73,17 @@ jobs:
         with:
           edition: fasm1
           version: ${{ matrix.version }}
-      - run: (fasm.x64 || fasm || fasm.o || fasm.exe) 2>&1 | grep -qF 'flat assembler  version ${{ steps.fasm.outputs.version }}'
+      - name: Check installed version
+        run: |
+          (fasm.x64 || fasm || fasm.o || FASM.EXE) 2>/dev/null || true
+          (fasm.x64 || fasm || fasm.o || FASM.EXE) 2>&1 | grep -qF 'flat assembler  version ${{ steps.fasm.outputs.version }}'
         shell: sh
       - name: Check INCLUDE envvar
+        if: matrix.os == 'windows-latest'
         run: |
           echo INCLUDE = $INCLUDE
           [ -d "$INCLUDE" ]
+        shell: sh
 
   test-fasmg:
     name: Test install latest fasm g version
@@ -103,7 +108,10 @@ jobs:
           edition: fasmg
           fasmg-download-packages: true
           fasmg-include-packages: utility, x86
-      - run: (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
+      - name: Check installed version
+        run: |
+          (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>/dev/null || true
+          (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
         shell: sh
       - name: Check INCLUDE envvar
         run: |
@@ -115,6 +123,7 @@ jobs:
             [ -d "$dir" ]  # Exists and is directory?
           done
           [ ${#dirs[@]} -eq 3 ]  # 3 items (packages root, utility, x86)
+        shell: bash
 
   test-fasmarm:
     name: Test install latest FASMARM version
@@ -137,9 +146,13 @@ jobs:
         uses: ./
         with:
           edition: fasmarm
-      - run: (fasmarm.x64 || fasmarm || fasmarm.o || fasmarm.exe) 2>&1 | grep -qF 'flat assembler for ARM'
+      - name: Check installed version
+        run: |
+          (fasmarm.x64 || fasmarm || fasmarm.o || FASMARM.EXE) 2>/dev/null || true
+          (fasmarm.x64 || fasmarm || fasmarm.o || FASMARM.EXE) 2>&1 | grep -qF 'flat assembler for ARM'
         shell: sh
       - name: Check INCLUDE envvar
         run: |
           echo INCLUDE = $INCLUDE
           [ -d "$INCLUDE" ]
+        shell: bash
