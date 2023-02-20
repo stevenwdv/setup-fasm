@@ -845,7 +845,7 @@ var xn,An,In,Pn=R({"src/lib/parsers/parse-pull.ts"(){mn(),Le(),kn(),On=/(\d+)\D+
 function Ln(e){return e.length?{commands:["merge",...e],format:"utf-8",parser(e,t){const r=An(e,t)
 if(r.failed)throw new s(r)
 return r}}:Xe("Git.merge requires at least one option")}var $n,Mn,jn,Dn=R({"src/lib/tasks/merge.ts"(){P(),Nn(),st()}})
-var Fn=R({"src/lib/parsers/parse-push.ts"(){Le(),kn(),$n=[new he(/^Pushing to (.+)$/,((e,[t])=>{e.repo=t})),new he(/^updating local tracking ref '(.+)'/,((e,[t])=>{e.ref=T(_({},e.ref||{}),{local:t})})),new he(/^[*-=]\s+([^:]+):(\S+)\s+\[(.+)]$/,((e,[t,r,n])=>{e.pushed.push(function(e,t,r){const n=r.includes("deleted"),s=r.includes("tag")||/^refs\/tags/.test(e),o=!r.includes("new")
+var Fn=R({"src/lib/parsers/parse-push.ts"(){Le(),kn(),$n=[new he(/^Pushing to (.+)$/,((e,[t])=>{e.repo=t})),new he(/^updating local tracking ref '(.+)'/,((e,[t])=>{e.ref=T(_({},e.ref||{}),{local:t})})),new he(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,((e,[t,r,n])=>{e.pushed.push(function(e,t,r){const n=r.includes("deleted"),s=r.includes("tag")||/^refs\/tags/.test(e),o=!r.includes("new")
 return{deleted:n,tag:s,branch:!s,new:!o,alreadyUpdated:o,local:e,remote:t}}(t,r,n))})),new he(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,((e,[t,r,n])=>{e.branch=T(_({},e.branch||{}),{local:t,remote:r,remoteName:n})})),new he(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,((e,[t,r,n,s])=>{e.update={head:{local:t,remote:r},hash:{from:n,to:s}}}))],Mn=(e,t)=>{const r=jn(e,t),n=En(0,t)
 return _(_({},r),n)},jn=(e,t)=>ke({pushed:[]},$n,[e,t])}}),Un={}
 function qn(e={},t){return V(t,"--tags"),Bn(e,t)}function Bn(e={},t){const r=["push",...t]
