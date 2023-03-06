@@ -966,10 +966,10 @@ return[{type:"spawn.before",action(t,r){e.aborted&&r.kill(new i(void 0,"abort","
 return[{type:"spawn.args",action:(e,n)=>r.includes(n.method)?z(e,t):e},{type:"spawn.after",action(r,n){var s
 n.commands.includes(t)&&(null==(s=n.spawned.stderr)||s.on("data",(t=>{const r=/^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(t.toString("utf8"))
 var s
-r&&e({method:n.method,stage:(s=r[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:J(r[2]),processed:J(r[3]),total:J(r[4])})})))}}]}(n.progress)),n.timeout&&r.add(function({block:e}){if(e>0)return{type:"spawn.after",action(t,r){var n,s
-let o
-function a(){o&&clearTimeout(o),o=setTimeout(u,e)}function c(){var e,t
-null==(e=r.spawned.stdout)||e.off("data",a),null==(t=r.spawned.stderr)||t.off("data",a),r.spawned.off("exit",c),r.spawned.off("close",c),o&&clearTimeout(o)}function u(){c(),r.kill(new i(void 0,"timeout","block timeout reached"))}null==(n=r.spawned.stdout)||n.on("data",a),null==(s=r.spawned.stderr)||s.on("data",a),r.spawned.on("exit",c),r.spawned.on("close",c),a()}}}(n.timeout)),n.spawnOptions&&r.add(function(e){const t=Z(e,["uid","gid"])
+r&&e({method:n.method,stage:(s=r[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:J(r[2]),processed:J(r[3]),total:J(r[4])})})))}}]}(n.progress)),n.timeout&&r.add(function({block:e,stdErr:t=!0,stdOut:r=!0}){if(e>0)return{type:"spawn.after",action(n,s){var o,a
+let c
+function u(){c&&clearTimeout(c),c=setTimeout(d,e)}function l(){var e,t
+null==(e=s.spawned.stdout)||e.off("data",u),null==(t=s.spawned.stderr)||t.off("data",u),s.spawned.off("exit",l),s.spawned.off("close",l),c&&clearTimeout(c)}function d(){l(),s.kill(new i(void 0,"timeout","block timeout reached"))}r&&(null==(o=s.spawned.stdout)||o.on("data",u)),t&&(null==(a=s.spawned.stderr)||a.on("data",u)),s.spawned.on("exit",l),s.spawned.on("close",l),u()}}}(n.timeout)),n.spawnOptions&&r.add(function(e){const t=Z(e,["uid","gid"])
 return{type:"spawn.options",action:e=>_(_({},t),e)}}(n.spawnOptions)),r.add(zt(Vt(!0))),n.errors&&r.add(zt(n.errors)),new Ho(n,r)}S(Wo,{esModuleFactory:()=>Xo,gitExportFactory:()=>Yo,gitInstanceFactory:()=>Jo})
 var Ko,Qo,Zo=R({"src/lib/git-factory.ts"(){Lt(),tr(),Le(),Ho=zo()}}),ei={}
 function ti(...e){let t,r=Promise.resolve()
