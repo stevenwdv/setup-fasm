@@ -1115,7 +1115,7 @@ if(-1!==t){this.sockets.splice(t,1)
 var r=this.requests.shift()
 r&&this.createSocket(r,(function(e){r.request.onSocket(e)}))}},n=process.env.NODE_DEBUG&&/\btunnel\b/.test(process.env.NODE_DEBUG)?function(){var e=Array.prototype.slice.call(arguments)
 "string"==typeof e[0]?e[0]="TUNNEL: "+e[0]:e.unshift("TUNNEL:"),console.error.apply(console,e)}:function(){},t.debug=n},2277:(e,t,r)=>{"use strict"
-r.r(t),r.d(t,{NIL:()=>T,parse:()=>v,stringify:()=>d,v1:()=>g,v3:()=>E,v4:()=>O,v5:()=>_,validate:()=>u,version:()=>C})
+r.r(t),r.d(t,{NIL:()=>O,parse:()=>v,stringify:()=>d,v1:()=>g,v3:()=>w,v4:()=>b,v5:()=>E,validate:()=>u,version:()=>_})
 var n=r(6113),s=r.n(n)
 const o=new Uint8Array(256)
 let i=o.length
@@ -1144,21 +1144,20 @@ const v=function(e){if(!u(e))throw TypeError("Invalid UUID")
 let t
 const r=new Uint8Array(16)
 return r[0]=(t=parseInt(e.slice(0,8),16))>>>24,r[1]=t>>>16&255,r[2]=t>>>8&255,r[3]=255&t,r[4]=(t=parseInt(e.slice(9,13),16))>>>8,r[5]=255&t,r[6]=(t=parseInt(e.slice(14,18),16))>>>8,r[7]=255&t,r[8]=(t=parseInt(e.slice(19,23),16))>>>8,r[9]=255&t,r[10]=(t=parseInt(e.slice(24,36),16))/1099511627776&255,r[11]=t/4294967296&255,r[12]=t>>>24&255,r[13]=t>>>16&255,r[14]=t>>>8&255,r[15]=255&t,r}
-const y="6ba7b810-9dad-11d1-80b4-00c04fd430c8",w="6ba7b811-9dad-11d1-80b4-00c04fd430c8"
-function b(e,t,r){function n(e,n,s,o){if("string"==typeof e&&(e=function(e){e=unescape(encodeURIComponent(e))
+function y(e,t,r){function n(e,n,s,o){if("string"==typeof e&&(e=function(e){e=unescape(encodeURIComponent(e))
 const t=[]
 for(let r=0;r<e.length;++r)t.push(e.charCodeAt(r))
 return t}(e)),"string"==typeof n&&(n=v(n)),16!==n.length)throw TypeError("Namespace must be array-like (16 iterable integer values, 0-255)")
 let i=new Uint8Array(16+e.length)
 if(i.set(n),i.set(e,n.length),i=r(i),i[6]=15&i[6]|t,i[8]=63&i[8]|128,s){o=o||0
 for(let e=0;e<16;++e)s[o+e]=i[e]
-return s}return d(i)}try{n.name=e}catch(e){}return n.DNS=y,n.URL=w,n}const E=b("v3",48,(function(e){return Array.isArray(e)?e=Buffer.from(e):"string"==typeof e&&(e=Buffer.from(e,"utf8")),s().createHash("md5").update(e).digest()}))
-const O=function(e,t,r){const n=(e=e||{}).random||(e.rng||a)()
+return s}return d(i)}try{n.name=e}catch(e){}return n.DNS="6ba7b810-9dad-11d1-80b4-00c04fd430c8",n.URL="6ba7b811-9dad-11d1-80b4-00c04fd430c8",n}const w=y("v3",48,(function(e){return Array.isArray(e)?e=Buffer.from(e):"string"==typeof e&&(e=Buffer.from(e,"utf8")),s().createHash("md5").update(e).digest()}))
+const b=function(e,t,r){const n=(e=e||{}).random||(e.rng||a)()
 if(n[6]=15&n[6]|64,n[8]=63&n[8]|128,t){r=r||0
 for(let e=0;e<16;++e)t[r+e]=n[e]
 return t}return d(n)}
-const _=b("v5",80,(function(e){return Array.isArray(e)?e=Buffer.from(e):"string"==typeof e&&(e=Buffer.from(e,"utf8")),s().createHash("sha1").update(e).digest()})),T="00000000-0000-0000-0000-000000000000"
-const C=function(e){if(!u(e))throw TypeError("Invalid UUID")
+const E=y("v5",80,(function(e){return Array.isArray(e)?e=Buffer.from(e):"string"==typeof e&&(e=Buffer.from(e,"utf8")),s().createHash("sha1").update(e).digest()})),O="00000000-0000-0000-0000-000000000000"
+const _=function(e){if(!u(e))throw TypeError("Invalid UUID")
 return parseInt(e.substr(14,1),16)}},9491:e=>{"use strict"
 e.exports=require("assert")},2081:e=>{"use strict"
 e.exports=require("child_process")},6113:e=>{"use strict"
