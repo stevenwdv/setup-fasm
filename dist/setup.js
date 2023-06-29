@@ -968,11 +968,12 @@ return this._runTask(t)},Y.prototype.clearQueue=function(){return this},Y.protot
 function ti(e){return Object.defineProperties(e,{__esModule:{value:!0},default:{value:e}})}function ri(e){return Object.assign(e.bind(null),Dt)}function ni(e,t){const r=new Qt,n=Ce(e&&("string"==typeof e?{baseDir:e}:e)||{},t)
 if(!Y(n.baseDir))throw new A(n,"Cannot use simple-git on a directory that does not exist")
 return Array.isArray(n.config)&&r.add(function(e){const t=re(e,"-c")
-return{type:"spawn.args",action:e=>[...t,...e]}}(n.config)),r.add(qt(n.unsafe)),r.add({type:"spawn.args",action(e){const t=[],r=[]
-for(let n=0;n<e.length;n++){const s=e[n]
-if(k(s))r.push(...x(s))
-else{if("--"===s){r.push(...e.slice(n+1).flatMap((e=>k(e)&&x(e)||e)))
-break}t.push(s)}}return r.length?[...t,"--",...r.map(String)]:t}}),r.add(zt(n.completion)),n.abort&&r.add(function(e){if(!e)return
+return{type:"spawn.args",action:e=>[...t,...e]}}(n.config)),r.add(qt(n.unsafe)),r.add({type:"spawn.args",action(e){const t=[]
+let r
+function n(e){(r=r||[]).push(...e)}for(let r=0;r<e.length;r++){const s=e[r]
+if(k(s))n(x(s))
+else{if("--"===s){n(e.slice(r+1).flatMap((e=>k(e)&&x(e)||e)))
+break}t.push(s)}}return r?[...t,"--",...r.map(String)]:t}}),r.add(zt(n.completion)),n.abort&&r.add(function(e){if(!e)return
 return[{type:"spawn.before",action(t,r){e.aborted&&r.kill(new I(void 0,"abort","Abort already signaled"))}},{type:"spawn.after",action(t,r){function n(){r.kill(new I(void 0,"abort","Abort signal received"))}e.addEventListener("abort",n),r.spawned.on("close",(()=>e.removeEventListener("abort",n)))}}]}(n.abort)),n.progress&&r.add(function(e){const t="--progress",r=["checkout","clone","fetch","pull","push"]
 return[{type:"spawn.args",action:(e,n)=>r.includes(n.method)?K(e,t):e},{type:"spawn.after",action(r,n){var s
 n.commands.includes(t)&&(null==(s=n.spawned.stderr)||s.on("data",(t=>{const r=/^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(t.toString("utf8"))
