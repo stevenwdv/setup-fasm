@@ -20,6 +20,7 @@ const fasmgRepoUrl = new URL('https://github.com/tgrysztar/fasmg.git');
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
+	      fallbackToPreviousCompatible                              = core.getBooleanInput('fallback-to-previous-compatible'),
 	      ignoreOfficialHttpsHashMismatch                           = core.getBooleanInput('ignore-official-https-hash-mismatch'),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
 	      customVersionList                                         = core.getInput('custom-version-list'),
@@ -103,7 +104,7 @@ async function main() {
 			return;
 		}
 
-		if (!--triesLeft) {
+		if (!fallbackToPreviousCompatible || !--triesLeft) {
 			core.setFailed('maximum number of versions to try exceeded');
 			return;
 		}

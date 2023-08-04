@@ -11,6 +11,10 @@ inputs:
     description: Version of edition to install; e.g. 1.73.30, 1.73.*, or latest
     required: false
     default: latest
+  fallback-to-previous-compatible:
+    description: Fallback to previous compatible version instead of the newest compatible when errors with downloading occur
+    required: false
+    default: 'true'
   ignore-official-https-hash-mismatch:
     description: Ignore file hash mismatches for files download from https://flatassembler.net
     required: false

@@ -73,6 +73,7 @@ jobs:
         with:
           edition: fasm1
           version: ${{ matrix.version }}
+          fallback-to-previous-compatible: false
       - name: Check installed version
         run: |
           (fasm.x64 || fasm || fasm.o || FASM.EXE) 2>/dev/null || true
@@ -106,6 +107,7 @@ jobs:
         uses: ./
         with:
           edition: fasmg
+          fallback-to-previous-compatible: false
           fasmg-download-packages: true
           fasmg-include-packages: utility, x86
       - name: Check installed version
@@ -146,6 +148,7 @@ jobs:
         uses: ./
         with:
           edition: fasmarm
+          fallback-to-previous-compatible: false
       - name: Check installed version
         run: |
           (fasmarm.x64 || fasmarm || fasmarm.o || FASMARM.EXE) 2>/dev/null || true
