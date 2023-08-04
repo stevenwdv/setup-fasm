@@ -1044,7 +1044,7 @@ let i=!1,a=!1
 const c=h.getUrls[e](t,r).map((e=>new URL(e)))
 for(const e of c){d.info(`trying ${e.href}`)
 try{return{path:await g(e,!!t.allowInsecure,o,n),url:e}}catch(e){if(e instanceof y){a=!0,d.warning(`${e.message} for ${s}; not using this file`)
-continue}if(e instanceof w){a=!0,d.warning(`${e.message} for ${s}${t.userProvided?"":"you may want to report this to the setup-fasm action maintainer"}; not using this file`)
+continue}if(e instanceof w){a=!0,d.warning(`${e.message} for ${s}${t.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
 continue}if(e instanceof E){void 0!==e.httpStatusCode&&(i||=404!==e.httpStatusCode),(404===e.httpStatusCode?d.info:d.warning)(`${e.message} for ${s}`)
 continue}throw e}}return d.warning(`all attempts at downloading ${s} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${e} ${t.name} not found for ${r}`)),null}t.HttpError=E,t.downloadVersionArchive=b
 const O="ia32"

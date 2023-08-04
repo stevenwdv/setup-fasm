@@ -155,7 +155,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 			if (err instanceof HashMismatchError) {
 				hashProblems = true;
 				core.warning(`${err.message} for ${fullVersion}${
-					  version.userProvided ? '' : 'you may want to report this to the setup-fasm action maintainer'
+					  version.userProvided ? '' : ', you may want to report this to the setup-fasm action maintainer'
 				}; not using this file`);
 				continue;
 			}
