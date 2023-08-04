@@ -26,3 +26,4 @@ overrides:
         - avoidEscape: true
       "@typescript-eslint/explicit-module-boundary-types": off
       "@typescript-eslint/no-non-null-assertion": off
+      "@typescript-eslint/no-redundant-type-constituents": off  # allow e.g. 'never' | 'secure' | string | 'insecure'

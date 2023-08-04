@@ -148,11 +148,14 @@ async function returnVersion(edition: FasmEditionStr, platform: PlatformStr, ver
 		}));
 	}
 
-	if (setIncludeEnvvar) {
-		const includePath = path.join(binPath, 'INCLUDE');
-		if ((await fsp.stat(includePath).catch(() => null))?.isDirectory())
-			addInclude(includePath);
-	}
+	if (setIncludeEnvvar)
+		for (const includeName of ['INCLUDE', 'include' /*newer FASMARM*/]) {
+			const includePath = path.join(binPath, includeName);
+			if ((await fsp.stat(includePath).catch(() => null))?.isDirectory()) {
+				addInclude(includePath);
+				break;
+			}
+		}
 
 	core.setOutput('path', binPath);
 	core.setOutput('edition', edition);

@@ -1069,7 +1069,9 @@ async function O(e,t,r,n,s){const o=await u.default.readdir(n),i=1===o.length&&(
 g.addPath(i)
 {const t=[".x64","",".exe",".o"].map((t=>`${{fasm1:"fasm",fasmg:"fasmg",fasmarm:"fasmarm"}[e]}${t}`))
 await Promise.all(t.map((async e=>{const t=f.default.join(i,e),r=await u.default.stat(t).catch((()=>null))
-r?.isFile()&&await u.default.chmod(t,73|r.mode)})))}if(s){const e=f.default.join(i,"INCLUDE");(await u.default.stat(e).catch((()=>null)))?.isDirectory()&&T(e)}g.setOutput("path",i),g.setOutput("edition",e),g.setOutput("version",r),g.setOutput("platform",t),g.info(`successfully installed ${e} ${r} for ${t} to ${i}`)}async function _(e,t,r){g.startGroup("downloading fasm g packages")
+r?.isFile()&&await u.default.chmod(t,73|r.mode)})))}if(s)for(const e of["INCLUDE","include"]){const t=f.default.join(i,e)
+if((await u.default.stat(t).catch((()=>null)))?.isDirectory()){T(t)
+break}}g.setOutput("path",i),g.setOutput("edition",e),g.setOutput("version",r),g.setOutput("platform",t),g.info(`successfully installed ${e} ${r} for ${t} to ${i}`)}async function _(e,t,r){g.startGroup("downloading fasm g packages")
 const n=f.default.join(h.default.env.RUNNER_TEMP||d.default.tmpdir(),(0,a.randomUUID)())
 await(0,v.default)().clone(E.href,n,["--filter=blob:none","--sparse","--no-checkout"]).cwd(n).checkout(e??"HEAD").raw("sparse-checkout","add","--cone","packages"),g.info("checked out fasm g packages repository")
 const s=f.default.join(n,"packages")
@@ -1096,7 +1098,7 @@ let T=10
 for(const e of m){g.startGroup(`using ${e.name}`)
 let t=await(0,y.downloadVersion)(h,e,E,s)
 if(t||"linux"!==E||(g.info("no linux version found, trying unix instead"),t=await(0,y.downloadVersion)(h,e,"unix",s),t&&(E="unix")),g.endGroup(),t)return await O(h,E,e.name,t,a),void("fasmg"===h&&"false"!==o.toLowerCase()&&await _("true"===o.toLowerCase()?null:o,i,a))
-if(!--T)return void g.setFailed("maximum number of versions to try exceeded")}g.setFailed(`could not download ${e} ${t} for ${E}`)}()}catch(e){g.setFailed(m.default.inspect(e))}})()},679:(e,t)=>{"use strict"
+if(! --T)return void g.setFailed("maximum number of versions to try exceeded")}g.setFailed(`could not download ${e} ${t} for ${E}`)}()}catch(e){g.setFailed(m.default.inspect(e))}})()},679:(e,t)=>{"use strict"
 Object.defineProperty(t,"__esModule",{value:!0}),t.equalsIgnoreCase=void 0,t.equalsIgnoreCase=function(e,t){return e.toLowerCase()===t.toLowerCase()}},6149:(e,t,r)=>{e.exports=r(5468)},5468:(e,t,r)=>{"use strict"
 r(1808)
 var n,s=r(4404),o=r(3685),i=r(5687),a=r(2361),c=(r(9491),r(3837))
