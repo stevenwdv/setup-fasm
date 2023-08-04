@@ -142,7 +142,7 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 	let unexpectedError = false;
 	let hashProblems    = false;
 
-	const urls = getUrls[edition](version, platform).map(url => new URL(url));
+	const urls = getUrls[edition](version, platform);
 	for (const url of urls) {
 		core.info(`trying ${url.href}`);
 

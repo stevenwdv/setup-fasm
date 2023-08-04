@@ -20,7 +20,7 @@
 	"dependencies": {
 		"@actions/core": "^1.10.0",
 		"@actions/tool-cache": "^2.0.1",
-		"fasm-versions": "github:stevenwdv/fasm-versions#v1.0",
+		"fasm-versions": "github:stevenwdv/fasm-versions#v1.1",
 		"simple-git": "^3.19.1"
 	},
 	"devDependencies": {
