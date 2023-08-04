@@ -13,7 +13,8 @@ import {equalsIgnoreCase} from './utils';
 
 /** Get matching versions according to semver */
 export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'latest' | string,
-                                    downloadUnknown: 'never' | 'secure' | string | 'insecure'): FasmVersionEx[] {
+	  downloadUnknown: 'never' | 'secure' | string | 'insecure',
+): FasmVersionEx[] {
 	requestedVersion = requestedVersion.toLowerCase();
 	if (['latest', '*'].includes(requestedVersion))
 		return edition.versions;
@@ -73,7 +74,8 @@ export async function hashFile(filePath: string): Promise<string> {
  * @return Path of raw downloaded file
  * @throws DownloadError
  */
-export async function downloadUrl(url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string): Promise<string> {
+export async function downloadUrl(
+	  url: URL, allowInsecure: boolean, expectedHash?: string, destinationFilePath?: string): Promise<string> {
 	const secure = url.protocol === 'https:';
 
 	if (!secure && !expectedHash && !allowInsecure) throw new MissingHashError(url);
@@ -123,12 +125,15 @@ export class HttpError extends DownloadError {
 }
 
 
+const officialOrigin = 'https://flatassembler.net';
+
 /**
  * @param userProvided If version is unknown and was provided by the user
  * @return Path to archive and downloaded URL or null on failure
  */
 export async function downloadVersionArchive(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr,
-                                             destinationFilePath?: string): Promise<{ path: string, url: URL } | null> {
+	  destinationFilePath?: string, ignoreOfficialHttpsHashMismatch = false,
+): Promise<{ path: string, url: URL } | null> {
 	const fullVersion = `${edition} ${version.name} for ${platform}`;
 
 	const expectedHash = (version.hashes || {})[platform];
@@ -143,7 +148,10 @@ export async function downloadVersionArchive(edition: FasmEditionStr, version: F
 
 		try {
 			return {
-				path: await downloadUrl(url, !!version.allowInsecure, expectedHash, destinationFilePath),
+				path: await downloadUrl(url, !!version.allowInsecure,
+					  ignoreOfficialHttpsHashMismatch && url.origin === officialOrigin
+							? undefined : expectedHash,
+					  destinationFilePath),
 				url,
 			};
 		} catch (err) {
@@ -184,7 +192,9 @@ const fasmArch: ReturnType<typeof os.arch> = 'ia32';
  * @param userProvided If version is unknown and was provided by the user
  * @return Path to extracted directory or null on failure
  */
-export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr, assumeDynamicUnchanged = false)
+export async function downloadVersion(edition: FasmEditionStr, version: FasmVersionEx, platform: PlatformStr,
+	  assumeDynamicUnchanged = false, ignoreOfficialHttpsHashMismatch = false,
+)
 	  : Promise<string | null> {
 
 	// Don't use tool-cache version field as it only does semver x.x.x
@@ -205,7 +215,8 @@ export async function downloadVersion(edition: FasmEditionStr, version: FasmVers
 		}
 	}
 
-	const result = await downloadVersionArchive(edition, version, platform);
+	const result = await downloadVersionArchive(edition, version, platform,
+		  undefined, ignoreOfficialHttpsHashMismatch);
 	if (!result) return null;
 	// eslint-disable-next-line prefer-const
 	let {path: packedPath, url} = result;

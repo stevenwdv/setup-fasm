@@ -20,6 +20,7 @@ const fasmgRepoUrl = new URL('https://github.com/tgrysztar/fasmg.git');
 async function main() {
 	const requestedEdition: FasmEditionStr | string                 = core.getInput('edition').toLowerCase(),
 	      requestedVersion: 'latest' | string                       = core.getInput('version').toLowerCase(),
+	      ignoreOfficialHttpsHashMismatch                           = core.getBooleanInput('ignore-official-https-hash-mismatch'),
 	      downloadUnknown: 'never' | 'secure' | string | 'insecure' = core.getInput('download-unknown').toLowerCase(),
 	      customVersionList                                         = core.getInput('custom-version-list'),
 	      assumeDynamicUnchanged                                    = core.getBooleanInput('assume-dynamic-unchanged'),
@@ -83,10 +84,12 @@ async function main() {
 	let triesLeft = 10;
 	for (const version of tryVersions) {
 		core.startGroup(`using ${version.name}`);
-		let extractPath = await downloadVersion(editionStr, version, platformStr, assumeDynamicUnchanged);
+		let extractPath = await downloadVersion(editionStr, version, platformStr,
+			  assumeDynamicUnchanged, ignoreOfficialHttpsHashMismatch);
 		if (!extractPath && platformStr === 'linux') {
 			core.info('no linux version found, trying unix instead');
-			extractPath = await downloadVersion(editionStr, version, 'unix', assumeDynamicUnchanged);
+			extractPath = await downloadVersion(editionStr, version, 'unix',
+				  assumeDynamicUnchanged, ignoreOfficialHttpsHashMismatch);
 			if (extractPath) platformStr = 'unix';
 		}
 		core.endGroup();
