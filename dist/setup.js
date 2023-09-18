@@ -63,7 +63,7 @@ if(!e)throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_TOKEN env variable
 return e}static getIDTokenUrl(){const e=process.env.ACTIONS_ID_TOKEN_REQUEST_URL
 if(!e)throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_URL env variable")
 return e}static getCall(e){var t
-return n(this,void 0,void 0,(function*(){const r=a.createHttpClient(),n=yield r.getJson(e).catch((e=>{throw new Error(`Failed to get ID Token. \n \n        Error Code : ${e.statusCode}\n \n        Error Message: ${e.result.message}`)})),s=null===(t=n.result)||void 0===t?void 0:t.value
+return n(this,void 0,void 0,(function*(){const r=a.createHttpClient(),n=yield r.getJson(e).catch((e=>{throw new Error(`Failed to get ID Token. \n \n        Error Code : ${e.statusCode}\n \n        Error Message: ${e.message}`)})),s=null===(t=n.result)||void 0===t?void 0:t.value
 if(!s)throw new Error("Response json body do not have ID Token field")
 return s}))}static getIDToken(e){return n(this,void 0,void 0,(function*(){try{let t=a.getIDTokenUrl()
 if(e){t=`${t}&audience=${encodeURIComponent(e)}`}i.debug(`ID token url is ${t}`)
