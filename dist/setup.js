@@ -806,146 +806,147 @@ const s=parseInt(r,10)||0
 "-"===n?e.summary.deletions=s:"+"===n&&(e.summary.insertions=s)}))]}})
 function Ir(){return{commit(e,...t){const r=Ae(arguments),n=function(e){return!ue(e)&&Ze("git.commit: requires the commit message to be supplied as a string/string[]")}(e)||function(e,t,r){return{commands:["-c","core.abbrev=40","commit",...re(e,"-m"),...t,...r],format:"utf-8",parser:xr}}(Z(e),Z(fe(t[0],ue,[])),[...fe(t[1],ie,[]),...ke(arguments,0,!0)])
 return this._runTask(n,r)}}}var Pr=b({"src/lib/tasks/commit.ts"(){Ar(),Fe(),ut()}})
-var Lr,Nr,$r,Mr=b({"src/lib/tasks/hash-object.ts"(){ut()}})
-var jr,Dr=b({"src/lib/responses/InitSummary.ts"(){Lr=class{constructor(e,t,r,n){this.bare=e,this.path=t,this.existing=r,this.gitDir=n}},Nr=/^Init.+ repository in (.+)$/,$r=/^Rein.+ in (.+)$/}})
-function Fr(e=!1,t,r){const n=["init",...r]
-return e&&!n.includes(jr)&&n.splice(1,0,jr),{commands:n,format:"utf-8",parser:e=>function(e,t,r){const n=String(r).trim()
+var Lr=b({"src/lib/tasks/first-commit.ts"(){Fe(),ut()}})
+var Nr,$r,Mr,jr=b({"src/lib/tasks/hash-object.ts"(){ut()}})
+var Dr,Fr=b({"src/lib/responses/InitSummary.ts"(){Nr=class{constructor(e,t,r,n){this.bare=e,this.path=t,this.existing=r,this.gitDir=n}},$r=/^Init.+ repository in (.+)$/,Mr=/^Rein.+ in (.+)$/}})
+function Ur(e=!1,t,r){const n=["init",...r]
+return e&&!n.includes(Dr)&&n.splice(1,0,Dr),{commands:n,format:"utf-8",parser:e=>function(e,t,r){const n=String(r).trim()
 let s
-if(s=Nr.exec(n))return new Lr(e,t,!1,s[1])
-if(s=$r.exec(n))return new Lr(e,t,!0,s[1])
+if(s=$r.exec(n))return new Nr(e,t,!1,s[1])
+if(s=Mr.exec(n))return new Nr(e,t,!0,s[1])
 let o=""
 const i=n.split(" ")
 for(;i.length;)if("in"===i.shift()){o=i.join(" ")
-break}return new Lr(e,t,/^re/i.test(n),o)}(n.includes("--bare"),t,e)}}var Ur,qr=b({"src/lib/tasks/init.ts"(){Dr(),jr="--bare"}})
-function Br(e){for(let t=0;t<e.length;t++){const r=Ur.exec(e[t])
-if(r)return`--${r[1]}`}return""}function Gr(e){return Ur.test(e)}var Hr,Vr,Wr,zr,Xr,Yr,Kr=b({"src/lib/args/log-format.ts"(){Ur=/^--(stat|numstat|name-only|name-status)(=|$)/}}),Jr=b({"src/lib/responses/DiffSummary.ts"(){Hr=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
-function Qr(e=""){const t=Yr[e]
-return e=>Le(new Hr,t,e,!1)}var Zr,en,tn,rn,nn=b({"src/lib/parsers/parse-diff-summary.ts"(){Kr(),Jr(),Fe(),Vr=[new ye(/(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,((e,[t,r,n=""])=>{e.files.push({file:t.trim(),changes:te(r),insertions:n.replace(/[^+]/g,"").length,deletions:n.replace(/[^-]/g,"").length,binary:!1})})),new ye(/(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,((e,[t,r,n])=>{e.files.push({file:t.trim(),before:te(r),after:te(n),binary:!0})})),new ye(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,((e,[t,r])=>{const n=/(\d+) i/.exec(r),s=/(\d+) d/.exec(r)
-e.changed=te(t),e.insertions=te(null==n?void 0:n[1]),e.deletions=te(null==s?void 0:s[1])}))],Wr=[new ye(/(\d+)\t(\d+)\t(.+)$/,((e,[t,r,n])=>{const s=te(t),o=te(r)
-e.changed++,e.insertions+=s,e.deletions+=o,e.files.push({file:n,changes:s+o,insertions:s,deletions:o,binary:!1})})),new ye(/-\t-\t(.+)$/,((e,[t])=>{e.changed++,e.files.push({file:t,after:0,before:0,binary:!0})}))],zr=[new ye(/(.+)$/,((e,[t])=>{e.changed++,e.files.push({file:t,changes:0,insertions:0,deletions:0,binary:!1})}))],Xr=[new ye(/([ACDMRTUXB])\s*(.+)$/,((e,[t,r])=>{e.changed++,e.files.push({file:r,changes:0,insertions:0,deletions:0,binary:!1})}))],Yr={"":Vr,"--stat":Vr,"--numstat":Wr,"--name-status":Xr,"--name-only":zr}}})
-function sn(e=tn,t=rn,r=""){const n=Qr(r)
-return function(r){const s=z(r,!0,Zr).map((function(r){const s=r.trim().split(en),o=function(e,t){return t.reduce(((t,r,n)=>(t[r]=e[n]||"",t)),Object.create({diff:null}))}(s[0].trim().split(e),t)
+break}return new Nr(e,t,/^re/i.test(n),o)}(n.includes("--bare"),t,e)}}var qr,Br=b({"src/lib/tasks/init.ts"(){Fr(),Dr="--bare"}})
+function Gr(e){for(let t=0;t<e.length;t++){const r=qr.exec(e[t])
+if(r)return`--${r[1]}`}return""}function Hr(e){return qr.test(e)}var Vr,Wr,zr,Xr,Yr,Kr,Jr=b({"src/lib/args/log-format.ts"(){qr=/^--(stat|numstat|name-only|name-status)(=|$)/}}),Qr=b({"src/lib/responses/DiffSummary.ts"(){Vr=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
+function Zr(e=""){const t=Kr[e]
+return e=>Le(new Vr,t,e,!1)}var en,tn,rn,nn,sn=b({"src/lib/parsers/parse-diff-summary.ts"(){Jr(),Qr(),Fe(),Wr=[new ye(/(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,((e,[t,r,n=""])=>{e.files.push({file:t.trim(),changes:te(r),insertions:n.replace(/[^+]/g,"").length,deletions:n.replace(/[^-]/g,"").length,binary:!1})})),new ye(/(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,((e,[t,r,n])=>{e.files.push({file:t.trim(),before:te(r),after:te(n),binary:!0})})),new ye(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,((e,[t,r])=>{const n=/(\d+) i/.exec(r),s=/(\d+) d/.exec(r)
+e.changed=te(t),e.insertions=te(null==n?void 0:n[1]),e.deletions=te(null==s?void 0:s[1])}))],zr=[new ye(/(\d+)\t(\d+)\t(.+)$/,((e,[t,r,n])=>{const s=te(t),o=te(r)
+e.changed++,e.insertions+=s,e.deletions+=o,e.files.push({file:n,changes:s+o,insertions:s,deletions:o,binary:!1})})),new ye(/-\t-\t(.+)$/,((e,[t])=>{e.changed++,e.files.push({file:t,after:0,before:0,binary:!0})}))],Xr=[new ye(/(.+)$/,((e,[t])=>{e.changed++,e.files.push({file:t,changes:0,insertions:0,deletions:0,binary:!1})}))],Yr=[new ye(/([ACDMRTUXB])\s*(.+)$/,((e,[t,r])=>{e.changed++,e.files.push({file:r,changes:0,insertions:0,deletions:0,binary:!1})}))],Kr={"":Wr,"--stat":Wr,"--numstat":zr,"--name-status":Yr,"--name-only":Xr}}})
+function on(e=rn,t=nn,r=""){const n=Zr(r)
+return function(r){const s=z(r,!0,en).map((function(r){const s=r.trim().split(tn),o=function(e,t){return t.reduce(((t,r,n)=>(t[r]=e[n]||"",t)),Object.create({diff:null}))}(s[0].trim().split(e),t)
 return s.length>1&&s[1].trim()&&(o.diff=n(s[1])),o}))
-return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var on=b({"src/lib/parsers/parse-list-log-summary.ts"(){Fe(),nn(),Kr(),Zr="òòòòòò ",en=" òò",tn=" ò ",rn=["hash","date","message","refs","author_name","author_email"]}}),an={}
-function cn(e){let t=Br(e)
+return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var an=b({"src/lib/parsers/parse-list-log-summary.ts"(){Fe(),sn(),Jr(),en="òòòòòò ",tn=" òò",rn=" ò ",nn=["hash","date","message","refs","author_name","author_email"]}}),cn={}
+function un(e){let t=Gr(e)
 const r=["diff"]
-return""===t&&(t="--stat",r.push("--stat=4096")),r.push(...e),un(r)||{commands:r,format:"utf-8",parser:Qr(t)}}function un(e){const t=e.filter(Gr)
-return t.length>1?Ze(`Summary flags are mutually exclusive - pick one of ${t.join(",")}`):t.length&&e.includes("-z")?Ze(`Summary flag ${t} parsing is not compatible with null termination option '-z'`):void 0}E(an,{diffSummaryTask:()=>cn,validateLogFormatConfig:()=>un})
-var ln,dn=b({"src/lib/tasks/diff.ts"(){Kr(),nn(),ut()}})
-function fn(e={},t=[]){const r=fe(e.splitter,ae,tn),n=!he(e.format)&&e.format?e.format:{hash:"%H",date:!1===e.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:e.multiLine?"%B":"%b",author_name:!1!==e.mailMap?"%aN":"%an",author_email:!1!==e.mailMap?"%aE":"%ae"},[s,o]=function(e,t){const r=[],n=[]
-return Object.keys(e).forEach((t=>{r.push(t),n.push(String(e[t]))})),[r,n.join(t)]}(n,r),i=[],a=[`--pretty=format:${Zr}${o}${en}`,...t],c=e.n||e["max-count"]||e.maxCount
+return""===t&&(t="--stat",r.push("--stat=4096")),r.push(...e),ln(r)||{commands:r,format:"utf-8",parser:Zr(t)}}function ln(e){const t=e.filter(Hr)
+return t.length>1?Ze(`Summary flags are mutually exclusive - pick one of ${t.join(",")}`):t.length&&e.includes("-z")?Ze(`Summary flag ${t} parsing is not compatible with null termination option '-z'`):void 0}E(cn,{diffSummaryTask:()=>un,validateLogFormatConfig:()=>ln})
+var dn,fn=b({"src/lib/tasks/diff.ts"(){Jr(),sn(),ut()}})
+function hn(e={},t=[]){const r=fe(e.splitter,ae,rn),n=!he(e.format)&&e.format?e.format:{hash:"%H",date:!1===e.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:e.multiLine?"%B":"%b",author_name:!1!==e.mailMap?"%aN":"%an",author_email:!1!==e.mailMap?"%aE":"%ae"},[s,o]=function(e,t){const r=[],n=[]
+return Object.keys(e).forEach((t=>{r.push(t),n.push(String(e[t]))})),[r,n.join(t)]}(n,r),i=[],a=[`--pretty=format:${en}${o}${tn}`,...t],c=e.n||e["max-count"]||e.maxCount
 if(c&&a.push(`--max-count=${c}`),e.from||e.to){const t=!1!==e.symmetric?"...":".."
 i.push(`${e.from||""}${t}${e.to||""}`)}var u
-return ae(e.file)&&a.push("--follow",S(e.file)),Se((u=e,Object.keys(u).reduce(((e,t)=>(t in ln||(e[t]=u[t]),e)),{})),a),{fields:s,splitter:r,commands:[...a,...i]}}function hn(){return{log(...e){const t=Ae(arguments),r=fn(xe(arguments),fe(arguments[0],ie)),n=function(e,t){return ae(e)&&ae(t)&&Ze("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...e)||un(r.commands)||function(e){return function(e,t,r){const n=sn(e,t,Br(r))
+return ae(e.file)&&a.push("--follow",S(e.file)),Se((u=e,Object.keys(u).reduce(((e,t)=>(t in dn||(e[t]=u[t]),e)),{})),a),{fields:s,splitter:r,commands:[...a,...i]}}function pn(){return{log(...e){const t=Ae(arguments),r=hn(xe(arguments),fe(arguments[0],ie)),n=function(e,t){return ae(e)&&ae(t)&&Ze("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...e)||ln(r.commands)||function(e){return function(e,t,r){const n=on(e,t,Gr(r))
 return{commands:["log",...r],format:"utf-8",parser:n}}(e.splitter,e.fields,e.commands)}(r)
-return this._runTask(n,t)}}}var pn,mn,gn,vn,yn,wn=b({"src/lib/tasks/log.ts"(){Kr(),j(),on(),Fe(),ut(),dn(),ln=(e=>(e[e["--pretty"]=0]="--pretty",e[e["max-count"]=1]="max-count",e[e.maxCount=2]="maxCount",e[e.n=3]="n",e[e.file=4]="file",e[e.format=5]="format",e[e.from=6]="from",e[e.to=7]="to",e[e.splitter=8]="splitter",e[e.symmetric=9]="symmetric",e[e.mailMap=10]="mailMap",e[e.multiLine=11]="multiLine",e[e.strictDate=12]="strictDate",e))(ln||{})}}),bn=b({"src/lib/responses/MergeSummary.ts"(){pn=class{constructor(e,t=null,r){this.reason=e,this.file=t,this.meta=r}toString(){return`${this.file}:${this.reason}`}},mn=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),En=b({"src/lib/responses/PullSummary.ts"(){gn=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},vn=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
-function On(e){return e.objects=e.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function _n(e){const t=/^\s*(\d+)/.exec(e),r=/delta (\d+)/i.exec(e)
-return{count:te(t&&t[1]||"0"),delta:te(r&&r[1]||"0")}}var Tn,Rn,Cn=b({"src/lib/parsers/parse-remote-objects.ts"(){Fe(),yn=[new we(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,((e,[t,r])=>{const n=t.toLowerCase(),s=On(e.remoteMessages)
-Object.assign(s,{[n]:te(r)})})),new we(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,((e,[t,r])=>{const n=t.toLowerCase(),s=On(e.remoteMessages)
-Object.assign(s,{[n]:te(r)})})),new we(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,((e,[t,r,n])=>{const s=On(e.remoteMessages)
-s.total=_n(t),s.reused=_n(r),s.packReused=te(n)}))]}})
-function Sn(e,t){return Le({remoteMessages:new Rn},Tn,t)}var kn,xn,An,In,Pn,Ln,Nn=b({"src/lib/parsers/parse-remote-messages.ts"(){Fe(),Cn(),Tn=[new we(/^remote:\s*(.+)$/,((e,[t])=>(e.remoteMessages.all.push(t.trim()),!1))),...yn,new we([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((e,[t])=>{e.remoteMessages.pullRequestUrl=t})),new we([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((e,[t,r,n])=>{e.remoteMessages.vulnerabilities={count:te(t),summary:r,url:n}}))],Rn=class{constructor(){this.all=[]}}}})
-var $n,Mn,jn,Dn=b({"src/lib/parsers/parse-pull.ts"(){En(),Fe(),Nn(),kn=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,xn=/^(create|delete) mode \d+ (.+)/,An=[new ye(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((e,[t,r,n])=>{e.files.push(t),r&&(e.insertions[t]=r.length),n&&(e.deletions[t]=n.length)})),new ye(kn,((e,[t,,r,,n])=>(void 0!==r||void 0!==n)&&(e.summary.changes=+t||0,e.summary.insertions=+r||0,e.summary.deletions=+n||0,!0))),new ye(xn,((e,[t,r])=>{K(e.files,r),K("create"===t?e.created:e.deleted,r)}))],In=[new ye(/^from\s(.+)$/i,((e,[t])=>{e.remote=t})),new ye(/^fatal:\s(.+)$/,((e,[t])=>{e.message=t})),new ye(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((e,[t,r,n,s])=>{e.branch.local=n,e.hash.local=t,e.branch.remote=s,e.hash.remote=r}))],Pn=(e,t)=>Le(new gn,An,[e,t]),Ln=(e,t)=>Object.assign(new gn,Pn(e,t),Sn(0,t))}}),Fn=b({"src/lib/parsers/parse-merge.ts"(){bn(),Fe(),Dn(),$n=[new ye(/^Auto-merging\s+(.+)$/,((e,[t])=>{e.merges.push(t)})),new ye(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((e,[t,r])=>{e.conflicts.push(new pn(t,r))})),new ye(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((e,[t,r,n])=>{e.conflicts.push(new pn(t,r,{deleteRef:n}))})),new ye(/^CONFLICT\s+\((.+)\):/,((e,[t])=>{e.conflicts.push(new pn(t,null))})),new ye(/^Automatic merge failed;\s+(.+)$/,((e,[t])=>{e.result=t}))],Mn=(e,t)=>Object.assign(jn(e,t),Ln(e,t)),jn=e=>Le(new mn,$n,e)}})
-function Un(e){return e.length?{commands:["merge",...e],format:"utf-8",parser(e,t){const r=Mn(e,t)
+return this._runTask(n,t)}}}var mn,gn,vn,yn,wn,bn=b({"src/lib/tasks/log.ts"(){Jr(),j(),an(),Fe(),ut(),fn(),dn=(e=>(e[e["--pretty"]=0]="--pretty",e[e["max-count"]=1]="max-count",e[e.maxCount=2]="maxCount",e[e.n=3]="n",e[e.file=4]="file",e[e.format=5]="format",e[e.from=6]="from",e[e.to=7]="to",e[e.splitter=8]="splitter",e[e.symmetric=9]="symmetric",e[e.mailMap=10]="mailMap",e[e.multiLine=11]="multiLine",e[e.strictDate=12]="strictDate",e))(dn||{})}}),En=b({"src/lib/responses/MergeSummary.ts"(){mn=class{constructor(e,t=null,r){this.reason=e,this.file=t,this.meta=r}toString(){return`${this.file}:${this.reason}`}},gn=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),On=b({"src/lib/responses/PullSummary.ts"(){vn=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},yn=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
+function _n(e){return e.objects=e.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function Tn(e){const t=/^\s*(\d+)/.exec(e),r=/delta (\d+)/i.exec(e)
+return{count:te(t&&t[1]||"0"),delta:te(r&&r[1]||"0")}}var Rn,Cn,Sn=b({"src/lib/parsers/parse-remote-objects.ts"(){Fe(),wn=[new we(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,((e,[t,r])=>{const n=t.toLowerCase(),s=_n(e.remoteMessages)
+Object.assign(s,{[n]:te(r)})})),new we(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,((e,[t,r])=>{const n=t.toLowerCase(),s=_n(e.remoteMessages)
+Object.assign(s,{[n]:te(r)})})),new we(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,((e,[t,r,n])=>{const s=_n(e.remoteMessages)
+s.total=Tn(t),s.reused=Tn(r),s.packReused=te(n)}))]}})
+function kn(e,t){return Le({remoteMessages:new Cn},Rn,t)}var xn,An,In,Pn,Ln,Nn,$n=b({"src/lib/parsers/parse-remote-messages.ts"(){Fe(),Sn(),Rn=[new we(/^remote:\s*(.+)$/,((e,[t])=>(e.remoteMessages.all.push(t.trim()),!1))),...wn,new we([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((e,[t])=>{e.remoteMessages.pullRequestUrl=t})),new we([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((e,[t,r,n])=>{e.remoteMessages.vulnerabilities={count:te(t),summary:r,url:n}}))],Cn=class{constructor(){this.all=[]}}}})
+var Mn,jn,Dn,Fn=b({"src/lib/parsers/parse-pull.ts"(){On(),Fe(),$n(),xn=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,An=/^(create|delete) mode \d+ (.+)/,In=[new ye(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((e,[t,r,n])=>{e.files.push(t),r&&(e.insertions[t]=r.length),n&&(e.deletions[t]=n.length)})),new ye(xn,((e,[t,,r,,n])=>(void 0!==r||void 0!==n)&&(e.summary.changes=+t||0,e.summary.insertions=+r||0,e.summary.deletions=+n||0,!0))),new ye(An,((e,[t,r])=>{K(e.files,r),K("create"===t?e.created:e.deleted,r)}))],Pn=[new ye(/^from\s(.+)$/i,((e,[t])=>{e.remote=t})),new ye(/^fatal:\s(.+)$/,((e,[t])=>{e.message=t})),new ye(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((e,[t,r,n,s])=>{e.branch.local=n,e.hash.local=t,e.branch.remote=s,e.hash.remote=r}))],Ln=(e,t)=>Le(new vn,In,[e,t]),Nn=(e,t)=>Object.assign(new vn,Ln(e,t),kn(0,t))}}),Un=b({"src/lib/parsers/parse-merge.ts"(){En(),Fe(),Fn(),Mn=[new ye(/^Auto-merging\s+(.+)$/,((e,[t])=>{e.merges.push(t)})),new ye(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((e,[t,r])=>{e.conflicts.push(new mn(t,r))})),new ye(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((e,[t,r,n])=>{e.conflicts.push(new mn(t,r,{deleteRef:n}))})),new ye(/^CONFLICT\s+\((.+)\):/,((e,[t])=>{e.conflicts.push(new mn(t,null))})),new ye(/^Automatic merge failed;\s+(.+)$/,((e,[t])=>{e.result=t}))],jn=(e,t)=>Object.assign(Dn(e,t),Nn(e,t)),Dn=e=>Le(new gn,Mn,e)}})
+function qn(e){return e.length?{commands:["merge",...e],format:"utf-8",parser(e,t){const r=jn(e,t)
 if(r.failed)throw new s(r)
-return r}}:Ze("Git.merge requires at least one option")}var qn,Bn,Gn,Hn=b({"src/lib/tasks/merge.ts"(){C(),Fn(),ut()}})
-var Vn=b({"src/lib/parsers/parse-push.ts"(){Fe(),Nn(),qn=[new ye(/^Pushing to (.+)$/,((e,[t])=>{e.repo=t})),new ye(/^updating local tracking ref '(.+)'/,((e,[t])=>{e.ref=y(v({},e.ref||{}),{local:t})})),new ye(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,((e,[t,r,n])=>{e.pushed.push(function(e,t,r){const n=r.includes("deleted"),s=r.includes("tag")||/^refs\/tags/.test(e),o=!r.includes("new")
-return{deleted:n,tag:s,branch:!s,new:!o,alreadyUpdated:o,local:e,remote:t}}(t,r,n))})),new ye(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,((e,[t,r,n])=>{e.branch=y(v({},e.branch||{}),{local:t,remote:r,remoteName:n})})),new ye(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,((e,[t,r,n,s])=>{e.update={head:{local:t,remote:r},hash:{from:n,to:s}}}))],Bn=(e,t)=>{const r=Gn(e,t),n=Sn(0,t)
-return v(v({},r),n)},Gn=(e,t)=>Le({pushed:[]},qn,[e,t])}}),Wn={}
-function zn(e={},t){return K(t,"--tags"),Xn(e,t)}function Xn(e={},t){const r=["push",...t]
-return e.branch&&r.splice(1,0,e.branch),e.remote&&r.splice(1,0,e.remote),Q(r,"-v"),K(r,"--verbose"),K(r,"--porcelain"),{commands:r,format:"utf-8",parser:Bn}}E(Wn,{pushTagsTask:()=>zn,pushTask:()=>Xn})
-var Yn=b({"src/lib/tasks/push.ts"(){Vn(),Fe()}})
-var Kn,Jn,Qn,Zn,es,ts=b({"src/lib/tasks/show.ts"(){Fe(),ut()}}),rs=b({"src/lib/responses/FileStatusSummary.ts"(){Kn=/^(.+) -> (.+)$/,Jn=class{constructor(e,t,r){if(this.path=e,this.index=t,this.working_dir=r,t+r==="R"){const t=Kn.exec(e)||[null,e,e]
+return r}}:Ze("Git.merge requires at least one option")}var Bn,Gn,Hn,Vn=b({"src/lib/tasks/merge.ts"(){C(),Un(),ut()}})
+var Wn=b({"src/lib/parsers/parse-push.ts"(){Fe(),$n(),Bn=[new ye(/^Pushing to (.+)$/,((e,[t])=>{e.repo=t})),new ye(/^updating local tracking ref '(.+)'/,((e,[t])=>{e.ref=y(v({},e.ref||{}),{local:t})})),new ye(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,((e,[t,r,n])=>{e.pushed.push(function(e,t,r){const n=r.includes("deleted"),s=r.includes("tag")||/^refs\/tags/.test(e),o=!r.includes("new")
+return{deleted:n,tag:s,branch:!s,new:!o,alreadyUpdated:o,local:e,remote:t}}(t,r,n))})),new ye(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,((e,[t,r,n])=>{e.branch=y(v({},e.branch||{}),{local:t,remote:r,remoteName:n})})),new ye(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,((e,[t,r,n,s])=>{e.update={head:{local:t,remote:r},hash:{from:n,to:s}}}))],Gn=(e,t)=>{const r=Hn(e,t),n=kn(0,t)
+return v(v({},r),n)},Hn=(e,t)=>Le({pushed:[]},Bn,[e,t])}}),zn={}
+function Xn(e={},t){return K(t,"--tags"),Yn(e,t)}function Yn(e={},t){const r=["push",...t]
+return e.branch&&r.splice(1,0,e.branch),e.remote&&r.splice(1,0,e.remote),Q(r,"-v"),K(r,"--verbose"),K(r,"--porcelain"),{commands:r,format:"utf-8",parser:Gn}}E(zn,{pushTagsTask:()=>Xn,pushTask:()=>Yn})
+var Kn=b({"src/lib/tasks/push.ts"(){Wn(),Fe()}})
+var Jn,Qn,Zn,es,ts,rs=b({"src/lib/tasks/show.ts"(){Fe(),ut()}}),ns=b({"src/lib/responses/FileStatusSummary.ts"(){Jn=/^(.+) -> (.+)$/,Qn=class{constructor(e,t,r){if(this.path=e,this.index=t,this.working_dir=r,t+r==="R"){const t=Jn.exec(e)||[null,e,e]
 this.from=t[1]||"",this.path=t[2]||""}}}}})
-function ns(e){const[t,r]=e.split(N)
-return{from:r||t,to:t}}function ss(e,t,r){return[`${e}${t}`,r]}function os(e,...t){return t.map((t=>ss(e,t,((e,t)=>K(e.conflicted,t)))))}function is(e,t){const r=t.trim()
+function ss(e){const[t,r]=e.split(N)
+return{from:r||t,to:t}}function os(e,t,r){return[`${e}${t}`,r]}function is(e,...t){return t.map((t=>os(e,t,((e,t)=>K(e.conflicted,t)))))}function as(e,t){const r=t.trim()
 switch(" "){case r.charAt(2):return n(r.charAt(0),r.charAt(1),r.substr(3))
 case r.charAt(1):return n(" ",r.charAt(0),r.substr(2))
-default:return}function n(t,r,n){const s=`${t}${r}`,o=Zn.get(s)
-o&&o(e,n),"##"!==s&&"!!"!==s&&e.files.push(new Jn(n.replace(/\0.+$/,""),t,r))}}var as,cs=b({"src/lib/responses/StatusSummary.ts"(){Fe(),rs(),Qn=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},Zn=new Map([ss(" ","A",((e,t)=>K(e.created,t))),ss(" ","D",((e,t)=>K(e.deleted,t))),ss(" ","M",((e,t)=>K(e.modified,t))),ss("A"," ",((e,t)=>K(e.created,t)&&K(e.staged,t))),ss("A","M",((e,t)=>K(e.created,t)&&K(e.staged,t)&&K(e.modified,t))),ss("D"," ",((e,t)=>K(e.deleted,t)&&K(e.staged,t))),ss("M"," ",((e,t)=>K(e.modified,t)&&K(e.staged,t))),ss("M","M",((e,t)=>K(e.modified,t)&&K(e.staged,t))),ss("R"," ",((e,t)=>{K(e.renamed,ns(t))})),ss("R","M",((e,t)=>{const r=ns(t)
-K(e.renamed,r),K(e.modified,r.to)})),ss("!","!",((e,t)=>{K(e.ignored=e.ignored||[],t)})),ss("?","?",((e,t)=>K(e.not_added,t))),...os("A","A","U"),...os("D","D","U"),...os("U","A","D","U"),["##",(e,t)=>{let r
-r=/ahead (\d+)/.exec(t),e.ahead=r&&+r[1]||0,r=/behind (\d+)/.exec(t),e.behind=r&&+r[1]||0,r=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(t),e.current=r&&r[1],r=/\.{3}(\S*)/.exec(t),e.tracking=r&&r[1],r=/\son\s([\S]+)$/.exec(t),e.current=r&&r[1]||e.current,e.detached=/\(no branch\)/.test(t)}]]),es=function(e){const t=e.split(N),r=new Qn
+default:return}function n(t,r,n){const s=`${t}${r}`,o=es.get(s)
+o&&o(e,n),"##"!==s&&"!!"!==s&&e.files.push(new Qn(n.replace(/\0.+$/,""),t,r))}}var cs,us=b({"src/lib/responses/StatusSummary.ts"(){Fe(),ns(),Zn=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},es=new Map([os(" ","A",((e,t)=>K(e.created,t))),os(" ","D",((e,t)=>K(e.deleted,t))),os(" ","M",((e,t)=>K(e.modified,t))),os("A"," ",((e,t)=>K(e.created,t)&&K(e.staged,t))),os("A","M",((e,t)=>K(e.created,t)&&K(e.staged,t)&&K(e.modified,t))),os("D"," ",((e,t)=>K(e.deleted,t)&&K(e.staged,t))),os("M"," ",((e,t)=>K(e.modified,t)&&K(e.staged,t))),os("M","M",((e,t)=>K(e.modified,t)&&K(e.staged,t))),os("R"," ",((e,t)=>{K(e.renamed,ss(t))})),os("R","M",((e,t)=>{const r=ss(t)
+K(e.renamed,r),K(e.modified,r.to)})),os("!","!",((e,t)=>{K(e.ignored=e.ignored||[],t)})),os("?","?",((e,t)=>K(e.not_added,t))),...is("A","A","U"),...is("D","D","U"),...is("U","A","D","U"),["##",(e,t)=>{let r
+r=/ahead (\d+)/.exec(t),e.ahead=r&&+r[1]||0,r=/behind (\d+)/.exec(t),e.behind=r&&+r[1]||0,r=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(t),e.current=r&&r[1],r=/\.{3}(\S*)/.exec(t),e.tracking=r&&r[1],r=/\son\s([\S]+)$/.exec(t),e.current=r&&r[1]||e.current,e.detached=/\(no branch\)/.test(t)}]]),ts=function(e){const t=e.split(N),r=new Zn
 for(let e=0,n=t.length;e<n;){let n=t[e++].trim()
-n&&("R"===n.charAt(0)&&(n+=N+(t[e++]||"")),is(r,n))}return r}}})
-var us,ls,ds=b({"src/lib/tasks/status.ts"(){cs(),as=["--null","-z"]}})
-function fs(e=0,t=0,r=0,n="",s=!0){return Object.defineProperty({major:e,minor:t,patch:r,agent:n,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function hs(e){return e===us?fs(0,0,0,"",!1):Le(fs(0,0,0,e),ls,e)}var ps,ms=b({"src/lib/tasks/version.ts"(){Fe(),us="installed=false",ls=[new ye(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,((e,[t,r,n,s=""])=>{Object.assign(e,fs(te(t),te(r),te(n),s))})),new ye(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,((e,[t,r,n,s=""])=>{Object.assign(e,fs(te(t),te(r),n,s))}))]}}),gs={}
-E(gs,{SimpleGitApi:()=>ps})
-var vs,ys,ws,bs=b({"src/lib/simple-git-api.ts"(){_r(),Rr(),kr(),Pr(),St(),Pt(),Mr(),qr(),wn(),Hn(),Yn(),ts(),ds(),ut(),ms(),Fe(),ps=class{constructor(e){this._executor=e}_runTask(e,t){const r=this._executor.chain(),n=r.push(e)
+n&&("R"===n.charAt(0)&&(n+=N+(t[e++]||"")),as(r,n))}return r}}})
+var ls,ds,fs=b({"src/lib/tasks/status.ts"(){us(),cs=["--null","-z"]}})
+function hs(e=0,t=0,r=0,n="",s=!0){return Object.defineProperty({major:e,minor:t,patch:r,agent:n,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function ps(e){return e===ls?hs(0,0,0,"",!1):Le(hs(0,0,0,e),ds,e)}var ms,gs=b({"src/lib/tasks/version.ts"(){Fe(),ls="installed=false",ds=[new ye(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,((e,[t,r,n,s=""])=>{Object.assign(e,hs(te(t),te(r),te(n),s))})),new ye(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,((e,[t,r,n,s=""])=>{Object.assign(e,hs(te(t),te(r),n,s))}))]}}),vs={}
+E(vs,{SimpleGitApi:()=>ms})
+var ys,ws,bs,Es=b({"src/lib/simple-git-api.ts"(){_r(),Rr(),kr(),Pr(),St(),Lr(),Pt(),jr(),Br(),bn(),Vn(),Kn(),rs(),fs(),ut(),gs(),Fe(),ms=class{constructor(e){this._executor=e}_runTask(e,t){const r=this._executor.chain(),n=r.push(e)
 return t&&Or(e,n,t),Object.create(this,{then:{value:n.then.bind(n)},catch:{value:n.catch.bind(n)},_executor:{value:r}})}add(e){return this._runTask(et(["add",...Z(e)]),Ae(arguments))}cwd(e){const t=Ae(arguments)
 return"string"==typeof e?this._runTask(Tr(e,this._executor),t):"string"==typeof(null==e?void 0:e.path)?this._runTask(Tr(e.path,e.root&&this._executor||void 0),t):this._runTask(Ze("Git.cwd: workingDirectory must be supplied as a string"),t)}hashObject(e,t){return this._runTask(function(e,t){const r=["hash-object",e]
-return t&&r.push("-w"),et(r,!0)}(e,!0===t),Ae(arguments))}init(e){return this._runTask(Fr(!0===e,this._executor.cwd,ke(arguments)),Ae(arguments))}merge(){return this._runTask(Un(ke(arguments)),Ae(arguments))}mergeFromTo(e,t){return ae(e)&&ae(t)?this._runTask(Un([e,t,...ke(arguments)]),Ae(arguments,!1)):this._runTask(Ze("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(e){return this._executor.outputHandler=e,this}push(){const e=Xn({remote:fe(arguments[0],ae),branch:fe(arguments[1],ae)},ke(arguments))
-return this._runTask(e,Ae(arguments))}stash(){return this._runTask(et(["stash",...ke(arguments)]),Ae(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...ke(arguments).filter((e=>!as.includes(e)))],parser:e=>es(e)},Ae(arguments))}},Object.assign(ps.prototype,{checkout(){return this._runTask(Cr(ke(arguments,1)),Ae(arguments))},checkoutBranch(e,t){return this._runTask(Cr(["-b",e,t,...ke(arguments)]),Ae(arguments))},checkoutLocalBranch(e){return this._runTask(Cr(["-b",e,...ke(arguments)]),Ae(arguments))}},Ir(),{addConfig(e,t,...r){return this._runTask(function(e,t,r,n){const s=["config",`--${n}`]
-return r&&s.push("--add"),s.push(e,t),{commands:s,format:"utf-8",parser:e=>e}}(e,t,!0===r[0],bt(r[1],"local")),Ae(arguments))},getConfig(e,t){return this._runTask(Et(e,bt(t,void 0)),Ae(arguments))},listConfig(...e){return this._runTask(Ot(bt(e[0],void 0)),Ae(arguments))}},xt(),hn(),{showBuffer(){const e=["show",...ke(arguments,1)]
+return t&&r.push("-w"),et(r,!0)}(e,!0===t),Ae(arguments))}init(e){return this._runTask(Ur(!0===e,this._executor.cwd,ke(arguments)),Ae(arguments))}merge(){return this._runTask(qn(ke(arguments)),Ae(arguments))}mergeFromTo(e,t){return ae(e)&&ae(t)?this._runTask(qn([e,t,...ke(arguments)]),Ae(arguments,!1)):this._runTask(Ze("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(e){return this._executor.outputHandler=e,this}push(){const e=Yn({remote:fe(arguments[0],ae),branch:fe(arguments[1],ae)},ke(arguments))
+return this._runTask(e,Ae(arguments))}stash(){return this._runTask(et(["stash",...ke(arguments)]),Ae(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...ke(arguments).filter((e=>!cs.includes(e)))],parser:e=>ts(e)},Ae(arguments))}},Object.assign(ms.prototype,{checkout(){return this._runTask(Cr(ke(arguments,1)),Ae(arguments))},checkoutBranch(e,t){return this._runTask(Cr(["-b",e,t,...ke(arguments)]),Ae(arguments))},checkoutLocalBranch(e){return this._runTask(Cr(["-b",e,...ke(arguments)]),Ae(arguments))}},Ir(),{addConfig(e,t,...r){return this._runTask(function(e,t,r,n){const s=["config",`--${n}`]
+return r&&s.push("--add"),s.push(e,t),{commands:s,format:"utf-8",parser:e=>e}}(e,t,!0===r[0],bt(r[1],"local")),Ae(arguments))},getConfig(e,t){return this._runTask(Et(e,bt(t,void 0)),Ae(arguments))},listConfig(...e){return this._runTask(Ot(bt(e[0],void 0)),Ae(arguments))}},{firstCommit(){return this._runTask(et(["rev-list","--max-parents=0","HEAD"],!0),Ae(arguments))}},xt(),pn(),{showBuffer(){const e=["show",...ke(arguments,1)]
 return e.includes("--binary")||e.splice(1,0,"--binary"),this._runTask(tt(e),Ae(arguments))},show(){const e=["show",...ke(arguments,1)]
-return this._runTask(et(e),Ae(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:hs,onError(e,t,r,n){if(-2===e.exitCode)return r(Buffer.from(us))
-n(t)}})}})}}),Es={}
-E(Es,{Scheduler:()=>ws})
-var Os=b({"src/lib/runners/scheduler.ts"(){Fe(),vs=r(2443),pr(),ys=(()=>{let e=0
+return this._runTask(et(e),Ae(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:ps,onError(e,t,r,n){if(-2===e.exitCode)return r(Buffer.from(ls))
+n(t)}})}})}}),Os={}
+E(Os,{Scheduler:()=>bs})
+var _s=b({"src/lib/runners/scheduler.ts"(){Fe(),ys=r(2443),pr(),ws=(()=>{let e=0
 return()=>{e++
-const{promise:t,done:r}=(0,vs.createDeferred)()
-return{promise:t,done:r,id:e}}})(),ws=class{constructor(e=2){this.concurrency=e,this.logger=ur("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",e)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
+const{promise:t,done:r}=(0,ys.createDeferred)()
+return{promise:t,done:r,id:e}}})(),bs=class{constructor(e=2){this.concurrency=e,this.logger=ur("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",e)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
 const e=K(this.running,this.pending.shift())
-this.logger("Attempting id=%s",e.id),e.done((()=>{this.logger("Completing id=",e.id),Q(this.running,e),this.schedule()}))}next(){const{promise:e,id:t}=K(this.pending,ys())
-return this.logger("Scheduling id=%s",t),this.schedule(),e}}}}),_s={}
-function Ts(e,t){return et(["apply",...t,...e])}E(_s,{applyPatchTask:()=>Ts})
-var Rs,Cs=b({"src/lib/tasks/apply-patch.ts"(){ut()}})
-var Ss,ks,xs,As=b({"src/lib/responses/BranchDeleteSummary.ts"(){Rs=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
-function Is(e,t){return 1===t&&Ss.test(e)}var Ps,Ls,Ns=b({"src/lib/parsers/parse-branch-delete.ts"(){As(),Fe(),Ss=/^error[^']+'([^']+)'/m,ks=[new ye(/(\S+)\s+\(\S+\s([^)]+)\)/,((e,[t,r])=>{const n=function(e,t){return{branch:e,hash:t,success:!0}}(t,r)
-e.all.push(n),e.branches[t]=n})),new ye(Ss,((e,[t])=>{const r=function(e){return{branch:e,hash:null,success:!1}}(t)
-e.errors.push(r),e.all.push(r),e.branches[t]=r}))],xs=(e,t)=>Le(new Rs,ks,[e,t])}}),$s=b({"src/lib/responses/BranchSummary.ts"(){Ps=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(e,t,r,n,s){"*"===e&&(this.detached=t,this.current=r),this.all.push(r),this.branches[r]={current:"*"===e,linkedWorkTree:"+"===e,name:r,commit:n,label:s}}}}})
-function Ms(e){return e?e.charAt(0):""}function js(e){return Le(new Ps,Ls,e)}var Ds=b({"src/lib/parsers/parse-branch.ts"(){$s(),Fe(),Ls=[new ye(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,((e,[t,r,n,s])=>{e.push(Ms(t),!0,r,n,s)})),new ye(/^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,((e,[t,r,n,s])=>{e.push(Ms(t),!1,r,n,s)}))]}}),Fs={}
-function Us(e){const t=["-d","-D","--delete"]
-return e.some((e=>t.includes(e)))}function qs(e){const t=Us(e),r=["branch",...e]
-return 1===r.length&&r.push("-a"),r.includes("-v")||r.splice(1,0,"-v"),{format:"utf-8",commands:r,parser:(e,r)=>t?xs(e,r).all[0]:js(e)}}function Bs(){return{format:"utf-8",commands:["branch","-v"],parser:js}}function Gs(e,t=!1){return{format:"utf-8",commands:["branch","-v",t?"-D":"-d",...e],parser:(e,t)=>xs(e,t),onError({exitCode:e,stdOut:t},r,n,s){if(!Is(String(r),e))return s(r)
-n(t)}}}function Hs(e,t=!1){const r={format:"utf-8",commands:["branch","-v",t?"-D":"-d",e],parser:(t,r)=>xs(t,r).branches[e],onError({exitCode:e,stdErr:t,stdOut:n},o,i,a){if(!Is(String(o),e))return a(o)
+this.logger("Attempting id=%s",e.id),e.done((()=>{this.logger("Completing id=",e.id),Q(this.running,e),this.schedule()}))}next(){const{promise:e,id:t}=K(this.pending,ws())
+return this.logger("Scheduling id=%s",t),this.schedule(),e}}}}),Ts={}
+function Rs(e,t){return et(["apply",...t,...e])}E(Ts,{applyPatchTask:()=>Rs})
+var Cs,Ss=b({"src/lib/tasks/apply-patch.ts"(){ut()}})
+var ks,xs,As,Is=b({"src/lib/responses/BranchDeleteSummary.ts"(){Cs=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
+function Ps(e,t){return 1===t&&ks.test(e)}var Ls,Ns,$s=b({"src/lib/parsers/parse-branch-delete.ts"(){Is(),Fe(),ks=/^error[^']+'([^']+)'/m,xs=[new ye(/(\S+)\s+\(\S+\s([^)]+)\)/,((e,[t,r])=>{const n=function(e,t){return{branch:e,hash:t,success:!0}}(t,r)
+e.all.push(n),e.branches[t]=n})),new ye(ks,((e,[t])=>{const r=function(e){return{branch:e,hash:null,success:!1}}(t)
+e.errors.push(r),e.all.push(r),e.branches[t]=r}))],As=(e,t)=>Le(new Cs,xs,[e,t])}}),Ms=b({"src/lib/responses/BranchSummary.ts"(){Ls=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(e,t,r,n,s){"*"===e&&(this.detached=t,this.current=r),this.all.push(r),this.branches[r]={current:"*"===e,linkedWorkTree:"+"===e,name:r,commit:n,label:s}}}}})
+function js(e){return e?e.charAt(0):""}function Ds(e){return Le(new Ls,Ns,e)}var Fs=b({"src/lib/parsers/parse-branch.ts"(){Ms(),Fe(),Ns=[new ye(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,((e,[t,r,n,s])=>{e.push(js(t),!0,r,n,s)})),new ye(/^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,((e,[t,r,n,s])=>{e.push(js(t),!1,r,n,s)}))]}}),Us={}
+function qs(e){const t=["-d","-D","--delete"]
+return e.some((e=>t.includes(e)))}function Bs(e){const t=qs(e),r=["branch",...e]
+return 1===r.length&&r.push("-a"),r.includes("-v")||r.splice(1,0,"-v"),{format:"utf-8",commands:r,parser:(e,r)=>t?As(e,r).all[0]:Ds(e)}}function Gs(){return{format:"utf-8",commands:["branch","-v"],parser:Ds}}function Hs(e,t=!1){return{format:"utf-8",commands:["branch","-v",t?"-D":"-d",...e],parser:(e,t)=>As(e,t),onError({exitCode:e,stdOut:t},r,n,s){if(!Ps(String(r),e))return s(r)
+n(t)}}}function Vs(e,t=!1){const r={format:"utf-8",commands:["branch","-v",t?"-D":"-d",e],parser:(t,r)=>As(t,r).branches[e],onError({exitCode:e,stdErr:t,stdOut:n},o,i,a){if(!Ps(String(o),e))return a(o)
 throw new s(r.parser(ne(n),ne(t)),String(o))}}
-return r}E(Fs,{branchLocalTask:()=>Bs,branchTask:()=>qs,containsDeleteBranchCommand:()=>Us,deleteBranchTask:()=>Hs,deleteBranchesTask:()=>Gs})
-var Vs,Ws=b({"src/lib/tasks/branch.ts"(){C(),Ns(),Ds(),Fe()}}),zs=b({"src/lib/responses/CheckIgnore.ts"(){Vs=e=>e.split(/\n/g).map((e=>e.trim())).filter((e=>!!e))}}),Xs={}
-function Ys(e){return{commands:["check-ignore",...e],format:"utf-8",parser:Vs}}E(Xs,{checkIgnoreTask:()=>Ys})
-var Ks=b({"src/lib/tasks/check-ignore.ts"(){zs()}}),Js={}
-function Qs(e){return/^--upload-pack(=|$)/.test(e)}function Zs(e,t,r){const n=["clone",...r]
+return r}E(Us,{branchLocalTask:()=>Gs,branchTask:()=>Bs,containsDeleteBranchCommand:()=>qs,deleteBranchTask:()=>Vs,deleteBranchesTask:()=>Hs})
+var Ws,zs=b({"src/lib/tasks/branch.ts"(){C(),$s(),Fs(),Fe()}}),Xs=b({"src/lib/responses/CheckIgnore.ts"(){Ws=e=>e.split(/\n/g).map((e=>e.trim())).filter((e=>!!e))}}),Ys={}
+function Ks(e){return{commands:["check-ignore",...e],format:"utf-8",parser:Ws}}E(Ys,{checkIgnoreTask:()=>Ks})
+var Js=b({"src/lib/tasks/check-ignore.ts"(){Xs()}}),Qs={}
+function Zs(e){return/^--upload-pack(=|$)/.test(e)}function eo(e,t,r){const n=["clone",...r]
 ae(e)&&n.push(e),ae(t)&&n.push(t)
-return n.find(Qs)?Ze("git.fetch: potential exploit argument blocked."):et(n)}function eo(e,t,r){return K(r,"--mirror"),Zs(e,t,r)}E(Js,{cloneMirrorTask:()=>eo,cloneTask:()=>Zs})
-var to,ro=b({"src/lib/tasks/clone.ts"(){ut(),Fe()}})
-function no(e,t){return Le({raw:e,remote:null,branches:[],tags:[],updated:[],deleted:[]},to,[e,t])}var so=b({"src/lib/parsers/parse-fetch.ts"(){Fe(),to=[new ye(/From (.+)$/,((e,[t])=>{e.remote=t})),new ye(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,((e,[t,r])=>{e.branches.push({name:t,tracking:r})})),new ye(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,((e,[t,r])=>{e.tags.push({name:t,tracking:r})})),new ye(/- \[deleted]\s+\S+\s*-> (.+)$/,((e,[t])=>{e.deleted.push({tracking:t})})),new ye(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,((e,[t,r,n,s])=>{e.updated.push({name:n,tracking:s,to:r,from:t})}))]}}),oo={}
-function io(e){return/^--upload-pack(=|$)/.test(e)}function ao(e,t,r){const n=["fetch",...r]
+return n.find(Zs)?Ze("git.fetch: potential exploit argument blocked."):et(n)}function to(e,t,r){return K(r,"--mirror"),eo(e,t,r)}E(Qs,{cloneMirrorTask:()=>to,cloneTask:()=>eo})
+var ro,no=b({"src/lib/tasks/clone.ts"(){ut(),Fe()}})
+function so(e,t){return Le({raw:e,remote:null,branches:[],tags:[],updated:[],deleted:[]},ro,[e,t])}var oo=b({"src/lib/parsers/parse-fetch.ts"(){Fe(),ro=[new ye(/From (.+)$/,((e,[t])=>{e.remote=t})),new ye(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,((e,[t,r])=>{e.branches.push({name:t,tracking:r})})),new ye(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,((e,[t,r])=>{e.tags.push({name:t,tracking:r})})),new ye(/- \[deleted]\s+\S+\s*-> (.+)$/,((e,[t])=>{e.deleted.push({tracking:t})})),new ye(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,((e,[t,r,n,s])=>{e.updated.push({name:n,tracking:s,to:r,from:t})}))]}}),io={}
+function ao(e){return/^--upload-pack(=|$)/.test(e)}function co(e,t,r){const n=["fetch",...r]
 e&&t&&n.push(e,t)
-return n.find(io)?Ze("git.fetch: potential exploit argument blocked."):{commands:n,format:"utf-8",parser:no}}E(oo,{fetchTask:()=>ao})
-var co,uo=b({"src/lib/tasks/fetch.ts"(){so(),ut()}})
-function lo(e){return Le({moves:[]},co,e)}var fo=b({"src/lib/parsers/parse-move.ts"(){Fe(),co=[new ye(/^Renaming (.+) to (.+)$/,((e,[t,r])=>{e.moves.push({from:t,to:r})}))]}}),ho={}
-function po(e,t){return{commands:["mv","-v",...Z(e),t],format:"utf-8",parser:lo}}E(ho,{moveTask:()=>po})
-var mo=b({"src/lib/tasks/move.ts"(){fo(),Fe()}}),go={}
-function vo(e,t,r){const n=["pull",...r]
-return e&&t&&n.splice(1,0,e,t),{commands:n,format:"utf-8",parser:(e,t)=>Ln(e,t),onError(e,t,r,n){const o=function(e,t){const r=Le(new vn,In,[e,t])
+return n.find(ao)?Ze("git.fetch: potential exploit argument blocked."):{commands:n,format:"utf-8",parser:so}}E(io,{fetchTask:()=>co})
+var uo,lo=b({"src/lib/tasks/fetch.ts"(){oo(),ut()}})
+function fo(e){return Le({moves:[]},uo,e)}var ho=b({"src/lib/parsers/parse-move.ts"(){Fe(),uo=[new ye(/^Renaming (.+) to (.+)$/,((e,[t,r])=>{e.moves.push({from:t,to:r})}))]}}),po={}
+function mo(e,t){return{commands:["mv","-v",...Z(e),t],format:"utf-8",parser:fo}}E(po,{moveTask:()=>mo})
+var go=b({"src/lib/tasks/move.ts"(){ho(),Fe()}}),vo={}
+function yo(e,t,r){const n=["pull",...r]
+return e&&t&&n.splice(1,0,e,t),{commands:n,format:"utf-8",parser:(e,t)=>Nn(e,t),onError(e,t,r,n){const o=function(e,t){const r=Le(new yn,Pn,[e,t])
 return r.message&&r}(ne(e.stdOut),ne(e.stdErr))
 if(o)return n(new s(o))
-n(t)}}}E(go,{pullTask:()=>vo})
-var yo=b({"src/lib/tasks/pull.ts"(){C(),Dn(),Fe()}})
-function wo(e){const t={}
-return Eo(e,(([e])=>t[e]={name:e})),Object.values(t)}function bo(e){const t={}
-return Eo(e,(([e,r,n])=>{t.hasOwnProperty(e)||(t[e]={name:e,refs:{fetch:"",push:""}}),n&&r&&(t[e].refs[n.replace(/[^a-z]/g,"")]=r)})),Object.values(t)}function Eo(e,t){X(e,(e=>t(e.split(/\s+/))))}var Oo=b({"src/lib/responses/GetRemoteSummary.ts"(){Fe()}}),_o={}
-function To(e,t,r=[]){return et(["remote","add",...r,e,t])}function Ro(e){const t=["remote"]
-return e&&t.push("-v"),{commands:t,format:"utf-8",parser:e?bo:wo}}function Co(e=[]){const t=[...e]
-return"ls-remote"!==t[0]&&t.unshift("ls-remote"),et(t)}function So(e=[]){const t=[...e]
-return"remote"!==t[0]&&t.unshift("remote"),et(t)}function ko(e){return et(["remote","remove",e])}E(_o,{addRemoteTask:()=>To,getRemotesTask:()=>Ro,listRemotesTask:()=>Co,remoteTask:()=>So,removeRemoteTask:()=>ko})
-var xo=b({"src/lib/tasks/remote.ts"(){Oo(),ut()}}),Ao={}
-function Io(e={},t){const r=fn(e),n=["stash","list",...r.commands,...t],s=sn(r.splitter,r.fields,Br(n))
-return un(n)||{commands:n,format:"utf-8",parser:s}}E(Ao,{stashListTask:()=>Io})
-var Po=b({"src/lib/tasks/stash-list.ts"(){Kr(),on(),dn(),wn()}}),Lo={}
-function No(e,t){return Mo(["add",e,t])}function $o(e){return Mo(["init",...e])}function Mo(e){const t=[...e]
-return"submodule"!==t[0]&&t.unshift("submodule"),et(t)}function jo(e){return Mo(["update",...e])}E(Lo,{addSubModuleTask:()=>No,initSubModuleTask:()=>$o,subModuleTask:()=>Mo,updateSubModuleTask:()=>jo})
-var Do,Fo,Uo=b({"src/lib/tasks/sub-module.ts"(){ut()}})
-function qo(e,t){return e===t?0:e>t?1:-1}function Bo(e){return e.trim()}function Go(e){return"string"==typeof e&&parseInt(e.replace(/^\D+/g,""),10)||0}var Ho=b({"src/lib/responses/TagList.ts"(){Do=class{constructor(e,t){this.all=e,this.latest=t}},Fo=function(e,t=!1){const r=e.split("\n").map(Bo).filter(Boolean)
+n(t)}}}E(vo,{pullTask:()=>yo})
+var wo=b({"src/lib/tasks/pull.ts"(){C(),Fn(),Fe()}})
+function bo(e){const t={}
+return Oo(e,(([e])=>t[e]={name:e})),Object.values(t)}function Eo(e){const t={}
+return Oo(e,(([e,r,n])=>{t.hasOwnProperty(e)||(t[e]={name:e,refs:{fetch:"",push:""}}),n&&r&&(t[e].refs[n.replace(/[^a-z]/g,"")]=r)})),Object.values(t)}function Oo(e,t){X(e,(e=>t(e.split(/\s+/))))}var _o=b({"src/lib/responses/GetRemoteSummary.ts"(){Fe()}}),To={}
+function Ro(e,t,r=[]){return et(["remote","add",...r,e,t])}function Co(e){const t=["remote"]
+return e&&t.push("-v"),{commands:t,format:"utf-8",parser:e?Eo:bo}}function So(e=[]){const t=[...e]
+return"ls-remote"!==t[0]&&t.unshift("ls-remote"),et(t)}function ko(e=[]){const t=[...e]
+return"remote"!==t[0]&&t.unshift("remote"),et(t)}function xo(e){return et(["remote","remove",e])}E(To,{addRemoteTask:()=>Ro,getRemotesTask:()=>Co,listRemotesTask:()=>So,remoteTask:()=>ko,removeRemoteTask:()=>xo})
+var Ao=b({"src/lib/tasks/remote.ts"(){_o(),ut()}}),Io={}
+function Po(e={},t){const r=hn(e),n=["stash","list",...r.commands,...t],s=on(r.splitter,r.fields,Gr(n))
+return ln(n)||{commands:n,format:"utf-8",parser:s}}E(Io,{stashListTask:()=>Po})
+var Lo=b({"src/lib/tasks/stash-list.ts"(){Jr(),an(),fn(),bn()}}),No={}
+function $o(e,t){return jo(["add",e,t])}function Mo(e){return jo(["init",...e])}function jo(e){const t=[...e]
+return"submodule"!==t[0]&&t.unshift("submodule"),et(t)}function Do(e){return jo(["update",...e])}E(No,{addSubModuleTask:()=>$o,initSubModuleTask:()=>Mo,subModuleTask:()=>jo,updateSubModuleTask:()=>Do})
+var Fo,Uo,qo=b({"src/lib/tasks/sub-module.ts"(){ut()}})
+function Bo(e,t){return e===t?0:e>t?1:-1}function Go(e){return e.trim()}function Ho(e){return"string"==typeof e&&parseInt(e.replace(/^\D+/g,""),10)||0}var Vo=b({"src/lib/responses/TagList.ts"(){Fo=class{constructor(e,t){this.all=e,this.latest=t}},Uo=function(e,t=!1){const r=e.split("\n").map(Go).filter(Boolean)
 t||r.sort((function(e,t){const r=e.split("."),n=t.split(".")
 if(1===r.length||1===n.length)return function(e,t){const r=isNaN(e)
-return r!==isNaN(t)?r?1:-1:r?qo(e,t):0}(Go(r[0]),Go(n[0]))
-for(let e=0,t=Math.max(r.length,n.length);e<t;e++){const t=qo(Go(r[e]),Go(n[e]))
+return r!==isNaN(t)?r?1:-1:r?Bo(e,t):0}(Ho(r[0]),Ho(n[0]))
+for(let e=0,t=Math.max(r.length,n.length);e<t;e++){const t=Bo(Ho(r[e]),Ho(n[e]))
 if(t)return t}return 0}))
 const n=t?r[0]:[...r].reverse().find((e=>e.indexOf(".")>=0))
-return new Do(r,n)}}}),Vo={}
-function Wo(e=[]){const t=e.some((e=>/^--sort=/.test(e)))
-return{format:"utf-8",commands:["tag","-l",...e],parser:e=>Fo(e,t)}}function zo(e){return{format:"utf-8",commands:["tag",e],parser:()=>({name:e})}}function Xo(e,t){return{format:"utf-8",commands:["tag","-a","-m",t,e],parser:()=>({name:e})}}E(Vo,{addAnnotatedTagTask:()=>Xo,addTagTask:()=>zo,tagListTask:()=>Wo})
-var Yo,Ko,Jo,Qo=b({"src/lib/tasks/tag.ts"(){Ho()}}),Zo=(Yo={"src/git.js"(e,t){var{GitExecutor:r}=(Er(),_(br)),{SimpleGitApi:n}=(bs(),_(gs)),{Scheduler:s}=(Os(),_(Es)),{configurationErrorTask:o}=(ut(),_(Je)),{asArray:i,filterArray:a,filterPrimitives:c,filterString:u,filterStringOrStringArray:l,filterType:d,getTrailingOptions:f,trailingFunctionArgument:h,trailingOptionsArgument:p}=(Fe(),_($e)),{applyPatchTask:m}=(Cs(),_(_s)),{branchTask:g,branchLocalTask:v,deleteBranchesTask:y,deleteBranchTask:w}=(Ws(),_(Fs)),{checkIgnoreTask:b}=(Ks(),_(Xs)),{checkIsRepoTask:E}=(Xe(),_(Ue)),{cloneTask:O,cloneMirrorTask:T}=(ro(),_(Js)),{cleanWithOptionsTask:R,isCleanOptionsArray:C}=(gt(),_(lt)),{diffSummaryTask:S}=(dn(),_(an)),{fetchTask:k}=(uo(),_(oo)),{moveTask:x}=(mo(),_(ho)),{pullTask:A}=(yo(),_(go)),{pushTagsTask:I}=(Yn(),_(Wn)),{addRemoteTask:P,getRemotesTask:L,listRemotesTask:N,remoteTask:$,removeRemoteTask:M}=(xo(),_(_o)),{getResetMode:j,resetTask:D}=(jt(),_(Lt)),{stashListTask:F}=(Po(),_(Ao)),{addSubModuleTask:U,initSubModuleTask:q,subModuleTask:B,updateSubModuleTask:G}=(Uo(),_(Lo)),{addAnnotatedTagTask:H,addTagTask:V,tagListTask:W}=(Qo(),_(Vo)),{straightThroughBufferTask:z,straightThroughStringTask:X}=(ut(),_(Je))
+return new Fo(r,n)}}}),Wo={}
+function zo(e=[]){const t=e.some((e=>/^--sort=/.test(e)))
+return{format:"utf-8",commands:["tag","-l",...e],parser:e=>Uo(e,t)}}function Xo(e){return{format:"utf-8",commands:["tag",e],parser:()=>({name:e})}}function Yo(e,t){return{format:"utf-8",commands:["tag","-a","-m",t,e],parser:()=>({name:e})}}E(Wo,{addAnnotatedTagTask:()=>Yo,addTagTask:()=>Xo,tagListTask:()=>zo})
+var Ko,Jo,Qo,Zo=b({"src/lib/tasks/tag.ts"(){Vo()}}),ei=(Ko={"src/git.js"(e,t){var{GitExecutor:r}=(Er(),_(br)),{SimpleGitApi:n}=(Es(),_(vs)),{Scheduler:s}=(_s(),_(Os)),{configurationErrorTask:o}=(ut(),_(Je)),{asArray:i,filterArray:a,filterPrimitives:c,filterString:u,filterStringOrStringArray:l,filterType:d,getTrailingOptions:f,trailingFunctionArgument:h,trailingOptionsArgument:p}=(Fe(),_($e)),{applyPatchTask:m}=(Ss(),_(Ts)),{branchTask:g,branchLocalTask:v,deleteBranchesTask:y,deleteBranchTask:w}=(zs(),_(Us)),{checkIgnoreTask:b}=(Js(),_(Ys)),{checkIsRepoTask:E}=(Xe(),_(Ue)),{cloneTask:O,cloneMirrorTask:T}=(no(),_(Qs)),{cleanWithOptionsTask:R,isCleanOptionsArray:C}=(gt(),_(lt)),{diffSummaryTask:S}=(fn(),_(cn)),{fetchTask:k}=(lo(),_(io)),{moveTask:x}=(go(),_(po)),{pullTask:A}=(wo(),_(vo)),{pushTagsTask:I}=(Kn(),_(zn)),{addRemoteTask:P,getRemotesTask:L,listRemotesTask:N,remoteTask:$,removeRemoteTask:M}=(Ao(),_(To)),{getResetMode:j,resetTask:D}=(jt(),_(Lt)),{stashListTask:F}=(Lo(),_(Io)),{addSubModuleTask:U,initSubModuleTask:q,subModuleTask:B,updateSubModuleTask:G}=(qo(),_(No)),{addAnnotatedTagTask:H,addTagTask:V,tagListTask:W}=(Zo(),_(Wo)),{straightThroughBufferTask:z,straightThroughStringTask:X}=(ut(),_(Je))
 function Y(e,t){this._executor=new r(e.binary,e.baseDir,new s(e.maxConcurrentProcesses),t),this._trimmed=e.trimmed}function K(e,t,r,n){return"string"!=typeof r?o(`git.${e}() requires a string 'repoPath'`):t(r,d(n,u),f(arguments))}(Y.prototype=Object.create(n.prototype)).constructor=Y,Y.prototype.customBinary=function(e){return this._executor.binary=e,this},Y.prototype.env=function(e,t){return 1===arguments.length&&"object"==typeof e?this._executor.env=e:(this._executor.env=this._executor.env||{})[e]=t,this},Y.prototype.stashList=function(e){return this._runTask(F(p(arguments)||{},a(e)&&e||[]),h(arguments))},Y.prototype.clone=function(){return this._runTask(K("clone",O,...arguments),h(arguments))},Y.prototype.mirror=function(){return this._runTask(K("mirror",T,...arguments),h(arguments))},Y.prototype.mv=function(e,t){return this._runTask(x(e,t),h(arguments))},Y.prototype.checkoutLatestTag=function(e){var t=this
 return this.pull((function(){t.tags((function(r,n){t.checkout(n.latest,e)}))}))},Y.prototype.pull=function(e,t,r,n){return this._runTask(A(d(e,u),d(t,u),f(arguments)),h(arguments))},Y.prototype.fetch=function(e,t){return this._runTask(k(d(e,u),d(t,u),f(arguments)),h(arguments))},Y.prototype.silent=function(e){return console.warn("simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this will be an error in version 3"),this},Y.prototype.tags=function(e,t){return this._runTask(W(f(arguments)),h(arguments))},Y.prototype.rebase=function(){return this._runTask(X(["rebase",...f(arguments)]),h(arguments))},Y.prototype.reset=function(e){return this._runTask(D(j(e),f(arguments)),h(arguments))},Y.prototype.revert=function(e){const t=h(arguments)
 return"string"!=typeof e?this._runTask(o("Commit must be a string"),t):this._runTask(X(["revert",...f(arguments,0,!0),e]),t)},Y.prototype.addTag=function(e){const t="string"==typeof e?V(e):o("Git.addTag requires a tag name")
@@ -964,8 +965,8 @@ return this._runTask(r,h(arguments))},Y.prototype.diffSummary=function(){return 
 return this._runTask(t,h(arguments))},Y.prototype.revparse=function(){const e=["rev-parse",...f(arguments,!0)]
 return this._runTask(X(e,!0),h(arguments))},Y.prototype.clean=function(e,t,r){const n=C(e),s=n&&e.join("")||d(e,u)||"",o=f([].slice.call(arguments,n?1:0))
 return this._runTask(R(s,o),h(arguments))},Y.prototype.exec=function(e){const t={commands:[],format:"utf-8",parser(){"function"==typeof e&&e()}}
-return this._runTask(t)},Y.prototype.clearQueue=function(){return this},Y.prototype.checkIgnore=function(e,t){return this._runTask(b(i(d(e,l,[]))),h(arguments))},Y.prototype.checkIsRepo=function(e,t){return this._runTask(E(d(e,u)),h(arguments))},t.exports=Y}},function(){return Ko||(0,Yo[d(Yo)[0]])((Ko={exports:{}}).exports,Ko),Ko.exports}),ei={}
-function ti(e){return Object.defineProperties(e,{__esModule:{value:!0},default:{value:e}})}function ri(e){return Object.assign(e.bind(null),Dt)}function ni(e,t){const r=new Qt,n=Re(e&&("string"==typeof e?{baseDir:e}:e)||{},t)
+return this._runTask(t)},Y.prototype.clearQueue=function(){return this},Y.prototype.checkIgnore=function(e,t){return this._runTask(b(i(d(e,l,[]))),h(arguments))},Y.prototype.checkIsRepo=function(e,t){return this._runTask(E(d(e,u)),h(arguments))},t.exports=Y}},function(){return Jo||(0,Ko[d(Ko)[0]])((Jo={exports:{}}).exports,Jo),Jo.exports}),ti={}
+function ri(e){return Object.defineProperties(e,{__esModule:{value:!0},default:{value:e}})}function ni(e){return Object.assign(e.bind(null),Dt)}function si(e,t){const r=new Qt,n=Re(e&&("string"==typeof e?{baseDir:e}:e)||{},t)
 if(!Y(n.baseDir))throw new A(n,"Cannot use simple-git on a directory that does not exist")
 return Array.isArray(n.config)&&r.add(function(e){const t=re(e,"-c")
 return{type:"spawn.args",action:e=>[...t,...e]}}(n.config)),r.add(qt(n.unsafe)),r.add({type:"spawn.args",action(e){const t=[]
@@ -982,10 +983,10 @@ r&&e({method:n.method,stage:(s=r[1],String(s.toLowerCase().split(" ",1))||"unkno
 let a
 function c(){a&&clearTimeout(a),a=setTimeout(l,e)}function u(){var e,t
 null==(e=s.spawned.stdout)||e.off("data",c),null==(t=s.spawned.stderr)||t.off("data",c),s.spawned.off("exit",u),s.spawned.off("close",u),a&&clearTimeout(a)}function l(){u(),s.kill(new I(void 0,"timeout","block timeout reached"))}r&&(null==(o=s.spawned.stdout)||o.on("data",c)),t&&(null==(i=s.spawned.stderr)||i.on("data",c)),s.spawned.on("exit",u),s.spawned.on("close",u),c()}}}(n.timeout)),n.spawnOptions&&r.add(function(e){const t=se(e,["uid","gid"])
-return{type:"spawn.options",action:e=>v(v({},t),e)}}(n.spawnOptions)),r.add(Jt(Kt(!0))),n.errors&&r.add(Jt(n.errors)),new Jo(n,r)}E(ei,{esModuleFactory:()=>ti,gitExportFactory:()=>ri,gitInstanceFactory:()=>ni})
-var si,oi,ii=b({"src/lib/git-factory.ts"(){Ft(),or(),ar(),Fe(),Jo=Zo()}}),ai={}
-function ci(...e){let t,r=Promise.resolve()
-try{t=ni(...e)}catch(e){r=Promise.reject(e)}function n(){return i}function o(){return r}const i=[...si,...oi].reduce(((e,i)=>{const a=oi.includes(i),c=a?(u=i,l=t,function(...e){if("function"==typeof e[e.length])throw new TypeError("Promise interface requires that handlers are not supplied inline, trailing function not allowed in call to "+u)
+return{type:"spawn.options",action:e=>v(v({},t),e)}}(n.spawnOptions)),r.add(Jt(Kt(!0))),n.errors&&r.add(Jt(n.errors)),new Qo(n,r)}E(ti,{esModuleFactory:()=>ri,gitExportFactory:()=>ni,gitInstanceFactory:()=>si})
+var oi,ii,ai=b({"src/lib/git-factory.ts"(){Ft(),or(),ar(),Fe(),Qo=ei()}}),ci={}
+function ui(...e){let t,r=Promise.resolve()
+try{t=si(...e)}catch(e){r=Promise.reject(e)}function n(){return i}function o(){return r}const i=[...oi,...ii].reduce(((e,i)=>{const a=ii.includes(i),c=a?(u=i,l=t,function(...e){if("function"==typeof e[e.length])throw new TypeError("Promise interface requires that handlers are not supplied inline, trailing function not allowed in call to "+u)
 return r.then((function(){return new Promise((function(t,r){const n=(e,n)=>{if(e)return r((o=e)instanceof Error?o:"string"==typeof o?new Error(o):new s(o))
 var o
 t(n)}
@@ -993,9 +994,9 @@ e.push(n),l[u].apply(l,e)}))}))}):function(e,t,r){return(...n)=>(t[e](...n),r)}(
 var u,l
 const d=a?o:n
 return Object.defineProperty(e,i,{enumerable:!1,configurable:!1,value:t?c:d}),e}),{})
-return i}E(ai,{gitP:()=>ci})
-var ui=b({"src/lib/runners/promise-wrapped.ts"(){C(),ii(),si=["customBinary","env","outputHandler","silent"],oi=["add","addAnnotatedTag","addConfig","addRemote","addTag","applyPatch","binaryCatFile","branch","branchLocal","catFile","checkIgnore","checkIsRepo","checkout","checkoutBranch","checkoutLatestTag","checkoutLocalBranch","clean","clone","commit","cwd","deleteLocalBranch","deleteLocalBranches","diff","diffSummary","exec","fetch","getRemotes","init","listConfig","listRemote","log","merge","mergeFromTo","mirror","mv","pull","push","pushTags","raw","rebase","remote","removeRemote","reset","revert","revparse","rm","rmKeepLocal","show","stash","stashList","status","subModule","submoduleAdd","submoduleInit","submoduleUpdate","tag","tags","updateServerInfo"]}}),{gitP:li}=(ui(),_(ai)),{esModuleFactory:di,gitInstanceFactory:fi,gitExportFactory:hi}=(ii(),_(ei)),pi=di(hi(fi))
-e.exports=Object.assign(pi,{gitP:li,simpleGit:pi})},2130:(e,t,r)=>{"use strict"
+return i}E(ci,{gitP:()=>ui})
+var li=b({"src/lib/runners/promise-wrapped.ts"(){C(),ai(),oi=["customBinary","env","outputHandler","silent"],ii=["add","addAnnotatedTag","addConfig","addRemote","addTag","applyPatch","binaryCatFile","branch","branchLocal","catFile","checkIgnore","checkIsRepo","checkout","checkoutBranch","checkoutLatestTag","checkoutLocalBranch","clean","clone","commit","cwd","deleteLocalBranch","deleteLocalBranches","diff","diffSummary","exec","fetch","getRemotes","init","listConfig","listRemote","log","merge","mergeFromTo","mirror","mv","pull","push","pushTags","raw","rebase","remote","removeRemote","reset","revert","revparse","rm","rmKeepLocal","show","stash","stashList","status","subModule","submoduleAdd","submoduleInit","submoduleUpdate","tag","tags","updateServerInfo"]}}),{gitP:di}=(li(),_(ci)),{esModuleFactory:fi,gitInstanceFactory:hi,gitExportFactory:pi}=(ai(),_(ti)),mi=fi(pi(hi))
+e.exports=Object.assign(mi,{gitP:di,simpleGit:mi})},2130:(e,t,r)=>{"use strict"
 const n=r(2037),s=r(6224),o=r(6560),{env:i}=process
 let a
 function c(e){return 0!==e&&{level:e,hasBasic:!0,has256:e>=2,has16m:e>=3}}function u(e,t){if(0===a)return 0
