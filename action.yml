@@ -60,7 +60,7 @@ outputs:
     description: Path to fasm g packages directory, if downloaded; see fasmg-download-packages input
 
 runs:
-  using: node16
+  using: node20
   main: dist/setup.js
 
 branding:
