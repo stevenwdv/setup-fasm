@@ -2072,7 +2072,7 @@ if(t.redirectCount+=1,"cors"===t.mode&&(n.username||n.password)&&!F(t,n))return 
 if("cors"===t.responseTainting&&(n.username||n.password))return Promise.resolve(s('URL cannot contain credentials for request mode "cors"'))
 if(303!==r.status&&null!=t.body&&null==t.body.source)return Promise.resolve(s())
 if([301,302].includes(r.status)&&"POST"===t.method||303===r.status&&!hA.includes(t.method)){t.method="GET",t.body=null
-for(const A of X)t.headersList.delete(A)}F(d(t),n)||(t.headersList.delete("authorization"),t.headersList.delete("cookie"),t.headersList.delete("host"))
+for(const A of X)t.headersList.delete(A)}F(d(t),n)||(t.headersList.delete("authorization"),t.headersList.delete("proxy-authorization",!0),t.headersList.delete("cookie"),t.headersList.delete("host"))
 null!=t.body&&(P(null!=t.body.source),t.body=_(t.body.source)[0])
 const o=A.timingInfo
 o.redirectEndTime=o.postRedirectStartTime=k(A.crossOriginIsolatedCapability),0===o.redirectStartTime&&(o.redirectStartTime=o.startTime)
