@@ -24,17 +24,17 @@
 		"simple-git": "^3.22.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.7",
+		"@types/node": "^20.11.19",
 		"@types/webpack": "^5.28.5",
-		"@typescript-eslint/eslint-plugin": "^6.19.1",
-		"@typescript-eslint/parser": "^6.19.1",
+		"@typescript-eslint/eslint-plugin": "^7.0.2",
+		"@typescript-eslint/parser": "^7.0.2",
 		"eslint": "^8.56.0",
-		"husky": "^9.0.6",
+		"husky": "^9.0.11",
 		"terser-webpack-plugin": "^5.3.10",
 		"ts-loader": "^9.5.1",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3",
-		"webpack": "^5.90.1",
+		"webpack": "^5.90.3",
 		"webpack-cli": "^5.1.4"
 	}
 }
