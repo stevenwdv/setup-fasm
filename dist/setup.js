@@ -238,14 +238,14 @@ if(r.options={},r.options.host=r.parsedUrl.hostname,r.options.port=r.parsedUrl.p
 return r}_mergeHeaders(A){return this.requestOptions&&this.requestOptions.headers?Object.assign({},f(this.requestOptions.headers),f(A||{})):f(A||{})}_getExistingOrDefaultHeader(A,e,t){let r
 return this.requestOptions&&this.requestOptions.headers&&(r=f(this.requestOptions.headers)[e]),A[e]||r||t}_getAgent(A){let e
 const t=c.getProxyUrl(A),r=t&&t.hostname
-if(this._keepAlive&&r&&(e=this._proxyAgent),this._keepAlive&&!r&&(e=this._agent),e)return e
+if(this._keepAlive&&r&&(e=this._proxyAgent),r||(e=this._agent),e)return e
 const s="https:"===A.protocol
 let n=100
 if(this.requestOptions&&(n=this.requestOptions.maxSockets||i.globalAgent.maxSockets),t&&t.hostname){const A={maxSockets:n,keepAlive:this._keepAlive,proxy:Object.assign(Object.assign({},(t.username||t.password)&&{proxyAuth:`${t.username}:${t.password}`}),{host:t.hostname,port:t.port})}
 let r
 const o="https:"===t.protocol
-r=s?o?g.httpsOverHttps:g.httpsOverHttp:o?g.httpOverHttps:g.httpOverHttp,e=r(A),this._proxyAgent=e}if(this._keepAlive&&!e){const A={keepAlive:this._keepAlive,maxSockets:n}
-e=s?new a.Agent(A):new i.Agent(A),this._agent=e}return e||(e=s?a.globalAgent:i.globalAgent),s&&this._ignoreSslError&&(e.options=Object.assign(e.options||{},{rejectUnauthorized:!1})),e}_getProxyAgentDispatcher(A,e){let t
+r=s?o?g.httpsOverHttps:g.httpsOverHttp:o?g.httpOverHttps:g.httpOverHttp,e=r(A),this._proxyAgent=e}if(!e){const A={keepAlive:this._keepAlive,maxSockets:n}
+e=s?new a.Agent(A):new i.Agent(A),this._agent=e}return s&&this._ignoreSslError&&(e.options=Object.assign(e.options||{},{rejectUnauthorized:!1})),e}_getProxyAgentDispatcher(A,e){let t
 if(this._keepAlive&&(t=this._proxyAgentDispatcher),t)return t
 const r="https:"===A.protocol
 return t=new E.ProxyAgent(Object.assign({uri:e.href,pipelining:this._keepAlive?1:0},(e.username||e.password)&&{token:`${e.username}:${e.password}`})),this._proxyAgentDispatcher=t,r&&this._ignoreSslError&&(t.options=Object.assign(t.options.requestTls||{},{rejectUnauthorized:!1})),t}_performExponentialBackoff(A){return o(this,void 0,void 0,(function*(){A=Math.min(10,A)
@@ -674,297 +674,303 @@ var t=null
 if((e=e||{}).rtl){for(var r;(r=i[c.COERCERTL].exec(A))&&(!t||t.index+t[0].length!==A.length);)t&&r.index+r[0].length===t.index+t[0].length||(t=r),i[c.COERCERTL].lastIndex=r.index+r[1].length+r[2].length
 i[c.COERCERTL].lastIndex=-1}else t=A.match(i[c.COERCE])
 if(null===t)return null
-return I(t[2]+"."+(t[3]||"0")+"."+(t[4]||"0"),e)}},4662:(A,e,t)=>{var r,s,n,o=Object.create,i=Object.defineProperty,a=Object.defineProperties,c=Object.getOwnPropertyDescriptor,g=Object.getOwnPropertyDescriptors,E=Object.getOwnPropertyNames,Q=Object.getOwnPropertySymbols,h=Object.getPrototypeOf,C=Object.prototype.hasOwnProperty,B=Object.prototype.propertyIsEnumerable,I=(A,e,t)=>e in A?i(A,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):A[e]=t,l=(A,e)=>{for(var t in e||(e={}))C.call(e,t)&&I(A,t,e[t])
+return I(t[2]+"."+(t[3]||"0")+"."+(t[4]||"0"),e)}},4662:(A,e,t)=>{"use strict"
+var r,s,n,o=Object.create,i=Object.defineProperty,a=Object.defineProperties,c=Object.getOwnPropertyDescriptor,g=Object.getOwnPropertyDescriptors,E=Object.getOwnPropertyNames,Q=Object.getOwnPropertySymbols,h=Object.getPrototypeOf,C=Object.prototype.hasOwnProperty,B=Object.prototype.propertyIsEnumerable,I=(A,e,t)=>e in A?i(A,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):A[e]=t,l=(A,e)=>{for(var t in e||(e={}))C.call(e,t)&&I(A,t,e[t])
 if(Q)for(var t of Q(e))B.call(e,t)&&I(A,t,e[t])
-return A},u=(A,e)=>a(A,g(e)),d=A=>i(A,"__esModule",{value:!0}),f=(A,e)=>function(){return A&&(e=(0,A[E(A)[0]])(A=0)),e},p=(A,e)=>{for(var t in e)i(A,t,{get:e[t],enumerable:!0})},y=(A,e,t,r)=>{if(e&&"object"==typeof e||"function"==typeof e)for(let s of E(e))C.call(A,s)||!t&&"default"===s||i(A,s,{get:()=>e[s],enumerable:!(r=c(e,s))||r.enumerable})
-return A},w=(A=>(e,t)=>A&&A.get(e)||(t=y(d({}),e,1),A&&A.set(e,t),t))("undefined"!=typeof WeakMap?new WeakMap:0),m=(A,e,t)=>new Promise(((r,s)=>{var n=A=>{try{i(t.next(A))}catch(A){s(A)}},o=A=>{try{i(t.throw(A))}catch(A){s(A)}},i=A=>A.done?r(A.value):Promise.resolve(A.value).then(n,o)
-i((t=t.apply(A,e)).next())})),R=f({"src/lib/errors/git-error.ts"(){r=class extends Error{constructor(A,e){super(e),this.task=A,Object.setPrototypeOf(this,new.target.prototype)}}}}),D=f({"src/lib/errors/git-response-error.ts"(){R(),s=class extends r{constructor(A,e){super(void 0,e||String(A)),this.git=A}}}})
-function k(...A){const e=new String(A)
-return n.set(e,A),e}function b(A){return A instanceof String&&n.has(A)}function N(A){return n.get(A)||[]}var F,S,L,U,M,v,T,Y=f({"src/lib/args/pathspec.ts"(){n=new WeakMap}}),G=f({"src/lib/errors/git-construct-error.ts"(){R(),F=class extends r{constructor(A,e){super(void 0,e),this.config=A}}}}),J=f({"src/lib/errors/git-plugin-error.ts"(){R(),S=class extends r{constructor(A,e,t){super(A,t),this.task=A,this.plugin=e,Object.setPrototypeOf(this,new.target.prototype)}}}}),H=f({"src/lib/errors/task-configuration-error.ts"(){R(),L=class extends r{constructor(A){super(void 0,A)}}}})
-function O(A){return"function"==typeof A?A:v}function x(A){return"function"==typeof A&&A!==v}function V(A,e){const t=A.indexOf(e)
-return t<=0?[A,""]:[A.substr(0,t),A.substr(t+1)]}function P(A,e=0){return W(A)&&A.length>e?A[e]:void 0}function _(A,e=0){if(W(A)&&A.length>e)return A[A.length-1-e]}function W(A){return!(!A||"number"!=typeof A.length)}function q(A="",e=!0,t="\n"){return A.split(t).reduce(((A,t)=>{const r=e?t.trim():t
-return r&&A.push(r),A}),[])}function j(A,e){return q(A,!0).map((A=>e(A)))}function X(A){return(0,U.exists)(A,U.FOLDER)}function Z(A,e){return Array.isArray(A)?A.includes(e)||A.push(e):A.add(e),e}function K(A,e){return Array.isArray(A)&&!A.includes(e)&&A.push(e),A}function z(A,e){if(Array.isArray(A)){const t=A.indexOf(e)
+return A},u=(A,e)=>a(A,g(e)),d=(A,e)=>function(){return A&&(e=(0,A[E(A)[0]])(A=0)),e},f=(A,e)=>{for(var t in e)i(A,t,{get:e[t],enumerable:!0})},p=(A,e,t,r)=>{if(e&&"object"==typeof e||"function"==typeof e)for(let s of E(e))C.call(A,s)||s===t||i(A,s,{get:()=>e[s],enumerable:!(r=c(e,s))||r.enumerable})
+return A},y=A=>p(i({},"__esModule",{value:!0}),A),w=(A,e,t)=>new Promise(((r,s)=>{var n=A=>{try{i(t.next(A))}catch(A){s(A)}},o=A=>{try{i(t.throw(A))}catch(A){s(A)}},i=A=>A.done?r(A.value):Promise.resolve(A.value).then(n,o)
+i((t=t.apply(A,e)).next())})),m=d({"src/lib/errors/git-error.ts"(){r=class extends Error{constructor(A,e){super(e),this.task=A,Object.setPrototypeOf(this,new.target.prototype)}}}}),R=d({"src/lib/errors/git-response-error.ts"(){m(),s=class extends r{constructor(A,e){super(void 0,e||String(A)),this.git=A}}}})
+function D(...A){const e=new String(A)
+return n.set(e,A),e}function k(A){return A instanceof String&&n.has(A)}function b(A){return n.get(A)||[]}var N,F,S,L,U,M,v,T=d({"src/lib/args/pathspec.ts"(){n=new WeakMap}}),Y=d({"src/lib/errors/git-construct-error.ts"(){m(),N=class extends r{constructor(A,e){super(void 0,e),this.config=A}}}}),G=d({"src/lib/errors/git-plugin-error.ts"(){m(),F=class extends r{constructor(A,e,t){super(A,t),this.task=A,this.plugin=e,Object.setPrototypeOf(this,new.target.prototype)}}}}),J=d({"src/lib/errors/task-configuration-error.ts"(){m(),S=class extends r{constructor(A){super(void 0,A)}}}})
+function O(A){return"function"==typeof A?A:M}function H(A){return"function"==typeof A&&A!==M}function x(A,e){const t=A.indexOf(e)
+return t<=0?[A,""]:[A.substr(0,t),A.substr(t+1)]}function V(A,e=0){return _(A)&&A.length>e?A[e]:void 0}function P(A,e=0){if(_(A)&&A.length>e)return A[A.length-1-e]}function _(A){return!(!A||"number"!=typeof A.length)}function W(A="",e=!0,t="\n"){return A.split(t).reduce(((A,t)=>{const r=e?t.trim():t
+return r&&A.push(r),A}),[])}function q(A,e){return W(A,!0).map((A=>e(A)))}function j(A){return(0,L.exists)(A,L.FOLDER)}function X(A,e){return Array.isArray(A)?A.includes(e)||A.push(e):A.add(e),e}function Z(A,e){return Array.isArray(A)&&!A.includes(e)&&A.push(e),A}function K(A,e){if(Array.isArray(A)){const t=A.indexOf(e)
 t>=0&&A.splice(t,1)}else A.delete(e)
-return e}function $(A){return Array.isArray(A)?A:[A]}function AA(A){return $(A).map(String)}function eA(A,e=0){if(null==A)return e
+return e}function z(A){return Array.isArray(A)?A:[A]}function $(A){return z(A).map(String)}function AA(A,e=0){if(null==A)return e
 const t=parseInt(A,10)
-return isNaN(t)?e:t}function tA(A,e){const t=[]
+return isNaN(t)?e:t}function eA(A,e){const t=[]
 for(let r=0,s=A.length;r<s;r++)t.push(e,A[r])
-return t}function rA(A){return(Array.isArray(A)?Buffer.concat(A):A).toString("utf-8")}function sA(A,e){return Object.assign({},...e.map((e=>e in A?{[e]:A[e]}:{})))}function nA(A=0){return new Promise((e=>setTimeout(e,A)))}function oA(A){if(!1!==A)return A}var iA,aA,cA,gA,EA,QA=f({"src/lib/utils/util.ts"(){U=t(8926),M="\0",v=()=>{},T=Object.prototype.toString.call.bind(Object.prototype.toString)}})
-function hA(A,e,t){return e(A)?A:arguments.length>2?t:void 0}function CA(A,e){const t=b(A)?"string":typeof A
-return/number|string|boolean/.test(t)&&(!e||!e.includes(t))}function BA(A){return!!A&&"[object Object]"===T(A)}function IA(A){return"function"==typeof A}var lA,uA,dA,fA,pA,yA=f({"src/lib/utils/argument-filters.ts"(){QA(),Y(),iA=A=>Array.isArray(A),aA=A=>"string"==typeof A,cA=A=>Array.isArray(A)&&A.every(aA),gA=A=>aA(A)||Array.isArray(A)&&A.every(aA),EA=A=>null!=A&&!"number|boolean|function".includes(typeof A)&&(Array.isArray(A)||"string"==typeof A||"number"==typeof A.length)}}),wA=f({"src/lib/utils/exit-codes.ts"(){lA=(A=>(A[A.SUCCESS=0]="SUCCESS",A[A.ERROR=1]="ERROR",A[A.NOT_FOUND=-2]="NOT_FOUND",A[A.UNCLEAN=128]="UNCLEAN",A))(lA||{})}}),mA=f({"src/lib/utils/git-output-streams.ts"(){uA=class{constructor(A,e){this.stdOut=A,this.stdErr=e}asStrings(){return new uA(this.stdOut.toString("utf8"),this.stdErr.toString("utf8"))}}}}),RA=f({"src/lib/utils/line-parser.ts"(){dA=class{constructor(A,e){this.matches=[],this.parse=(A,e)=>(this.resetMatches(),!!this._regExp.every(((e,t)=>this.addMatch(e,t,A(t))))&&!1!==this.useMatches(e,this.prepareMatches())),this._regExp=Array.isArray(A)?A:[A],e&&(this.useMatches=e)}useMatches(A,e){throw new Error("LineParser:useMatches not implemented")}resetMatches(){this.matches.length=0}prepareMatches(){return this.matches}addMatch(A,e,t){const r=t&&A.exec(t)
-return r&&this.pushMatch(e,r),!!r}pushMatch(A,e){this.matches.push(...e.slice(1))}},fA=class extends dA{addMatch(A,e,t){return/^remote:\s/.test(String(t))&&super.addMatch(A,e,t)}pushMatch(A,e){(A>0||e.length>1)&&super.pushMatch(A,e)}}}})
-function DA(...A){const e=process.cwd(),t=Object.assign(l({baseDir:e},pA),...A.filter((A=>"object"==typeof A&&A)))
-return t.baseDir=t.baseDir||e,t.trimmed=!0===t.trimmed,t}var kA=f({"src/lib/utils/simple-git-options.ts"(){pA={binary:"git",maxConcurrentProcesses:5,config:[],trimmed:!1}}})
-function bA(A,e=[]){return BA(A)?Object.keys(A).reduce(((e,t)=>{const r=A[t]
-return b(r)?e.push(r):CA(r,["boolean"])?e.push(t+"="+r):e.push(t),e}),e):e}function NA(A,e=0,t=!1){const r=[]
+return t}function tA(A){return(Array.isArray(A)?Buffer.concat(A):A).toString("utf-8")}function rA(A,e){return Object.assign({},...e.map((e=>e in A?{[e]:A[e]}:{})))}function sA(A=0){return new Promise((e=>setTimeout(e,A)))}function nA(A){if(!1!==A)return A}var oA,iA,aA,cA,gA,EA=d({"src/lib/utils/util.ts"(){L=t(8926),U="\0",M=()=>{},v=Object.prototype.toString.call.bind(Object.prototype.toString)}})
+function QA(A,e,t){return e(A)?A:arguments.length>2?t:void 0}function hA(A,e){const t=k(A)?"string":typeof A
+return/number|string|boolean/.test(t)&&(!e||!e.includes(t))}function CA(A){return!!A&&"[object Object]"===v(A)}function BA(A){return"function"==typeof A}var IA,lA,uA,dA,fA,pA=d({"src/lib/utils/argument-filters.ts"(){EA(),T(),oA=A=>Array.isArray(A),iA=A=>"string"==typeof A,aA=A=>Array.isArray(A)&&A.every(iA),cA=A=>iA(A)||Array.isArray(A)&&A.every(iA),gA=A=>null!=A&&!"number|boolean|function".includes(typeof A)&&(Array.isArray(A)||"string"==typeof A||"number"==typeof A.length)}}),yA=d({"src/lib/utils/exit-codes.ts"(){IA=(A=>(A[A.SUCCESS=0]="SUCCESS",A[A.ERROR=1]="ERROR",A[A.NOT_FOUND=-2]="NOT_FOUND",A[A.UNCLEAN=128]="UNCLEAN",A))(IA||{})}}),wA=d({"src/lib/utils/git-output-streams.ts"(){lA=class{constructor(A,e){this.stdOut=A,this.stdErr=e}asStrings(){return new lA(this.stdOut.toString("utf8"),this.stdErr.toString("utf8"))}}}}),mA=d({"src/lib/utils/line-parser.ts"(){uA=class{constructor(A,e){this.matches=[],this.parse=(A,e)=>(this.resetMatches(),!!this._regExp.every(((e,t)=>this.addMatch(e,t,A(t))))&&!1!==this.useMatches(e,this.prepareMatches())),this._regExp=Array.isArray(A)?A:[A],e&&(this.useMatches=e)}useMatches(A,e){throw new Error("LineParser:useMatches not implemented")}resetMatches(){this.matches.length=0}prepareMatches(){return this.matches}addMatch(A,e,t){const r=t&&A.exec(t)
+return r&&this.pushMatch(e,r),!!r}pushMatch(A,e){this.matches.push(...e.slice(1))}},dA=class extends uA{addMatch(A,e,t){return/^remote:\s/.test(String(t))&&super.addMatch(A,e,t)}pushMatch(A,e){(A>0||e.length>1)&&super.pushMatch(A,e)}}}})
+function RA(...A){const e=process.cwd(),t=Object.assign(l({baseDir:e},fA),...A.filter((A=>"object"==typeof A&&A)))
+return t.baseDir=t.baseDir||e,t.trimmed=!0===t.trimmed,t}var DA=d({"src/lib/utils/simple-git-options.ts"(){fA={binary:"git",maxConcurrentProcesses:5,config:[],trimmed:!1}}})
+function kA(A,e=[]){return CA(A)?Object.keys(A).reduce(((e,t)=>{const r=A[t]
+return k(r)?e.push(r):hA(r,["boolean"])?e.push(t+"="+r):e.push(t),e}),e):e}function bA(A,e=0,t=!1){const r=[]
 for(let t=0,s=e<0?A.length:e;t<s;t++)"string|number".includes(typeof A[t])&&r.push(String(A[t]))
-return bA(FA(A),r),t||r.push(...function(A){const e="function"==typeof _(A)
-return hA(_(A,e?1:0),iA,[])}(A)),r}function FA(A){const e=IA(_(A))
-return hA(_(A,e?1:0),BA)}function SA(A,e=!0){const t=O(_(A))
-return e||x(t)?t:void 0}var LA=f({"src/lib/utils/task-options.ts"(){yA(),QA(),Y()}})
-function UA(A,e){return A(e.stdOut,e.stdErr)}function MA(A,e,t,r=!0){return $(t).forEach((t=>{for(let s=q(t,r),n=0,o=s.length;n<o;n++){const t=(A=0)=>{if(!(n+A>=o))return s[n+A]}
-e.some((({parse:e})=>e(t,A)))}})),A}var vA=f({"src/lib/utils/task-parser.ts"(){QA()}}),TA={}
-p(TA,{ExitCodes:()=>lA,GitOutputStreams:()=>uA,LineParser:()=>dA,NOOP:()=>v,NULL:()=>M,RemoteLineParser:()=>fA,append:()=>Z,appendTaskOptions:()=>bA,asArray:()=>$,asFunction:()=>O,asNumber:()=>eA,asStringArray:()=>AA,bufferToString:()=>rA,callTaskParser:()=>UA,createInstanceConfig:()=>DA,delay:()=>nA,filterArray:()=>iA,filterFunction:()=>IA,filterHasLength:()=>EA,filterPlainObject:()=>BA,filterPrimitives:()=>CA,filterString:()=>aA,filterStringArray:()=>cA,filterStringOrStringArray:()=>gA,filterType:()=>hA,first:()=>P,folderExists:()=>X,forEachLineWithContent:()=>j,getTrailingOptions:()=>NA,including:()=>K,isUserFunction:()=>x,last:()=>_,objectToString:()=>T,orVoid:()=>oA,parseStringResponse:()=>MA,pick:()=>sA,prefixedArray:()=>tA,remove:()=>z,splitOn:()=>V,toLinesWithContent:()=>q,trailingFunctionArgument:()=>SA,trailingOptionsArgument:()=>FA})
-var YA,GA,JA,HA=f({"src/lib/utils/index.ts"(){yA(),wA(),mA(),RA(),kA(),LA(),vA(),QA()}}),OA={}
-function xA(A){switch(A){case"bare":return PA()
-case"root":return VA()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:GA,parser:JA}}function VA(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:GA,parser:A=>/^\.(git)?$/.test(A.trim())}}function PA(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:GA,parser:JA}}p(OA,{CheckRepoActions:()=>YA,checkIsBareRepoTask:()=>PA,checkIsRepoRootTask:()=>VA,checkIsRepoTask:()=>xA})
-var _A,WA,qA,jA,XA=f({"src/lib/tasks/check-is-repo.ts"(){HA(),YA=(A=>(A.BARE="bare",A.IN_TREE="tree",A.IS_REPO_ROOT="root",A))(YA||{}),GA=({exitCode:A},e,t,r)=>{if(128===A&&function(A){return/(Not a git repository|Kein Git-Repository)/i.test(String(A))}(e))return t(Buffer.from("false"))
-r(e)},JA=A=>"true"===A.trim()}})
-var ZA,KA=f({"src/lib/responses/CleanSummary.ts"(){HA(),_A=class{constructor(A){this.dryRun=A,this.paths=[],this.files=[],this.folders=[]}},WA=/^[a-z]+\s*/i,qA=/^[a-z]+\s+[a-z]+\s*/i,jA=/\/$/}}),zA={}
-function $A(A){return{commands:ZA,format:"empty",parser:A}}function Ae(A){return{commands:ZA,format:"empty",parser(){throw"string"==typeof A?new L(A):A}}}function ee(A,e=!1){return{commands:A,format:"utf-8",parser:A=>e?String(A).trim():A}}function te(A){return{commands:A,format:"buffer",parser:A=>A}}function re(A){return"buffer"===A.format}function se(A){return"empty"===A.format||!A.commands.length}p(zA,{EMPTY_COMMANDS:()=>ZA,adhocExecTask:()=>$A,configurationErrorTask:()=>Ae,isBufferTask:()=>re,isEmptyTask:()=>se,straightThroughBufferTask:()=>te,straightThroughStringTask:()=>ee})
-var ne,oe,ie,ae,ce,ge=f({"src/lib/tasks/task.ts"(){H(),ZA=[]}}),Ee={}
-function Qe(A,e){const{cleanMode:t,options:r,valid:s}=function(A){let e,t=[],r={cleanMode:!1,options:!0}
+return kA(NA(A),r),t||r.push(...function(A){const e="function"==typeof P(A)
+return QA(P(A,e?1:0),oA,[])}(A)),r}function NA(A){const e=BA(P(A))
+return QA(P(A,e?1:0),CA)}function FA(A,e=!0){const t=O(P(A))
+return e||H(t)?t:void 0}var SA=d({"src/lib/utils/task-options.ts"(){pA(),EA(),T()}})
+function LA(A,e){return A(e.stdOut,e.stdErr)}function UA(A,e,t,r=!0){return z(t).forEach((t=>{for(let s=W(t,r),n=0,o=s.length;n<o;n++){const t=(A=0)=>{if(!(n+A>=o))return s[n+A]}
+e.some((({parse:e})=>e(t,A)))}})),A}var MA=d({"src/lib/utils/task-parser.ts"(){EA()}}),vA={}
+f(vA,{ExitCodes:()=>IA,GitOutputStreams:()=>lA,LineParser:()=>uA,NOOP:()=>M,NULL:()=>U,RemoteLineParser:()=>dA,append:()=>X,appendTaskOptions:()=>kA,asArray:()=>z,asFunction:()=>O,asNumber:()=>AA,asStringArray:()=>$,bufferToString:()=>tA,callTaskParser:()=>LA,createInstanceConfig:()=>RA,delay:()=>sA,filterArray:()=>oA,filterFunction:()=>BA,filterHasLength:()=>gA,filterPlainObject:()=>CA,filterPrimitives:()=>hA,filterString:()=>iA,filterStringArray:()=>aA,filterStringOrStringArray:()=>cA,filterType:()=>QA,first:()=>V,folderExists:()=>j,forEachLineWithContent:()=>q,getTrailingOptions:()=>bA,including:()=>Z,isUserFunction:()=>H,last:()=>P,objectToString:()=>v,orVoid:()=>nA,parseStringResponse:()=>UA,pick:()=>rA,prefixedArray:()=>eA,remove:()=>K,splitOn:()=>x,toLinesWithContent:()=>W,trailingFunctionArgument:()=>FA,trailingOptionsArgument:()=>NA})
+var TA,YA,GA,JA=d({"src/lib/utils/index.ts"(){pA(),yA(),wA(),mA(),DA(),SA(),MA(),EA()}}),OA={}
+function HA(A){switch(A){case"bare":return VA()
+case"root":return xA()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:YA,parser:GA}}function xA(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:YA,parser:A=>/^\.(git)?$/.test(A.trim())}}function VA(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:YA,parser:GA}}f(OA,{CheckRepoActions:()=>TA,checkIsBareRepoTask:()=>VA,checkIsRepoRootTask:()=>xA,checkIsRepoTask:()=>HA})
+var PA,_A,WA,qA,jA=d({"src/lib/tasks/check-is-repo.ts"(){JA(),TA=(A=>(A.BARE="bare",A.IN_TREE="tree",A.IS_REPO_ROOT="root",A))(TA||{}),YA=({exitCode:A},e,t,r)=>{if(128===A&&function(A){return/(Not a git repository|Kein Git-Repository)/i.test(String(A))}(e))return t(Buffer.from("false"))
+r(e)},GA=A=>"true"===A.trim()}})
+var XA,ZA=d({"src/lib/responses/CleanSummary.ts"(){JA(),PA=class{constructor(A){this.dryRun=A,this.paths=[],this.files=[],this.folders=[]}},_A=/^[a-z]+\s*/i,WA=/^[a-z]+\s+[a-z]+\s*/i,qA=/\/$/}}),KA={}
+function zA(A){return{commands:XA,format:"empty",parser:A}}function $A(A){return{commands:XA,format:"empty",parser(){throw"string"==typeof A?new S(A):A}}}function Ae(A,e=!1){return{commands:A,format:"utf-8",parser:A=>e?String(A).trim():A}}function ee(A){return{commands:A,format:"buffer",parser:A=>A}}function te(A){return"buffer"===A.format}function re(A){return"empty"===A.format||!A.commands.length}f(KA,{EMPTY_COMMANDS:()=>XA,adhocExecTask:()=>zA,configurationErrorTask:()=>$A,isBufferTask:()=>te,isEmptyTask:()=>re,straightThroughBufferTask:()=>ee,straightThroughStringTask:()=>Ae})
+var se,ne,oe,ie,ae,ce=d({"src/lib/tasks/task.ts"(){J(),XA=[]}}),ge={}
+function Ee(A,e){const{cleanMode:t,options:r,valid:s}=function(A){let e,t=[],r={cleanMode:!1,options:!0}
 return A.replace(/[^a-z]i/g,"").split("").forEach((A=>{var s
-!function(A){return"f"===A||"n"===A}(A)?r.options=r.options&&(s=t[t.length]=`-${A}`,/^-[a-z]$/i.test(s)&&ce.has(s.charAt(1))):(e=A,r.cleanMode=!0)})),{cleanMode:e,options:t,valid:r}}(A)
-return t?s.options?(r.push(...e),r.some(Be)?Ae(ne):he(t,r)):Ae(ie+JSON.stringify(A)):Ae(oe)}function he(A,e){return{commands:["clean",`-${A}`,...e],format:"utf-8",parser:e=>function(A,e){const t=new _A(A),r=A?qA:WA
-return q(e).forEach((A=>{const e=A.replace(r,"")
-t.paths.push(e),(jA.test(e)?t.folders:t.files).push(e)})),t}("n"===A,e)}}function Ce(A){return Array.isArray(A)&&A.every((A=>ce.has(A)))}function Be(A){return/^-[^\-]/.test(A)?A.indexOf("i")>0:"--interactive"===A}p(Ee,{CONFIG_ERROR_INTERACTIVE_MODE:()=>ne,CONFIG_ERROR_MODE_REQUIRED:()=>oe,CONFIG_ERROR_UNKNOWN_OPTION:()=>ie,CleanOptions:()=>ae,cleanTask:()=>he,cleanWithOptionsTask:()=>Qe,isCleanOptionsArray:()=>Ce})
-var Ie,le=f({"src/lib/tasks/clean.ts"(){KA(),HA(),ge(),ne="Git clean interactive mode is not supported",oe='Git clean mode parameter ("n" or "f") is required',ie="Git clean unknown option found in: ",ae=(A=>(A.DRY_RUN="n",A.FORCE="f",A.IGNORED_INCLUDED="x",A.IGNORED_ONLY="X",A.EXCLUDING="e",A.QUIET="q",A.RECURSIVE="d",A))(ae||{}),ce=new Set(["i",...AA(Object.values(ae))])}})
-function*ue(A,e=null){const t=A.split("\0")
+!function(A){return"f"===A||"n"===A}(A)?r.options=r.options&&(s=t[t.length]=`-${A}`,/^-[a-z]$/i.test(s)&&ae.has(s.charAt(1))):(e=A,r.cleanMode=!0)})),{cleanMode:e,options:t,valid:r}}(A)
+return t?s.options?(r.push(...e),r.some(Ce)?$A(se):Qe(t,r)):$A(oe+JSON.stringify(A)):$A(ne)}function Qe(A,e){return{commands:["clean",`-${A}`,...e],format:"utf-8",parser:e=>function(A,e){const t=new PA(A),r=A?WA:_A
+return W(e).forEach((A=>{const e=A.replace(r,"")
+t.paths.push(e),(qA.test(e)?t.folders:t.files).push(e)})),t}("n"===A,e)}}function he(A){return Array.isArray(A)&&A.every((A=>ae.has(A)))}function Ce(A){return/^-[^\-]/.test(A)?A.indexOf("i")>0:"--interactive"===A}f(ge,{CONFIG_ERROR_INTERACTIVE_MODE:()=>se,CONFIG_ERROR_MODE_REQUIRED:()=>ne,CONFIG_ERROR_UNKNOWN_OPTION:()=>oe,CleanOptions:()=>ie,cleanTask:()=>Qe,cleanWithOptionsTask:()=>Ee,isCleanOptionsArray:()=>he})
+var Be,Ie=d({"src/lib/tasks/clean.ts"(){ZA(),JA(),ce(),se="Git clean interactive mode is not supported",ne='Git clean mode parameter ("n" or "f") is required',oe="Git clean unknown option found in: ",ie=(A=>(A.DRY_RUN="n",A.FORCE="f",A.IGNORED_INCLUDED="x",A.IGNORED_ONLY="X",A.EXCLUDING="e",A.QUIET="q",A.RECURSIVE="d",A))(ie||{}),ae=new Set(["i",...$(Object.values(ie))])}})
+function*le(A,e=null){const t=A.split("\0")
 for(let A=0,r=t.length-1;A<r;){const r=t[A++].replace(/^(file):/,"")
 let s=t[A++],n=e
-if(s.includes("\n")){const A=V(s,"\n")
-n=A[0],s=A[1]}yield{file:r,key:n,value:s}}}var de,fe=f({"src/lib/responses/ConfigList.ts"(){HA(),Ie=class{constructor(){this.files=[],this.values=Object.create(null)}get all(){return this._all||(this._all=this.files.reduce(((A,e)=>Object.assign(A,this.values[e])),{})),this._all}addFile(A){if(!(A in this.values)){const e=_(this.files)
+if(s.includes("\n")){const A=x(s,"\n")
+n=A[0],s=A[1]}yield{file:r,key:n,value:s}}}var ue,de=d({"src/lib/responses/ConfigList.ts"(){JA(),Be=class{constructor(){this.files=[],this.values=Object.create(null)}get all(){return this._all||(this._all=this.files.reduce(((A,e)=>Object.assign(A,this.values[e])),{})),this._all}addFile(A){if(!(A in this.values)){const e=P(this.files)
 this.values[A]=e?Object.create(this.values[e]):{},this.files.push(A)}return this.values[A]}addValue(A,e,t){const r=this.addFile(A)
 r.hasOwnProperty(e)?Array.isArray(r[e])?r[e].push(t):r[e]=[r[e],t]:r[e]=t,this._all=void 0}}}})
-function pe(A,e){return"string"==typeof A&&de.hasOwnProperty(A)?A:e}function ye(A,e){const t=["config","--null","--show-origin","--get-all",A]
+function fe(A,e){return"string"==typeof A&&ue.hasOwnProperty(A)?A:e}function pe(A,e){const t=["config","--null","--show-origin","--get-all",A]
 return e&&t.splice(1,0,`--${e}`),{commands:t,format:"utf-8",parser:e=>function(A,e){let t=null
 const r=[],s=new Map
-for(const n of ue(A,e))n.key===e&&(r.push(t=n.value),s.has(n.file)||s.set(n.file,[]),s.get(n.file).push(t))
-return{key:e,paths:Array.from(s.keys()),scopes:s,value:t,values:r}}(e,A)}}function we(A){const e=["config","--list","--show-origin","--null"]
-return A&&e.push(`--${A}`),{commands:e,format:"utf-8",parser:A=>function(A){const e=new Ie
-for(const t of ue(A))e.addValue(t.file,String(t.key),t.value)
-return e}(A)}}var me,Re,De=f({"src/lib/tasks/config.ts"(){fe(),HA(),de=(A=>(A.system="system",A.global="global",A.local="local",A.worktree="worktree",A))(de||{})}})
-var ke,be,Ne,Fe,Se=f({"src/lib/tasks/diff-name-status.ts"(){me=(A=>(A.ADDED="A",A.COPIED="C",A.DELETED="D",A.MODIFIED="M",A.RENAMED="R",A.CHANGED="T",A.UNMERGED="U",A.UNKNOWN="X",A.BROKEN="B",A))(me||{}),Re=new Set(Object.values(me))}})
-function Le(...A){return(new Fe).param(...A)}function Ue(){return{grep(A){const e=SA(arguments),t=NA(arguments)
-for(const A of ke)if(t.includes(A))return this._runTask(Ae(`git.grep: use of "${A}" is not supported.`),e)
-"string"==typeof A&&(A=Le().param(A))
+for(const n of le(A,e))n.key===e&&(r.push(t=n.value),s.has(n.file)||s.set(n.file,[]),s.get(n.file).push(t))
+return{key:e,paths:Array.from(s.keys()),scopes:s,value:t,values:r}}(e,A)}}function ye(A){const e=["config","--list","--show-origin","--null"]
+return A&&e.push(`--${A}`),{commands:e,format:"utf-8",parser:A=>function(A){const e=new Be
+for(const t of le(A))e.addValue(t.file,String(t.key),t.value)
+return e}(A)}}var we,me,Re=d({"src/lib/tasks/config.ts"(){de(),JA(),ue=(A=>(A.system="system",A.global="global",A.local="local",A.worktree="worktree",A))(ue||{})}})
+var De,ke,be,Ne,Fe=d({"src/lib/tasks/diff-name-status.ts"(){we=(A=>(A.ADDED="A",A.COPIED="C",A.DELETED="D",A.MODIFIED="M",A.RENAMED="R",A.CHANGED="T",A.UNMERGED="U",A.UNKNOWN="X",A.BROKEN="B",A))(we||{}),me=new Set(Object.values(we))}})
+function Se(...A){return(new Ne).param(...A)}function Le(){return{grep(A){const e=FA(arguments),t=bA(arguments)
+for(const A of De)if(t.includes(A))return this._runTask($A(`git.grep: use of "${A}" is not supported.`),e)
+"string"==typeof A&&(A=Se().param(A))
 const r=["grep","--null","-n","--full-name",...t,...A]
 return this._runTask({commands:r,format:"utf-8",parser:A=>function(A){const e=new Set,t={}
-return j(A,(A=>{const[r,s,n]=A.split(M)
-e.add(r),(t[r]=t[r]||[]).push({line:eA(s),path:r,preview:n})})),{paths:e,results:t}}(A)},e)}}}var Me,ve,Te=f({"src/lib/tasks/grep.ts"(){HA(),ge(),ke=["-h"],be=Symbol("grepQuery"),Fe=class{constructor(){this[Ne]=[]}*[(Ne=be,Symbol.iterator)](){for(const A of this[be])yield A}and(...A){return A.length&&this[be].push("--and","(",...tA(A,"-e"),")"),this}param(...A){return this[be].push(...tA(A,"-e")),this}}}}),Ye={}
-function Ge(A,e){const t=["reset"]
-return He(A)&&t.push(`--${A}`),t.push(...e),ee(t)}function Je(A){if(He(A))return A
-switch(typeof A){case"string":case"undefined":return"soft"}}function He(A){return ve.includes(A)}p(Ye,{ResetMode:()=>Me,getResetMode:()=>Je,resetTask:()=>Ge})
-var Oe=f({"src/lib/tasks/reset.ts"(){ge(),Me=(A=>(A.MIXED="mixed",A.SOFT="soft",A.HARD="hard",A.MERGE="merge",A.KEEP="keep",A))(Me||{}),ve=Array.from(Object.values(Me))}}),xe={}
-p(xe,{CheckRepoActions:()=>YA,CleanOptions:()=>ae,DiffNameStatus:()=>me,GitConfigScope:()=>de,GitConstructError:()=>F,GitError:()=>r,GitPluginError:()=>S,GitResponseError:()=>s,ResetMode:()=>Me,TaskConfigurationError:()=>L,grepQueryBuilder:()=>Le,pathspec:()=>k})
-var Ve=f({"src/lib/api.ts"(){Y(),G(),R(),J(),D(),H(),XA(),le(),De(),Se(),Te(),Oe()}})
-var Pe=f({"src/lib/plugins/abort-plugin.ts"(){J()}})
-function _e({allowUnsafeProtocolOverride:A=!1,allowUnsafePack:e=!1}={}){return{type:"spawn.args",action:(t,r)=>(t.forEach(((s,n)=>{const o=n<t.length?t[n+1]:""
-A||function(A,e){if(function(A){return"string"==typeof A&&"-c"===A.trim().toLowerCase()}(A)&&/^\s*protocol(.[a-z]+)?.allow/.test(e))throw new S(void 0,"unsafe","Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol")}(s,o),e||function(A,e){if(/^\s*--(upload|receive)-pack/.test(A))throw new S(void 0,"unsafe","Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack")
-if("clone"===e&&/^\s*-u\b/.test(A))throw new S(void 0,"unsafe","Use of clone with option -u is not permitted without enabling allowUnsafePack")
-if("push"===e&&/^\s*--exec\b/.test(A))throw new S(void 0,"unsafe","Use of push with option --exec is not permitted without enabling allowUnsafePack")}(s,r.method)})),t)}}var We=f({"src/lib/plugins/block-unsafe-operations-plugin.ts"(){J()}})
-var qe,je,Xe=f({"src/lib/plugins/command-config-prefixing-plugin.ts"(){HA()}})
-function Ze({onClose:A=!0,onExit:e=50}={}){function t(A,e,t){!1!==A&&(!0===A?e.promise:e.promise.then((()=>nA(A)))).then(t.done)}return{type:"spawn.after",action(r,s){return m(this,arguments,(function*(r,{spawned:s,close:n}){var o,i
+return q(A,(A=>{const[r,s,n]=A.split(U)
+e.add(r),(t[r]=t[r]||[]).push({line:AA(s),path:r,preview:n})})),{paths:e,results:t}}(A)},e)}}}var Ue,Me,ve=d({"src/lib/tasks/grep.ts"(){JA(),ce(),De=["-h"],ke=Symbol("grepQuery"),Ne=class{constructor(){this[be]=[]}*[(be=ke,Symbol.iterator)](){for(const A of this[ke])yield A}and(...A){return A.length&&this[ke].push("--and","(",...eA(A,"-e"),")"),this}param(...A){return this[ke].push(...eA(A,"-e")),this}}}}),Te={}
+function Ye(A,e){const t=["reset"]
+return Je(A)&&t.push(`--${A}`),t.push(...e),Ae(t)}function Ge(A){if(Je(A))return A
+switch(typeof A){case"string":case"undefined":return"soft"}}function Je(A){return Me.includes(A)}f(Te,{ResetMode:()=>Ue,getResetMode:()=>Ge,resetTask:()=>Ye})
+var Oe=d({"src/lib/tasks/reset.ts"(){ce(),Ue=(A=>(A.MIXED="mixed",A.SOFT="soft",A.HARD="hard",A.MERGE="merge",A.KEEP="keep",A))(Ue||{}),Me=Array.from(Object.values(Ue))}}),He={}
+f(He,{CheckRepoActions:()=>TA,CleanOptions:()=>ie,DiffNameStatus:()=>we,GitConfigScope:()=>ue,GitConstructError:()=>N,GitError:()=>r,GitPluginError:()=>F,GitResponseError:()=>s,ResetMode:()=>Ue,TaskConfigurationError:()=>S,grepQueryBuilder:()=>Se,pathspec:()=>D})
+var xe=d({"src/lib/api.ts"(){T(),Y(),m(),G(),R(),J(),jA(),Ie(),Re(),Fe(),ve(),Oe()}})
+var Ve=d({"src/lib/plugins/abort-plugin.ts"(){G()}})
+function Pe({allowUnsafeProtocolOverride:A=!1,allowUnsafePack:e=!1}={}){return{type:"spawn.args",action:(t,r)=>(t.forEach(((s,n)=>{const o=n<t.length?t[n+1]:""
+A||function(A,e){if(function(A){return"string"==typeof A&&"-c"===A.trim().toLowerCase()}(A)&&/^\s*protocol(.[a-z]+)?.allow/.test(e))throw new F(void 0,"unsafe","Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol")}(s,o),e||function(A,e){if(/^\s*--(upload|receive)-pack/.test(A))throw new F(void 0,"unsafe","Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack")
+if("clone"===e&&/^\s*-u\b/.test(A))throw new F(void 0,"unsafe","Use of clone with option -u is not permitted without enabling allowUnsafePack")
+if("push"===e&&/^\s*--exec\b/.test(A))throw new F(void 0,"unsafe","Use of push with option --exec is not permitted without enabling allowUnsafePack")}(s,r.method)})),t)}}var _e=d({"src/lib/plugins/block-unsafe-operations-plugin.ts"(){G()}})
+var We,qe,je=d({"src/lib/plugins/command-config-prefixing-plugin.ts"(){JA()}})
+function Xe({onClose:A=!0,onExit:e=50}={}){function t(A,e,t){!1!==A&&(!0===A?e.promise:e.promise.then((()=>sA(A)))).then(t.done)}return{type:"spawn.after",action(r,s){return w(this,arguments,(function*(r,{spawned:s,close:n}){var o,i
 const a=function(){let r=-1
-const s={close:(0,qe.deferred)(),closeTimeout:(0,qe.deferred)(),exit:(0,qe.deferred)(),exitTimeout:(0,qe.deferred)()},n=Promise.race([!1===A?je:s.closeTimeout.promise,!1===e?je:s.exitTimeout.promise])
+const s={close:(0,We.deferred)(),closeTimeout:(0,We.deferred)(),exit:(0,We.deferred)(),exitTimeout:(0,We.deferred)()},n=Promise.race([!1===A?qe:s.closeTimeout.promise,!1===e?qe:s.exitTimeout.promise])
 return t(A,s.close,s.closeTimeout),t(e,s.exit,s.exitTimeout),{close(A){r=A,s.close.done()},exit(A){r=A,s.exit.done()},get exitCode(){return r},result:n}}()
 let c=!0,g=()=>{c=!1}
 null==(o=s.stdout)||o.on("data",g),null==(i=s.stderr)||i.on("data",g),s.on("error",g),s.on("close",(A=>a.close(A))),s.on("exit",(A=>a.exit(A)))
-try{yield a.result,c&&(yield nA(50)),n(a.exitCode)}catch(A){n(a.exitCode,A)}}))}}}var Ke=f({"src/lib/plugins/completion-detection.plugin.ts"(){qe=t(8100),HA(),je=(0,qe.deferred)().promise}})
-function ze(A){return!(!A.exitCode||!A.stdErr.length)}function $e(A){return Buffer.concat([...A.stdOut,...A.stdErr])}function At(A=!1,e=ze,t=$e){return(r,s)=>!A&&r||!e(s)?r:t(s)}function et(A){return{type:"task.error",action(e,t){const s=A(e.error,{stdErr:t.stdErr,stdOut:t.stdOut,exitCode:t.exitCode})
-return Buffer.isBuffer(s)?{error:new r(void 0,s.toString("utf-8"))}:{error:s}}}}var tt,rt=f({"src/lib/plugins/error-detection.plugin.ts"(){R()}}),st=f({"src/lib/plugins/plugin-store.ts"(){HA(),tt=class{constructor(){this.plugins=new Set}add(A){const e=[]
-return $(A).forEach((A=>A&&this.plugins.add(Z(e,A)))),()=>{e.forEach((A=>this.plugins.delete(A)))}}exec(A,e,t){let r=e
+try{yield a.result,c&&(yield sA(50)),n(a.exitCode)}catch(A){n(a.exitCode,A)}}))}}}var Ze,Ke,ze=d({"src/lib/plugins/completion-detection.plugin.ts"(){We=t(8100),JA(),qe=(0,We.deferred)().promise}})
+function $e(A){return!A||!/^([a-z]:)?([a-z0-9/.\\_-]+)$/i.test(A)}function At(A,e){if(A.length<1||A.length>2)throw new F(void 0,"binary",Ze)
+if(A.some($e)){if(!e)throw new F(void 0,"binary",Ke)
+console.warn(Ke)}const[t,r]=A
+return{binary:t,prefix:r}}var et=d({"src/lib/plugins/custom-binary.plugin.ts"(){G(),JA(),Ze="Invalid value supplied for custom binary, requires a single string or an array containing either one or two strings",Ke="Invalid value supplied for custom binary, restricted characters must be removed or supply the unsafe.allowUnsafeCustomBinary option"}})
+function tt(A){return!(!A.exitCode||!A.stdErr.length)}function rt(A){return Buffer.concat([...A.stdOut,...A.stdErr])}function st(A=!1,e=tt,t=rt){return(r,s)=>!A&&r||!e(s)?r:t(s)}function nt(A){return{type:"task.error",action(e,t){const s=A(e.error,{stdErr:t.stdErr,stdOut:t.stdOut,exitCode:t.exitCode})
+return Buffer.isBuffer(s)?{error:new r(void 0,s.toString("utf-8"))}:{error:s}}}}var ot,it,at=d({"src/lib/plugins/error-detection.plugin.ts"(){m()}}),ct=d({"src/lib/plugins/plugin-store.ts"(){ot=t(8474),JA(),it=class{constructor(){this.plugins=new Set,this.events=new ot.EventEmitter}on(A,e){this.events.on(A,e)}reconfigure(A,e){this.events.emit(A,e)}append(A,e){const t=X(this.plugins,{type:A,action:e})
+return()=>this.plugins.delete(t)}add(A){const e=[]
+return z(A).forEach((A=>A&&this.plugins.add(X(e,A)))),()=>{e.forEach((A=>this.plugins.delete(A)))}}exec(A,e,t){let r=e
 const s=Object.freeze(Object.create(t))
 for(const e of this.plugins)e.type===A&&(r=e.action(r,s))
 return r}}}})
-var nt=f({"src/lib/plugins/progress-monitor-plugin.ts"(){HA()}}),ot=f({"src/lib/plugins/simple-git-plugin.ts"(){}})
-var it=f({"src/lib/plugins/spawn-options-plugin.ts"(){HA()}})
-var at=f({"src/lib/plugins/timout-plugin.ts"(){J()}}),ct=f({"src/lib/plugins/index.ts"(){Pe(),We(),Xe(),Ke(),rt(),st(),nt(),ot(),it(),at()}})
-var gt,Et=f({"src/lib/plugins/suffix-paths.plugin.ts"(){Y()}})
-function Qt(A,e,t){return e&&String(e).replace(/\s*/,"")?(r,...s)=>{A(`%s ${r}`,e,...s),t&&t(r,...s)}:t?(e,...r)=>{A(e,...r),t(e,...r)}:A}function ht(A,e,t,r=function(){return(0,gt.default)("simple-git")}()){const s=A&&`[${A}]`||"",n=[],o="string"==typeof e?r.extend(e):e,i=function(A,e,{namespace:t}){if("string"==typeof A)return A
+var gt=d({"src/lib/plugins/progress-monitor-plugin.ts"(){JA()}}),Et=d({"src/lib/plugins/simple-git-plugin.ts"(){}})
+var Qt=d({"src/lib/plugins/spawn-options-plugin.ts"(){JA()}})
+var ht=d({"src/lib/plugins/timout-plugin.ts"(){G()}}),Ct=d({"src/lib/plugins/index.ts"(){Ve(),_e(),je(),ze(),et(),at(),ct(),gt(),Et(),Qt(),ht()}})
+var Bt,It=d({"src/lib/plugins/suffix-paths.plugin.ts"(){T()}})
+function lt(A,e,t){return e&&String(e).replace(/\s*/,"")?(r,...s)=>{A(`%s ${r}`,e,...s),t&&t(r,...s)}:t?(e,...r)=>{A(e,...r),t(e,...r)}:A}function ut(A,e,t,r=function(){return(0,Bt.default)("simple-git")}()){const s=A&&`[${A}]`||"",n=[],o="string"==typeof e?r.extend(e):e,i=function(A,e,{namespace:t}){if("string"==typeof A)return A
 const r=e&&e.namespace||""
-return r.startsWith(t)?r.substr(t.length+1):r||t}(hA(e,aA),o,r)
-return function e(t){const n=t&&`[${t}]`||"",i=o&&Qt(o,n)||v,c=Qt(r,`${s} ${n}`,i)
+return r.startsWith(t)?r.substr(t.length+1):r||t}(QA(e,iA),o,r)
+return function e(t){const n=t&&`[${t}]`||"",i=o&&lt(o,n)||M,c=lt(r,`${s} ${n}`,i)
 return Object.assign(o?i:c,{label:A,sibling:a,info:c,step:e})}(t)
-function a(e,t){return Z(n,ht(A,i.replace(/^[^:]+/,e),t,r))}}var Ct,Bt,It,lt,ut=f({"src/lib/git-logger.ts"(){var A,e
-A=t(5753),gt=y(d(i(null!=A?o(h(A)):{},"default",!e&&A&&A.__esModule?{get:()=>A.default,enumerable:!0}:{value:A,enumerable:!0})),A),HA(),gt.default.formatters.L=A=>String(EA(A)?A.length:"-"),gt.default.formatters.B=A=>Buffer.isBuffer(A)?A.toString("utf8"):T(A)}}),dt=f({"src/lib/runners/tasks-pending-queue.ts"(){R(),ut(),(Bt=Ct=class{constructor(A="GitExecutor"){this.logLabel=A,this._queue=new Map}withProgress(A){return this._queue.get(A)}createProgress(A){const e=Ct.getName(A.commands[0])
-return{task:A,logger:ht(this.logLabel,e),name:e}}push(A){const e=this.createProgress(A)
+function a(e,t){return X(n,ut(A,i.replace(/^[^:]+/,e),t,r))}}var dt,ft,pt,yt,wt=d({"src/lib/git-logger.ts"(){var A,e,r
+A=t(5753),r=null!=A?o(h(A)):{},Bt=p(!e&&A&&A.__esModule?r:i(r,"default",{value:A,enumerable:!0}),A),JA(),Bt.default.formatters.L=A=>String(gA(A)?A.length:"-"),Bt.default.formatters.B=A=>Buffer.isBuffer(A)?A.toString("utf8"):v(A)}}),mt=d({"src/lib/runners/tasks-pending-queue.ts"(){m(),wt(),(ft=dt=class{constructor(A="GitExecutor"){this.logLabel=A,this._queue=new Map}withProgress(A){return this._queue.get(A)}createProgress(A){const e=dt.getName(A.commands[0])
+return{task:A,logger:ut(this.logLabel,e),name:e}}push(A){const e=this.createProgress(A)
 return e.logger("Adding task to the queue, commands = %o",A.commands),this._queue.set(A,e),e}fatal(A){for(const[e,{logger:t}]of Array.from(this._queue.entries()))e===A.task?(t.info("Failed %o",A),t("Fatal exception, any as-yet un-started tasks run through this executor will not be attempted")):t.info("A fatal exception occurred in a previous task, the queue has been purged: %o",A.message),this.complete(e)
 if(0!==this._queue.size)throw new Error(`Queue size should be zero after fatal: ${this._queue.size}`)}complete(A){this.withProgress(A)&&this._queue.delete(A)}attempt(A){const e=this.withProgress(A)
 if(!e)throw new r(void 0,"TasksPendingQueue: attempt called for an unknown task")
-return e.logger("Starting task"),e}static getName(A="empty"){return`task:${A}:${++Ct.counter}`}}).counter=0}})
-function ft(A,e){return{method:P(A.commands)||"",commands:e}}function pt(A,e,t,r){return s=>{t("%s received %L bytes",e,s),r("%B",s),A.push(s)}}var yt,wt=f({"src/lib/runners/git-executor-chain.ts"(){It=t(5317),R(),ge(),HA(),dt(),lt=class{constructor(A,e,t){this._executor=A,this._scheduler=e,this._plugins=t,this._chain=Promise.resolve(),this._queue=new Bt}get binary(){return this._executor.binary}get cwd(){return this._cwd||this._executor.cwd}set cwd(A){this._cwd=A}get env(){return this._executor.env}get outputHandler(){return this._executor.outputHandler}chain(){return this}push(A){return this._queue.push(A),this._chain=this._chain.then((()=>this.attemptTask(A)))}attemptTask(A){return m(this,null,(function*(){const e=yield this._scheduler.next(),t=()=>this._queue.complete(A)
+return e.logger("Starting task"),e}static getName(A="empty"){return`task:${A}:${++dt.counter}`}}).counter=0}})
+function Rt(A,e){return{method:V(A.commands)||"",commands:e}}function Dt(A,e,t,r){return s=>{t("%s received %L bytes",e,s),r("%B",s),A.push(s)}}var kt,bt=d({"src/lib/runners/git-executor-chain.ts"(){pt=t(5317),m(),ce(),JA(),mt(),yt=class{constructor(A,e,t){this._executor=A,this._scheduler=e,this._plugins=t,this._chain=Promise.resolve(),this._queue=new ft}get cwd(){return this._cwd||this._executor.cwd}set cwd(A){this._cwd=A}get env(){return this._executor.env}get outputHandler(){return this._executor.outputHandler}chain(){return this}push(A){return this._queue.push(A),this._chain=this._chain.then((()=>this.attemptTask(A)))}attemptTask(A){return w(this,null,(function*(){const e=yield this._scheduler.next(),t=()=>this._queue.complete(A)
 try{const{logger:e}=this._queue.attempt(A)
-return yield se(A)?this.attemptEmptyTask(A,e):this.attemptRemoteTask(A,e)}catch(e){throw this.onFatalException(A,e)}finally{t(),e()}}))}onFatalException(A,e){const t=e instanceof r?Object.assign(e,{task:A}):new r(A,e&&String(e))
-return this._chain=Promise.resolve(),this._queue.fatal(t),t}attemptRemoteTask(A,e){return m(this,null,(function*(){const t=this._plugins.exec("spawn.args",[...A.commands],ft(A,A.commands)),r=yield this.gitResponse(A,this.binary,t,this.outputHandler,e.step("SPAWN")),s=yield this.handleTaskData(A,t,r,e.step("HANDLE"))
-return e("passing response to task's parser as a %s",A.format),re(A)?UA(A.parser,s):UA(A.parser,s.asStrings())}))}attemptEmptyTask(A,e){return m(this,null,(function*(){return e("empty task bypassing child process to call to task's parser"),A.parser(this)}))}handleTaskData(A,e,t,r){const{exitCode:s,rejection:n,stdOut:o,stdErr:i}=t
+return yield re(A)?this.attemptEmptyTask(A,e):this.attemptRemoteTask(A,e)}catch(e){throw this.onFatalException(A,e)}finally{t(),e()}}))}onFatalException(A,e){const t=e instanceof r?Object.assign(e,{task:A}):new r(A,e&&String(e))
+return this._chain=Promise.resolve(),this._queue.fatal(t),t}attemptRemoteTask(A,e){return w(this,null,(function*(){const t=this._plugins.exec("spawn.binary","",Rt(A,A.commands)),r=this._plugins.exec("spawn.args",[...A.commands],Rt(A,A.commands)),s=yield this.gitResponse(A,t,r,this.outputHandler,e.step("SPAWN")),n=yield this.handleTaskData(A,r,s,e.step("HANDLE"))
+return e("passing response to task's parser as a %s",A.format),te(A)?LA(A.parser,n):LA(A.parser,n.asStrings())}))}attemptEmptyTask(A,e){return w(this,null,(function*(){return e("empty task bypassing child process to call to task's parser"),A.parser(this)}))}handleTaskData(A,e,t,r){const{exitCode:s,rejection:n,stdOut:o,stdErr:i}=t
 return new Promise(((a,c)=>{r("Preparing to handle process response exitCode=%d stdOut=",s)
-const{error:g}=this._plugins.exec("task.error",{error:n},l(l({},ft(A,e)),t))
-return g&&A.onError?(r.info("exitCode=%s handling with custom error handler"),A.onError(t,g,(A=>{r.info("custom error handler treated as success"),r("custom error returned a %s",T(A)),a(new uA(Array.isArray(A)?Buffer.concat(A):A,Buffer.concat(i)))}),c)):g?(r.info("handling as error: exitCode=%s stdErr=%s rejection=%o",s,i.length,n),c(g)):(r.info("retrieving task output complete"),void a(new uA(Buffer.concat(o),Buffer.concat(i))))}))}gitResponse(A,e,t,r,s){return m(this,null,(function*(){const n=s.sibling("output"),o=this._plugins.exec("spawn.options",{cwd:this.cwd,env:this.env,windowsHide:!0},ft(A,A.commands))
+const{error:g}=this._plugins.exec("task.error",{error:n},l(l({},Rt(A,e)),t))
+return g&&A.onError?(r.info("exitCode=%s handling with custom error handler"),A.onError(t,g,(A=>{r.info("custom error handler treated as success"),r("custom error returned a %s",v(A)),a(new lA(Array.isArray(A)?Buffer.concat(A):A,Buffer.concat(i)))}),c)):g?(r.info("handling as error: exitCode=%s stdErr=%s rejection=%o",s,i.length,n),c(g)):(r.info("retrieving task output complete"),void a(new lA(Buffer.concat(o),Buffer.concat(i))))}))}gitResponse(A,e,t,r,s){return w(this,null,(function*(){const n=s.sibling("output"),o=this._plugins.exec("spawn.options",{cwd:this.cwd,env:this.env,windowsHide:!0},Rt(A,A.commands))
 return new Promise((i=>{const a=[],c=[]
 s.info("%s %o",e,t),s("%O",o)
 let g=this._beforeSpawn(A,t)
 if(g)return i({stdOut:a,stdErr:c,exitCode:9901,rejection:g})
-this._plugins.exec("spawn.before",void 0,u(l({},ft(A,t)),{kill(A){g=A||g}}))
-const E=(0,It.spawn)(e,t,o)
-E.stdout.on("data",pt(a,"stdOut",s,n.step("stdOut"))),E.stderr.on("data",pt(c,"stdErr",s,n.step("stdErr"))),E.on("error",function(A,e){return t=>{e("[ERROR] child process exception %o",t),A.push(Buffer.from(String(t.stack),"ascii"))}}(c,s)),r&&(s("Passing child process stdOut/stdErr to custom outputHandler"),r(e,E.stdout,E.stderr,[...t])),this._plugins.exec("spawn.after",void 0,u(l({},ft(A,t)),{spawned:E,close(A,e){i({stdOut:a,stdErr:c,exitCode:A,rejection:g||e})},kill(A){E.killed||(g=A,E.kill("SIGINT"))}}))}))}))}_beforeSpawn(A,e){let t
-return this._plugins.exec("spawn.before",void 0,u(l({},ft(A,e)),{kill(A){t=A||t}})),t}}}}),mt={}
-p(mt,{GitExecutor:()=>yt})
-var Rt=f({"src/lib/runners/git-executor.ts"(){wt(),yt=class{constructor(A="git",e,t,r){this.binary=A,this.cwd=e,this._scheduler=t,this._plugins=r,this._chain=new lt(this,this._scheduler,this._plugins)}chain(){return new lt(this,this._scheduler,this._plugins)}push(A){return this._chain.push(A)}}}})
-function Dt(A,e,t=v){e.then((A=>{t(null,A)}),(e=>{(null==e?void 0:e.task)===A&&t(e instanceof s?function(A){let e=A=>{console.warn(`simple-git deprecation notice: accessing GitResponseError.${A} should be GitResponseError.git.${A}, this will no longer be available in version 3`),e=v}
+this._plugins.exec("spawn.before",void 0,u(l({},Rt(A,t)),{kill(A){g=A||g}}))
+const E=(0,pt.spawn)(e,t,o)
+E.stdout.on("data",Dt(a,"stdOut",s,n.step("stdOut"))),E.stderr.on("data",Dt(c,"stdErr",s,n.step("stdErr"))),E.on("error",function(A,e){return t=>{e("[ERROR] child process exception %o",t),A.push(Buffer.from(String(t.stack),"ascii"))}}(c,s)),r&&(s("Passing child process stdOut/stdErr to custom outputHandler"),r(e,E.stdout,E.stderr,[...t])),this._plugins.exec("spawn.after",void 0,u(l({},Rt(A,t)),{spawned:E,close(A,e){i({stdOut:a,stdErr:c,exitCode:A,rejection:g||e})},kill(A){E.killed||(g=A,E.kill("SIGINT"))}}))}))}))}_beforeSpawn(A,e){let t
+return this._plugins.exec("spawn.before",void 0,u(l({},Rt(A,e)),{kill(A){t=A||t}})),t}}}}),Nt={}
+f(Nt,{GitExecutor:()=>kt})
+var Ft=d({"src/lib/runners/git-executor.ts"(){bt(),kt=class{constructor(A,e,t){this.cwd=A,this._scheduler=e,this._plugins=t,this._chain=new yt(this,this._scheduler,this._plugins)}chain(){return new yt(this,this._scheduler,this._plugins)}push(A){return this._chain.push(A)}}}})
+function St(A,e,t=M){e.then((A=>{t(null,A)}),(e=>{(null==e?void 0:e.task)===A&&t(e instanceof s?function(A){let e=A=>{console.warn(`simple-git deprecation notice: accessing GitResponseError.${A} should be GitResponseError.git.${A}, this will no longer be available in version 3`),e=M}
 return Object.create(A,Object.getOwnPropertyNames(A.git).reduce(t,{}))
-function t(t,r){return r in A||(t[r]={enumerable:!1,configurable:!1,get:()=>(e(r),A.git[r])}),t}}(e):e,void 0)}))}var kt=f({"src/lib/task-callback.ts"(){D(),HA()}})
-function bt(A,e){return $A((t=>{if(!X(A))throw new Error(`Git.cwd: cannot change to non-directory "${A}"`)
-return(e||t).cwd=A}))}var Nt=f({"src/lib/tasks/change-working-directory.ts"(){HA(),ge()}})
-function Ft(A){const e=["checkout",...A]
-return"-b"===e[1]&&e.includes("-B")&&(e[1]=z(e,"-B")),ee(e)}var St,Lt=f({"src/lib/tasks/checkout.ts"(){HA(),ge()}})
-function Ut(A){return MA({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},St,A)}var Mt=f({"src/lib/parsers/parse-commit.ts"(){HA(),St=[new dA(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,((A,[e,t,r])=>{A.branch=e,A.commit=r,A.root=!!t})),new dA(/\s*Author:\s(.+)/i,((A,[e])=>{const t=e.split("<"),r=t.pop()
-r&&r.includes("@")&&(A.author={email:r.substr(0,r.length-1),name:t.join("<").trim()})})),new dA(/(\d+)[^,]*(?:,\s*(\d+)[^,]*)(?:,\s*(\d+))/g,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0,A.summary.insertions=parseInt(t,10)||0,A.summary.deletions=parseInt(r,10)||0})),new dA(/^(\d+)[^,]*(?:,\s*(\d+)[^(]+\(([+-]))?/,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0
+function t(t,r){return r in A||(t[r]={enumerable:!1,configurable:!1,get:()=>(e(r),A.git[r])}),t}}(e):e,void 0)}))}var Lt=d({"src/lib/task-callback.ts"(){R(),JA()}})
+function Ut(A,e){return zA((t=>{if(!j(A))throw new Error(`Git.cwd: cannot change to non-directory "${A}"`)
+return(e||t).cwd=A}))}var Mt=d({"src/lib/tasks/change-working-directory.ts"(){JA(),ce()}})
+function vt(A){const e=["checkout",...A]
+return"-b"===e[1]&&e.includes("-B")&&(e[1]=K(e,"-B")),Ae(e)}var Tt,Yt=d({"src/lib/tasks/checkout.ts"(){JA(),ce()}})
+function Gt(A){return UA({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},Tt,A)}var Jt=d({"src/lib/parsers/parse-commit.ts"(){JA(),Tt=[new uA(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,((A,[e,t,r])=>{A.branch=e,A.commit=r,A.root=!!t})),new uA(/\s*Author:\s(.+)/i,((A,[e])=>{const t=e.split("<"),r=t.pop()
+r&&r.includes("@")&&(A.author={email:r.substr(0,r.length-1),name:t.join("<").trim()})})),new uA(/(\d+)[^,]*(?:,\s*(\d+)[^,]*)(?:,\s*(\d+))/g,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0,A.summary.insertions=parseInt(t,10)||0,A.summary.deletions=parseInt(r,10)||0})),new uA(/^(\d+)[^,]*(?:,\s*(\d+)[^(]+\(([+-]))?/,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0
 const s=parseInt(t,10)||0
 "-"===r?A.summary.deletions=s:"+"===r&&(A.summary.insertions=s)}))]}})
-function vt(){return{commit(A,...e){const t=SA(arguments),r=function(A){return!gA(A)&&Ae("git.commit: requires the commit message to be supplied as a string/string[]")}(A)||function(A,e,t){return{commands:["-c","core.abbrev=40","commit",...tA(A,"-m"),...e,...t],format:"utf-8",parser:Ut}}($(A),$(hA(e[0],gA,[])),[...hA(e[1],iA,[]),...NA(arguments,0,!0)])
-return this._runTask(r,t)}}}var Tt=f({"src/lib/tasks/commit.ts"(){Mt(),HA(),ge()}})
-var Yt=f({"src/lib/tasks/first-commit.ts"(){HA(),ge()}})
-var Gt,Jt,Ht,Ot=f({"src/lib/tasks/hash-object.ts"(){ge()}})
-var xt,Vt=f({"src/lib/responses/InitSummary.ts"(){Gt=class{constructor(A,e,t,r){this.bare=A,this.path=e,this.existing=t,this.gitDir=r}},Jt=/^Init.+ repository in (.+)$/,Ht=/^Rein.+ in (.+)$/}})
-function Pt(A=!1,e,t){const r=["init",...t]
-return A&&!r.includes(xt)&&r.splice(1,0,xt),{commands:r,format:"utf-8",parser:A=>function(A,e,t){const r=String(t).trim()
+function Ot(){return{commit(A,...e){const t=FA(arguments),r=function(A){return!cA(A)&&$A("git.commit: requires the commit message to be supplied as a string/string[]")}(A)||function(A,e,t){return{commands:["-c","core.abbrev=40","commit",...eA(A,"-m"),...e,...t],format:"utf-8",parser:Gt}}(z(A),z(QA(e[0],cA,[])),[...QA(e[1],oA,[]),...bA(arguments,0,!0)])
+return this._runTask(r,t)}}}var Ht=d({"src/lib/tasks/commit.ts"(){Jt(),JA(),ce()}})
+var xt=d({"src/lib/tasks/first-commit.ts"(){JA(),ce()}})
+var Vt,Pt,_t,Wt=d({"src/lib/tasks/hash-object.ts"(){ce()}})
+var qt,jt=d({"src/lib/responses/InitSummary.ts"(){Vt=class{constructor(A,e,t,r){this.bare=A,this.path=e,this.existing=t,this.gitDir=r}},Pt=/^Init.+ repository in (.+)$/,_t=/^Rein.+ in (.+)$/}})
+function Xt(A=!1,e,t){const r=["init",...t]
+return A&&!r.includes(qt)&&r.splice(1,0,qt),{commands:r,format:"utf-8",parser:A=>function(A,e,t){const r=String(t).trim()
 let s
-if(s=Jt.exec(r))return new Gt(A,e,!1,s[1])
-if(s=Ht.exec(r))return new Gt(A,e,!0,s[1])
+if(s=Pt.exec(r))return new Vt(A,e,!1,s[1])
+if(s=_t.exec(r))return new Vt(A,e,!0,s[1])
 let n=""
 const o=r.split(" ")
 for(;o.length;)if("in"===o.shift()){n=o.join(" ")
-break}return new Gt(A,e,/^re/i.test(r),n)}(r.includes("--bare"),e,A)}}var _t,Wt=f({"src/lib/tasks/init.ts"(){Vt(),xt="--bare"}})
-function qt(A){for(let e=0;e<A.length;e++){const t=_t.exec(A[e])
-if(t)return`--${t[1]}`}return""}function jt(A){return _t.test(A)}var Xt,Zt,Kt,zt,$t,Ar,er=f({"src/lib/args/log-format.ts"(){_t=/^--(stat|numstat|name-only|name-status)(=|$)/}}),tr=f({"src/lib/responses/DiffSummary.ts"(){Xt=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
-function rr(A=""){const e=Ar[A]
-return A=>MA(new Xt,e,A,!1)}var sr,nr,or,ir,ar=f({"src/lib/parsers/parse-diff-summary.ts"(){er(),tr(),Se(),HA(),Zt=[new dA(/(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,((A,[e,t,r=""])=>{A.files.push({file:e.trim(),changes:eA(t),insertions:r.replace(/[^+]/g,"").length,deletions:r.replace(/[^-]/g,"").length,binary:!1})})),new dA(/(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,((A,[e,t,r])=>{A.files.push({file:e.trim(),before:eA(t),after:eA(r),binary:!0})})),new dA(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,((A,[e,t])=>{const r=/(\d+) i/.exec(t),s=/(\d+) d/.exec(t)
-A.changed=eA(e),A.insertions=eA(null==r?void 0:r[1]),A.deletions=eA(null==s?void 0:s[1])}))],Kt=[new dA(/(\d+)\t(\d+)\t(.+)$/,((A,[e,t,r])=>{const s=eA(e),n=eA(t)
-A.changed++,A.insertions+=s,A.deletions+=n,A.files.push({file:r,changes:s+n,insertions:s,deletions:n,binary:!1})})),new dA(/-\t-\t(.+)$/,((A,[e])=>{A.changed++,A.files.push({file:e,after:0,before:0,binary:!0})}))],zt=[new dA(/(.+)$/,((A,[e])=>{A.changed++,A.files.push({file:e,changes:0,insertions:0,deletions:0,binary:!1})}))],$t=[new dA(/([ACDMRTUXB])([0-9]{0,3})\t(.[^\t]*)(\t(.[^\t]*))?$/,((A,[e,t,r,s,n])=>{var o
-A.changed++,A.files.push({file:null!=n?n:r,changes:0,status:oA((o=e,Re.has(o)&&e)),insertions:0,deletions:0,binary:!1})}))],Ar={"":Zt,"--stat":Zt,"--numstat":Kt,"--name-status":$t,"--name-only":zt}}})
-function cr(A=or,e=ir,t=""){const r=rr(t)
-return function(t){const s=q(t,!0,sr).map((function(t){const s=t.trim().split(nr),n=function(A,e){return e.reduce(((e,t,r)=>(e[t]=A[r]||"",e)),Object.create({diff:null}))}(s[0].trim().split(A),e)
+break}return new Vt(A,e,/^re/i.test(r),n)}(r.includes("--bare"),e,A)}}var Zt,Kt=d({"src/lib/tasks/init.ts"(){jt(),qt="--bare"}})
+function zt(A){for(let e=0;e<A.length;e++){const t=Zt.exec(A[e])
+if(t)return`--${t[1]}`}return""}function $t(A){return Zt.test(A)}var Ar,er,tr,rr,sr,nr,or=d({"src/lib/args/log-format.ts"(){Zt=/^--(stat|numstat|name-only|name-status)(=|$)/}}),ir=d({"src/lib/responses/DiffSummary.ts"(){Ar=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
+function ar(A=""){const e=nr[A]
+return A=>UA(new Ar,e,A,!1)}var cr,gr,Er,Qr,hr=d({"src/lib/parsers/parse-diff-summary.ts"(){or(),ir(),Fe(),JA(),er=[new uA(/^(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,((A,[e,t,r=""])=>{A.files.push({file:e.trim(),changes:AA(t),insertions:r.replace(/[^+]/g,"").length,deletions:r.replace(/[^-]/g,"").length,binary:!1})})),new uA(/^(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,((A,[e,t,r])=>{A.files.push({file:e.trim(),before:AA(t),after:AA(r),binary:!0})})),new uA(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,((A,[e,t])=>{const r=/(\d+) i/.exec(t),s=/(\d+) d/.exec(t)
+A.changed=AA(e),A.insertions=AA(null==r?void 0:r[1]),A.deletions=AA(null==s?void 0:s[1])}))],tr=[new uA(/(\d+)\t(\d+)\t(.+)$/,((A,[e,t,r])=>{const s=AA(e),n=AA(t)
+A.changed++,A.insertions+=s,A.deletions+=n,A.files.push({file:r,changes:s+n,insertions:s,deletions:n,binary:!1})})),new uA(/-\t-\t(.+)$/,((A,[e])=>{A.changed++,A.files.push({file:e,after:0,before:0,binary:!0})}))],rr=[new uA(/(.+)$/,((A,[e])=>{A.changed++,A.files.push({file:e,changes:0,insertions:0,deletions:0,binary:!1})}))],sr=[new uA(/([ACDMRTUXB])([0-9]{0,3})\t(.[^\t]*)(\t(.[^\t]*))?$/,((A,[e,t,r,s,n])=>{var o
+A.changed++,A.files.push({file:null!=n?n:r,changes:0,status:nA((o=e,me.has(o)&&e)),insertions:0,deletions:0,binary:!1})}))],nr={"":er,"--stat":er,"--numstat":tr,"--name-status":sr,"--name-only":rr}}})
+function Cr(A=Er,e=Qr,t=""){const r=ar(t)
+return function(t){const s=W(t,!0,cr).map((function(t){const s=t.trim().split(gr),n=function(A,e){return e.reduce(((e,t,r)=>(e[t]=A[r]||"",e)),Object.create({diff:null}))}(s[0].trim().split(A),e)
 return s.length>1&&s[1].trim()&&(n.diff=r(s[1])),n}))
-return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var gr=f({"src/lib/parsers/parse-list-log-summary.ts"(){HA(),ar(),er(),sr="òòòòòò ",nr=" òò",or=" ò ",ir=["hash","date","message","refs","author_name","author_email"]}}),Er={}
-function Qr(A){let e=qt(A)
+return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var Br=d({"src/lib/parsers/parse-list-log-summary.ts"(){JA(),hr(),or(),cr="òòòòòò ",gr=" òò",Er=" ò ",Qr=["hash","date","message","refs","author_name","author_email"]}}),Ir={}
+function lr(A){let e=zt(A)
 const t=["diff"]
-return""===e&&(e="--stat",t.push("--stat=4096")),t.push(...A),hr(t)||{commands:t,format:"utf-8",parser:rr(e)}}function hr(A){const e=A.filter(jt)
-return e.length>1?Ae(`Summary flags are mutually exclusive - pick one of ${e.join(",")}`):e.length&&A.includes("-z")?Ae(`Summary flag ${e} parsing is not compatible with null termination option '-z'`):void 0}p(Er,{diffSummaryTask:()=>Qr,validateLogFormatConfig:()=>hr})
-var Cr,Br=f({"src/lib/tasks/diff.ts"(){er(),ar(),ge()}})
-function Ir(A={},e=[]){const t=hA(A.splitter,aA,or),r=!CA(A.format)&&A.format?A.format:{hash:"%H",date:!1===A.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:A.multiLine?"%B":"%b",author_name:!1!==A.mailMap?"%aN":"%an",author_email:!1!==A.mailMap?"%aE":"%ae"},[s,n]=function(A,e){const t=[],r=[]
-return Object.keys(A).forEach((e=>{t.push(e),r.push(String(A[e]))})),[t,r.join(e)]}(r,t),o=[],i=[`--pretty=format:${sr}${n}${nr}`,...e],a=A.n||A["max-count"]||A.maxCount
+return""===e&&(e="--stat",t.push("--stat=4096")),t.push(...A),ur(t)||{commands:t,format:"utf-8",parser:ar(e)}}function ur(A){const e=A.filter($t)
+return e.length>1?$A(`Summary flags are mutually exclusive - pick one of ${e.join(",")}`):e.length&&A.includes("-z")?$A(`Summary flag ${e} parsing is not compatible with null termination option '-z'`):void 0}f(Ir,{diffSummaryTask:()=>lr,validateLogFormatConfig:()=>ur})
+var dr,fr=d({"src/lib/tasks/diff.ts"(){or(),hr(),ce()}})
+function pr(A={},e=[]){const t=QA(A.splitter,iA,Er),r=!hA(A.format)&&A.format?A.format:{hash:"%H",date:!1===A.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:A.multiLine?"%B":"%b",author_name:!1!==A.mailMap?"%aN":"%an",author_email:!1!==A.mailMap?"%aE":"%ae"},[s,n]=function(A,e){const t=[],r=[]
+return Object.keys(A).forEach((e=>{t.push(e),r.push(String(A[e]))})),[t,r.join(e)]}(r,t),o=[],i=[`--pretty=format:${cr}${n}${gr}`,...e],a=A.n||A["max-count"]||A.maxCount
 if(a&&i.push(`--max-count=${a}`),A.from||A.to){const e=!1!==A.symmetric?"...":".."
 o.push(`${A.from||""}${e}${A.to||""}`)}var c
-return aA(A.file)&&i.push("--follow",k(A.file)),bA((c=A,Object.keys(c).reduce(((A,e)=>(e in Cr||(A[e]=c[e]),A)),{})),i),{fields:s,splitter:t,commands:[...i,...o]}}function lr(){return{log(...A){const e=SA(arguments),t=Ir(FA(arguments),hA(arguments[0],iA)),r=function(A,e){return aA(A)&&aA(e)&&Ae("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...A)||hr(t.commands)||function(A){return function(A,e,t){const r=cr(A,e,qt(t))
+return iA(A.file)&&i.push("--follow",D(A.file)),kA((c=A,Object.keys(c).reduce(((A,e)=>(e in dr||(A[e]=c[e]),A)),{})),i),{fields:s,splitter:t,commands:[...i,...o]}}function yr(){return{log(...A){const e=FA(arguments),t=pr(NA(arguments),QA(arguments[0],oA)),r=function(A,e){return iA(A)&&iA(e)&&$A("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...A)||ur(t.commands)||function(A){return function(A,e,t){const r=Cr(A,e,zt(t))
 return{commands:["log",...t],format:"utf-8",parser:r}}(A.splitter,A.fields,A.commands)}(t)
-return this._runTask(r,e)}}}var ur,dr,fr,pr,yr,wr=f({"src/lib/tasks/log.ts"(){er(),Y(),gr(),HA(),ge(),Br(),Cr=(A=>(A[A["--pretty"]=0]="--pretty",A[A["max-count"]=1]="max-count",A[A.maxCount=2]="maxCount",A[A.n=3]="n",A[A.file=4]="file",A[A.format=5]="format",A[A.from=6]="from",A[A.to=7]="to",A[A.splitter=8]="splitter",A[A.symmetric=9]="symmetric",A[A.mailMap=10]="mailMap",A[A.multiLine=11]="multiLine",A[A.strictDate=12]="strictDate",A))(Cr||{})}}),mr=f({"src/lib/responses/MergeSummary.ts"(){ur=class{constructor(A,e=null,t){this.reason=A,this.file=e,this.meta=t}toString(){return`${this.file}:${this.reason}`}},dr=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),Rr=f({"src/lib/responses/PullSummary.ts"(){fr=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},pr=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
-function Dr(A){return A.objects=A.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function kr(A){const e=/^\s*(\d+)/.exec(A),t=/delta (\d+)/i.exec(A)
-return{count:eA(e&&e[1]||"0"),delta:eA(t&&t[1]||"0")}}var br,Nr,Fr=f({"src/lib/parsers/parse-remote-objects.ts"(){HA(),yr=[new fA(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,((A,[e,t])=>{const r=e.toLowerCase(),s=Dr(A.remoteMessages)
-Object.assign(s,{[r]:eA(t)})})),new fA(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,((A,[e,t])=>{const r=e.toLowerCase(),s=Dr(A.remoteMessages)
-Object.assign(s,{[r]:eA(t)})})),new fA(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,((A,[e,t,r])=>{const s=Dr(A.remoteMessages)
-s.total=kr(e),s.reused=kr(t),s.packReused=eA(r)}))]}})
-function Sr(A,e){return MA({remoteMessages:new Nr},br,e)}var Lr,Ur,Mr,vr,Tr,Yr,Gr=f({"src/lib/parsers/parse-remote-messages.ts"(){HA(),Fr(),br=[new fA(/^remote:\s*(.+)$/,((A,[e])=>(A.remoteMessages.all.push(e.trim()),!1))),...yr,new fA([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((A,[e])=>{A.remoteMessages.pullRequestUrl=e})),new fA([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((A,[e,t,r])=>{A.remoteMessages.vulnerabilities={count:eA(e),summary:t,url:r}}))],Nr=class{constructor(){this.all=[]}}}})
-var Jr,Hr,Or,xr=f({"src/lib/parsers/parse-pull.ts"(){Rr(),HA(),Gr(),Lr=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,Ur=/^(create|delete) mode \d+ (.+)/,Mr=[new dA(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((A,[e,t,r])=>{A.files.push(e),t&&(A.insertions[e]=t.length),r&&(A.deletions[e]=r.length)})),new dA(Lr,((A,[e,,t,,r])=>(void 0!==t||void 0!==r)&&(A.summary.changes=+e||0,A.summary.insertions=+t||0,A.summary.deletions=+r||0,!0))),new dA(Ur,((A,[e,t])=>{Z(A.files,t),Z("create"===e?A.created:A.deleted,t)}))],vr=[new dA(/^from\s(.+)$/i,((A,[e])=>{A.remote=e})),new dA(/^fatal:\s(.+)$/,((A,[e])=>{A.message=e})),new dA(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((A,[e,t,r,s])=>{A.branch.local=r,A.hash.local=e,A.branch.remote=s,A.hash.remote=t}))],Tr=(A,e)=>MA(new fr,Mr,[A,e]),Yr=(A,e)=>Object.assign(new fr,Tr(A,e),Sr(0,e))}}),Vr=f({"src/lib/parsers/parse-merge.ts"(){mr(),HA(),xr(),Jr=[new dA(/^Auto-merging\s+(.+)$/,((A,[e])=>{A.merges.push(e)})),new dA(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((A,[e,t])=>{A.conflicts.push(new ur(e,t))})),new dA(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((A,[e,t,r])=>{A.conflicts.push(new ur(e,t,{deleteRef:r}))})),new dA(/^CONFLICT\s+\((.+)\):/,((A,[e])=>{A.conflicts.push(new ur(e,null))})),new dA(/^Automatic merge failed;\s+(.+)$/,((A,[e])=>{A.result=e}))],Hr=(A,e)=>Object.assign(Or(A,e),Yr(A,e)),Or=A=>MA(new dr,Jr,A)}})
-function Pr(A){return A.length?{commands:["merge",...A],format:"utf-8",parser(A,e){const t=Hr(A,e)
+return this._runTask(r,e)}}}var wr,mr,Rr,Dr,kr,br=d({"src/lib/tasks/log.ts"(){or(),T(),Br(),JA(),ce(),fr(),dr=(A=>(A[A["--pretty"]=0]="--pretty",A[A["max-count"]=1]="max-count",A[A.maxCount=2]="maxCount",A[A.n=3]="n",A[A.file=4]="file",A[A.format=5]="format",A[A.from=6]="from",A[A.to=7]="to",A[A.splitter=8]="splitter",A[A.symmetric=9]="symmetric",A[A.mailMap=10]="mailMap",A[A.multiLine=11]="multiLine",A[A.strictDate=12]="strictDate",A))(dr||{})}}),Nr=d({"src/lib/responses/MergeSummary.ts"(){wr=class{constructor(A,e=null,t){this.reason=A,this.file=e,this.meta=t}toString(){return`${this.file}:${this.reason}`}},mr=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),Fr=d({"src/lib/responses/PullSummary.ts"(){Rr=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},Dr=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
+function Sr(A){return A.objects=A.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function Lr(A){const e=/^\s*(\d+)/.exec(A),t=/delta (\d+)/i.exec(A)
+return{count:AA(e&&e[1]||"0"),delta:AA(t&&t[1]||"0")}}var Ur,Mr,vr=d({"src/lib/parsers/parse-remote-objects.ts"(){JA(),kr=[new dA(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,((A,[e,t])=>{const r=e.toLowerCase(),s=Sr(A.remoteMessages)
+Object.assign(s,{[r]:AA(t)})})),new dA(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,((A,[e,t])=>{const r=e.toLowerCase(),s=Sr(A.remoteMessages)
+Object.assign(s,{[r]:AA(t)})})),new dA(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,((A,[e,t,r])=>{const s=Sr(A.remoteMessages)
+s.total=Lr(e),s.reused=Lr(t),s.packReused=AA(r)}))]}})
+function Tr(A,e){return UA({remoteMessages:new Mr},Ur,e)}var Yr,Gr,Jr,Or,Hr,xr,Vr=d({"src/lib/parsers/parse-remote-messages.ts"(){JA(),vr(),Ur=[new dA(/^remote:\s*(.+)$/,((A,[e])=>(A.remoteMessages.all.push(e.trim()),!1))),...kr,new dA([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((A,[e])=>{A.remoteMessages.pullRequestUrl=e})),new dA([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((A,[e,t,r])=>{A.remoteMessages.vulnerabilities={count:AA(e),summary:t,url:r}}))],Mr=class{constructor(){this.all=[]}}}})
+var Pr,_r,Wr,qr=d({"src/lib/parsers/parse-pull.ts"(){Fr(),JA(),Vr(),Yr=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,Gr=/^(create|delete) mode \d+ (.+)/,Jr=[new uA(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((A,[e,t,r])=>{A.files.push(e),t&&(A.insertions[e]=t.length),r&&(A.deletions[e]=r.length)})),new uA(Yr,((A,[e,,t,,r])=>(void 0!==t||void 0!==r)&&(A.summary.changes=+e||0,A.summary.insertions=+t||0,A.summary.deletions=+r||0,!0))),new uA(Gr,((A,[e,t])=>{X(A.files,t),X("create"===e?A.created:A.deleted,t)}))],Or=[new uA(/^from\s(.+)$/i,((A,[e])=>{A.remote=e})),new uA(/^fatal:\s(.+)$/,((A,[e])=>{A.message=e})),new uA(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((A,[e,t,r,s])=>{A.branch.local=r,A.hash.local=e,A.branch.remote=s,A.hash.remote=t}))],Hr=(A,e)=>UA(new Rr,Jr,[A,e]),xr=(A,e)=>Object.assign(new Rr,Hr(A,e),Tr(0,e))}}),jr=d({"src/lib/parsers/parse-merge.ts"(){Nr(),JA(),qr(),Pr=[new uA(/^Auto-merging\s+(.+)$/,((A,[e])=>{A.merges.push(e)})),new uA(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((A,[e,t])=>{A.conflicts.push(new wr(e,t))})),new uA(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((A,[e,t,r])=>{A.conflicts.push(new wr(e,t,{deleteRef:r}))})),new uA(/^CONFLICT\s+\((.+)\):/,((A,[e])=>{A.conflicts.push(new wr(e,null))})),new uA(/^Automatic merge failed;\s+(.+)$/,((A,[e])=>{A.result=e}))],_r=(A,e)=>Object.assign(Wr(A,e),xr(A,e)),Wr=A=>UA(new mr,Pr,A)}})
+function Xr(A){return A.length?{commands:["merge",...A],format:"utf-8",parser(A,e){const t=_r(A,e)
 if(t.failed)throw new s(t)
-return t}}:Ae("Git.merge requires at least one option")}var _r,Wr,qr,jr=f({"src/lib/tasks/merge.ts"(){D(),Vr(),ge()}})
-var Xr=f({"src/lib/parsers/parse-push.ts"(){HA(),Gr(),_r=[new dA(/^Pushing to (.+)$/,((A,[e])=>{A.repo=e})),new dA(/^updating local tracking ref '(.+)'/,((A,[e])=>{A.ref=u(l({},A.ref||{}),{local:e})})),new dA(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,((A,[e,t,r])=>{A.pushed.push(function(A,e,t){const r=t.includes("deleted"),s=t.includes("tag")||/^refs\/tags/.test(A),n=!t.includes("new")
-return{deleted:r,tag:s,branch:!s,new:!n,alreadyUpdated:n,local:A,remote:e}}(e,t,r))})),new dA(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,((A,[e,t,r])=>{A.branch=u(l({},A.branch||{}),{local:e,remote:t,remoteName:r})})),new dA(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,((A,[e,t,r,s])=>{A.update={head:{local:e,remote:t},hash:{from:r,to:s}}}))],Wr=(A,e)=>{const t=qr(A,e),r=Sr(0,e)
-return l(l({},t),r)},qr=(A,e)=>MA({pushed:[]},_r,[A,e])}}),Zr={}
-function Kr(A={},e){return Z(e,"--tags"),zr(A,e)}function zr(A={},e){const t=["push",...e]
-return A.branch&&t.splice(1,0,A.branch),A.remote&&t.splice(1,0,A.remote),z(t,"-v"),Z(t,"--verbose"),Z(t,"--porcelain"),{commands:t,format:"utf-8",parser:Wr}}p(Zr,{pushTagsTask:()=>Kr,pushTask:()=>zr})
-var $r=f({"src/lib/tasks/push.ts"(){Xr(),HA()}})
-var As,es,ts,rs,ss,ns=f({"src/lib/tasks/show.ts"(){HA(),ge()}}),os=f({"src/lib/responses/FileStatusSummary.ts"(){As=/^(.+) -> (.+)$/,es=class{constructor(A,e,t){if(this.path=A,this.index=e,this.working_dir=t,e+t==="R"){const e=As.exec(A)||[null,A,A]
+return t}}:$A("Git.merge requires at least one option")}var Zr,Kr,zr,$r=d({"src/lib/tasks/merge.ts"(){R(),jr(),ce()}})
+var As=d({"src/lib/parsers/parse-push.ts"(){JA(),Vr(),Zr=[new uA(/^Pushing to (.+)$/,((A,[e])=>{A.repo=e})),new uA(/^updating local tracking ref '(.+)'/,((A,[e])=>{A.ref=u(l({},A.ref||{}),{local:e})})),new uA(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,((A,[e,t,r])=>{A.pushed.push(function(A,e,t){const r=t.includes("deleted"),s=t.includes("tag")||/^refs\/tags/.test(A),n=!t.includes("new")
+return{deleted:r,tag:s,branch:!s,new:!n,alreadyUpdated:n,local:A,remote:e}}(e,t,r))})),new uA(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,((A,[e,t,r])=>{A.branch=u(l({},A.branch||{}),{local:e,remote:t,remoteName:r})})),new uA(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,((A,[e,t,r,s])=>{A.update={head:{local:e,remote:t},hash:{from:r,to:s}}}))],Kr=(A,e)=>{const t=zr(A,e),r=Tr(0,e)
+return l(l({},t),r)},zr=(A,e)=>UA({pushed:[]},Zr,[A,e])}}),es={}
+function ts(A={},e){return X(e,"--tags"),rs(A,e)}function rs(A={},e){const t=["push",...e]
+return A.branch&&t.splice(1,0,A.branch),A.remote&&t.splice(1,0,A.remote),K(t,"-v"),X(t,"--verbose"),X(t,"--porcelain"),{commands:t,format:"utf-8",parser:Kr}}f(es,{pushTagsTask:()=>ts,pushTask:()=>rs})
+var ss=d({"src/lib/tasks/push.ts"(){As(),JA()}})
+var ns,os,is,as,cs,gs=d({"src/lib/tasks/show.ts"(){JA(),ce()}}),Es=d({"src/lib/responses/FileStatusSummary.ts"(){ns=/^(.+) -> (.+)$/,os=class{constructor(A,e,t){if(this.path=A,this.index=e,this.working_dir=t,"R"===e+t){const e=ns.exec(A)||[null,A,A]
 this.from=e[1]||"",this.path=e[2]||""}}}}})
-function is(A){const[e,t]=A.split(M)
-return{from:t||e,to:e}}function as(A,e,t){return[`${A}${e}`,t]}function cs(A,...e){return e.map((e=>as(A,e,((A,e)=>Z(A.conflicted,e)))))}function gs(A,e){const t=e.trim()
+function Qs(A){const[e,t]=A.split(U)
+return{from:t||e,to:e}}function hs(A,e,t){return[`${A}${e}`,t]}function Cs(A,...e){return e.map((e=>hs(A,e,((A,e)=>X(A.conflicted,e)))))}function Bs(A,e){const t=e.trim()
 switch(" "){case t.charAt(2):return r(t.charAt(0),t.charAt(1),t.substr(3))
 case t.charAt(1):return r(" ",t.charAt(0),t.substr(2))
-default:return}function r(e,t,r){const s=`${e}${t}`,n=rs.get(s)
-n&&n(A,r),"##"!==s&&"!!"!==s&&A.files.push(new es(r.replace(/\0.+$/,""),e,t))}}var Es,Qs=f({"src/lib/responses/StatusSummary.ts"(){HA(),os(),ts=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},rs=new Map([as(" ","A",((A,e)=>Z(A.created,e))),as(" ","D",((A,e)=>Z(A.deleted,e))),as(" ","M",((A,e)=>Z(A.modified,e))),as("A"," ",((A,e)=>Z(A.created,e)&&Z(A.staged,e))),as("A","M",((A,e)=>Z(A.created,e)&&Z(A.staged,e)&&Z(A.modified,e))),as("D"," ",((A,e)=>Z(A.deleted,e)&&Z(A.staged,e))),as("M"," ",((A,e)=>Z(A.modified,e)&&Z(A.staged,e))),as("M","M",((A,e)=>Z(A.modified,e)&&Z(A.staged,e))),as("R"," ",((A,e)=>{Z(A.renamed,is(e))})),as("R","M",((A,e)=>{const t=is(e)
-Z(A.renamed,t),Z(A.modified,t.to)})),as("!","!",((A,e)=>{Z(A.ignored=A.ignored||[],e)})),as("?","?",((A,e)=>Z(A.not_added,e))),...cs("A","A","U"),...cs("D","D","U"),...cs("U","A","D","U"),["##",(A,e)=>{let t
-t=/ahead (\d+)/.exec(e),A.ahead=t&&+t[1]||0,t=/behind (\d+)/.exec(e),A.behind=t&&+t[1]||0,t=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(e),A.current=t&&t[1],t=/\.{3}(\S*)/.exec(e),A.tracking=t&&t[1],t=/\son\s([\S]+)$/.exec(e),A.current=t&&t[1]||A.current,A.detached=/\(no branch\)/.test(e)}]]),ss=function(A){const e=A.split(M),t=new ts
+default:return}function r(e,t,r){const s=`${e}${t}`,n=as.get(s)
+n&&n(A,r),"##"!==s&&"!!"!==s&&A.files.push(new os(r.replace(/\0.+$/,""),e,t))}}var Is,ls=d({"src/lib/responses/StatusSummary.ts"(){JA(),Es(),is=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},as=new Map([hs(" ","A",((A,e)=>X(A.created,e))),hs(" ","D",((A,e)=>X(A.deleted,e))),hs(" ","M",((A,e)=>X(A.modified,e))),hs("A"," ",((A,e)=>X(A.created,e)&&X(A.staged,e))),hs("A","M",((A,e)=>X(A.created,e)&&X(A.staged,e)&&X(A.modified,e))),hs("D"," ",((A,e)=>X(A.deleted,e)&&X(A.staged,e))),hs("M"," ",((A,e)=>X(A.modified,e)&&X(A.staged,e))),hs("M","M",((A,e)=>X(A.modified,e)&&X(A.staged,e))),hs("R"," ",((A,e)=>{X(A.renamed,Qs(e))})),hs("R","M",((A,e)=>{const t=Qs(e)
+X(A.renamed,t),X(A.modified,t.to)})),hs("!","!",((A,e)=>{X(A.ignored=A.ignored||[],e)})),hs("?","?",((A,e)=>X(A.not_added,e))),...Cs("A","A","U"),...Cs("D","D","U"),...Cs("U","A","D","U"),["##",(A,e)=>{let t
+t=/ahead (\d+)/.exec(e),A.ahead=t&&+t[1]||0,t=/behind (\d+)/.exec(e),A.behind=t&&+t[1]||0,t=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(e),A.current=t&&t[1],t=/\.{3}(\S*)/.exec(e),A.tracking=t&&t[1],t=/\son\s([\S]+)$/.exec(e),A.current=t&&t[1]||A.current,A.detached=/\(no branch\)/.test(e)}]]),cs=function(A){const e=A.split(U),t=new is
 for(let A=0,r=e.length;A<r;){let r=e[A++].trim()
-r&&("R"===r.charAt(0)&&(r+=M+(e[A++]||"")),gs(t,r))}return t}}})
-var hs,Cs,Bs=f({"src/lib/tasks/status.ts"(){Qs(),Es=["--null","-z"]}})
-function Is(A=0,e=0,t=0,r="",s=!0){return Object.defineProperty({major:A,minor:e,patch:t,agent:r,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function ls(A){return A===hs?Is(0,0,0,"",!1):MA(Is(0,0,0,A),Cs,A)}var us,ds=f({"src/lib/tasks/version.ts"(){HA(),hs="installed=false",Cs=[new dA(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,((A,[e,t,r,s=""])=>{Object.assign(A,Is(eA(e),eA(t),eA(r),s))})),new dA(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,((A,[e,t,r,s=""])=>{Object.assign(A,Is(eA(e),eA(t),r,s))}))]}}),fs={}
-p(fs,{SimpleGitApi:()=>us})
-var ps,ys,ws,ms=f({"src/lib/simple-git-api.ts"(){kt(),Nt(),Lt(),Tt(),De(),Yt(),Te(),Ot(),Wt(),wr(),jr(),$r(),ns(),Bs(),ge(),ds(),HA(),us=class{constructor(A){this._executor=A}_runTask(A,e){const t=this._executor.chain(),r=t.push(A)
-return e&&Dt(A,r,e),Object.create(this,{then:{value:r.then.bind(r)},catch:{value:r.catch.bind(r)},_executor:{value:t}})}add(A){return this._runTask(ee(["add",...$(A)]),SA(arguments))}cwd(A){const e=SA(arguments)
-return"string"==typeof A?this._runTask(bt(A,this._executor),e):"string"==typeof(null==A?void 0:A.path)?this._runTask(bt(A.path,A.root&&this._executor||void 0),e):this._runTask(Ae("Git.cwd: workingDirectory must be supplied as a string"),e)}hashObject(A,e){return this._runTask(function(A,e){const t=["hash-object",A]
-return e&&t.push("-w"),ee(t,!0)}(A,!0===e),SA(arguments))}init(A){return this._runTask(Pt(!0===A,this._executor.cwd,NA(arguments)),SA(arguments))}merge(){return this._runTask(Pr(NA(arguments)),SA(arguments))}mergeFromTo(A,e){return aA(A)&&aA(e)?this._runTask(Pr([A,e,...NA(arguments)]),SA(arguments,!1)):this._runTask(Ae("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(A){return this._executor.outputHandler=A,this}push(){const A=zr({remote:hA(arguments[0],aA),branch:hA(arguments[1],aA)},NA(arguments))
-return this._runTask(A,SA(arguments))}stash(){return this._runTask(ee(["stash",...NA(arguments)]),SA(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...NA(arguments).filter((A=>!Es.includes(A)))],parser:A=>ss(A)},SA(arguments))}},Object.assign(us.prototype,{checkout(){return this._runTask(Ft(NA(arguments,1)),SA(arguments))},checkoutBranch(A,e){return this._runTask(Ft(["-b",A,e,...NA(arguments)]),SA(arguments))},checkoutLocalBranch(A){return this._runTask(Ft(["-b",A,...NA(arguments)]),SA(arguments))}},vt(),{addConfig(A,e,...t){return this._runTask(function(A,e,t,r){const s=["config",`--${r}`]
-return t&&s.push("--add"),s.push(A,e),{commands:s,format:"utf-8",parser:A=>A}}(A,e,!0===t[0],pe(t[1],"local")),SA(arguments))},getConfig(A,e){return this._runTask(ye(A,pe(e,void 0)),SA(arguments))},listConfig(...A){return this._runTask(we(pe(A[0],void 0)),SA(arguments))}},{firstCommit(){return this._runTask(ee(["rev-list","--max-parents=0","HEAD"],!0),SA(arguments))}},Ue(),lr(),{showBuffer(){const A=["show",...NA(arguments,1)]
-return A.includes("--binary")||A.splice(1,0,"--binary"),this._runTask(te(A),SA(arguments))},show(){const A=["show",...NA(arguments,1)]
-return this._runTask(ee(A),SA(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:ls,onError(A,e,t,r){if(-2===A.exitCode)return t(Buffer.from(hs))
-r(e)}})}})}}),Rs={}
-p(Rs,{Scheduler:()=>ws})
-var Ds=f({"src/lib/runners/scheduler.ts"(){HA(),ps=t(8100),ut(),ys=(()=>{let A=0
+r&&("R"===r.charAt(0)&&(r+=U+(e[A++]||"")),Bs(t,r))}return t}}})
+var us,ds,fs=d({"src/lib/tasks/status.ts"(){ls(),Is=["--null","-z"]}})
+function ps(A=0,e=0,t=0,r="",s=!0){return Object.defineProperty({major:A,minor:e,patch:t,agent:r,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function ys(A){return A===us?ps(0,0,0,"",!1):UA(ps(0,0,0,A),ds,A)}var ws,ms=d({"src/lib/tasks/version.ts"(){JA(),us="installed=false",ds=[new uA(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,((A,[e,t,r,s=""])=>{Object.assign(A,ps(AA(e),AA(t),AA(r),s))})),new uA(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,((A,[e,t,r,s=""])=>{Object.assign(A,ps(AA(e),AA(t),r,s))}))]}}),Rs={}
+f(Rs,{SimpleGitApi:()=>ws})
+var Ds,ks,bs,Ns=d({"src/lib/simple-git-api.ts"(){Lt(),Mt(),Yt(),Ht(),Re(),xt(),ve(),Wt(),Kt(),br(),$r(),ss(),gs(),fs(),ce(),ms(),JA(),ws=class{constructor(A){this._executor=A}_runTask(A,e){const t=this._executor.chain(),r=t.push(A)
+return e&&St(A,r,e),Object.create(this,{then:{value:r.then.bind(r)},catch:{value:r.catch.bind(r)},_executor:{value:t}})}add(A){return this._runTask(Ae(["add",...z(A)]),FA(arguments))}cwd(A){const e=FA(arguments)
+return"string"==typeof A?this._runTask(Ut(A,this._executor),e):"string"==typeof(null==A?void 0:A.path)?this._runTask(Ut(A.path,A.root&&this._executor||void 0),e):this._runTask($A("Git.cwd: workingDirectory must be supplied as a string"),e)}hashObject(A,e){return this._runTask(function(A,e){const t=["hash-object",A]
+return e&&t.push("-w"),Ae(t,!0)}(A,!0===e),FA(arguments))}init(A){return this._runTask(Xt(!0===A,this._executor.cwd,bA(arguments)),FA(arguments))}merge(){return this._runTask(Xr(bA(arguments)),FA(arguments))}mergeFromTo(A,e){return iA(A)&&iA(e)?this._runTask(Xr([A,e,...bA(arguments)]),FA(arguments,!1)):this._runTask($A("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(A){return this._executor.outputHandler=A,this}push(){const A=rs({remote:QA(arguments[0],iA),branch:QA(arguments[1],iA)},bA(arguments))
+return this._runTask(A,FA(arguments))}stash(){return this._runTask(Ae(["stash",...bA(arguments)]),FA(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...bA(arguments).filter((A=>!Is.includes(A)))],parser:A=>cs(A)},FA(arguments))}},Object.assign(ws.prototype,{checkout(){return this._runTask(vt(bA(arguments,1)),FA(arguments))},checkoutBranch(A,e){return this._runTask(vt(["-b",A,e,...bA(arguments)]),FA(arguments))},checkoutLocalBranch(A){return this._runTask(vt(["-b",A,...bA(arguments)]),FA(arguments))}},Ot(),{addConfig(A,e,...t){return this._runTask(function(A,e,t,r){const s=["config",`--${r}`]
+return t&&s.push("--add"),s.push(A,e),{commands:s,format:"utf-8",parser:A=>A}}(A,e,!0===t[0],fe(t[1],"local")),FA(arguments))},getConfig(A,e){return this._runTask(pe(A,fe(e,void 0)),FA(arguments))},listConfig(...A){return this._runTask(ye(fe(A[0],void 0)),FA(arguments))}},{firstCommit(){return this._runTask(Ae(["rev-list","--max-parents=0","HEAD"],!0),FA(arguments))}},Le(),yr(),{showBuffer(){const A=["show",...bA(arguments,1)]
+return A.includes("--binary")||A.splice(1,0,"--binary"),this._runTask(ee(A),FA(arguments))},show(){const A=["show",...bA(arguments,1)]
+return this._runTask(Ae(A),FA(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:ys,onError(A,e,t,r){if(-2===A.exitCode)return t(Buffer.from(us))
+r(e)}})}})}}),Fs={}
+f(Fs,{Scheduler:()=>bs})
+var Ss=d({"src/lib/runners/scheduler.ts"(){JA(),Ds=t(8100),wt(),ks=(()=>{let A=0
 return()=>{A++
-const{promise:e,done:t}=(0,ps.createDeferred)()
-return{promise:e,done:t,id:A}}})(),ws=class{constructor(A=2){this.concurrency=A,this.logger=ht("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",A)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
-const A=Z(this.running,this.pending.shift())
-this.logger("Attempting id=%s",A.id),A.done((()=>{this.logger("Completing id=",A.id),z(this.running,A),this.schedule()}))}next(){const{promise:A,id:e}=Z(this.pending,ys())
-return this.logger("Scheduling id=%s",e),this.schedule(),A}}}}),ks={}
-function bs(A,e){return ee(["apply",...e,...A])}p(ks,{applyPatchTask:()=>bs})
-var Ns,Fs=f({"src/lib/tasks/apply-patch.ts"(){ge()}})
-var Ss,Ls,Us,Ms=f({"src/lib/responses/BranchDeleteSummary.ts"(){Ns=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
-function vs(A,e){return 1===e&&Ss.test(A)}var Ts,Ys,Gs=f({"src/lib/parsers/parse-branch-delete.ts"(){Ms(),HA(),Ss=/^error[^']+'([^']+)'/m,Ls=[new dA(/(\S+)\s+\(\S+\s([^)]+)\)/,((A,[e,t])=>{const r=function(A,e){return{branch:A,hash:e,success:!0}}(e,t)
-A.all.push(r),A.branches[e]=r})),new dA(Ss,((A,[e])=>{const t=function(A){return{branch:A,hash:null,success:!1}}(e)
-A.errors.push(t),A.all.push(t),A.branches[e]=t}))],Us=(A,e)=>MA(new Ns,Ls,[A,e])}}),Js=f({"src/lib/responses/BranchSummary.ts"(){Ts=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(A,e,t,r,s){"*"===A&&(this.detached=e,this.current=t),this.all.push(t),this.branches[t]={current:"*"===A,linkedWorkTree:"+"===A,name:t,commit:r,label:s}}}}})
-function Hs(A){return A?A.charAt(0):""}function Os(A){return MA(new Ts,Ys,A)}var xs=f({"src/lib/parsers/parse-branch.ts"(){Js(),HA(),Ys=[new dA(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,((A,[e,t,r,s])=>{A.push(Hs(e),!0,t,r,s)})),new dA(/^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,((A,[e,t,r,s])=>{A.push(Hs(e),!1,t,r,s)}))]}}),Vs={}
-function Ps(A){const e=["-d","-D","--delete"]
-return A.some((A=>e.includes(A)))}function _s(A){const e=Ps(A),t=["branch",...A]
-return 1===t.length&&t.push("-a"),t.includes("-v")||t.splice(1,0,"-v"),{format:"utf-8",commands:t,parser:(A,t)=>e?Us(A,t).all[0]:Os(A)}}function Ws(){return{format:"utf-8",commands:["branch","-v"],parser:Os}}function qs(A,e=!1){return{format:"utf-8",commands:["branch","-v",e?"-D":"-d",...A],parser:(A,e)=>Us(A,e),onError({exitCode:A,stdOut:e},t,r,s){if(!vs(String(t),A))return s(t)
-r(e)}}}function js(A,e=!1){const t={format:"utf-8",commands:["branch","-v",e?"-D":"-d",A],parser:(e,t)=>Us(e,t).branches[A],onError({exitCode:A,stdErr:e,stdOut:r},n,o,i){if(!vs(String(n),A))return i(n)
-throw new s(t.parser(rA(r),rA(e)),String(n))}}
-return t}p(Vs,{branchLocalTask:()=>Ws,branchTask:()=>_s,containsDeleteBranchCommand:()=>Ps,deleteBranchTask:()=>js,deleteBranchesTask:()=>qs})
-var Xs,Zs=f({"src/lib/tasks/branch.ts"(){D(),Gs(),xs(),HA()}}),Ks=f({"src/lib/responses/CheckIgnore.ts"(){Xs=A=>A.split(/\n/g).map((A=>A.trim())).filter((A=>!!A))}}),zs={}
-function $s(A){return{commands:["check-ignore",...A],format:"utf-8",parser:Xs}}p(zs,{checkIgnoreTask:()=>$s})
-var An=f({"src/lib/tasks/check-ignore.ts"(){Ks()}}),en={}
-function tn(A){return/^--upload-pack(=|$)/.test(A)}function rn(A,e,t){const r=["clone",...t]
-aA(A)&&r.push(A),aA(e)&&r.push(e)
-return r.find(tn)?Ae("git.fetch: potential exploit argument blocked."):ee(r)}function sn(A,e,t){return Z(t,"--mirror"),rn(A,e,t)}p(en,{cloneMirrorTask:()=>sn,cloneTask:()=>rn})
-var nn,on=f({"src/lib/tasks/clone.ts"(){ge(),HA()}})
-function an(A,e){return MA({raw:A,remote:null,branches:[],tags:[],updated:[],deleted:[]},nn,[A,e])}var cn=f({"src/lib/parsers/parse-fetch.ts"(){HA(),nn=[new dA(/From (.+)$/,((A,[e])=>{A.remote=e})),new dA(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,((A,[e,t])=>{A.branches.push({name:e,tracking:t})})),new dA(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,((A,[e,t])=>{A.tags.push({name:e,tracking:t})})),new dA(/- \[deleted]\s+\S+\s*-> (.+)$/,((A,[e])=>{A.deleted.push({tracking:e})})),new dA(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,((A,[e,t,r,s])=>{A.updated.push({name:r,tracking:s,to:t,from:e})}))]}}),gn={}
-function En(A){return/^--upload-pack(=|$)/.test(A)}function Qn(A,e,t){const r=["fetch",...t]
+const{promise:e,done:t}=(0,Ds.createDeferred)()
+return{promise:e,done:t,id:A}}})(),bs=class{constructor(A=2){this.concurrency=A,this.logger=ut("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",A)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
+const A=X(this.running,this.pending.shift())
+this.logger("Attempting id=%s",A.id),A.done((()=>{this.logger("Completing id=",A.id),K(this.running,A),this.schedule()}))}next(){const{promise:A,id:e}=X(this.pending,ks())
+return this.logger("Scheduling id=%s",e),this.schedule(),A}}}}),Ls={}
+function Us(A,e){return Ae(["apply",...e,...A])}f(Ls,{applyPatchTask:()=>Us})
+var Ms,vs=d({"src/lib/tasks/apply-patch.ts"(){ce()}})
+var Ts,Ys,Gs,Js=d({"src/lib/responses/BranchDeleteSummary.ts"(){Ms=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
+function Os(A,e){return 1===e&&Ts.test(A)}var Hs,xs,Vs=d({"src/lib/parsers/parse-branch-delete.ts"(){Js(),JA(),Ts=/^error[^']+'([^']+)'/m,Ys=[new uA(/(\S+)\s+\(\S+\s([^)]+)\)/,((A,[e,t])=>{const r=function(A,e){return{branch:A,hash:e,success:!0}}(e,t)
+A.all.push(r),A.branches[e]=r})),new uA(Ts,((A,[e])=>{const t=function(A){return{branch:A,hash:null,success:!1}}(e)
+A.errors.push(t),A.all.push(t),A.branches[e]=t}))],Gs=(A,e)=>UA(new Ms,Ys,[A,e])}}),Ps=d({"src/lib/responses/BranchSummary.ts"(){Hs=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(A,e,t,r,s){"*"===A&&(this.detached=e,this.current=t),this.all.push(t),this.branches[t]={current:"*"===A,linkedWorkTree:"+"===A,name:t,commit:r,label:s}}}}})
+function _s(A){return A?A.charAt(0):""}function Ws(A){return UA(new Hs,xs,A)}var qs=d({"src/lib/parsers/parse-branch.ts"(){Ps(),JA(),xs=[new uA(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,((A,[e,t,r,s])=>{A.push(_s(e),!0,t,r,s)})),new uA(new RegExp("^([*+]\\s)?(\\S+)\\s+([a-z0-9]+)\\s?(.*)$","s"),((A,[e,t,r,s])=>{A.push(_s(e),!1,t,r,s)}))]}}),js={}
+function Xs(A){const e=["-d","-D","--delete"]
+return A.some((A=>e.includes(A)))}function Zs(A){const e=Xs(A),t=["branch",...A]
+return 1===t.length&&t.push("-a"),t.includes("-v")||t.splice(1,0,"-v"),{format:"utf-8",commands:t,parser:(A,t)=>e?Gs(A,t).all[0]:Ws(A)}}function Ks(){return{format:"utf-8",commands:["branch","-v"],parser:Ws}}function zs(A,e=!1){return{format:"utf-8",commands:["branch","-v",e?"-D":"-d",...A],parser:(A,e)=>Gs(A,e),onError({exitCode:A,stdOut:e},t,r,s){if(!Os(String(t),A))return s(t)
+r(e)}}}function $s(A,e=!1){const t={format:"utf-8",commands:["branch","-v",e?"-D":"-d",A],parser:(e,t)=>Gs(e,t).branches[A],onError({exitCode:A,stdErr:e,stdOut:r},n,o,i){if(!Os(String(n),A))return i(n)
+throw new s(t.parser(tA(r),tA(e)),String(n))}}
+return t}f(js,{branchLocalTask:()=>Ks,branchTask:()=>Zs,containsDeleteBranchCommand:()=>Xs,deleteBranchTask:()=>$s,deleteBranchesTask:()=>zs})
+var An,en=d({"src/lib/tasks/branch.ts"(){R(),Vs(),qs(),JA()}}),tn=d({"src/lib/responses/CheckIgnore.ts"(){An=A=>A.split(/\n/g).map((A=>A.trim())).filter((A=>!!A))}}),rn={}
+function sn(A){return{commands:["check-ignore",...A],format:"utf-8",parser:An}}f(rn,{checkIgnoreTask:()=>sn})
+var nn=d({"src/lib/tasks/check-ignore.ts"(){tn()}}),on={}
+function an(A){return/^--upload-pack(=|$)/.test(A)}function cn(A,e,t){const r=["clone",...t]
+iA(A)&&r.push(A),iA(e)&&r.push(e)
+return r.find(an)?$A("git.fetch: potential exploit argument blocked."):Ae(r)}function gn(A,e,t){return X(t,"--mirror"),cn(A,e,t)}f(on,{cloneMirrorTask:()=>gn,cloneTask:()=>cn})
+var En,Qn=d({"src/lib/tasks/clone.ts"(){ce(),JA()}})
+function hn(A,e){return UA({raw:A,remote:null,branches:[],tags:[],updated:[],deleted:[]},En,[A,e])}var Cn=d({"src/lib/parsers/parse-fetch.ts"(){JA(),En=[new uA(/From (.+)$/,((A,[e])=>{A.remote=e})),new uA(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,((A,[e,t])=>{A.branches.push({name:e,tracking:t})})),new uA(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,((A,[e,t])=>{A.tags.push({name:e,tracking:t})})),new uA(/- \[deleted]\s+\S+\s*-> (.+)$/,((A,[e])=>{A.deleted.push({tracking:e})})),new uA(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,((A,[e,t,r,s])=>{A.updated.push({name:r,tracking:s,to:t,from:e})}))]}}),Bn={}
+function In(A){return/^--upload-pack(=|$)/.test(A)}function ln(A,e,t){const r=["fetch",...t]
 A&&e&&r.push(A,e)
-return r.find(En)?Ae("git.fetch: potential exploit argument blocked."):{commands:r,format:"utf-8",parser:an}}p(gn,{fetchTask:()=>Qn})
-var hn,Cn=f({"src/lib/tasks/fetch.ts"(){cn(),ge()}})
-function Bn(A){return MA({moves:[]},hn,A)}var In=f({"src/lib/parsers/parse-move.ts"(){HA(),hn=[new dA(/^Renaming (.+) to (.+)$/,((A,[e,t])=>{A.moves.push({from:e,to:t})}))]}}),ln={}
-function un(A,e){return{commands:["mv","-v",...$(A),e],format:"utf-8",parser:Bn}}p(ln,{moveTask:()=>un})
-var dn=f({"src/lib/tasks/move.ts"(){In(),HA()}}),fn={}
-function pn(A,e,t){const r=["pull",...t]
-return A&&e&&r.splice(1,0,A,e),{commands:r,format:"utf-8",parser:(A,e)=>Yr(A,e),onError(A,e,t,r){const n=function(A,e){const t=MA(new pr,vr,[A,e])
-return t.message&&t}(rA(A.stdOut),rA(A.stdErr))
+return r.find(In)?$A("git.fetch: potential exploit argument blocked."):{commands:r,format:"utf-8",parser:hn}}f(Bn,{fetchTask:()=>ln})
+var un,dn=d({"src/lib/tasks/fetch.ts"(){Cn(),ce()}})
+function fn(A){return UA({moves:[]},un,A)}var pn=d({"src/lib/parsers/parse-move.ts"(){JA(),un=[new uA(/^Renaming (.+) to (.+)$/,((A,[e,t])=>{A.moves.push({from:e,to:t})}))]}}),yn={}
+function wn(A,e){return{commands:["mv","-v",...z(A),e],format:"utf-8",parser:fn}}f(yn,{moveTask:()=>wn})
+var mn=d({"src/lib/tasks/move.ts"(){pn(),JA()}}),Rn={}
+function Dn(A,e,t){const r=["pull",...t]
+return A&&e&&r.splice(1,0,A,e),{commands:r,format:"utf-8",parser:(A,e)=>xr(A,e),onError(A,e,t,r){const n=function(A,e){const t=UA(new Dr,Or,[A,e])
+return t.message&&t}(tA(A.stdOut),tA(A.stdErr))
 if(n)return r(new s(n))
-r(e)}}}p(fn,{pullTask:()=>pn})
-var yn=f({"src/lib/tasks/pull.ts"(){D(),xr(),HA()}})
-function wn(A){const e={}
-return Rn(A,(([A])=>e[A]={name:A})),Object.values(e)}function mn(A){const e={}
-return Rn(A,(([A,t,r])=>{e.hasOwnProperty(A)||(e[A]={name:A,refs:{fetch:"",push:""}}),r&&t&&(e[A].refs[r.replace(/[^a-z]/g,"")]=t)})),Object.values(e)}function Rn(A,e){j(A,(A=>e(A.split(/\s+/))))}var Dn=f({"src/lib/responses/GetRemoteSummary.ts"(){HA()}}),kn={}
-function bn(A,e,t=[]){return ee(["remote","add",...t,A,e])}function Nn(A){const e=["remote"]
-return A&&e.push("-v"),{commands:e,format:"utf-8",parser:A?mn:wn}}function Fn(A=[]){const e=[...A]
-return"ls-remote"!==e[0]&&e.unshift("ls-remote"),ee(e)}function Sn(A=[]){const e=[...A]
-return"remote"!==e[0]&&e.unshift("remote"),ee(e)}function Ln(A){return ee(["remote","remove",A])}p(kn,{addRemoteTask:()=>bn,getRemotesTask:()=>Nn,listRemotesTask:()=>Fn,remoteTask:()=>Sn,removeRemoteTask:()=>Ln})
-var Un=f({"src/lib/tasks/remote.ts"(){Dn(),ge()}}),Mn={}
-function vn(A={},e){const t=Ir(A),r=["stash","list",...t.commands,...e],s=cr(t.splitter,t.fields,qt(r))
-return hr(r)||{commands:r,format:"utf-8",parser:s}}p(Mn,{stashListTask:()=>vn})
-var Tn=f({"src/lib/tasks/stash-list.ts"(){er(),gr(),Br(),wr()}}),Yn={}
-function Gn(A,e){return Hn(["add",A,e])}function Jn(A){return Hn(["init",...A])}function Hn(A){const e=[...A]
-return"submodule"!==e[0]&&e.unshift("submodule"),ee(e)}function On(A){return Hn(["update",...A])}p(Yn,{addSubModuleTask:()=>Gn,initSubModuleTask:()=>Jn,subModuleTask:()=>Hn,updateSubModuleTask:()=>On})
-var xn,Vn,Pn=f({"src/lib/tasks/sub-module.ts"(){ge()}})
-function _n(A,e){return A===e?0:A>e?1:-1}function Wn(A){return A.trim()}function qn(A){return"string"==typeof A&&parseInt(A.replace(/^\D+/g,""),10)||0}var jn=f({"src/lib/responses/TagList.ts"(){xn=class{constructor(A,e){this.all=A,this.latest=e}},Vn=function(A,e=!1){const t=A.split("\n").map(Wn).filter(Boolean)
+r(e)}}}f(Rn,{pullTask:()=>Dn})
+var kn=d({"src/lib/tasks/pull.ts"(){R(),qr(),JA()}})
+function bn(A){const e={}
+return Fn(A,(([A])=>e[A]={name:A})),Object.values(e)}function Nn(A){const e={}
+return Fn(A,(([A,t,r])=>{e.hasOwnProperty(A)||(e[A]={name:A,refs:{fetch:"",push:""}}),r&&t&&(e[A].refs[r.replace(/[^a-z]/g,"")]=t)})),Object.values(e)}function Fn(A,e){q(A,(A=>e(A.split(/\s+/))))}var Sn=d({"src/lib/responses/GetRemoteSummary.ts"(){JA()}}),Ln={}
+function Un(A,e,t){return Ae(["remote","add",...t,A,e])}function Mn(A){const e=["remote"]
+return A&&e.push("-v"),{commands:e,format:"utf-8",parser:A?Nn:bn}}function vn(A){const e=[...A]
+return"ls-remote"!==e[0]&&e.unshift("ls-remote"),Ae(e)}function Tn(A){const e=[...A]
+return"remote"!==e[0]&&e.unshift("remote"),Ae(e)}function Yn(A){return Ae(["remote","remove",A])}f(Ln,{addRemoteTask:()=>Un,getRemotesTask:()=>Mn,listRemotesTask:()=>vn,remoteTask:()=>Tn,removeRemoteTask:()=>Yn})
+var Gn=d({"src/lib/tasks/remote.ts"(){Sn(),ce()}}),Jn={}
+function On(A={},e){const t=pr(A),r=["stash","list",...t.commands,...e],s=Cr(t.splitter,t.fields,zt(r))
+return ur(r)||{commands:r,format:"utf-8",parser:s}}f(Jn,{stashListTask:()=>On})
+var Hn=d({"src/lib/tasks/stash-list.ts"(){or(),Br(),fr(),br()}}),xn={}
+function Vn(A,e){return _n(["add",A,e])}function Pn(A){return _n(["init",...A])}function _n(A){const e=[...A]
+return"submodule"!==e[0]&&e.unshift("submodule"),Ae(e)}function Wn(A){return _n(["update",...A])}f(xn,{addSubModuleTask:()=>Vn,initSubModuleTask:()=>Pn,subModuleTask:()=>_n,updateSubModuleTask:()=>Wn})
+var qn,jn,Xn=d({"src/lib/tasks/sub-module.ts"(){ce()}})
+function Zn(A,e){return A===e?0:A>e?1:-1}function Kn(A){return A.trim()}function zn(A){return"string"==typeof A&&parseInt(A.replace(/^\D+/g,""),10)||0}var $n=d({"src/lib/responses/TagList.ts"(){qn=class{constructor(A,e){this.all=A,this.latest=e}},jn=function(A,e=!1){const t=A.split("\n").map(Kn).filter(Boolean)
 e||t.sort((function(A,e){const t=A.split("."),r=e.split(".")
 if(1===t.length||1===r.length)return function(A,e){const t=isNaN(A)
-return t!==isNaN(e)?t?1:-1:t?_n(A,e):0}(qn(t[0]),qn(r[0]))
-for(let A=0,e=Math.max(t.length,r.length);A<e;A++){const e=_n(qn(t[A]),qn(r[A]))
+return t!==isNaN(e)?t?1:-1:t?Zn(A,e):0}(zn(t[0]),zn(r[0]))
+for(let A=0,e=Math.max(t.length,r.length);A<e;A++){const e=Zn(zn(t[A]),zn(r[A]))
 if(e)return e}return 0}))
 const r=e?t[0]:[...t].reverse().find((A=>A.indexOf(".")>=0))
-return new xn(t,r)}}}),Xn={}
-function Zn(A=[]){const e=A.some((A=>/^--sort=/.test(A)))
-return{format:"utf-8",commands:["tag","-l",...A],parser:A=>Vn(A,e)}}function Kn(A){return{format:"utf-8",commands:["tag",A],parser:()=>({name:A})}}function zn(A,e){return{format:"utf-8",commands:["tag","-a","-m",e,A],parser:()=>({name:A})}}p(Xn,{addAnnotatedTagTask:()=>zn,addTagTask:()=>Kn,tagListTask:()=>Zn})
-var $n,Ao,eo,to=f({"src/lib/tasks/tag.ts"(){jn()}}),ro=($n={"src/git.js"(A,e){var{GitExecutor:t}=(Rt(),w(mt)),{SimpleGitApi:r}=(ms(),w(fs)),{Scheduler:s}=(Ds(),w(Rs)),{configurationErrorTask:n}=(ge(),w(zA)),{asArray:o,filterArray:i,filterPrimitives:a,filterString:c,filterStringOrStringArray:g,filterType:E,getTrailingOptions:Q,trailingFunctionArgument:h,trailingOptionsArgument:C}=(HA(),w(TA)),{applyPatchTask:B}=(Fs(),w(ks)),{branchTask:I,branchLocalTask:l,deleteBranchesTask:u,deleteBranchTask:d}=(Zs(),w(Vs)),{checkIgnoreTask:f}=(An(),w(zs)),{checkIsRepoTask:p}=(XA(),w(OA)),{cloneTask:y,cloneMirrorTask:m}=(on(),w(en)),{cleanWithOptionsTask:R,isCleanOptionsArray:D}=(le(),w(Ee)),{diffSummaryTask:k}=(Br(),w(Er)),{fetchTask:b}=(Cn(),w(gn)),{moveTask:N}=(dn(),w(ln)),{pullTask:F}=(yn(),w(fn)),{pushTagsTask:S}=($r(),w(Zr)),{addRemoteTask:L,getRemotesTask:U,listRemotesTask:M,remoteTask:v,removeRemoteTask:T}=(Un(),w(kn)),{getResetMode:Y,resetTask:G}=(Oe(),w(Ye)),{stashListTask:J}=(Tn(),w(Mn)),{addSubModuleTask:H,initSubModuleTask:O,subModuleTask:x,updateSubModuleTask:V}=(Pn(),w(Yn)),{addAnnotatedTagTask:P,addTagTask:_,tagListTask:W}=(to(),w(Xn)),{straightThroughBufferTask:q,straightThroughStringTask:j}=(ge(),w(zA))
-function X(A,e){this._executor=new t(A.binary,A.baseDir,new s(A.maxConcurrentProcesses),e),this._trimmed=A.trimmed}function Z(A,e,t,r){return"string"!=typeof t?n(`git.${A}() requires a string 'repoPath'`):e(t,E(r,c),Q(arguments))}(X.prototype=Object.create(r.prototype)).constructor=X,X.prototype.customBinary=function(A){return this._executor.binary=A,this},X.prototype.env=function(A,e){return 1===arguments.length&&"object"==typeof A?this._executor.env=A:(this._executor.env=this._executor.env||{})[A]=e,this},X.prototype.stashList=function(A){return this._runTask(J(C(arguments)||{},i(A)&&A||[]),h(arguments))},X.prototype.clone=function(){return this._runTask(Z("clone",y,...arguments),h(arguments))},X.prototype.mirror=function(){return this._runTask(Z("mirror",m,...arguments),h(arguments))},X.prototype.mv=function(A,e){return this._runTask(N(A,e),h(arguments))},X.prototype.checkoutLatestTag=function(A){var e=this
+return new qn(t,r)}}}),Ao={}
+function eo(A=[]){const e=A.some((A=>/^--sort=/.test(A)))
+return{format:"utf-8",commands:["tag","-l",...A],parser:A=>jn(A,e)}}function to(A){return{format:"utf-8",commands:["tag",A],parser:()=>({name:A})}}function ro(A,e){return{format:"utf-8",commands:["tag","-a","-m",e,A],parser:()=>({name:A})}}f(Ao,{addAnnotatedTagTask:()=>ro,addTagTask:()=>to,tagListTask:()=>eo})
+var so,no,oo,io=d({"src/lib/tasks/tag.ts"(){$n()}}),ao=(so={"src/git.js"(A,e){var{GitExecutor:t}=(Ft(),y(Nt)),{SimpleGitApi:r}=(Ns(),y(Rs)),{Scheduler:s}=(Ss(),y(Fs)),{configurationErrorTask:n}=(ce(),y(KA)),{asArray:o,filterArray:i,filterPrimitives:a,filterString:c,filterStringOrStringArray:g,filterType:E,getTrailingOptions:Q,trailingFunctionArgument:h,trailingOptionsArgument:C}=(JA(),y(vA)),{applyPatchTask:B}=(vs(),y(Ls)),{branchTask:I,branchLocalTask:l,deleteBranchesTask:u,deleteBranchTask:d}=(en(),y(js)),{checkIgnoreTask:f}=(nn(),y(rn)),{checkIsRepoTask:p}=(jA(),y(OA)),{cloneTask:w,cloneMirrorTask:m}=(Qn(),y(on)),{cleanWithOptionsTask:R,isCleanOptionsArray:D}=(Ie(),y(ge)),{diffSummaryTask:k}=(fr(),y(Ir)),{fetchTask:b}=(dn(),y(Bn)),{moveTask:N}=(mn(),y(yn)),{pullTask:F}=(kn(),y(Rn)),{pushTagsTask:S}=(ss(),y(es)),{addRemoteTask:L,getRemotesTask:U,listRemotesTask:M,remoteTask:v,removeRemoteTask:T}=(Gn(),y(Ln)),{getResetMode:Y,resetTask:G}=(Oe(),y(Te)),{stashListTask:J}=(Hn(),y(Jn)),{addSubModuleTask:O,initSubModuleTask:H,subModuleTask:x,updateSubModuleTask:V}=(Xn(),y(xn)),{addAnnotatedTagTask:P,addTagTask:_,tagListTask:W}=(io(),y(Ao)),{straightThroughBufferTask:q,straightThroughStringTask:j}=(ce(),y(KA))
+function X(A,e){this._plugins=e,this._executor=new t(A.baseDir,new s(A.maxConcurrentProcesses),e),this._trimmed=A.trimmed}function Z(A,e,t,r){return"string"!=typeof t?n(`git.${A}() requires a string 'repoPath'`):e(t,E(r,c),Q(arguments))}(X.prototype=Object.create(r.prototype)).constructor=X,X.prototype.customBinary=function(A){return this._plugins.reconfigure("binary",A),this},X.prototype.env=function(A,e){return 1===arguments.length&&"object"==typeof A?this._executor.env=A:(this._executor.env=this._executor.env||{})[A]=e,this},X.prototype.stashList=function(A){return this._runTask(J(C(arguments)||{},i(A)&&A||[]),h(arguments))},X.prototype.clone=function(){return this._runTask(Z("clone",w,...arguments),h(arguments))},X.prototype.mirror=function(){return this._runTask(Z("mirror",m,...arguments),h(arguments))},X.prototype.mv=function(A,e){return this._runTask(N(A,e),h(arguments))},X.prototype.checkoutLatestTag=function(A){var e=this
 return this.pull((function(){e.tags((function(t,r){e.checkout(r.latest,A)}))}))},X.prototype.pull=function(A,e,t,r){return this._runTask(F(E(A,c),E(e,c),Q(arguments)),h(arguments))},X.prototype.fetch=function(A,e){return this._runTask(b(E(A,c),E(e,c),Q(arguments)),h(arguments))},X.prototype.silent=function(A){return console.warn("simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this will be an error in version 3"),this},X.prototype.tags=function(A,e){return this._runTask(W(Q(arguments)),h(arguments))},X.prototype.rebase=function(){return this._runTask(j(["rebase",...Q(arguments)]),h(arguments))},X.prototype.reset=function(A){return this._runTask(G(Y(A),Q(arguments)),h(arguments))},X.prototype.revert=function(A){const e=h(arguments)
 return"string"!=typeof A?this._runTask(n("Commit must be a string"),e):this._runTask(j(["revert",...Q(arguments,0,!0),A]),e)},X.prototype.addTag=function(A){const e="string"==typeof A?_(A):n("Git.addTag requires a tag name")
 return this._runTask(e,h(arguments))},X.prototype.addAnnotatedTag=function(A,e){return this._runTask(P(A,e),h(arguments))},X.prototype.deleteLocalBranch=function(A,e,t){return this._runTask(d(A,"boolean"==typeof e&&e),h(arguments))},X.prototype.deleteLocalBranches=function(A,e,t){return this._runTask(u(A,"boolean"==typeof e&&e),h(arguments))},X.prototype.branch=function(A,e){return this._runTask(I(Q(arguments)),h(arguments))},X.prototype.branchLocal=function(A){return this._runTask(l(),h(arguments))},X.prototype.raw=function(A){const e=!Array.isArray(A),t=[].slice.call(e?arguments:A,0)
 for(let A=0;A<t.length&&e;A++)if(!a(t[A])){t.splice(A,t.length-A)
 break}t.push(...Q(arguments,0,!0))
 var r=h(arguments)
-return t.length?this._runTask(j(t,this._trimmed),r):this._runTask(n("Raw: must supply one or more command to execute"),r)},X.prototype.submoduleAdd=function(A,e,t){return this._runTask(H(A,e),h(arguments))},X.prototype.submoduleUpdate=function(A,e){return this._runTask(V(Q(arguments,!0)),h(arguments))},X.prototype.submoduleInit=function(A,e){return this._runTask(O(Q(arguments,!0)),h(arguments))},X.prototype.subModule=function(A,e){return this._runTask(x(Q(arguments)),h(arguments))},X.prototype.listRemote=function(){return this._runTask(M(Q(arguments)),h(arguments))},X.prototype.addRemote=function(A,e,t){return this._runTask(L(A,e,Q(arguments)),h(arguments))},X.prototype.removeRemote=function(A,e){return this._runTask(T(A),h(arguments))},X.prototype.getRemotes=function(A,e){return this._runTask(U(!0===A),h(arguments))},X.prototype.remote=function(A,e){return this._runTask(v(Q(arguments)),h(arguments))},X.prototype.tag=function(A,e){const t=Q(arguments)
+return t.length?this._runTask(j(t,this._trimmed),r):this._runTask(n("Raw: must supply one or more command to execute"),r)},X.prototype.submoduleAdd=function(A,e,t){return this._runTask(O(A,e),h(arguments))},X.prototype.submoduleUpdate=function(A,e){return this._runTask(V(Q(arguments,!0)),h(arguments))},X.prototype.submoduleInit=function(A,e){return this._runTask(H(Q(arguments,!0)),h(arguments))},X.prototype.subModule=function(A,e){return this._runTask(x(Q(arguments)),h(arguments))},X.prototype.listRemote=function(){return this._runTask(M(Q(arguments)),h(arguments))},X.prototype.addRemote=function(A,e,t){return this._runTask(L(A,e,Q(arguments)),h(arguments))},X.prototype.removeRemote=function(A,e){return this._runTask(T(A),h(arguments))},X.prototype.getRemotes=function(A,e){return this._runTask(U(!0===A),h(arguments))},X.prototype.remote=function(A,e){return this._runTask(v(Q(arguments)),h(arguments))},X.prototype.tag=function(A,e){const t=Q(arguments)
 return"tag"!==t[0]&&t.unshift("tag"),this._runTask(j(t),h(arguments))},X.prototype.updateServerInfo=function(A){return this._runTask(j(["update-server-info"]),h(arguments))},X.prototype.pushTags=function(A,e){const t=S({remote:E(A,c)},Q(arguments))
 return this._runTask(t,h(arguments))},X.prototype.rm=function(A){return this._runTask(j(["rm","-f",...o(A)]),h(arguments))},X.prototype.rmKeepLocal=function(A){return this._runTask(j(["rm","--cached",...o(A)]),h(arguments))},X.prototype.catFile=function(A,e){return this._catFile("utf-8",arguments)},X.prototype.binaryCatFile=function(){return this._catFile("buffer",arguments)},X.prototype._catFile=function(A,e){var t=h(e),r=["cat-file"],s=e[0]
 if("string"==typeof s)return this._runTask(n("Git.catFile: options must be supplied as an array of strings"),t)
@@ -975,28 +981,31 @@ return this._runTask(t,h(arguments))},X.prototype.diffSummary=function(){return 
 return this._runTask(e,h(arguments))},X.prototype.revparse=function(){const A=["rev-parse",...Q(arguments,!0)]
 return this._runTask(j(A,!0),h(arguments))},X.prototype.clean=function(A,e,t){const r=D(A),s=r&&A.join("")||E(A,c)||"",n=Q([].slice.call(arguments,r?1:0))
 return this._runTask(R(s,n),h(arguments))},X.prototype.exec=function(A){const e={commands:[],format:"utf-8",parser(){"function"==typeof A&&A()}}
-return this._runTask(e)},X.prototype.clearQueue=function(){return this},X.prototype.checkIgnore=function(A,e){return this._runTask(f(o(E(A,g,[]))),h(arguments))},X.prototype.checkIsRepo=function(A,e){return this._runTask(p(E(A,c)),h(arguments))},e.exports=X}},function(){return Ao||(0,$n[E($n)[0]])((Ao={exports:{}}).exports,Ao),Ao.exports}),so={}
-function no(A){return Object.defineProperties(A,{__esModule:{value:!0},default:{value:A}})}function oo(A){return Object.assign(A.bind(null),xe)}function io(A,e){const t=new tt,r=DA(A&&("string"==typeof A?{baseDir:A}:A)||{},e)
-if(!X(r.baseDir))throw new F(r,"Cannot use simple-git on a directory that does not exist")
-return Array.isArray(r.config)&&t.add(function(A){const e=tA(A,"-c")
-return{type:"spawn.args",action:A=>[...e,...A]}}(r.config)),t.add(_e(r.unsafe)),t.add({type:"spawn.args",action(A){const e=[]
+return this._runTask(e)},X.prototype.clearQueue=function(){return this},X.prototype.checkIgnore=function(A,e){return this._runTask(f(o(E(A,g,[]))),h(arguments))},X.prototype.checkIsRepo=function(A,e){return this._runTask(p(E(A,c)),h(arguments))},e.exports=X}},function(){return no||(0,so[E(so)[0]])((no={exports:{}}).exports,no),no.exports}),co={}
+function go(A){return Object.defineProperties(A,{__esModule:{value:!0},default:{value:A}})}function Eo(A){return Object.assign(A.bind(null),He)}function Qo(A,e){var t
+const r=new it,s=RA(A&&("string"==typeof A?{baseDir:A}:A)||{},e)
+if(!j(s.baseDir))throw new N(s,"Cannot use simple-git on a directory that does not exist")
+return Array.isArray(s.config)&&r.add(function(A){const e=eA(A,"-c")
+return{type:"spawn.args",action:A=>[...e,...A]}}(s.config)),r.add(Pe(s.unsafe)),r.add({type:"spawn.args",action(A){const e=[]
 let t
 function r(A){(t=t||[]).push(...A)}for(let t=0;t<A.length;t++){const s=A[t]
-if(b(s))r(N(s))
-else{if("--"===s){r(A.slice(t+1).flatMap((A=>b(A)&&N(A)||A)))
-break}e.push(s)}}return t?[...e,"--",...t.map(String)]:e}}),t.add(Ze(r.completion)),r.abort&&t.add(function(A){if(!A)return
-return[{type:"spawn.before",action(e,t){A.aborted&&t.kill(new S(void 0,"abort","Abort already signaled"))}},{type:"spawn.after",action(e,t){function r(){t.kill(new S(void 0,"abort","Abort signal received"))}A.addEventListener("abort",r),t.spawned.on("close",(()=>A.removeEventListener("abort",r)))}}]}(r.abort)),r.progress&&t.add(function(A){const e="--progress",t=["checkout","clone","fetch","pull","push"]
-return[{type:"spawn.args",action:(A,r)=>t.includes(r.method)?K(A,e):A},{type:"spawn.after",action(t,r){var s
+if(k(s))r(b(s))
+else{if("--"===s){r(A.slice(t+1).flatMap((A=>k(A)&&b(A)||A)))
+break}e.push(s)}}return t?[...e,"--",...t.map(String)]:e}}),r.add(Xe(s.completion)),s.abort&&r.add(function(A){if(!A)return
+const e={type:"spawn.after",action(e,t){function r(){t.kill(new F(void 0,"abort","Abort signal received"))}A.addEventListener("abort",r),t.spawned.on("close",(()=>A.removeEventListener("abort",r)))}}
+return[{type:"spawn.before",action(e,t){A.aborted&&t.kill(new F(void 0,"abort","Abort already signaled"))}},e]}(s.abort)),s.progress&&r.add(function(A){const e="--progress",t=["checkout","clone","fetch","pull","push"]
+return[{type:"spawn.args",action:(A,r)=>t.includes(r.method)?Z(A,e):A},{type:"spawn.after",action(t,r){var s
 r.commands.includes(e)&&(null==(s=r.spawned.stderr)||s.on("data",(e=>{const t=/^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(e.toString("utf8"))
 var s
-t&&A({method:r.method,stage:(s=t[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:eA(t[2]),processed:eA(t[3]),total:eA(t[4])})})))}}]}(r.progress)),r.timeout&&t.add(function({block:A,stdErr:e=!0,stdOut:t=!0}){if(A>0)return{type:"spawn.after",action(r,s){var n,o
+t&&A({method:r.method,stage:(s=t[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:AA(t[2]),processed:AA(t[3]),total:AA(t[4])})})))}}]}(s.progress)),s.timeout&&r.add(function({block:A,stdErr:e=!0,stdOut:t=!0}){if(A>0)return{type:"spawn.after",action(r,s){var n,o
 let i
 function a(){i&&clearTimeout(i),i=setTimeout(g,A)}function c(){var A,e
-null==(A=s.spawned.stdout)||A.off("data",a),null==(e=s.spawned.stderr)||e.off("data",a),s.spawned.off("exit",c),s.spawned.off("close",c),i&&clearTimeout(i)}function g(){c(),s.kill(new S(void 0,"timeout","block timeout reached"))}t&&(null==(n=s.spawned.stdout)||n.on("data",a)),e&&(null==(o=s.spawned.stderr)||o.on("data",a)),s.spawned.on("exit",c),s.spawned.on("close",c),a()}}}(r.timeout)),r.spawnOptions&&t.add(function(A){const e=sA(A,["uid","gid"])
-return{type:"spawn.options",action:A=>l(l({},e),A)}}(r.spawnOptions)),t.add(et(At(!0))),r.errors&&t.add(et(r.errors)),new eo(r,t)}p(so,{esModuleFactory:()=>no,gitExportFactory:()=>oo,gitInstanceFactory:()=>io})
-var ao,co,go=f({"src/lib/git-factory.ts"(){Ve(),ct(),Et(),HA(),eo=ro()}}),Eo={}
-function Qo(...A){let e,t=Promise.resolve()
-try{e=io(...A)}catch(A){t=Promise.reject(A)}function r(){return o}function n(){return t}const o=[...ao,...co].reduce(((A,o)=>{const i=co.includes(o),a=i?(c=o,g=e,function(...A){if("function"==typeof A[A.length])throw new TypeError("Promise interface requires that handlers are not supplied inline, trailing function not allowed in call to "+c)
+null==(A=s.spawned.stdout)||A.off("data",a),null==(e=s.spawned.stderr)||e.off("data",a),s.spawned.off("exit",c),s.spawned.off("close",c),i&&clearTimeout(i)}function g(){c(),s.kill(new F(void 0,"timeout","block timeout reached"))}t&&(null==(n=s.spawned.stdout)||n.on("data",a)),e&&(null==(o=s.spawned.stderr)||o.on("data",a)),s.spawned.on("exit",c),s.spawned.on("close",c),a()}}}(s.timeout)),s.spawnOptions&&r.add(function(A){const e=rA(A,["uid","gid"])
+return{type:"spawn.options",action:A=>l(l({},e),A)}}(s.spawnOptions)),r.add(nt(st(!0))),s.errors&&r.add(nt(s.errors)),function(A,e=["git"],t=!1){let r=At(z(e),t)
+A.on("binary",(A=>{r=At(z(A),t)})),A.append("spawn.binary",(()=>r.binary)),A.append("spawn.args",(A=>r.prefix?[r.prefix,...A]:A))}(r,s.binary,null==(t=s.unsafe)?void 0:t.allowUnsafeCustomBinary),new oo(s,r)}f(co,{esModuleFactory:()=>go,gitExportFactory:()=>Eo,gitInstanceFactory:()=>Qo})
+var ho,Co,Bo=d({"src/lib/git-factory.ts"(){xe(),Ct(),It(),JA(),oo=ao()}}),Io={}
+function lo(...A){let e,t=Promise.resolve()
+try{e=Qo(...A)}catch(A){t=Promise.reject(A)}function r(){return o}function n(){return t}const o=[...ho,...Co].reduce(((A,o)=>{const i=Co.includes(o),a=i?(c=o,g=e,function(...A){if("function"==typeof A[A.length])throw new TypeError("Promise interface requires that handlers are not supplied inline, trailing function not allowed in call to "+c)
 return t.then((function(){return new Promise((function(e,t){const r=(A,r)=>{if(A)return t((n=A)instanceof Error?n:"string"==typeof n?new Error(n):new s(n))
 var n
 e(r)}
@@ -1004,9 +1013,9 @@ A.push(r),g[c].apply(g,A)}))}))}):function(A,e,t){return(...r)=>(e[A](...r),t)}(
 var c,g
 const E=i?n:r
 return Object.defineProperty(A,o,{enumerable:!1,configurable:!1,value:e?a:E}),A}),{})
-return o}p(Eo,{gitP:()=>Qo})
-var ho=f({"src/lib/runners/promise-wrapped.ts"(){D(),go(),ao=["customBinary","env","outputHandler","silent"],co=["add","addAnnotatedTag","addConfig","addRemote","addTag","applyPatch","binaryCatFile","branch","branchLocal","catFile","checkIgnore","checkIsRepo","checkout","checkoutBranch","checkoutLatestTag","checkoutLocalBranch","clean","clone","commit","cwd","deleteLocalBranch","deleteLocalBranches","diff","diffSummary","exec","fetch","getRemotes","init","listConfig","listRemote","log","merge","mergeFromTo","mirror","mv","pull","push","pushTags","raw","rebase","remote","removeRemote","reset","revert","revparse","rm","rmKeepLocal","show","stash","stashList","status","subModule","submoduleAdd","submoduleInit","submoduleUpdate","tag","tags","updateServerInfo"]}}),{gitP:Co}=(ho(),w(Eo)),{esModuleFactory:Bo,gitInstanceFactory:Io,gitExportFactory:lo}=(go(),w(so)),uo=Bo(lo(Io))
-A.exports=Object.assign(uo,{gitP:Co,simpleGit:uo})},7687:(A,e,t)=>{"use strict"
+return o}f(Io,{gitP:()=>lo})
+var uo=d({"src/lib/runners/promise-wrapped.ts"(){R(),Bo(),ho=["customBinary","env","outputHandler","silent"],Co=["add","addAnnotatedTag","addConfig","addRemote","addTag","applyPatch","binaryCatFile","branch","branchLocal","catFile","checkIgnore","checkIsRepo","checkout","checkoutBranch","checkoutLatestTag","checkoutLocalBranch","clean","clone","commit","cwd","deleteLocalBranch","deleteLocalBranches","diff","diffSummary","exec","fetch","getRemotes","init","listConfig","listRemote","log","merge","mergeFromTo","mirror","mv","pull","push","pushTags","raw","rebase","remote","removeRemote","reset","revert","revparse","rm","rmKeepLocal","show","stash","stashList","status","subModule","submoduleAdd","submoduleInit","submoduleUpdate","tag","tags","updateServerInfo"]}}),{gitP:fo}=(uo(),y(Io)),{esModuleFactory:po,gitInstanceFactory:yo,gitExportFactory:wo}=(Bo(),y(co)),mo=po(wo(yo))
+A.exports=Object.assign(mo,{gitP:fo,simpleGit:mo})},7687:(A,e,t)=>{"use strict"
 const r=t(857),s=t(2018),n=t(5884),{env:o}=process
 let i
 function a(A){return 0!==A&&{level:A,hasBasic:!0,has256:A>=2,has16m:A>=3}}function c(A,e){if(0===i)return 0
@@ -1428,7 +1437,7 @@ A.exports={urlEquals:function(A,e,t=!1){return s(A,t)===s(e,t)},fieldValues:func
 const e=[]
 for(let t of A.split(","))t=t.trim(),t.length&&n(t)&&e.push(t)
 return e}}},9350:(A,e,t)=>{"use strict"
-const r=t(2613),s=t(9278),n=t(8611),{pipeline:o}=t(2203),i=t(7017),a=t(3707),c=t(5636),g=t(376),{RequestContentLengthMismatchError:E,ResponseContentLengthMismatchError:Q,InvalidArgumentError:h,RequestAbortedError:C,HeadersTimeoutError:B,HeadersOverflowError:I,SocketError:l,InformationalError:u,BodyTimeoutError:d,HTTPParserError:f,ResponseExceededMaxSizeError:p,ClientDestroyedError:y}=t(1702),w=t(5711),{kUrl:m,kReset:R,kServerName:D,kClient:k,kBusy:b,kParser:N,kConnect:F,kBlocking:S,kResuming:L,kRunning:U,kPending:M,kSize:v,kWriting:T,kQueue:Y,kConnected:G,kConnecting:J,kNeedDrain:H,kNoRef:O,kKeepAliveDefaultTimeout:x,kHostHeader:V,kPendingIdx:P,kRunningIdx:_,kError:W,kPipelining:q,kSocket:j,kKeepAliveTimeoutValue:X,kMaxHeadersSize:Z,kKeepAliveMaxTimeout:K,kKeepAliveTimeoutThreshold:z,kHeadersTimeout:$,kBodyTimeout:AA,kStrictContentLength:eA,kConnector:tA,kMaxRedirections:rA,kMaxRequests:sA,kCounter:nA,kClose:oA,kDestroy:iA,kDispatch:aA,kInterceptors:cA,kLocalAddress:gA,kMaxResponseSize:EA,kHTTPConnVersion:QA,kHost:hA,kHTTP2Session:CA,kHTTP2SessionState:BA,kHTTP2BuildRequest:IA,kHTTP2CopyHeaders:lA,kHTTP1BuildRequest:uA}=t(7336)
+const r=t(2613),s=t(9278),n=t(8611),{pipeline:o}=t(2203),i=t(7017),a=t(3707),c=t(5636),g=t(376),{RequestContentLengthMismatchError:E,ResponseContentLengthMismatchError:Q,InvalidArgumentError:h,RequestAbortedError:C,HeadersTimeoutError:B,HeadersOverflowError:I,SocketError:l,InformationalError:u,BodyTimeoutError:d,HTTPParserError:f,ResponseExceededMaxSizeError:p,ClientDestroyedError:y}=t(1702),w=t(5711),{kUrl:m,kReset:R,kServerName:D,kClient:k,kBusy:b,kParser:N,kConnect:F,kBlocking:S,kResuming:L,kRunning:U,kPending:M,kSize:v,kWriting:T,kQueue:Y,kConnected:G,kConnecting:J,kNeedDrain:O,kNoRef:H,kKeepAliveDefaultTimeout:x,kHostHeader:V,kPendingIdx:P,kRunningIdx:_,kError:W,kPipelining:q,kSocket:j,kKeepAliveTimeoutValue:X,kMaxHeadersSize:Z,kKeepAliveMaxTimeout:K,kKeepAliveTimeoutThreshold:z,kHeadersTimeout:$,kBodyTimeout:AA,kStrictContentLength:eA,kConnector:tA,kMaxRedirections:rA,kMaxRequests:sA,kCounter:nA,kClose:oA,kDestroy:iA,kDispatch:aA,kInterceptors:cA,kLocalAddress:gA,kMaxResponseSize:EA,kHTTPConnVersion:QA,kHost:hA,kHTTP2Session:CA,kHTTP2SessionState:BA,kHTTP2BuildRequest:IA,kHTTP2CopyHeaders:lA,kHTTP1BuildRequest:uA}=t(7336)
 let dA
 try{dA=t(5675)}catch{dA={constants:{}}}const{constants:{HTTP2_HEADER_AUTHORITY:fA,HTTP2_HEADER_METHOD:pA,HTTP2_HEADER_PATH:yA,HTTP2_HEADER_SCHEME:wA,HTTP2_HEADER_CONTENT_LENGTH:mA,HTTP2_HEADER_EXPECT:RA,HTTP2_HEADER_STATUS:DA}}=dA
 let kA=!1
@@ -1442,35 +1451,35 @@ for(let e=0;e<A.length;e++){ae(this,A[e],t)}}else if(e[U]>0){const A=e[Y][e[_]]
 e[Y][e[_]++]=null,ae(e,A,t)}e[P]=e[_],r(0===e[U]),e.emit("disconnect",e[m],[e],t),ee(e)}const vA=t(6851),TA=t(6866),YA=Buffer.alloc(0)
 let GA=null,JA=async function(){const A=process.env.JEST_WORKER_ID?t(1805):void 0
 let e
-try{e=await WebAssembly.compile(Buffer.from(t(6335),"base64"))}catch(r){e=await WebAssembly.compile(Buffer.from(A||t(1805),"base64"))}return await WebAssembly.instantiate(e,{env:{wasm_on_url:(A,e,t)=>0,wasm_on_status:(A,e,t)=>{r.strictEqual(HA.ptr,A)
-const s=e-VA+OA.byteOffset
-return HA.onStatus(new bA(OA.buffer,s,t))||0},wasm_on_message_begin:A=>(r.strictEqual(HA.ptr,A),HA.onMessageBegin()||0),wasm_on_header_field:(A,e,t)=>{r.strictEqual(HA.ptr,A)
-const s=e-VA+OA.byteOffset
-return HA.onHeaderField(new bA(OA.buffer,s,t))||0},wasm_on_header_value:(A,e,t)=>{r.strictEqual(HA.ptr,A)
-const s=e-VA+OA.byteOffset
-return HA.onHeaderValue(new bA(OA.buffer,s,t))||0},wasm_on_headers_complete:(A,e,t,s)=>(r.strictEqual(HA.ptr,A),HA.onHeadersComplete(e,Boolean(t),Boolean(s))||0),wasm_on_body:(A,e,t)=>{r.strictEqual(HA.ptr,A)
-const s=e-VA+OA.byteOffset
-return HA.onBody(new bA(OA.buffer,s,t))||0},wasm_on_message_complete:A=>(r.strictEqual(HA.ptr,A),HA.onMessageComplete()||0)}})}()
+try{e=await WebAssembly.compile(Buffer.from(t(6335),"base64"))}catch(r){e=await WebAssembly.compile(Buffer.from(A||t(1805),"base64"))}return await WebAssembly.instantiate(e,{env:{wasm_on_url:(A,e,t)=>0,wasm_on_status:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+HA.byteOffset
+return OA.onStatus(new bA(HA.buffer,s,t))||0},wasm_on_message_begin:A=>(r.strictEqual(OA.ptr,A),OA.onMessageBegin()||0),wasm_on_header_field:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+HA.byteOffset
+return OA.onHeaderField(new bA(HA.buffer,s,t))||0},wasm_on_header_value:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+HA.byteOffset
+return OA.onHeaderValue(new bA(HA.buffer,s,t))||0},wasm_on_headers_complete:(A,e,t,s)=>(r.strictEqual(OA.ptr,A),OA.onHeadersComplete(e,Boolean(t),Boolean(s))||0),wasm_on_body:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+HA.byteOffset
+return OA.onBody(new bA(HA.buffer,s,t))||0},wasm_on_message_complete:A=>(r.strictEqual(OA.ptr,A),OA.onMessageComplete()||0)}})}()
 JA.catch()
-let HA=null,OA=null,xA=0,VA=null
+let OA=null,HA=null,xA=0,VA=null
 const PA=1,_A=3
-class WA{constructor(A,e,{exports:t}){r(Number.isFinite(A[Z])&&A[Z]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(vA.TYPE.RESPONSE),this.client=A,this.socket=e,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=A[Z],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=A[EA]}setTimeout(A,e){this.timeoutType=e,A!==this.timeoutValue?(a.clearTimeout(this.timeout),A?(this.timeout=a.setTimeout(qA,A,this),this.timeout.unref&&this.timeout.unref()):this.timeout=null,this.timeoutValue=A):this.timeout&&this.timeout.refresh&&this.timeout.refresh()}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==HA),this.llhttp.llhttp_resume(this.ptr),r(2===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||YA),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const A=this.socket.read()
+class WA{constructor(A,e,{exports:t}){r(Number.isFinite(A[Z])&&A[Z]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(vA.TYPE.RESPONSE),this.client=A,this.socket=e,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=A[Z],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=A[EA]}setTimeout(A,e){this.timeoutType=e,A!==this.timeoutValue?(a.clearTimeout(this.timeout),A?(this.timeout=a.setTimeout(qA,A,this),this.timeout.unref&&this.timeout.unref()):this.timeout=null,this.timeoutValue=A):this.timeout&&this.timeout.refresh&&this.timeout.refresh()}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==OA),this.llhttp.llhttp_resume(this.ptr),r(2===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||YA),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const A=this.socket.read()
 if(null===A)break
-this.execute(A)}}execute(A){r(null!=this.ptr),r(null==HA),r(!this.paused)
+this.execute(A)}}execute(A){r(null!=this.ptr),r(null==OA),r(!this.paused)
 const{socket:e,llhttp:t}=this
 A.length>xA&&(VA&&t.free(VA),xA=4096*Math.ceil(A.length/4096),VA=t.malloc(xA)),new Uint8Array(t.memory.buffer,VA,xA).set(A)
 try{let r
-try{OA=A,HA=this,r=t.llhttp_execute(this.ptr,VA,A.length)}catch(A){throw A}finally{HA=null,OA=null}const s=t.llhttp_get_error_pos(this.ptr)-VA
+try{HA=A,OA=this,r=t.llhttp_execute(this.ptr,VA,A.length)}catch(A){throw A}finally{OA=null,HA=null}const s=t.llhttp_get_error_pos(this.ptr)-VA
 if(r===vA.ERROR.PAUSED_UPGRADE)this.onUpgrade(A.slice(s))
 else if(r===vA.ERROR.PAUSED)this.paused=!0,e.unshift(A.slice(s))
 else if(r!==vA.ERROR.OK){const e=t.llhttp_get_error_reason(this.ptr)
 let n=""
 if(e){const A=new Uint8Array(t.memory.buffer,e).indexOf(0)
-n="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,e,A).toString()+")"}throw new f(n,vA.ERROR[r],A.slice(s))}}catch(A){i.destroy(e,A)}}destroy(){r(null!=this.ptr),r(null==HA),this.llhttp.llhttp_free(this.ptr),this.ptr=null,a.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(A){this.statusText=A.toString()}onMessageBegin(){const{socket:A,client:e}=this
+n="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,e,A).toString()+")"}throw new f(n,vA.ERROR[r],A.slice(s))}}catch(A){i.destroy(e,A)}}destroy(){r(null!=this.ptr),r(null==OA),this.llhttp.llhttp_free(this.ptr),this.ptr=null,a.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(A){this.statusText=A.toString()}onMessageBegin(){const{socket:A,client:e}=this
 if(A.destroyed)return-1
 return e[Y][e[_]]?void 0:-1}onHeaderField(A){const e=this.headers.length
-0==(1&e)?this.headers.push(A):this.headers[e-1]=Buffer.concat([this.headers[e-1],A]),this.trackHeader(A.length)}onHeaderValue(A){let e=this.headers.length
-1==(1&e)?(this.headers.push(A),e+=1):this.headers[e-1]=Buffer.concat([this.headers[e-1],A])
+1&e?this.headers[e-1]=Buffer.concat([this.headers[e-1],A]):this.headers.push(A),this.trackHeader(A.length)}onHeaderValue(A){let e=this.headers.length
+1&~e?this.headers[e-1]=Buffer.concat([this.headers[e-1],A]):(this.headers.push(A),e+=1)
 const t=this.headers[e-2]
 10===t.length&&"keep-alive"===t.toString().toLowerCase()?this.keepAlive+=A.toString():10===t.length&&"connection"===t.toString().toLowerCase()?this.connection+=A.toString():14===t.length&&"content-length"===t.toString().toLowerCase()&&(this.contentLength+=A.toString()),this.trackHeader(A.length)}trackHeader(A){this.headersSize+=A,this.headersSize>=this.headersMaxSize&&i.destroy(this.socket,new I)}onUpgrade(A){const{upgrade:e,client:t,socket:s,headers:n,statusCode:o}=this
 r(e)
@@ -1520,17 +1529,17 @@ if(A.destroyed)return void i.destroy(s.on("error",(()=>{})),new y)
 A[J]=!1,r(s)
 if("h2"===s.alpnProtocol){kA||(kA=!0,process.emitWarning("H2 support is experimental, expect them to change at any time.",{code:"UNDICI-H2"}))
 const e=dA.connect(A[m],{createConnection:()=>s,peerMaxConcurrentStreams:A[BA].maxConcurrentStreams})
-A[QA]="h2",e[k]=A,e[j]=s,e.on("error",SA),e.on("frameError",LA),e.on("end",UA),e.on("goaway",MA),e.on("close",zA),e.unref(),A[CA]=e,s[CA]=e}else GA||(GA=await JA,JA=null),s[O]=!1,s[T]=!1,s[R]=!1,s[S]=!1,s[N]=new WA(A,s,GA)
+A[QA]="h2",e[k]=A,e[j]=s,e.on("error",SA),e.on("frameError",LA),e.on("end",UA),e.on("goaway",MA),e.on("close",zA),e.unref(),A[CA]=e,s[CA]=e}else GA||(GA=await JA,JA=null),s[H]=!1,s[T]=!1,s[R]=!1,s[S]=!1,s[N]=new WA(A,s,GA)
 s[nA]=0,s[sA]=A[sA],s[k]=A,s[W]=null,s.on("error",XA).on("readable",jA).on("end",KA).on("close",zA),A[j]=s,FA.connected.hasSubscribers&&FA.connected.publish({connectParams:{host:e,hostname:t,protocol:n,port:o,servername:A[D],localAddress:A[gA]},connector:A[tA],socket:s}),A.emit("connect",A[m],[A])}catch(s){if(A.destroyed)return
 if(A[J]=!1,FA.connectError.hasSubscribers&&FA.connectError.publish({connectParams:{host:e,hostname:t,protocol:n,port:o,servername:A[D],localAddress:A[gA]},connector:A[tA],error:s}),"ERR_TLS_CERT_ALTNAME_INVALID"===s.code)for(r(0===A[U]);A[M]>0&&A[Y][A[P]].servername===A[D];){const e=A[Y][A[P]++]
 ae(A,e,s)}else ZA(A,s)
-A.emit("connectionError",A[m],[A],s)}ee(A)}function Ae(A){A[H]=0,A.emit("drain",A[m],[A])}function ee(A,e){2!==A[L]&&(A[L]=2,function(A,e){for(;;){if(A.destroyed)return void r(0===A[M])
+A.emit("connectionError",A[m],[A],s)}ee(A)}function Ae(A){A[O]=0,A.emit("drain",A[m],[A])}function ee(A,e){2!==A[L]&&(A[L]=2,function(A,e){for(;;){if(A.destroyed)return void r(0===A[M])
 if(A[NA]&&!A[v])return A[NA](),void(A[NA]=null)
 const t=A[j]
-if(t&&!t.destroyed&&"h2"!==t.alpnProtocol)if(0===A[v]?!t[O]&&t.unref&&(t.unref(),t[O]=!0):t[O]&&t.ref&&(t.ref(),t[O]=!1),0===A[v])t[N].timeoutType!==_A&&t[N].setTimeout(A[X],_A)
+if(t&&!t.destroyed&&"h2"!==t.alpnProtocol)if(0===A[v]?!t[H]&&t.unref&&(t.unref(),t[H]=!0):t[H]&&t.ref&&(t.ref(),t[H]=!1),0===A[v])t[N].timeoutType!==_A&&t[N].setTimeout(A[X],_A)
 else if(A[U]>0&&t[N].statusCode<200&&t[N].timeoutType!==PA){const e=A[Y][A[_]],r=null!=e.headersTimeout?e.headersTimeout:A[$]
-t[N].setTimeout(r,PA)}if(A[b])A[H]=2
-else if(2===A[H]){e?(A[H]=1,process.nextTick(Ae,A)):Ae(A)
+t[N].setTimeout(r,PA)}if(A[b])A[O]=2
+else if(2===A[O]){e?(A[O]=1,process.nextTick(Ae,A)):Ae(A)
 continue}if(0===A[M])return
 if(A[U]>=(A[q]||1))return
 const s=A[Y][A[P]]
@@ -1624,9 +1633,9 @@ if(null!=F&&(!Number.isInteger(F)||F<-1))throw new h("maxResponseSize must be a 
 if(null!=U&&(!Number.isInteger(U)||U<-1))throw new h("autoSelectFamilyAttemptTimeout must be a positive number")
 if(null!=M&&"boolean"!=typeof M)throw new h("allowH2 must be a valid boolean value")
 if(null!=v&&("number"!=typeof v||v<1))throw new h("maxConcurrentStreams must be a possitive integer, greater than 0")
-"function"!=typeof k&&(k=w({...f,maxCachedSessions:y,allowH2:M,socketPath:u,timeout:c,...i.nodeHasAutoSelectFamily&&S?{autoSelectFamily:S,autoSelectFamilyAttemptTimeout:U}:void 0,...k})),this[cA]=e&&e.Client&&Array.isArray(e.Client)?e.Client:[TA({maxRedirections:R})],this[m]=i.parseOrigin(A),this[tA]=k,this[j]=null,this[q]=null!=d?d:1,this[Z]=t||n.maxHeaderSize,this[x]=null==C?4e3:C,this[K]=null==I?6e5:I,this[z]=null==l?1e3:l,this[X]=this[x],this[D]=null,this[gA]=null!=N?N:null,this[L]=0,this[H]=0,this[V]=`host: ${this[m].hostname}${this[m].port?`:${this[m].port}`:""}\r\n`,this[AA]=null!=g?g:3e5,this[$]=null!=r?r:3e5,this[eA]=null==p||p,this[rA]=R,this[sA]=b,this[NA]=null,this[EA]=F>-1?F:-1,this[QA]="h1",this[CA]=null,this[BA]=M?{openStreams:0,maxConcurrentStreams:null!=v?v:100}:null,this[hA]=`${this[m].hostname}${this[m].port?`:${this[m].port}`:""}`,this[Y]=[],this[_]=0,this[P]=0}get pipelining(){return this[q]}set pipelining(A){this[q]=A,ee(this,!0)}get[M](){return this[Y].length-this[P]}get[U](){return this[P]-this[_]}get[v](){return this[Y].length-this[_]}get[G](){return!!this[j]&&!this[J]&&!this[j].destroyed}get[b](){const A=this[j]
+"function"!=typeof k&&(k=w({...f,maxCachedSessions:y,allowH2:M,socketPath:u,timeout:c,...i.nodeHasAutoSelectFamily&&S?{autoSelectFamily:S,autoSelectFamilyAttemptTimeout:U}:void 0,...k})),this[cA]=e&&e.Client&&Array.isArray(e.Client)?e.Client:[TA({maxRedirections:R})],this[m]=i.parseOrigin(A),this[tA]=k,this[j]=null,this[q]=null!=d?d:1,this[Z]=t||n.maxHeaderSize,this[x]=null==C?4e3:C,this[K]=null==I?6e5:I,this[z]=null==l?1e3:l,this[X]=this[x],this[D]=null,this[gA]=null!=N?N:null,this[L]=0,this[O]=0,this[V]=`host: ${this[m].hostname}${this[m].port?`:${this[m].port}`:""}\r\n`,this[AA]=null!=g?g:3e5,this[$]=null!=r?r:3e5,this[eA]=null==p||p,this[rA]=R,this[sA]=b,this[NA]=null,this[EA]=F>-1?F:-1,this[QA]="h1",this[CA]=null,this[BA]=M?{openStreams:0,maxConcurrentStreams:null!=v?v:100}:null,this[hA]=`${this[m].hostname}${this[m].port?`:${this[m].port}`:""}`,this[Y]=[],this[_]=0,this[P]=0}get pipelining(){return this[q]}set pipelining(A){this[q]=A,ee(this,!0)}get[M](){return this[Y].length-this[P]}get[U](){return this[P]-this[_]}get[v](){return this[Y].length-this[_]}get[G](){return!!this[j]&&!this[J]&&!this[j].destroyed}get[b](){const A=this[j]
 return A&&(A[R]||A[T]||A[S])||this[v]>=(this[q]||1)||this[M]>0}[F](A){$A(this),this.once("connect",A)}[aA](A,e){const t=A.origin||this[m].origin,r="h2"===this[QA]?c[IA](t,A,e):c[uA](t,A,e)
-return this[Y].push(r),this[L]||(null==i.bodyLength(r.body)&&i.isIterable(r.body)?(this[L]=1,process.nextTick(ee,this)):ee(this,!0)),this[L]&&2!==this[H]&&this[b]&&(this[H]=2),this[H]<2}async[oA](){return new Promise((A=>{this[v]?this[NA]=A:A(null)}))}async[iA](A){return new Promise((e=>{const t=this[Y].splice(this[P])
+return this[Y].push(r),this[L]||(null==i.bodyLength(r.body)&&i.isIterable(r.body)?(this[L]=1,process.nextTick(ee,this)):ee(this,!0)),this[L]&&2!==this[O]&&this[b]&&(this[O]=2),this[O]<2}async[oA](){return new Promise((A=>{this[v]?this[NA]=A:A(null)}))}async[iA](A){return new Promise((e=>{const t=this[Y].splice(this[P])
 for(let e=0;e<t.length;e++){ae(this,t[e],A)}const r=()=>{this[NA]&&(this[NA](),this[NA]=null),e()}
 null!=this[CA]&&(i.destroy(this[CA],A),this[CA]=null,this[BA]=null),this[j]?i.destroy(this[j].on("close",r),A):queueMicrotask(r),ee(this)}))}}},9875:(A,e,t)=>{"use strict"
 const{kConnected:r,kSize:s}=t(7336)
@@ -1705,7 +1714,10 @@ const s=setTimeout((()=>{t=setImmediate((()=>{"win32"===process.platform?r=setIm
 return()=>{clearTimeout(s),clearImmediate(t),clearImmediate(r)}}((()=>function(A){n.destroy(A,new i)}(u)),E)
 return u.setNoDelay(!0).once("https:"===c?"secureConnect":"connect",(function(){if(d(),l){const A=l
 l=null,A(null,this)}})).on("error",(function(A){if(d(),l){const e=l
-l=null,e(A)}})),u}}},1702:A=>{"use strict"
+l=null,e(A)}})),u}}},5032:A=>{"use strict"
+const e={},t=["Accept","Accept-Encoding","Accept-Language","Accept-Ranges","Access-Control-Allow-Credentials","Access-Control-Allow-Headers","Access-Control-Allow-Methods","Access-Control-Allow-Origin","Access-Control-Expose-Headers","Access-Control-Max-Age","Access-Control-Request-Headers","Access-Control-Request-Method","Age","Allow","Alt-Svc","Alt-Used","Authorization","Cache-Control","Clear-Site-Data","Connection","Content-Disposition","Content-Encoding","Content-Language","Content-Length","Content-Location","Content-Range","Content-Security-Policy","Content-Security-Policy-Report-Only","Content-Type","Cookie","Cross-Origin-Embedder-Policy","Cross-Origin-Opener-Policy","Cross-Origin-Resource-Policy","Date","Device-Memory","Downlink","ECT","ETag","Expect","Expect-CT","Expires","Forwarded","From","Host","If-Match","If-Modified-Since","If-None-Match","If-Range","If-Unmodified-Since","Keep-Alive","Last-Modified","Link","Location","Max-Forwards","Origin","Permissions-Policy","Pragma","Proxy-Authenticate","Proxy-Authorization","RTT","Range","Referer","Referrer-Policy","Refresh","Retry-After","Sec-WebSocket-Accept","Sec-WebSocket-Extensions","Sec-WebSocket-Key","Sec-WebSocket-Protocol","Sec-WebSocket-Version","Server","Server-Timing","Service-Worker-Allowed","Service-Worker-Navigation-Preload","Set-Cookie","SourceMap","Strict-Transport-Security","Supports-Loading-Mode","TE","Timing-Allow-Origin","Trailer","Transfer-Encoding","Upgrade","Upgrade-Insecure-Requests","User-Agent","Vary","Via","WWW-Authenticate","X-Content-Type-Options","X-DNS-Prefetch-Control","X-Frame-Options","X-Permitted-Cross-Domain-Policies","X-Powered-By","X-Requested-With","X-XSS-Protection"]
+for(let A=0;A<t.length;++A){const r=t[A],s=r.toLowerCase()
+e[r]=e[s]=s}Object.setPrototypeOf(e,null),A.exports={wellknownHeaderNames:t,headerNameLowerCasedRecord:e}},1702:A=>{"use strict"
 class e extends Error{constructor(A){super(A),this.name="UndiciError",this.code="UND_ERR"}}class t extends e{constructor(A){super(A),Error.captureStackTrace(this,t),this.name="ConnectTimeoutError",this.message=A||"Connect Timeout Error",this.code="UND_ERR_CONNECT_TIMEOUT"}}class r extends e{constructor(A){super(A),Error.captureStackTrace(this,r),this.name="HeadersTimeoutError",this.message=A||"Headers Timeout Error",this.code="UND_ERR_HEADERS_TIMEOUT"}}class s extends e{constructor(A){super(A),Error.captureStackTrace(this,s),this.name="HeadersOverflowError",this.message=A||"Headers Overflow Error",this.code="UND_ERR_HEADERS_OVERFLOW"}}class n extends e{constructor(A){super(A),Error.captureStackTrace(this,n),this.name="BodyTimeoutError",this.message=A||"Body Timeout Error",this.code="UND_ERR_BODY_TIMEOUT"}}class o extends e{constructor(A,e,t,r){super(A),Error.captureStackTrace(this,o),this.name="ResponseStatusCodeError",this.message=A||"Response Status Code Error",this.code="UND_ERR_RESPONSE_STATUS_CODE",this.body=r,this.status=e,this.statusCode=e,this.headers=t}}class i extends e{constructor(A){super(A),Error.captureStackTrace(this,i),this.name="InvalidArgumentError",this.message=A||"Invalid Argument Error",this.code="UND_ERR_INVALID_ARG"}}class a extends e{constructor(A){super(A),Error.captureStackTrace(this,a),this.name="InvalidReturnValueError",this.message=A||"Invalid Return Value Error",this.code="UND_ERR_INVALID_RETURN_VALUE"}}class c extends e{constructor(A){super(A),Error.captureStackTrace(this,c),this.name="AbortError",this.message=A||"Request aborted",this.code="UND_ERR_ABORTED"}}class g extends e{constructor(A){super(A),Error.captureStackTrace(this,g),this.name="InformationalError",this.message=A||"Request information",this.code="UND_ERR_INFO"}}class E extends e{constructor(A){super(A),Error.captureStackTrace(this,E),this.name="RequestContentLengthMismatchError",this.message=A||"Request body length does not match content-length header",this.code="UND_ERR_REQ_CONTENT_LENGTH_MISMATCH"}}class Q extends e{constructor(A){super(A),Error.captureStackTrace(this,Q),this.name="ResponseContentLengthMismatchError",this.message=A||"Response body length does not match content-length header",this.code="UND_ERR_RES_CONTENT_LENGTH_MISMATCH"}}class h extends e{constructor(A){super(A),Error.captureStackTrace(this,h),this.name="ClientDestroyedError",this.message=A||"The client is destroyed",this.code="UND_ERR_DESTROYED"}}class C extends e{constructor(A){super(A),Error.captureStackTrace(this,C),this.name="ClientClosedError",this.message=A||"The client is closed",this.code="UND_ERR_CLOSED"}}class B extends e{constructor(A,e){super(A),Error.captureStackTrace(this,B),this.name="SocketError",this.message=A||"Socket error",this.code="UND_ERR_SOCKET",this.socket=e}}class I extends e{constructor(A){super(A),Error.captureStackTrace(this,I),this.name="NotSupportedError",this.message=A||"Not supported error",this.code="UND_ERR_NOT_SUPPORTED"}}class l extends Error{constructor(A,e,t){super(A),Error.captureStackTrace(this,l),this.name="HTTPParserError",this.code=e?`HPE_${e}`:void 0,this.data=t?t.toString():void 0}}class u extends e{constructor(A){super(A),Error.captureStackTrace(this,u),this.name="ResponseExceededMaxSizeError",this.message=A||"Response content exceeded max size",this.code="UND_ERR_RES_EXCEEDED_MAX_SIZE"}}class d extends e{constructor(A,e,{headers:t,data:r}){super(A),Error.captureStackTrace(this,d),this.name="RequestRetryError",this.message=A||"Request retry error",this.code="UND_ERR_REQ_RETRY",this.statusCode=e,this.data=r,this.headers=t}}A.exports={HTTPParserError:l,UndiciError:e,HeadersTimeoutError:r,HeadersOverflowError:s,BodyTimeoutError:n,RequestContentLengthMismatchError:E,ConnectTimeoutError:t,ResponseStatusCodeError:o,InvalidArgumentError:i,InvalidReturnValueError:a,RequestAbortedError:c,ClientDestroyedError:h,ClientClosedError:C,InformationalError:g,SocketError:B,NotSupportedError:I,ResponseContentLengthMismatchError:Q,BalancedPoolMissingUpstreamError:class extends e{constructor(A){super(A),Error.captureStackTrace(this,I),this.name="MissingUpstreamError",this.message=A||"No upstream has been added to the BalancedPool",this.code="UND_ERR_BPL_MISSING_UPSTREAM"}},ResponseExceededMaxSizeError:u,RequestRetryError:d}},5636:(A,e,t)=>{"use strict"
 const{InvalidArgumentError:r,NotSupportedError:s}=t(1702),n=t(2613),{kHTTP2BuildRequest:o,kHTTP2CopyHeaders:i,kHTTP1BuildRequest:a}=t(7336),c=t(7017),g=/^[\^_`a-zA-Z\-0-9!#$%&'*+.|~]+$/,E=/[^\t\x20-\x7e\x80-\xff]/,Q=/[^\u0021-\u00ff]/,h=Symbol("handler"),C={}
 let B
@@ -1763,8 +1775,8 @@ if(6===e.length&&"expect"===e.toLowerCase())throw new s("expect header not suppo
 if(null===g.exec(e))throw new r("invalid header key")
 if(Array.isArray(t))for(let r=0;r<t.length;r++)n?A.headers[e]?A.headers[e]+=`,${l(e,t[r],n)}`:A.headers[e]=l(e,t[r],n):A.headers+=l(e,t[r])
 else n?A.headers[e]=l(e,t,n):A.headers+=l(e,t)}}}A.exports=I},7336:A=>{A.exports={kClose:Symbol("close"),kDestroy:Symbol("destroy"),kDispatch:Symbol("dispatch"),kUrl:Symbol("url"),kWriting:Symbol("writing"),kResuming:Symbol("resuming"),kQueue:Symbol("queue"),kConnect:Symbol("connect"),kConnecting:Symbol("connecting"),kHeadersList:Symbol("headers list"),kKeepAliveDefaultTimeout:Symbol("default keep alive timeout"),kKeepAliveMaxTimeout:Symbol("max keep alive timeout"),kKeepAliveTimeoutThreshold:Symbol("keep alive timeout threshold"),kKeepAliveTimeoutValue:Symbol("keep alive timeout"),kKeepAlive:Symbol("keep alive"),kHeadersTimeout:Symbol("headers timeout"),kBodyTimeout:Symbol("body timeout"),kServerName:Symbol("server name"),kLocalAddress:Symbol("local address"),kHost:Symbol("host"),kNoRef:Symbol("no ref"),kBodyUsed:Symbol("used"),kRunning:Symbol("running"),kBlocking:Symbol("blocking"),kPending:Symbol("pending"),kSize:Symbol("size"),kBusy:Symbol("busy"),kQueued:Symbol("queued"),kFree:Symbol("free"),kConnected:Symbol("connected"),kClosed:Symbol("closed"),kNeedDrain:Symbol("need drain"),kReset:Symbol("reset"),kDestroyed:Symbol.for("nodejs.stream.destroyed"),kMaxHeadersSize:Symbol("max headers size"),kRunningIdx:Symbol("running index"),kPendingIdx:Symbol("pending index"),kError:Symbol("error"),kClients:Symbol("clients"),kClient:Symbol("client"),kParser:Symbol("parser"),kOnDestroyed:Symbol("destroy callbacks"),kPipelining:Symbol("pipelining"),kSocket:Symbol("socket"),kHostHeader:Symbol("host header"),kConnector:Symbol("connector"),kStrictContentLength:Symbol("strict content length"),kMaxRedirections:Symbol("maxRedirections"),kMaxRequests:Symbol("maxRequestsPerClient"),kProxy:Symbol("proxy agent options"),kCounter:Symbol("socket request counter"),kInterceptors:Symbol("dispatch interceptors"),kMaxResponseSize:Symbol("max response size"),kHTTP2Session:Symbol("http2Session"),kHTTP2SessionState:Symbol("http2Session state"),kHTTP2BuildRequest:Symbol("http2 build request"),kHTTP1BuildRequest:Symbol("http1 build request"),kHTTP2CopyHeaders:Symbol("http2 copy headers"),kHTTPConnVersion:Symbol("http connection version"),kRetryHandlerDefaultRetry:Symbol("retry agent default retry"),kConstruct:Symbol("constructable")}},7017:(A,e,t)=>{"use strict"
-const r=t(2613),{kDestroyed:s,kBodyUsed:n}=t(7336),{IncomingMessage:o}=t(8611),i=t(2203),a=t(9278),{InvalidArgumentError:c}=t(1702),{Blob:g}=t(181),E=t(9023),{stringify:Q}=t(3480),[h,C]=process.versions.node.split(".").map((A=>Number(A)))
-function B(A){return A&&"object"==typeof A&&"function"==typeof A.pipe&&"function"==typeof A.on}function I(A){return g&&A instanceof g||A&&"object"==typeof A&&("function"==typeof A.stream||"function"==typeof A.arrayBuffer)&&/^(Blob|File)$/.test(A[Symbol.toStringTag])}function l(A){if("string"==typeof A){if(A=new URL(A),!/^https?:/.test(A.origin||A.protocol))throw new c("Invalid URL protocol: the URL must start with `http:` or `https:`.")
+const r=t(2613),{kDestroyed:s,kBodyUsed:n}=t(7336),{IncomingMessage:o}=t(8611),i=t(2203),a=t(9278),{InvalidArgumentError:c}=t(1702),{Blob:g}=t(181),E=t(9023),{stringify:Q}=t(3480),{headerNameLowerCasedRecord:h}=t(5032),[C,B]=process.versions.node.split(".").map((A=>Number(A)))
+function I(A){return A&&"object"==typeof A&&"function"==typeof A.pipe&&"function"==typeof A.on}function l(A){return g&&A instanceof g||A&&"object"==typeof A&&("function"==typeof A.stream||"function"==typeof A.arrayBuffer)&&/^(Blob|File)$/.test(A[Symbol.toStringTag])}function u(A){if("string"==typeof A){if(A=new URL(A),!/^https?:/.test(A.origin||A.protocol))throw new c("Invalid URL protocol: the URL must start with `http:` or `https:`.")
 return A}if(!A||"object"!=typeof A)throw new c("Invalid URL: The URL argument must be a non-null object.")
 if(!/^https?:/.test(A.origin||A.protocol))throw new c("Invalid URL protocol: the URL must start with `http:` or `https:`.")
 if(!(A instanceof URL)){if(null!=A.port&&""!==A.port&&!Number.isFinite(parseInt(A.port)))throw new c("Invalid URL: port must be a valid integer or a string representation of an integer.")
@@ -1774,32 +1786,32 @@ if(null!=A.hostname&&"string"!=typeof A.hostname)throw new c("Invalid URL hostna
 if(null!=A.origin&&"string"!=typeof A.origin)throw new c("Invalid URL origin: the origin must be a string or null/undefined.")
 const e=null!=A.port?A.port:"https:"===A.protocol?443:80
 let t=null!=A.origin?A.origin:`${A.protocol}//${A.hostname}:${e}`,r=null!=A.path?A.path:`${A.pathname||""}${A.search||""}`
-t.endsWith("/")&&(t=t.substring(0,t.length-1)),r&&!r.startsWith("/")&&(r=`/${r}`),A=new URL(t+r)}return A}function u(A){return!A||!(!A.destroyed&&!A[s])}function d(A){const e=A&&A._readableState
-return u(A)&&e&&!e.endEmitted}const f=/timeout=(\d+)/
-function p(A){return A instanceof Uint8Array||Buffer.isBuffer(A)}let y
-const w=!!String.prototype.toWellFormed
-const m=Object.create(null)
-m.enumerable=!0,A.exports={kEnumerableProperty:m,nop:function(){},isDisturbed:function(A){return!(!A||!(i.isDisturbed?i.isDisturbed(A)||A[n]:A[n]||A.readableDidRead||A._readableState&&A._readableState.dataEmitted||d(A)))},isErrored:function(A){return!(!A||!(i.isErrored?i.isErrored(A):/state: 'errored'/.test(E.inspect(A))))},isReadable:function(A){return!(!A||!(i.isReadable?i.isReadable(A):/state: 'readable'/.test(E.inspect(A))))},toUSVString:function(A){return w?`${A}`.toWellFormed():E.toUSVString?E.toUSVString(A):`${A}`},isReadableAborted:d,isBlobLike:I,parseOrigin:function(A){if("/"!==(A=l(A)).pathname||A.search||A.hash)throw new c("invalid url")
-return A},parseURL:l,getServerName:function(A){if(!A)return null
+t.endsWith("/")&&(t=t.substring(0,t.length-1)),r&&!r.startsWith("/")&&(r=`/${r}`),A=new URL(t+r)}return A}function d(A){return!A||!(!A.destroyed&&!A[s])}function f(A){const e=A&&A._readableState
+return d(A)&&e&&!e.endEmitted}const p=/timeout=(\d+)/
+function y(A){return A instanceof Uint8Array||Buffer.isBuffer(A)}let w
+const m=!!String.prototype.toWellFormed
+const R=Object.create(null)
+R.enumerable=!0,A.exports={kEnumerableProperty:R,nop:function(){},isDisturbed:function(A){return!(!A||!(i.isDisturbed?i.isDisturbed(A)||A[n]:A[n]||A.readableDidRead||A._readableState&&A._readableState.dataEmitted||f(A)))},isErrored:function(A){return!(!A||!(i.isErrored?i.isErrored(A):/state: 'errored'/.test(E.inspect(A))))},isReadable:function(A){return!(!A||!(i.isReadable?i.isReadable(A):/state: 'readable'/.test(E.inspect(A))))},toUSVString:function(A){return m?`${A}`.toWellFormed():E.toUSVString?E.toUSVString(A):`${A}`},isReadableAborted:f,isBlobLike:l,parseOrigin:function(A){if("/"!==(A=u(A)).pathname||A.search||A.hash)throw new c("invalid url")
+return A},parseURL:u,getServerName:function(A){if(!A)return null
 r.strictEqual(typeof A,"string")
 const e=function(A){if("["===A[0]){const e=A.indexOf("]")
 return r(-1!==e),A.substring(1,e)}const e=A.indexOf(":")
 return-1===e?A:A.substring(0,e)}(A)
-return a.isIP(e)?"":e},isStream:B,isIterable:function(A){return!(null==A||"function"!=typeof A[Symbol.iterator]&&"function"!=typeof A[Symbol.asyncIterator])},isAsyncIterable:function(A){return!(null==A||"function"!=typeof A[Symbol.asyncIterator])},isDestroyed:u,parseRawHeaders:function(A){const e=[]
+return a.isIP(e)?"":e},isStream:I,isIterable:function(A){return!(null==A||"function"!=typeof A[Symbol.iterator]&&"function"!=typeof A[Symbol.asyncIterator])},isAsyncIterable:function(A){return!(null==A||"function"!=typeof A[Symbol.asyncIterator])},isDestroyed:d,headerNameToString:function(A){return h[A]||A.toLowerCase()},parseRawHeaders:function(A){const e=[]
 let t=!1,r=-1
 for(let s=0;s<A.length;s+=2){const n=A[s+0].toString(),o=A[s+1].toString("utf8")
 14!==n.length||"content-length"!==n&&"content-length"!==n.toLowerCase()?19!==n.length||"content-disposition"!==n&&"content-disposition"!==n.toLowerCase()?e.push(n,o):r=e.push(n,o)-1:(e.push(n,o),t=!0)}return t&&-1!==r&&(e[r]=Buffer.from(e[r]).toString("latin1")),e},parseHeaders:function(A,e={}){if(!Array.isArray(A))return A
 for(let t=0;t<A.length;t+=2){const r=A[t].toString().toLowerCase()
 let s=e[r]
-s?(Array.isArray(s)||(s=[s],e[r]=s),s.push(A[t+1].toString("utf8"))):Array.isArray(A[t+1])?e[r]=A[t+1].map((A=>A.toString("utf8"))):e[r]=A[t+1].toString("utf8")}return"content-length"in e&&"content-disposition"in e&&(e["content-disposition"]=Buffer.from(e["content-disposition"]).toString("latin1")),e},parseKeepAliveTimeout:function(A){const e=A.toString().match(f)
-return e?1e3*parseInt(e[1],10):null},destroy:function(A,e){null!=A&&B(A)&&!u(A)&&("function"==typeof A.destroy?(Object.getPrototypeOf(A).constructor===o&&(A.socket=null),A.destroy(e)):e&&process.nextTick(((A,e)=>{A.emit("error",e)}),A,e),!0!==A.destroyed&&(A[s]=!0))},bodyLength:function(A){if(null==A)return 0
-if(B(A)){const e=A._readableState
-return e&&!1===e.objectMode&&!0===e.ended&&Number.isFinite(e.length)?e.length:null}return I(A)?null!=A.size?A.size:null:p(A)?A.byteLength:null},deepClone:function(A){return JSON.parse(JSON.stringify(A))},ReadableStreamFrom:function(A){if(y||(y=t(3774).ReadableStream),y.from)return y.from(async function*(A){for await(const e of A)yield Buffer.isBuffer(e)?e:Buffer.from(e)}(A))
+s?(Array.isArray(s)||(s=[s],e[r]=s),s.push(A[t+1].toString("utf8"))):Array.isArray(A[t+1])?e[r]=A[t+1].map((A=>A.toString("utf8"))):e[r]=A[t+1].toString("utf8")}return"content-length"in e&&"content-disposition"in e&&(e["content-disposition"]=Buffer.from(e["content-disposition"]).toString("latin1")),e},parseKeepAliveTimeout:function(A){const e=A.toString().match(p)
+return e?1e3*parseInt(e[1],10):null},destroy:function(A,e){null!=A&&I(A)&&!d(A)&&("function"==typeof A.destroy?(Object.getPrototypeOf(A).constructor===o&&(A.socket=null),A.destroy(e)):e&&process.nextTick(((A,e)=>{A.emit("error",e)}),A,e),!0!==A.destroyed&&(A[s]=!0))},bodyLength:function(A){if(null==A)return 0
+if(I(A)){const e=A._readableState
+return e&&!1===e.objectMode&&!0===e.ended&&Number.isFinite(e.length)?e.length:null}return l(A)?null!=A.size?A.size:null:y(A)?A.byteLength:null},deepClone:function(A){return JSON.parse(JSON.stringify(A))},ReadableStreamFrom:function(A){if(w||(w=t(3774).ReadableStream),w.from)return w.from(async function*(A){for await(const e of A)yield Buffer.isBuffer(e)?e:Buffer.from(e)}(A))
 let e
-return new y({async start(){e=A[Symbol.asyncIterator]()},async pull(A){const{done:t,value:r}=await e.next()
+return new w({async start(){e=A[Symbol.asyncIterator]()},async pull(A){const{done:t,value:r}=await e.next()
 if(t)queueMicrotask((()=>{A.close()}))
 else{const e=Buffer.isBuffer(r)?r:Buffer.from(r)
-A.enqueue(new Uint8Array(e))}return A.desiredSize>0},async cancel(A){await e.return()}},0)},isBuffer:p,validateHandler:function(A,e,t){if(!A||"object"!=typeof A)throw new c("handler must be an object")
+A.enqueue(new Uint8Array(e))}return A.desiredSize>0},async cancel(A){await e.return()}},0)},isBuffer:y,validateHandler:function(A,e,t){if(!A||"object"!=typeof A)throw new c("handler must be an object")
 if("function"!=typeof A.onConnect)throw new c("invalid onConnect method")
 if("function"!=typeof A.onError)throw new c("invalid onError method")
 if("function"!=typeof A.onBodySent&&void 0!==A.onBodySent)throw new c("invalid onBodySent method")
@@ -1811,7 +1823,7 @@ return t&&(A+="?"+t),A},throwIfAborted:function(A){if(A)if("function"==typeof A.
 else if(A.aborted){const A=new Error("The operation was aborted")
 throw A.name="AbortError",A}},addAbortListener:function(A,e){return"addEventListener"in A?(A.addEventListener("abort",e,{once:!0}),()=>A.removeEventListener("abort",e)):(A.addListener("abort",e),()=>A.removeListener("abort",e))},parseRangeHeader:function(A){if(null==A||""===A)return{start:0,end:null,size:null}
 const e=A?A.match(/^bytes (\d+)-(\d+)\/(\d+)?$/):null
-return e?{start:parseInt(e[1]),end:e[2]?parseInt(e[2]):null,size:e[3]?parseInt(e[3]):null}:null},nodeMajor:h,nodeMinor:C,nodeHasAutoSelectFamily:h>18||18===h&&C>=13,safeHTTPMethods:["GET","HEAD","OPTIONS","TRACE"]}},376:(A,e,t)=>{"use strict"
+return e?{start:parseInt(e[1]),end:e[2]?parseInt(e[2]):null,size:e[3]?parseInt(e[3]):null}:null},nodeMajor:C,nodeMinor:B,nodeHasAutoSelectFamily:C>18||18===C&&B>=13,safeHTTPMethods:["GET","HEAD","OPTIONS","TRACE"]}},376:(A,e,t)=>{"use strict"
 const r=t(6892),{ClientDestroyedError:s,ClientClosedError:n,InvalidArgumentError:o}=t(1702),{kDestroy:i,kClose:a,kDispatch:c,kInterceptors:g}=t(7336),E=Symbol("destroyed"),Q=Symbol("closed"),h=Symbol("onDestroyed"),C=Symbol("onClosed"),B=Symbol("Intercepted Dispatch")
 A.exports=class extends r{constructor(){super(),this[E]=!1,this[h]=null,this[Q]=!1,this[C]=[]}get destroyed(){return this[E]}get closed(){return this[Q]}get interceptors(){return this[g]}set interceptors(A){if(A)for(let e=A.length-1;e>=0;e--){if("function"!=typeof this[g][e])throw new o("interceptor must be an function")}this[g]=A}close(A){if(void 0===A)return new Promise(((A,e)=>{this.close(((t,r)=>t?e(t):A(r)))}))
 if("function"!=typeof A)throw new o("invalid callback")
@@ -2020,14 +2032,14 @@ return i((()=>A),"Headers","value")}return i((()=>[...this[h].values()]),"Header
 return i((()=>A),"Headers","key+value")}return i((()=>[...this[h].values()]),"Headers","key+value")}forEach(A,e=globalThis){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,1,{header:"Headers.forEach"}),"function"!=typeof A)throw new TypeError("Failed to execute 'forEach' on 'Headers': parameter 1 is not of type 'Function'.")
 for(const[t,r]of this)A.apply(e,[r,t,this])}[Symbol.for("nodejs.util.inspect.custom")](){return g.brandCheck(this,d),this[r]}}d.prototype[Symbol.iterator]=d.prototype.entries,Object.defineProperties(d.prototype,{append:o,delete:o,get:o,has:o,set:o,getSetCookie:o,keys:o,values:o,entries:o,forEach:o,[Symbol.iterator]:{enumerable:!1},[Symbol.toStringTag]:{value:"Headers",configurable:!0}}),g.converters.HeadersInit=function(A){if("Object"===g.util.Type(A))return A[Symbol.iterator]?g.converters["sequence<sequence<ByteString>>"](A):g.converters["record<ByteString, ByteString>"](A)
 throw g.errors.conversionFailed({prefix:"Headers constructor",argument:"Argument 1",types:["sequence<sequence<ByteString>>","record<ByteString, ByteString>"]})},A.exports={fill:I,Headers:d,HeadersList:u}},3254:(A,e,t)=>{"use strict"
-const{Response:r,makeNetworkError:s,makeAppropriateNetworkError:n,filterResponse:o,makeResponse:i}=t(2675),{Headers:a}=t(7836),{Request:c,makeRequest:g}=t(4375),E=t(3106),{bytesMatch:Q,makePolicyContainer:h,clonePolicyContainer:C,requestBadPort:B,TAOCheck:I,appendRequestOriginHeader:l,responseLocationURL:u,requestCurrentURL:d,setRequestReferrerPolicyOnRedirect:f,tryUpgradeRequestToAPotentiallyTrustworthyURL:p,createOpaqueTimingInfo:y,appendFetchMetadata:w,corsCheck:m,crossOriginResourcePolicyCheck:R,determineRequestsReferrer:D,coarsenedSharedCurrentTime:k,createDeferredPromise:b,isBlobLike:N,sameOrigin:F,isCancelled:S,isAborted:L,isErrorLike:U,fullyReadBody:M,readableStreamClose:v,isomorphicEncode:T,urlIsLocal:Y,urlIsHttpHttpsScheme:G,urlHasHttpsScheme:J}=t(9064),{kState:H,kHeaders:O,kGuard:x,kRealm:V}=t(4803),P=t(2613),{safelyExtractBody:_}=t(6628),{redirectStatusSet:W,nullBodyStatus:q,safeMethodsSet:j,requestBodyHeader:X,subresourceSet:Z,DOMException:K}=t(6983),{kHeadersList:z}=t(7336),$=t(4434),{Readable:AA,pipeline:eA}=t(2203),{addAbortListener:tA,isErrored:rA,isReadable:sA,nodeMajor:nA,nodeMinor:oA}=t(7017),{dataURLProcessor:iA,serializeAMimeType:aA}=t(1895),{TransformStream:cA}=t(3774),{getGlobalDispatcher:gA}=t(1914),{webidl:EA}=t(1421),{STATUS_CODES:QA}=t(8611),hA=["GET","HEAD"]
+const{Response:r,makeNetworkError:s,makeAppropriateNetworkError:n,filterResponse:o,makeResponse:i}=t(2675),{Headers:a}=t(7836),{Request:c,makeRequest:g}=t(4375),E=t(3106),{bytesMatch:Q,makePolicyContainer:h,clonePolicyContainer:C,requestBadPort:B,TAOCheck:I,appendRequestOriginHeader:l,responseLocationURL:u,requestCurrentURL:d,setRequestReferrerPolicyOnRedirect:f,tryUpgradeRequestToAPotentiallyTrustworthyURL:p,createOpaqueTimingInfo:y,appendFetchMetadata:w,corsCheck:m,crossOriginResourcePolicyCheck:R,determineRequestsReferrer:D,coarsenedSharedCurrentTime:k,createDeferredPromise:b,isBlobLike:N,sameOrigin:F,isCancelled:S,isAborted:L,isErrorLike:U,fullyReadBody:M,readableStreamClose:v,isomorphicEncode:T,urlIsLocal:Y,urlIsHttpHttpsScheme:G,urlHasHttpsScheme:J}=t(9064),{kState:O,kHeaders:H,kGuard:x,kRealm:V}=t(4803),P=t(2613),{safelyExtractBody:_}=t(6628),{redirectStatusSet:W,nullBodyStatus:q,safeMethodsSet:j,requestBodyHeader:X,subresourceSet:Z,DOMException:K}=t(6983),{kHeadersList:z}=t(7336),$=t(4434),{Readable:AA,pipeline:eA}=t(2203),{addAbortListener:tA,isErrored:rA,isReadable:sA,nodeMajor:nA,nodeMinor:oA}=t(7017),{dataURLProcessor:iA,serializeAMimeType:aA}=t(1895),{TransformStream:cA}=t(3774),{getGlobalDispatcher:gA}=t(1914),{webidl:EA}=t(1421),{STATUS_CODES:QA}=t(8611),hA=["GET","HEAD"]
 let CA,BA=globalThis.ReadableStream
 class IA extends ${constructor(A){super(),this.dispatcher=A,this.connection=null,this.dump=!1,this.state="ongoing",this.setMaxListeners(21)}terminate(A){"ongoing"===this.state&&(this.state="terminated",this.connection?.destroy(A),this.emit("terminated",A))}abort(A){"ongoing"===this.state&&(this.state="aborted",A||(A=new K("The operation was aborted.","AbortError")),this.serializedAbortReason=A,this.connection?.destroy(A),this.emit("terminated",A))}}function lA(A,e="other"){if("error"===A.type&&A.aborted)return
 if(!A.urlList?.length)return
 const t=A.urlList[0]
 let r=A.timingInfo,s=A.cacheState
 G(t)&&null!==r&&(A.timingAllowPassed||(r=y({startTime:r.startTime}),s=""),r.endTime=k(),A.timingInfo=r,function(A,e,t,r,s){(nA>18||18===nA&&oA>=2)&&performance.markResourceTiming(A,e.href,t,r,s)}(r,t,e,globalThis,s))}function uA(A,e,t,r){if(r||(r=new K("The operation was aborted.","AbortError")),A.reject(r),null!=e.body&&sA(e.body?.stream)&&e.body.stream.cancel(r).catch((A=>{if("ERR_INVALID_STATE"!==A.code)throw A})),null==t)return
-const s=t[H]
+const s=t[O]
 null!=s.body&&sA(s.body?.stream)&&s.body.stream.cancel(r).catch((A=>{if("ERR_INVALID_STATE"!==A.code)throw A}))}function dA({request:A,processRequestBodyChunkLength:e,processRequestEndOfBody:t,processResponse:r,processResponseEndOfBody:s,processResponseConsumeBody:n,useParallelQueue:o=!1,dispatcher:i}){let a=null,c=!1
 null!=A.client&&(a=A.client.globalObject,c=A.client.crossOriginIsolatedCapability)
 const g=k(c),E=y({startTime:g}),Q={controller:new IA(i),request:A,timingInfo:E,processRequestBodyChunkLength:e,processRequestEndOfBody:t,processResponse:r,processResponseConsumeBody:n,processResponseEndOfBody:s,taskDestination:a,crossOriginIsolatedCapability:c}
@@ -2058,8 +2070,8 @@ case"http:":case"https:":return mA(A).catch((A=>s(A)))
 default:return Promise.resolve(s("unknown scheme"))}}function yA(A,e){A.request.done=!0,null!=A.processResponseDone&&queueMicrotask((()=>A.processResponseDone(e)))}function wA(A,e){"error"===e.type&&(e.urlList=[A.request.urlList[0]],e.timingInfo=y({startTime:A.timingInfo.startTime}))
 const t=()=>{A.request.done=!0,null!=A.processResponseEndOfBody&&queueMicrotask((()=>A.processResponseEndOfBody(e)))}
 if(null!=A.processResponse&&queueMicrotask((()=>A.processResponse(e))),null==e.body)t()
-else{const A=new cA({start(){},transform:(A,e)=>{e.enqueue(A)},flush:t},{size:()=>1},{size:()=>1})
-e.body={stream:e.body.stream.pipeThrough(A)}}if(null!=A.processResponseConsumeBody){const t=t=>A.processResponseConsumeBody(e,t),r=t=>A.processResponseConsumeBody(e,t)
+else{const A=(A,e)=>{e.enqueue(A)},r=new cA({start(){},transform:A,flush:t},{size:()=>1},{size:()=>1})
+e.body={stream:e.body.stream.pipeThrough(r)}}if(null!=A.processResponseConsumeBody){const t=t=>A.processResponseConsumeBody(e,t),r=t=>A.processResponseConsumeBody(e,t)
 return null!=e.body?M(e.body,t,r):(queueMicrotask((()=>t(null))),Promise.resolve())}}async function mA(A){const e=A.request
 let t=null,r=null
 const n=A.timingInfo
@@ -2129,15 +2141,15 @@ if(421===h.status&&!r&&(null==o.body||null!=o.body.source)){if(S(A))return n(A)
 A.controller.connection.destroy(),h=await RA(A,e,!0)}return h}A.exports={fetch:function(A,e={}){EA.argumentLengthCheck(arguments,1,{header:"globalThis.fetch"})
 const t=b()
 let s
-try{s=new c(A,e)}catch(A){return t.reject(A),t.promise}const n=s[H]
+try{s=new c(A,e)}catch(A){return t.reject(A),t.promise}const n=s[O]
 if(s.signal.aborted)return uA(t,n,null,s.signal.reason),t.promise
 const o=n.client.globalObject
 "ServiceWorkerGlobalScope"===o?.constructor?.name&&(n.serviceWorkers="none")
 let i=null,a=!1,g=null
-return tA(s.signal,(()=>{a=!0,P(null!=g),g.abort(s.signal.reason),uA(t,n,i,s.signal.reason)})),g=dA({request:n,processResponseEndOfBody:A=>lA(A,"fetch"),processResponse:A=>a?Promise.resolve():A.aborted?(uA(t,n,i,g.serializedAbortReason),Promise.resolve()):"error"===A.type?(t.reject(Object.assign(new TypeError("fetch failed"),{cause:A.error})),Promise.resolve()):(i=new r,i[H]=A,i[V]=null,i[O][z]=A.headersList,i[O][x]="immutable",i[O][V]=null,void t.resolve(i)),dispatcher:e.dispatcher??gA()}),t.promise},Fetch:IA,fetching:dA,finalizeAndReportTiming:lA}},4375:(A,e,t)=>{"use strict"
+return tA(s.signal,(()=>{a=!0,P(null!=g),g.abort(s.signal.reason),uA(t,n,i,s.signal.reason)})),g=dA({request:n,processResponseEndOfBody:A=>lA(A,"fetch"),processResponse:A=>a?Promise.resolve():A.aborted?(uA(t,n,i,g.serializedAbortReason),Promise.resolve()):"error"===A.type?(t.reject(Object.assign(new TypeError("fetch failed"),{cause:A.error})),Promise.resolve()):(i=new r,i[O]=A,i[V]=null,i[H][z]=A.headersList,i[H][x]="immutable",i[H][V]=null,void t.resolve(i)),dispatcher:e.dispatcher??gA()}),t.promise},Fetch:IA,fetching:dA,finalizeAndReportTiming:lA}},4375:(A,e,t)=>{"use strict"
 const{extractBody:r,mixinBody:s,cloneBody:n}=t(6628),{Headers:o,fill:i,HeadersList:a}=t(7836),{FinalizationRegistry:c}=t(9875)(),g=t(7017),{isValidHTTPToken:E,sameOrigin:Q,normalizeMethod:h,makePolicyContainer:C,normalizeMethodRecord:B}=t(9064),{forbiddenMethodsSet:I,corsSafeListedMethodsSet:l,referrerPolicy:u,requestRedirect:d,requestMode:f,requestCredentials:p,requestCache:y,requestDuplex:w}=t(6983),{kEnumerableProperty:m}=g,{kHeaders:R,kSignal:D,kState:k,kGuard:b,kRealm:N}=t(4803),{webidl:F}=t(1421),{getGlobalOrigin:S}=t(1547),{URLSerializer:L}=t(1895),{kHeadersList:U,kConstruct:M}=t(7336),v=t(2613),{getMaxListeners:T,setMaxListeners:Y,getEventListeners:G,defaultMaxListeners:J}=t(4434)
-let H=globalThis.TransformStream
-const O=Symbol("abortController"),x=new c((({signal:A,abort:e})=>{A.removeEventListener("abort",e)}))
+let O=globalThis.TransformStream
+const H=Symbol("abortController"),x=new c((({signal:A,abort:e})=>{A.removeEventListener("abort",e)}))
 class V{constructor(A,e={}){if(A===M)return
 F.argumentLengthCheck(arguments,1,{header:"Request constructor"}),A=F.converters.RequestInfo(A),e=F.converters.RequestInit(e),this[N]={settingsObject:{baseUrl:S(),get origin(){return this.baseUrl?.origin},policyContainer:C()}}
 let s=null,n=null
@@ -2164,7 +2176,7 @@ A=B[A]??h(A),s.method=A}void 0!==e.signal&&(u=e.signal),this[k]=s
 const w=new AbortController
 if(this[D]=w.signal,this[D][N]=this[N],null!=u){if(!u||"boolean"!=typeof u.aborted||"function"!=typeof u.addEventListener)throw new TypeError("Failed to construct 'Request': member signal is not of type AbortSignal.")
 if(u.aborted)w.abort(u.reason)
-else{this[O]=w
+else{this[H]=w
 const A=new WeakRef(w),e=function(){const e=A.deref()
 void 0!==e&&e.abort(this.reason)}
 try{("function"==typeof T&&T(u)===J||G(u,"abort").length>=J)&&Y(100,u)}catch{}g.addAbortListener(u,e),x.register(w,{signal:u,abort:e})}}if(this[R]=new o(M),this[R][U]=s.headersList,this[R][b]="request",this[R][N]=this[N],"no-cors"===y){if(!l.has(s.method))throw new TypeError(`'${s.method} is unsupported in no-cors mode.`)
@@ -2179,8 +2191,8 @@ if(null!=_&&null==_.source){if(null!=L&&null==e.duplex)throw new TypeError("Requ
 if("same-origin"!==s.mode&&"cors"!==s.mode)throw new TypeError('If request is made from ReadableStream, mode should be "same-origin" or "cors"')
 s.useCORSPreflightFlag=!0}let W=_
 if(null==L&&null!=m){if(g.isDisturbed(m.stream)||m.stream.locked)throw new TypeError("Cannot construct a Request with a Request object that has already been used.")
-H||(H=t(3774).TransformStream)
-const A=new H
+O||(O=t(3774).TransformStream)
+const A=new O
 m.stream.pipeThrough(A),W={source:m.source,length:m.length,stream:A.readable}}this[k].body=W}get method(){return F.brandCheck(this,V),this[k].method}get url(){return F.brandCheck(this,V),L(this[k].url)}get headers(){return F.brandCheck(this,V),this[R]}get destination(){return F.brandCheck(this,V),this[k].destination}get referrer(){return F.brandCheck(this,V),"no-referrer"===this[k].referrer?"":"client"===this[k].referrer?"about:client":this[k].referrer.toString()}get referrerPolicy(){return F.brandCheck(this,V),this[k].referrerPolicy}get mode(){return F.brandCheck(this,V),this[k].mode}get credentials(){return this[k].credentials}get cache(){return F.brandCheck(this,V),this[k].cache}get redirect(){return F.brandCheck(this,V),this[k].redirect}get integrity(){return F.brandCheck(this,V),this[k].integrity}get keepalive(){return F.brandCheck(this,V),this[k].keepalive}get isReloadNavigation(){return F.brandCheck(this,V),this[k].reloadNavigation}get isHistoryNavigation(){return F.brandCheck(this,V),this[k].historyNavigation}get signal(){return F.brandCheck(this,V),this[D]}get body(){return F.brandCheck(this,V),this[k].body?this[k].body.stream:null}get bodyUsed(){return F.brandCheck(this,V),!!this[k].body&&g.isDisturbed(this[k].body.stream)}get duplex(){return F.brandCheck(this,V),"half"}clone(){if(F.brandCheck(this,V),this.bodyUsed||this.body?.locked)throw new TypeError("unusable")
 const A=function(A){const e=P({...A,body:null})
 null!=A.body&&(e.body=n(A.body))
@@ -2193,7 +2205,7 @@ const{Headers:r,HeadersList:s,fill:n}=t(7836),{extractBody:o,cloneBody:i,mixinBo
 class v{static error(){const A={settingsObject:{}},e=new v
 return e[p]=G(),e[m]=A,e[y][N]=e[p].headersList,e[y][w]="immutable",e[y][m]=A,e}static json(A,e={}){R.argumentLengthCheck(arguments,1,{header:"Response.json"}),null!==e&&(e=R.converters.ResponseInit(e))
 const t=M.encode(B(A)),r=o(t),s={settingsObject:{}},n=new v
-return n[m]=s,n[y][w]="response",n[y][m]=s,O(n,e,{body:r[0],type:"application/json"}),n}static redirect(A,e=302){const t={settingsObject:{}}
+return n[m]=s,n[y][w]="response",n[y][m]=s,H(n,e,{body:r[0],type:"application/json"}),n}static redirect(A,e=302){const t={settingsObject:{}}
 let r
 R.argumentLengthCheck(arguments,1,{header:"Response.redirect"}),A=R.converters.USVString(A),e=R.converters["unsigned short"](e)
 try{r=new URL(A,k())}catch(e){throw Object.assign(new TypeError("Failed to parse URL from "+A),{cause:e})}if(!u.has(e))throw new RangeError("Invalid status code "+e)
@@ -2203,40 +2215,50 @@ const n=l(b(r))
 return s[p].headersList.append("location",n),s}constructor(A=null,e={}){null!==A&&(A=R.converters.BodyInit(A)),e=R.converters.ResponseInit(e),this[m]={settingsObject:{}},this[p]=Y({}),this[y]=new r(F),this[y][w]="response",this[y][N]=this[p].headersList,this[y][m]=this[m]
 let t=null
 if(null!=A){const[e,r]=o(A)
-t={body:e,type:r}}O(this,e,t)}get type(){return R.brandCheck(this,v),this[p].type}get url(){R.brandCheck(this,v)
+t={body:e,type:r}}H(this,e,t)}get type(){return R.brandCheck(this,v),this[p].type}get url(){R.brandCheck(this,v)
 const A=this[p].urlList,e=A[A.length-1]??null
 return null===e?"":b(e,!0)}get redirected(){return R.brandCheck(this,v),this[p].urlList.length>1}get status(){return R.brandCheck(this,v),this[p].status}get ok(){return R.brandCheck(this,v),this[p].status>=200&&this[p].status<=299}get statusText(){return R.brandCheck(this,v),this[p].statusText}get headers(){return R.brandCheck(this,v),this[y]}get body(){return R.brandCheck(this,v),this[p].body?this[p].body.stream:null}get bodyUsed(){return R.brandCheck(this,v),!!this[p].body&&c.isDisturbed(this[p].body.stream)}clone(){if(R.brandCheck(this,v),this.bodyUsed||this.body&&this.body.locked)throw R.errors.exception({header:"Response.clone",message:"Body has already been consumed."})
 const A=T(this[p]),e=new v
-return e[p]=A,e[m]=this[m],e[y][N]=A.headersList,e[y][w]=this[y][w],e[y][m]=this[y][m],e}}function T(A){if(A.internalResponse)return H(T(A.internalResponse),A.type)
+return e[p]=A,e[m]=this[m],e[y][N]=A.headersList,e[y][w]=this[y][w],e[y][m]=this[y][m],e}}function T(A){if(A.internalResponse)return O(T(A.internalResponse),A.type)
 const e=Y({...A,body:null})
-return null!=A.body&&(e.body=i(A.body)),e}function Y(A){return{aborted:!1,rangeRequested:!1,timingAllowPassed:!1,requestIncludesCredentials:!1,type:"default",status:200,timingInfo:null,cacheState:"",statusText:"",...A,headersList:A.headersList?new s(A.headersList):new s,urlList:A.urlList?[...A.urlList]:[]}}function G(A){return Y({type:"error",status:0,error:I(A)?A:new Error(A?String(A):A),aborted:A&&"AbortError"===A.name})}function J(A,e){return e={internalResponse:A,...e},new Proxy(A,{get:(A,t)=>t in e?e[t]:A[t],set:(A,t,r)=>(S(!(t in e)),A[t]=r,!0)})}function H(A,e){return"basic"===e?J(A,{type:"basic",headersList:A.headersList}):"cors"===e?J(A,{type:"cors",headersList:A.headersList}):"opaque"===e?J(A,{type:"opaque",urlList:Object.freeze([]),status:0,statusText:"",body:null}):"opaqueredirect"===e?J(A,{type:"opaqueredirect",status:0,statusText:"",headersList:[],body:null}):void S(!1)}function O(A,e,t){if(null!==e.status&&(e.status<200||e.status>599))throw new RangeError('init["status"] must be in the range of 200 to 599, inclusive.')
+return null!=A.body&&(e.body=i(A.body)),e}function Y(A){return{aborted:!1,rangeRequested:!1,timingAllowPassed:!1,requestIncludesCredentials:!1,type:"default",status:200,timingInfo:null,cacheState:"",statusText:"",...A,headersList:A.headersList?new s(A.headersList):new s,urlList:A.urlList?[...A.urlList]:[]}}function G(A){return Y({type:"error",status:0,error:I(A)?A:new Error(A?String(A):A),aborted:A&&"AbortError"===A.name})}function J(A,e){return e={internalResponse:A,...e},new Proxy(A,{get:(A,t)=>t in e?e[t]:A[t],set:(A,t,r)=>(S(!(t in e)),A[t]=r,!0)})}function O(A,e){return"basic"===e?J(A,{type:"basic",headersList:A.headersList}):"cors"===e?J(A,{type:"cors",headersList:A.headersList}):"opaque"===e?J(A,{type:"opaque",urlList:Object.freeze([]),status:0,statusText:"",body:null}):"opaqueredirect"===e?J(A,{type:"opaqueredirect",status:0,statusText:"",headersList:[],body:null}):void S(!1)}function H(A,e,t){if(null!==e.status&&(e.status<200||e.status>599))throw new RangeError('init["status"] must be in the range of 200 to 599, inclusive.')
 if("statusText"in e&&null!=e.statusText&&!E(String(e.statusText)))throw new TypeError("Invalid statusText")
 if("status"in e&&null!=e.status&&(A[p].status=e.status),"statusText"in e&&null!=e.statusText&&(A[p].statusText=e.statusText),"headers"in e&&null!=e.headers&&n(A[y],e.headers),t){if(d.includes(A.status))throw R.errors.exception({header:"Response constructor",message:"Invalid response status code "+A.status})
-A[p].body=t.body,null==t.type||A[p].headersList.contains("Content-Type")||A[p].headersList.append("content-type",t.type)}}a(v),Object.defineProperties(v.prototype,{type:g,url:g,status:g,ok:g,redirected:g,statusText:g,headers:g,clone:g,body:g,bodyUsed:g,[Symbol.toStringTag]:{value:"Response",configurable:!0}}),Object.defineProperties(v,{json:g,redirect:g,error:g}),R.converters.ReadableStream=R.interfaceConverter(U),R.converters.FormData=R.interfaceConverter(D),R.converters.URLSearchParams=R.interfaceConverter(URLSearchParams),R.converters.XMLHttpRequestBodyInit=function(A){return"string"==typeof A?R.converters.USVString(A):C(A)?R.converters.Blob(A,{strict:!1}):L.isArrayBuffer(A)||L.isTypedArray(A)||L.isDataView(A)?R.converters.BufferSource(A):c.isFormDataLike(A)?R.converters.FormData(A,{strict:!1}):A instanceof URLSearchParams?R.converters.URLSearchParams(A):R.converters.DOMString(A)},R.converters.BodyInit=function(A){return A instanceof U?R.converters.ReadableStream(A):A?.[Symbol.asyncIterator]?A:R.converters.XMLHttpRequestBodyInit(A)},R.converters.ResponseInit=R.dictionaryConverter([{key:"status",converter:R.converters["unsigned short"],defaultValue:200},{key:"statusText",converter:R.converters.ByteString,defaultValue:""},{key:"headers",converter:R.converters.HeadersInit}]),A.exports={makeNetworkError:G,makeResponse:Y,makeAppropriateNetworkError:function(A,e=null){return S(Q(A)),h(A)?G(Object.assign(new f("The operation was aborted.","AbortError"),{cause:e})):G(Object.assign(new f("Request was cancelled."),{cause:e}))},filterResponse:H,Response:v,cloneResponse:T}},4803:A=>{"use strict"
+A[p].body=t.body,null==t.type||A[p].headersList.contains("Content-Type")||A[p].headersList.append("content-type",t.type)}}a(v),Object.defineProperties(v.prototype,{type:g,url:g,status:g,ok:g,redirected:g,statusText:g,headers:g,clone:g,body:g,bodyUsed:g,[Symbol.toStringTag]:{value:"Response",configurable:!0}}),Object.defineProperties(v,{json:g,redirect:g,error:g}),R.converters.ReadableStream=R.interfaceConverter(U),R.converters.FormData=R.interfaceConverter(D),R.converters.URLSearchParams=R.interfaceConverter(URLSearchParams),R.converters.XMLHttpRequestBodyInit=function(A){return"string"==typeof A?R.converters.USVString(A):C(A)?R.converters.Blob(A,{strict:!1}):L.isArrayBuffer(A)||L.isTypedArray(A)||L.isDataView(A)?R.converters.BufferSource(A):c.isFormDataLike(A)?R.converters.FormData(A,{strict:!1}):A instanceof URLSearchParams?R.converters.URLSearchParams(A):R.converters.DOMString(A)},R.converters.BodyInit=function(A){return A instanceof U?R.converters.ReadableStream(A):A?.[Symbol.asyncIterator]?A:R.converters.XMLHttpRequestBodyInit(A)},R.converters.ResponseInit=R.dictionaryConverter([{key:"status",converter:R.converters["unsigned short"],defaultValue:200},{key:"statusText",converter:R.converters.ByteString,defaultValue:""},{key:"headers",converter:R.converters.HeadersInit}]),A.exports={makeNetworkError:G,makeResponse:Y,makeAppropriateNetworkError:function(A,e=null){return S(Q(A)),h(A)?G(Object.assign(new f("The operation was aborted.","AbortError"),{cause:e})):G(Object.assign(new f("Request was cancelled."),{cause:e}))},filterResponse:O,Response:v,cloneResponse:T}},4803:A=>{"use strict"
 A.exports={kUrl:Symbol("url"),kHeaders:Symbol("headers"),kSignal:Symbol("signal"),kState:Symbol("state"),kGuard:Symbol("guard"),kRealm:Symbol("realm")}},9064:(A,e,t)=>{"use strict"
 const{redirectStatusSet:r,referrerPolicySet:s,badPortsSet:n}=t(6983),{getGlobalOrigin:o}=t(1547),{performance:i}=t(2987),{isBlobLike:a,toUSVString:c,ReadableStreamFrom:g}=t(7017),E=t(2613),{isUint8Array:Q}=t(8253)
-let h
-try{h=t(6982)}catch{}function C(A){const e=A.urlList,t=e.length
-return 0===t?null:e[t-1].toString()}function B(A){return A.urlList[A.urlList.length-1]}function I(A){switch(A){case 34:case 40:case 41:case 44:case 47:case 58:case 59:case 60:case 61:case 62:case 63:case 64:case 91:case 92:case 93:case 123:case 125:return!1
-default:return A>=33&&A<=126}}function l(A){if(0===A.length)return!1
-for(let e=0;e<A.length;++e)if(!I(A.charCodeAt(e)))return!1
-return!0}function u(A){return!(A.startsWith("\t")||A.startsWith(" ")||A.endsWith("\t")||A.endsWith(" "))&&!(A.includes("\0")||A.includes("\r")||A.includes("\n"))}function d(A,e){return E(A instanceof URL),"file:"===A.protocol||"about:"===A.protocol||"blank:"===A.protocol?"no-referrer":(A.username="",A.password="",A.hash="",e&&(A.pathname="",A.search=""),A)}function f(A){return A instanceof URL&&("about:blank"===A.href||"about:srcdoc"===A.href||("data:"===A.protocol||("file:"===A.protocol||function(A){if(null==A||"null"===A)return!1
+let h,C=[]
+try{h=t(6982)
+const A=["sha256","sha384","sha512"]
+C=h.getHashes().filter((e=>A.includes(e)))}catch{}function B(A){const e=A.urlList,t=e.length
+return 0===t?null:e[t-1].toString()}function I(A){return A.urlList[A.urlList.length-1]}function l(A){switch(A){case 34:case 40:case 41:case 44:case 47:case 58:case 59:case 60:case 61:case 62:case 63:case 64:case 91:case 92:case 93:case 123:case 125:return!1
+default:return A>=33&&A<=126}}function u(A){if(0===A.length)return!1
+for(let e=0;e<A.length;++e)if(!l(A.charCodeAt(e)))return!1
+return!0}function d(A){return!(A.startsWith("\t")||A.startsWith(" ")||A.endsWith("\t")||A.endsWith(" "))&&!(A.includes("\0")||A.includes("\r")||A.includes("\n"))}function f(A,e){return E(A instanceof URL),"file:"===A.protocol||"about:"===A.protocol||"blank:"===A.protocol?"no-referrer":(A.username="",A.password="",A.hash="",e&&(A.pathname="",A.search=""),A)}function p(A){return A instanceof URL&&("about:blank"===A.href||"about:srcdoc"===A.href||("data:"===A.protocol||("file:"===A.protocol||function(A){if(null==A||"null"===A)return!1
 const e=new URL(A)
 if("https:"===e.protocol||"wss:"===e.protocol)return!0
 if(/^127(?:\.[0-9]+){0,2}\.[0-9]+$|^\[(?:0*:)*?:?0*1\]$/.test(e.hostname)||"localhost"===e.hostname||e.hostname.includes("localhost.")||e.hostname.endsWith(".localhost"))return!0
-return!1}(A.origin))))}const p=/((?<algo>sha256|sha384|sha512)-(?<hash>[A-z0-9+/]{1}.*={0,2}))( +[\x21-\x7e]?)?/i
-function y(A,e){return A.origin===e.origin&&"null"===A.origin||A.protocol===e.protocol&&A.hostname===e.hostname&&A.port===e.port}const w={delete:"DELETE",DELETE:"DELETE",get:"GET",GET:"GET",head:"HEAD",HEAD:"HEAD",options:"OPTIONS",OPTIONS:"OPTIONS",post:"POST",POST:"POST",put:"PUT",PUT:"PUT"}
-Object.setPrototypeOf(w,null)
-const m=Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()))
-let R=globalThis.ReadableStream
-async function D(A){const e=[]
+return!1}(A.origin))))}const y=/(?<algo>sha256|sha384|sha512)-((?<hash>[A-Za-z0-9+/]+|[A-Za-z0-9_-]+)={0,2}(?:\s|$)( +[!-~]*)?)?/i
+function w(A){const e=[]
+let t=!0
+for(const r of A.split(" ")){t=!1
+const A=y.exec(r)
+if(null===A||void 0===A.groups||void 0===A.groups.algo)continue
+const s=A.groups.algo.toLowerCase()
+C.includes(s)&&e.push(A.groups)}return!0===t?"no metadata":e}function m(A,e){if(A.length!==e.length)return!1
+for(let t=0;t<A.length;++t)if(A[t]!==e[t]){if("+"===A[t]&&"-"===e[t]||"/"===A[t]&&"_"===e[t])continue
+return!1}return!0}function R(A,e){return A.origin===e.origin&&"null"===A.origin||A.protocol===e.protocol&&A.hostname===e.hostname&&A.port===e.port}const D={delete:"DELETE",DELETE:"DELETE",get:"GET",GET:"GET",head:"HEAD",HEAD:"HEAD",options:"OPTIONS",OPTIONS:"OPTIONS",post:"POST",POST:"POST",put:"PUT",PUT:"PUT"}
+Object.setPrototypeOf(D,null)
+const k=Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()))
+let b=globalThis.ReadableStream
+async function N(A){const e=[]
 let t=0
 for(;;){const{done:r,value:s}=await A.read()
 if(r)return Buffer.concat(e,t)
 if(!Q(s))throw new TypeError("Received non-Uint8Array chunk")
-e.push(s),t+=s.length}}function k(A){return"string"==typeof A?A.startsWith("https:"):"https:"===A.protocol}function b(A){E("protocol"in A)
+e.push(s),t+=s.length}}function F(A){return"string"==typeof A?A.startsWith("https:"):"https:"===A.protocol}function S(A){E("protocol"in A)
 const e=A.protocol
-return"http:"===e||"https:"===e}const N=Object.hasOwn||((A,e)=>Object.prototype.hasOwnProperty.call(A,e))
+return"http:"===e||"https:"===e}const L=Object.hasOwn||((A,e)=>Object.prototype.hasOwnProperty.call(A,e))
 A.exports={isAborted:function(A){return"aborted"===A.controller.state},isCancelled:function(A){return"aborted"===A.controller.state||"terminated"===A.controller.state},createDeferredPromise:function(){let A,e
 return{promise:new Promise(((t,r)=>{A=t,e=r})),resolve:A,reject:e}},ReadableStreamFrom:g,toUSVString:c,tryUpgradeRequestToAPotentiallyTrustworthyURL:function(A){},coarsenedSharedCurrentTime:function(A){return i.now()},determineRequestsReferrer:function(A){const e=A.referrerPolicy
 E(e)
@@ -2244,31 +2266,31 @@ let t=null
 if("client"===A.referrer){const A=o()
 if(!A||"null"===A.origin)return"no-referrer"
 t=new URL(A)}else A.referrer instanceof URL&&(t=A.referrer)
-let r=d(t)
-const s=d(t,!0)
+let r=f(t)
+const s=f(t,!0)
 r.toString().length>4096&&(r=s)
-const n=y(A,r),i=f(r)&&!f(A.url)
-switch(e){case"origin":return null!=s?s:d(t,!0)
+const n=R(A,r),i=p(r)&&!p(A.url)
+switch(e){case"origin":return null!=s?s:f(t,!0)
 case"unsafe-url":return r
 case"same-origin":return n?s:"no-referrer"
 case"origin-when-cross-origin":return n?r:s
-case"strict-origin-when-cross-origin":{const e=B(A)
-return y(r,e)?r:f(r)&&!f(e)?"no-referrer":s}default:return i?"no-referrer":s}},makePolicyContainer:function(){return{referrerPolicy:"strict-origin-when-cross-origin"}},clonePolicyContainer:function(A){return{referrerPolicy:A.referrerPolicy}},appendFetchMetadata:function(A){let e=null
+case"strict-origin-when-cross-origin":{const e=I(A)
+return R(r,e)?r:p(r)&&!p(e)?"no-referrer":s}default:return i?"no-referrer":s}},makePolicyContainer:function(){return{referrerPolicy:"strict-origin-when-cross-origin"}},clonePolicyContainer:function(A){return{referrerPolicy:A.referrerPolicy}},appendFetchMetadata:function(A){let e=null
 e=A.mode,A.headersList.set("sec-fetch-mode",e)},appendRequestOriginHeader:function(A){let e=A.origin
 if("cors"===A.responseTainting||"websocket"===A.mode)e&&A.headersList.append("origin",e)
 else if("GET"!==A.method&&"HEAD"!==A.method){switch(A.referrerPolicy){case"no-referrer":e=null
 break
-case"no-referrer-when-downgrade":case"strict-origin":case"strict-origin-when-cross-origin":A.origin&&k(A.origin)&&!k(B(A))&&(e=null)
+case"no-referrer-when-downgrade":case"strict-origin":case"strict-origin-when-cross-origin":A.origin&&F(A.origin)&&!F(I(A))&&(e=null)
 break
-case"same-origin":y(A,B(A))||(e=null)}e&&A.headersList.append("origin",e)}},TAOCheck:function(){return"success"},corsCheck:function(){return"success"},crossOriginResourcePolicyCheck:function(){return"allowed"},createOpaqueTimingInfo:function(A){return{startTime:A.startTime??0,redirectStartTime:0,redirectEndTime:0,postRedirectStartTime:A.startTime??0,finalServiceWorkerStartTime:0,finalNetworkResponseStartTime:0,finalNetworkRequestStartTime:0,endTime:0,encodedBodySize:0,decodedBodySize:0,finalConnectionTimingInfo:null}},setRequestReferrerPolicyOnRedirect:function(A,e){const{headersList:t}=e,r=(t.get("referrer-policy")??"").split(",")
+case"same-origin":R(A,I(A))||(e=null)}e&&A.headersList.append("origin",e)}},TAOCheck:function(){return"success"},corsCheck:function(){return"success"},crossOriginResourcePolicyCheck:function(){return"allowed"},createOpaqueTimingInfo:function(A){return{startTime:A.startTime??0,redirectStartTime:0,redirectEndTime:0,postRedirectStartTime:A.startTime??0,finalServiceWorkerStartTime:0,finalNetworkResponseStartTime:0,finalNetworkRequestStartTime:0,endTime:0,encodedBodySize:0,decodedBodySize:0,finalConnectionTimingInfo:null}},setRequestReferrerPolicyOnRedirect:function(A,e){const{headersList:t}=e,r=(t.get("referrer-policy")??"").split(",")
 let n=""
 if(r.length>0)for(let A=r.length;0!==A;A--){const e=r[A-1].trim()
 if(s.has(e)){n=e
-break}}""!==n&&(A.referrerPolicy=n)},isValidHTTPToken:l,requestBadPort:function(A){const e=B(A)
-return b(e)&&n.has(e.port)?"blocked":"allowed"},requestCurrentURL:B,responseURL:C,responseLocationURL:function(A,e){if(!r.has(A.status))return null
+break}}""!==n&&(A.referrerPolicy=n)},isValidHTTPToken:u,requestBadPort:function(A){const e=I(A)
+return S(e)&&n.has(e.port)?"blocked":"allowed"},requestCurrentURL:I,responseURL:B,responseLocationURL:function(A,e){if(!r.has(A.status))return null
 let t=A.headersList.get("location")
-return null!==t&&u(t)&&(t=new URL(t,C(A))),t&&!t.hash&&(t.hash=e),t},isBlobLike:a,isURLPotentiallyTrustworthy:f,isValidReasonPhrase:function(A){for(let e=0;e<A.length;++e){const t=A.charCodeAt(e)
-if(!(9===t||t>=32&&t<=126||t>=128&&t<=255))return!1}return!0},sameOrigin:y,normalizeMethod:function(A){return w[A.toLowerCase()]??A},serializeJavascriptValueToJSONString:function(A){const e=JSON.stringify(A)
+return null!==t&&d(t)&&(t=new URL(t,B(A))),t&&!t.hash&&(t.hash=e),t},isBlobLike:a,isURLPotentiallyTrustworthy:p,isValidReasonPhrase:function(A){for(let e=0;e<A.length;++e){const t=A.charCodeAt(e)
+if(!(9===t||t>=32&&t<=126||t>=128&&t<=255))return!1}return!0},sameOrigin:R,normalizeMethod:function(A){return D[A.toLowerCase()]??A},serializeJavascriptValueToJSONString:function(A){const e=JSON.stringify(A)
 if(void 0===e)throw new TypeError("Value is not JSON serializable")
 return E("string"==typeof e),e},makeIterator:function(A,e,t){const r={index:0,kind:t,target:A},s={next(){if(Object.getPrototypeOf(this)!==s)throw new TypeError(`'next' called on an object that does not implement interface ${e} Iterator.`)
 const{index:A,kind:t,target:n}=r,o=n()
@@ -2280,31 +2302,26 @@ break
 case"value":t=A[1]
 break
 case"key+value":t=A}return{value:t,done:!1}}(i,t)},[Symbol.toStringTag]:`${e} Iterator`}
-return Object.setPrototypeOf(s,m),Object.setPrototypeOf({},s)},isValidHeaderName:function(A){return l(A)},isValidHeaderValue:u,hasOwn:N,isErrorLike:function(A){return A instanceof Error||"Error"===A?.constructor?.name||"DOMException"===A?.constructor?.name},fullyReadBody:async function(A,e,t){const r=e,s=t
+return Object.setPrototypeOf(s,k),Object.setPrototypeOf({},s)},isValidHeaderName:function(A){return u(A)},isValidHeaderValue:d,hasOwn:L,isErrorLike:function(A){return A instanceof Error||"Error"===A?.constructor?.name||"DOMException"===A?.constructor?.name},fullyReadBody:async function(A,e,t){const r=e,s=t
 let n
-try{n=A.stream.getReader()}catch(A){return void s(A)}try{r(await D(n))}catch(A){s(A)}},bytesMatch:function(A,e){if(void 0===h)return!0
-const t=function(A){const e=[]
-let t=!0
-const r=h.getHashes()
-for(const s of A.split(" ")){t=!1
-const A=p.exec(s)
-if(null===A||void 0===A.groups)continue
-const n=A.groups.algo
-r.includes(n.toLowerCase())&&e.push(A.groups)}if(!0===t)return"no metadata"
-return e}(e)
+try{n=A.stream.getReader()}catch(A){return void s(A)}try{r(await N(n))}catch(A){s(A)}},bytesMatch:function(A,e){if(void 0===h)return!0
+const t=w(e)
 if("no metadata"===t)return!0
 if(0===t.length)return!0
-const r=t.sort(((A,e)=>e.algo.localeCompare(A.algo))),s=r[0].algo,n=r.filter((A=>A.algo===s))
-for(const e of n){const t=e.algo
-let r=e.hash
-r.endsWith("==")&&(r=r.slice(0,-2))
+const r=function(A){let e=A[0].algo
+if("5"===e[3])return e
+for(let t=1;t<A.length;++t){const r=A[t]
+if("5"===r.algo[3]){e="sha512"
+break}"3"!==e[3]&&("3"===r.algo[3]&&(e="sha384"))}return e}(t),s=function(A,e){if(1===A.length)return A
+let t=0
+for(let r=0;r<A.length;++r)A[r].algo===e&&(A[t++]=A[r])
+return A.length=t,A}(t,r)
+for(const e of s){const t=e.algo,r=e.hash
 let s=h.createHash(t).update(A).digest("base64")
-if(s.endsWith("==")&&(s=s.slice(0,-2)),s===r)return!0
-let n=h.createHash(t).update(A).digest("base64url")
-if(n.endsWith("==")&&(n=n.slice(0,-2)),n===r)return!0}return!1},isReadableStreamLike:function(A){return R||(R=t(3774).ReadableStream),A instanceof R||"ReadableStream"===A[Symbol.toStringTag]&&"function"==typeof A.tee},readableStreamClose:function(A){try{A.close()}catch(A){if(!A.message.includes("Controller is already closed"))throw A}},isomorphicEncode:function(A){for(let e=0;e<A.length;e++)E(A.charCodeAt(e)<=255)
+if("="===s[s.length-1]&&(s="="===s[s.length-2]?s.slice(0,-2):s.slice(0,-1)),m(s,r))return!0}return!1},isReadableStreamLike:function(A){return b||(b=t(3774).ReadableStream),A instanceof b||"ReadableStream"===A[Symbol.toStringTag]&&"function"==typeof A.tee},readableStreamClose:function(A){try{A.close()}catch(A){if(!A.message.includes("Controller is already closed"))throw A}},isomorphicEncode:function(A){for(let e=0;e<A.length;e++)E(A.charCodeAt(e)<=255)
 return A},isomorphicDecode:function(A){return A.length<65535?String.fromCharCode(...A):A.reduce(((A,e)=>A+String.fromCharCode(e)),"")},urlIsLocal:function(A){E("protocol"in A)
 const e=A.protocol
-return"about:"===e||"blob:"===e||"data:"===e},urlHasHttpsScheme:k,urlIsHttpHttpsScheme:b,readAllBytes:D,normalizeMethodRecord:w}},1421:(A,e,t)=>{"use strict"
+return"about:"===e||"blob:"===e||"data:"===e},urlHasHttpsScheme:F,urlIsHttpHttpsScheme:S,readAllBytes:N,normalizeMethodRecord:D,parseMetadata:w}},1421:(A,e,t)=>{"use strict"
 const{types:r}=t(9023),{hasOwn:s,toUSVString:n}=t(9064),o={converters:{},util:{},errors:{}}
 o.errors.exception=function(A){return new TypeError(`${A.header}: ${A.message}`)},o.errors.conversionFailed=function(A){const e=1===A.types.length?"":" one of",t=`${A.argument} could not be converted to${e}: ${A.types.join(", ")}.`
 return o.errors.exception({header:A.prefix,message:t})},o.errors.invalidArgument=function(A){return o.errors.exception({header:A.prefix,message:`"${A.value}" is an invalid ${A.type}.`})},o.brandCheck=function(A,e,t=void 0){if(!1===t?.strict||A instanceof e)return A?.[Symbol.toStringTag]===e.prototype[Symbol.toStringTag]
@@ -2444,7 +2461,10 @@ function o(A){if(!A||"function"!=typeof A.dispatch)throw new s("Argument agent m
 Object.defineProperty(globalThis,r,{value:A,writable:!0,enumerable:!1,configurable:!1})}function i(){return globalThis[r]}void 0===i()&&o(new n),A.exports={setGlobalDispatcher:o,getGlobalDispatcher:i}},1327:A=>{"use strict"
 A.exports=class{constructor(A){this.handler=A}onConnect(...A){return this.handler.onConnect(...A)}onError(...A){return this.handler.onError(...A)}onUpgrade(...A){return this.handler.onUpgrade(...A)}onHeaders(...A){return this.handler.onHeaders(...A)}onData(...A){return this.handler.onData(...A)}onComplete(...A){return this.handler.onComplete(...A)}onBodySent(...A){return this.handler.onBodySent(...A)}}},3246:(A,e,t)=>{"use strict"
 const r=t(7017),{kBodyUsed:s}=t(7336),n=t(2613),{InvalidArgumentError:o}=t(1702),i=t(4434),a=[300,301,302,303,307,308],c=Symbol("body")
-class g{constructor(A){this[c]=A,this[s]=!1}async*[Symbol.asyncIterator](){n(!this[s],"disturbed"),this[s]=!0,yield*this[c]}}function E(A,e,t){return 4===A.length&&"host"===A.toString().toLowerCase()||e&&0===A.toString().toLowerCase().indexOf("content-")||t&&13===A.length&&"authorization"===A.toString().toLowerCase()||t&&6===A.length&&"cookie"===A.toString().toLowerCase()}A.exports=class{constructor(A,e,t,a){if(null!=e&&(!Number.isInteger(e)||e<0))throw new o("maxRedirections must be a positive number")
+class g{constructor(A){this[c]=A,this[s]=!1}async*[Symbol.asyncIterator](){n(!this[s],"disturbed"),this[s]=!0,yield*this[c]}}function E(A,e,t){if(4===A.length)return"host"===r.headerNameToString(A)
+if(e&&r.headerNameToString(A).startsWith("content-"))return!0
+if(t&&(13===A.length||6===A.length||19===A.length)){const e=r.headerNameToString(A)
+return"authorization"===e||"cookie"===e||"proxy-authorization"===e}return!1}A.exports=class{constructor(A,e,t,a){if(null!=e&&(!Number.isInteger(e)||e<0))throw new o("maxRedirections must be a positive number")
 r.validateHandler(a,t.method,t.upgrade),this.dispatch=A,this.location=null,this.abort=null,this.opts={...t,maxRedirections:0},this.maxRedirections=e,this.handler=a,this.history=[],r.isStream(this.opts.body)?(0===r.bodyLength(this.opts.body)&&this.opts.body.on("data",(function(){n(!1)})),"boolean"!=typeof this.opts.body.readableDidRead&&(this.opts.body[s]=!1,i.prototype.on.call(this.opts.body,"data",(function(){this[s]=!0})))):(this.opts.body&&"function"==typeof this.opts.body.pipeTo||this.opts.body&&"string"!=typeof this.opts.body&&!ArrayBuffer.isView(this.opts.body)&&r.isIterable(this.opts.body))&&(this.opts.body=new g(this.opts.body))}onConnect(A){this.abort=A,this.handler.onConnect(A,{history:this.history})}onUpgrade(A,e,t){this.handler.onUpgrade(A,e,t)}onError(A){this.handler.onError(A)}onHeaders(A,e,t,s){if(this.location=this.history.length>=this.maxRedirections||r.isDisturbed(this.opts.body)?null:function(A,e){if(-1===a.indexOf(A))return null
 for(let A=0;A<e.length;A+=2)if("location"===e[A].toString().toLowerCase())return e[A+1]}(A,e),this.opts.origin&&this.history.push(new URL(this.opts.path,this.opts.origin)),!this.location)return this.handler.onHeaders(A,e,t,s)
 const{origin:o,pathname:i,search:c}=r.parseURL(new URL(this.location,this.opts.origin&&new URL(this.opts.path,this.opts.origin))),g=c?`${i}${c}`:i
@@ -2693,7 +2713,7 @@ A.exports={ByteParser:class extends r{#o=[]
 #g=[]
 constructor(A){super(),this.ws=A}_write(A,e,t){this.#o.push(A),this.#i+=A.length,this.run(t)}run(A){for(;;){if(this.#a===n.INFO){if(this.#i<2)return A()
 const e=this.consume(2)
-if(this.#c.fin=0!=(128&e[0]),this.#c.opcode=15&e[0],this.#c.originalOpcode??=this.#c.opcode,this.#c.fragmented=!this.#c.fin&&this.#c.opcode!==o.CONTINUATION,this.#c.fragmented&&this.#c.opcode!==o.BINARY&&this.#c.opcode!==o.TEXT)return void C(this.ws,"Invalid frame type was fragmented.")
+if(this.#c.fin=!!(128&e[0]),this.#c.opcode=15&e[0],this.#c.originalOpcode??=this.#c.opcode,this.#c.fragmented=!this.#c.fin&&this.#c.opcode!==o.CONTINUATION,this.#c.fragmented&&this.#c.opcode!==o.BINARY&&this.#c.opcode!==o.TEXT)return void C(this.ws,"Invalid frame type was fragmented.")
 const t=127&e[1]
 if(t<=125?(this.#c.payloadLength=t,this.#a=n.READ_DATA):126===t?this.#a=n.PAYLOADLENGTH_16:127===t&&(this.#a=n.PAYLOADLENGTH_64),this.#c.fragmented&&t>125)return void C(this.ws,"Fragmented frame exceeded 125 bytes.")
 if((this.#c.opcode===o.PING||this.#c.opcode===o.PONG||this.#c.opcode===o.CLOSE)&&t>125)return void C(this.ws,"Payload length for control frame exceeded 125 bytes.")
@@ -2872,7 +2892,7 @@ this._hparser=new i(A),this._hparser.on("header",(function(A){e._inHeader=!1,e._
 else if(!this._finished){const A=this
 process.nextTick((function(){if(A.emit("error",new Error("Unexpected end of multipart data")),A._part&&!A._ignoreData){const e=A._isPreamble?"Preamble":"Part"
 return A._part.emit("error",new Error(e+" terminated early due to unexpected end of multipart data")),A._part.push(null),void process.nextTick((function(){A._realFinish=!0,A.emit("finish"),A._realFinish=!1}))}A._realFinish=!0,A.emit("finish"),A._realFinish=!1}))}},E.prototype._write=function(A,e,t){if(!this._hparser&&!this._bparser)return t()
-if(this._headerFirst&&this._isPreamble){this._part||(this._part=new o(this._partOpts),this._events.preamble?this.emit("preamble",this._part):this._ignore())
+if(this._headerFirst&&this._isPreamble){this._part||(this._part=new o(this._partOpts),0!==this.listenerCount("preamble")?this.emit("preamble",this._part):this._ignore())
 const e=this._hparser.push(A)
 if(this._inHeader||void 0===e||!(e<A.length))return t()
 A=A.slice(e)}this._firstWrite&&(this._bparser.push(c),this._firstWrite=!1),this._bparser.push(A),this._pause?this._cb=t:t()},E.prototype.reset=function(){this._part=void 0,this._bparser=void 0,this._hparser=void 0},E.prototype.setBoundary=function(A){const e=this
@@ -2880,7 +2900,7 @@ this._bparser=new n("\r\n--"+A),this._bparser.on("info",(function(A,t,r,s){e._on
 const n=this
 let i,c=0,g=!0
 if(!this._part&&this._justMatched&&e){for(;this._dashes<2&&t+c<r;){if(45!==e[t+c]){this._dashes&&(s=a),this._dashes=0
-break}++c,++this._dashes}if(2===this._dashes&&(t+c<r&&this._events.trailer&&this.emit("trailer",e.slice(t+c,r)),this.reset(),this._finished=!0,0===n._parts&&(n._realFinish=!0,n.emit("finish"),n._realFinish=!1)),this._dashes)return}this._justMatched&&(this._justMatched=!1),this._part||(this._part=new o(this._partOpts),this._part._read=function(A){n._unpause()},this._isPreamble&&this._events.preamble?this.emit("preamble",this._part):!0!==this._isPreamble&&this._events.part?this.emit("part",this._part):this._ignore(),this._isPreamble||(this._inHeader=!0)),e&&t<r&&!this._ignoreData&&(this._isPreamble||!this._inHeader?(s&&(g=this._part.push(s)),g=this._part.push(e.slice(t,r)),g||(this._pause=!0)):!this._isPreamble&&this._inHeader&&(s&&this._hparser.push(s),i=this._hparser.push(e.slice(t,r)),!this._inHeader&&void 0!==i&&i<r&&this._oninfo(!1,e,t+i,r))),A&&(this._hparser.reset(),this._isPreamble?this._isPreamble=!1:t!==r&&(++this._parts,this._part.on("end",(function(){0==--n._parts&&(n._finished?(n._realFinish=!0,n.emit("finish"),n._realFinish=!1):n._unpause())}))),this._part.push(null),this._part=void 0,this._ignoreData=!1,this._justMatched=!0,this._dashes=0)},E.prototype._unpause=function(){if(this._pause&&(this._pause=!1,this._cb)){const A=this._cb
+break}++c,++this._dashes}if(2===this._dashes&&(t+c<r&&0!==this.listenerCount("trailer")&&this.emit("trailer",e.slice(t+c,r)),this.reset(),this._finished=!0,0===n._parts&&(n._realFinish=!0,n.emit("finish"),n._realFinish=!1)),this._dashes)return}this._justMatched&&(this._justMatched=!1),this._part||(this._part=new o(this._partOpts),this._part._read=function(A){n._unpause()},this._isPreamble&&0!==this.listenerCount("preamble")?this.emit("preamble",this._part):!0!==this._isPreamble&&0!==this.listenerCount("part")?this.emit("part",this._part):this._ignore(),this._isPreamble||(this._inHeader=!0)),e&&t<r&&!this._ignoreData&&(this._isPreamble||!this._inHeader?(s&&(g=this._part.push(s)),g=this._part.push(e.slice(t,r)),g||(this._pause=!0)):!this._isPreamble&&this._inHeader&&(s&&this._hparser.push(s),i=this._hparser.push(e.slice(t,r)),!this._inHeader&&void 0!==i&&i<r&&this._oninfo(!1,e,t+i,r))),A&&(this._hparser.reset(),this._isPreamble?this._isPreamble=!1:t!==r&&(++this._parts,this._part.on("end",(function(){0==--n._parts&&(n._finished?(n._realFinish=!0,n.emit("finish"),n._realFinish=!1):n._unpause())}))),this._part.push(null),this._part=void 0,this._ignoreData=!1,this._justMatched=!0,this._dashes=0)},E.prototype._unpause=function(){if(this._pause&&(this._pause=!1,this._cb)){const A=this._cb
 this._cb=void 0,A()}},A.exports=E},6438:(A,e,t)=>{"use strict"
 const r=t(8474).EventEmitter,s=t(7975).inherits,n=t(326),o=t(9427),i=Buffer.from("\r\n\r\n"),a=/\r\n/g,c=/^([^:]+):[ \t]?([\x00-\xFF]+)?$/
 function g(A){r.call(this),A=A||{}
@@ -2949,7 +2969,7 @@ break}if(void 0===c&&(c="text/plain"),void 0===u&&(u=p),!e["content-disposition"
 if(B=o(e["content-disposition"][0]),!E.test(B[0]))return I(n)
 for(t=0,r=B.length;t<r;++t)C.test(B[t][0])?g=B[t][1]:h.test(B[t][0])&&(N=B[t][1],y||(N=a(N)))
 if(f=e["content-transfer-encoding"]?e["content-transfer-encoding"][0].toLowerCase():"7bit",d(g,c,N)){if(M===k)return A.hitFilesLimit||(A.hitFilesLimit=!0,A.emit("filesLimit")),I(n)
-if(++M,!A._events.file)return void s.parser._ignore();++T
+if(++M,0===A.listenerCount("file"))return void s.parser._ignore();++T
 const e=new l(w)
 L=e,e.on("end",(function(){if(--T,s._pause=!1,m(),s._cb&&!s._needDrain){const A=s._cb
 s._cb=void 0,A()}})),e._read=function(A){if(s._pause&&(s._pause=!1,s._cb&&!s._needDrain)){const A=s._cb
@@ -2986,7 +3006,7 @@ A.exports=function(A){if("string"!=typeof A)return""
 for(var e=A.length-1;e>=0;--e)switch(A.charCodeAt(e)){case 47:case 92:return".."===(A=A.slice(e+1))||"."===A?"":A}return".."===A||"."===A?"":A}},1360:function(A){"use strict"
 const e=new TextDecoder("utf-8"),t=new Map([["utf-8",e],["utf8",e]])
 const r={utf8:(A,e)=>0===A.length?"":("string"==typeof A&&(A=Buffer.from(A,e)),A.utf8Slice(0,A.length)),latin1:(A,e)=>0===A.length?"":"string"==typeof A?A:A.latin1Slice(0,A.length),utf16le:(A,e)=>0===A.length?"":("string"==typeof A&&(A=Buffer.from(A,e)),A.ucs2Slice(0,A.length)),base64:(A,e)=>0===A.length?"":("string"==typeof A&&(A=Buffer.from(A,e)),A.base64Slice(0,A.length)),other:(A,e)=>{if(0===A.length)return""
-if("string"==typeof A&&(A=Buffer.from(A,e)),t.has(this.toString()))try{return t.get(this).decode(A)}catch(A){}return"string"==typeof A?A:A.toString()}}
+if("string"==typeof A&&(A=Buffer.from(A,e)),t.has(this.toString()))try{return t.get(this).decode(A)}catch{}return"string"==typeof A?A:A.toString()}}
 A.exports=function(A,e,t){return A?function(A){let e
 for(;;)switch(A){case"utf-8":case"utf8":return r.utf8
 case"latin1":case"ascii":case"us-ascii":case"iso-8859-1":case"iso8859-1":case"iso88591":case"iso_8859-1":case"windows-1252":case"iso_8859-1:1987":case"cp1252":case"x-cp1252":return r.latin1
