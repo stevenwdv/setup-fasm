@@ -177,7 +177,7 @@ async function downloadFasmgPackages(
 		  .clone(fasmgRepoUrl.href, packagesRepoDir, ['--filter=blob:none', '--sparse', '--no-checkout'])
 		  .cwd(packagesRepoDir)
 		  .checkout(checkoutRef ?? 'HEAD')
-		  .raw('sparse-checkout', 'add', '--cone', 'packages');
+		  .raw('sparse-checkout', 'set', '--cone', 'packages');
 	core.info('checked out fasm g packages repository');
 
 	const packagesDir = path.join(packagesRepoDir, 'packages');

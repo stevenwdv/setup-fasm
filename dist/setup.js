@@ -1086,7 +1086,7 @@ t?.isFile()&&await c.default.chmod(e,73|t.mode)})))}if(s)for(const A of["INCLUDE
 if((await c.default.stat(e).catch((()=>null)))?.isDirectory()){m(e)
 break}}I.setOutput("path",o),I.setOutput("edition",A),I.setOutput("version",t),I.setOutput("platform",e),I.info(`successfully installed ${A} ${t} for ${e} to ${o}`)}async function w(A,e,t){I.startGroup("downloading fasm g packages")
 const r=Q.default.join(h.default.env.RUNNER_TEMP||E.default.tmpdir(),(0,i.randomUUID)())
-await(0,l.default)().clone(f.href,r,["--filter=blob:none","--sparse","--no-checkout"]).cwd(r).checkout(A??"HEAD").raw("sparse-checkout","add","--cone","packages"),I.info("checked out fasm g packages repository")
+await(0,l.default)().clone(f.href,r,["--filter=blob:none","--sparse","--no-checkout"]).cwd(r).checkout(A??"HEAD").raw("sparse-checkout","set","--cone","packages"),I.info("checked out fasm g packages repository")
 const s=Q.default.join(r,"packages")
 if(!(await c.default.stat(s).catch((()=>null)))?.isDirectory())throw new Error("cannot find fasm g packages directory")
 I.setOutput("fasmg-packages",s),t&&m(s)
