@@ -1044,19 +1044,25 @@ s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:
 var e={}
 if(null!=A)for(var t in A)"default"!==t&&Object.prototype.hasOwnProperty.call(A,t)&&r(e,A,t)
 return s(e,A),e},o=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
-Object.defineProperty(e,"__esModule",{value:!0}),e.downloadVersion=e.downloadVersionArchive=e.HttpError=e.HashMismatchError=e.MissingHashError=e.DownloadError=e.downloadUrl=e.hashFile=e.getMatchingVersions=void 0
+Object.defineProperty(e,"__esModule",{value:!0}),e.HttpError=e.HashMismatchError=e.MissingHashError=e.DownloadError=void 0,e.getMatchingVersions=function(A,e,t){if(e=e.toLowerCase(),["latest","*"].includes(e))return A.versions
+if(e.endsWith(".*")){const t=e.slice(0,-2)
+return A.versions.filter((A=>A.name.toLowerCase().startsWith(t)&&[".",void 0].includes(A.name[t.length])))}{const r=A.versions.find((A=>A.name.toLowerCase()===e))
+if(!r)return"never"===t?[]:["secure","insecure"].includes(t)?[{name:e,allowInsecure:"insecure"===t,userProvided:!0}]:[{name:e,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]
+if("secure"!==t){if("insecure"===t)return[{...r,allowInsecure:!0}]
+if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=B,e.downloadUrl=I,e.downloadVersionArchive=y,e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=Q.find(n,"0.0.0",w)
+if(o){if(E.info("found cached"),!e.dynamic||r)return o
+E.info("but may be updated")}const i=await y(A,e,t,void 0,s)
+if(!i)return null
+let{path:a,url:g}=i
+g.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await c.default.rename(a,a=`${a}.zip`)
+const h=g.pathname.toLowerCase().endsWith(".zip")?Q.extractZip:Q.extractTar,C=await h(a)
+return await c.default.unlink(a),await Q.cacheDir(C,n,"0.0.0",w),C}
 const i=o(t(7598)),a=o(t(3024)),c=o(t(1455)),g=t(6466),E=n(t(6977)),Q=n(t(9358)),h=t(7657),C=t(2552)
 async function B(A){const e=a.default.createReadStream(A),t=i.default.createHash("BLAKE2b512").setEncoding("hex")
 return await(0,g.pipeline)(e,t),t.read()}async function I(A,e,t,r){if(!("https:"===A.protocol)&&!t&&!e)throw new u(A)
 let s
 try{s=await Q.downloadTool(A.href,r)}catch(e){throw e instanceof Q.HTTPError?new f(A,e.httpStatusCode,{cause:e}):e}if(t){const e=await B(s)
-if(!(0,C.equalsIgnoreCase)(e,t))throw await c.default.unlink(s),new d(A,t,e)}return s}e.getMatchingVersions=function(A,e,t){if(e=e.toLowerCase(),["latest","*"].includes(e))return A.versions
-if(e.endsWith(".*")){const t=e.slice(0,-2)
-return A.versions.filter((A=>A.name.toLowerCase().startsWith(t)&&[".",void 0].includes(A.name[t.length])))}{const r=A.versions.find((A=>A.name.toLowerCase()===e))
-if(!r)return"never"===t?[]:["secure","insecure"].includes(t)?[{name:e,allowInsecure:"insecure"===t,userProvided:!0}]:[{name:e,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]
-if("secure"!==t){if("insecure"===t)return[{...r,allowInsecure:!0}]
-if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=B,e.downloadUrl=I
-class l extends Error{url
+if(!(0,C.equalsIgnoreCase)(e,t))throw await c.default.unlink(s),new d(A,t,e)}return s}class l extends Error{url
 constructor(A,e,t){super(e,t),this.url=A}}e.DownloadError=l
 class u extends l{constructor(A,e){super(A,`no hash found for insecure URL ${A.href}`,e)}}e.MissingHashError=u
 class d extends l{constructor(A,e,t,r){super(A,`expected hash ${e} but got ${t} for ${A.href}`,r)}}e.HashMismatchError=d
@@ -1070,16 +1076,7 @@ for(const A of c){E.info(`trying ${A.href}`)
 try{return{path:await I(A,!!e.allowInsecure,s&&A.origin===p?void 0:o,r),url:A}}catch(A){if(A instanceof u){a=!0,E.warning(`${A.message} for ${n}; not using this file`)
 continue}if(A instanceof d){a=!0,E.warning(`${A.message} for ${n}${e.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
 continue}if(A instanceof f){void 0!==A.httpStatusCode&&(i||=404!==A.httpStatusCode),(404===A.httpStatusCode?E.info:E.warning)(`${A.message} for ${n}`)
-continue}throw A}}return E.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}e.downloadVersionArchive=y
-const w="ia32"
-e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=Q.find(n,"0.0.0",w)
-if(o){if(E.info("found cached"),!e.dynamic||r)return o
-E.info("but may be updated")}const i=await y(A,e,t,void 0,s)
-if(!i)return null
-let{path:a,url:g}=i
-g.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await c.default.rename(a,a=`${a}.zip`)
-const h=g.pathname.toLowerCase().endsWith(".zip")?Q.extractZip:Q.extractTar,C=await h(a)
-return await c.default.unlink(a),await Q.cacheDir(C,n,"0.0.0",w),C}},6968:function(A,e,t){"use strict"
+continue}throw A}}return E.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}const w="ia32"},6968:function(A,e,t){"use strict"
 var r=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
 var s=Object.getOwnPropertyDescriptor(e,t)
 s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),s=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),n=this&&this.__importStar||function(A){if(A&&A.__esModule)return A
@@ -1123,7 +1120,7 @@ for(const A of f){I.startGroup(`using ${A.name}`)
 let e=await(0,u.downloadVersion)(l,A,R,o,r)
 if(e||"linux"!==R||(I.info("no linux version found, trying unix instead"),e=await(0,u.downloadVersion)(l,A,"unix",o,r),e&&(R="unix")),I.endGroup(),e)return await y(l,R,A.name,e,Q),void("fasmg"===l&&"false"!==i.toLowerCase()&&await w("true"===i.toLowerCase()?null:i,c,Q))
 if(!t||! --D)return void I.setFailed("maximum number of versions to try exceeded")}I.setFailed(`could not download ${A} ${e} for ${R}`)}()}catch(A){I.setFailed(B.default.inspect(A))}})()},2552:(A,e)=>{"use strict"
-Object.defineProperty(e,"__esModule",{value:!0}),e.equalsIgnoreCase=void 0,e.equalsIgnoreCase=function(A,e){return A.toLowerCase()===e.toLowerCase()}},803:(A,e,t)=>{A.exports=t(7469)},7469:(A,e,t)=>{"use strict"
+Object.defineProperty(e,"__esModule",{value:!0}),e.equalsIgnoreCase=function(A,e){return A.toLowerCase()===e.toLowerCase()}},803:(A,e,t)=>{A.exports=t(7469)},7469:(A,e,t)=>{"use strict"
 t(9278)
 var r,s=t(4756),n=t(8611),o=t(5692),i=t(4434),a=(t(2613),t(9023))
 function c(A){var e=this
