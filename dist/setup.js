@@ -248,7 +248,7 @@ r=s?o?g.httpsOverHttps:g.httpsOverHttp:o?g.httpOverHttps:g.httpOverHttp,e=r(A),t
 e=s?new a.Agent(A):new i.Agent(A),this._agent=e}return s&&this._ignoreSslError&&(e.options=Object.assign(e.options||{},{rejectUnauthorized:!1})),e}_getProxyAgentDispatcher(A,e){let t
 if(this._keepAlive&&(t=this._proxyAgentDispatcher),t)return t
 const r="https:"===A.protocol
-return t=new E.ProxyAgent(Object.assign({uri:e.href,pipelining:this._keepAlive?1:0},(e.username||e.password)&&{token:`${e.username}:${e.password}`})),this._proxyAgentDispatcher=t,r&&this._ignoreSslError&&(t.options=Object.assign(t.options.requestTls||{},{rejectUnauthorized:!1})),t}_performExponentialBackoff(A){return o(this,void 0,void 0,(function*(){A=Math.min(10,A)
+return t=new E.ProxyAgent(Object.assign({uri:e.href,pipelining:this._keepAlive?1:0},(e.username||e.password)&&{token:`Basic ${Buffer.from(`${e.username}:${e.password}`).toString("base64")}`})),this._proxyAgentDispatcher=t,r&&this._ignoreSslError&&(t.options=Object.assign(t.options.requestTls||{},{rejectUnauthorized:!1})),t}_performExponentialBackoff(A){return o(this,void 0,void 0,(function*(){A=Math.min(10,A)
 const e=5*Math.pow(2,A)
 return new Promise((A=>setTimeout((()=>A()),e)))}))}_processResponse(A,e){return o(this,void 0,void 0,(function*(){return new Promise(((t,r)=>o(this,void 0,void 0,(function*(){const s=A.message.statusCode||0,n={statusCode:s,result:null,headers:{}}
 let o,i
@@ -271,8 +271,9 @@ const r=[A.hostname.toUpperCase()]
 for(const A of e.split(",").map((A=>A.trim().toUpperCase())).filter((A=>A)))if("*"===A||r.some((e=>e===A||e.endsWith(`.${A}`)||A.startsWith(".")&&e.endsWith(`${A}`))))return!0
 return!1}Object.defineProperty(e,"__esModule",{value:!0}),e.checkBypass=e.getProxyUrl=void 0,e.getProxyUrl=function(A){const e="https:"===A.protocol
 if(t(A))return
-const r=e?process.env.https_proxy||process.env.HTTPS_PROXY:process.env.http_proxy||process.env.HTTP_PROXY
-if(r)try{return new URL(r)}catch(A){if(!r.startsWith("http://")&&!r.startsWith("https://"))return new URL(`http://${r}`)}},e.checkBypass=t},6940:function(A,e,t){"use strict"
+const s=e?process.env.https_proxy||process.env.HTTPS_PROXY:process.env.http_proxy||process.env.HTTP_PROXY
+if(s)try{return new r(s)}catch(A){if(!s.startsWith("http://")&&!s.startsWith("https://"))return new r(`http://${s}`)}},e.checkBypass=t
+class r extends URL{constructor(A,e){super(A,e),this._decodedUsername=decodeURIComponent(super.username),this._decodedPassword=decodeURIComponent(super.password)}get username(){return this._decodedUsername}get password(){return this._decodedPassword}}},6940:function(A,e,t){"use strict"
 var r,s=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t),Object.defineProperty(A,r,{enumerable:!0,get:function(){return e[t]}})}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),n=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),o=this&&this.__importStar||function(A){if(A&&A.__esModule)return A
 var e={}
 if(null!=A)for(var t in A)"default"!==t&&Object.hasOwnProperty.call(A,t)&&s(e,A,t)
@@ -469,7 +470,8 @@ e[0].replace(/%[a-zA-Z%]/g,(A=>{"%%"!==A&&(r++,"%c"===A&&(s=r))})),e.splice(s,0,
 try{A=e.storage.getItem("debug")}catch(A){}!A&&"undefined"!=typeof process&&"env"in process&&(A=process.env.DEBUG)
 return A},e.useColors=function(){if("undefined"!=typeof window&&window.process&&("renderer"===window.process.type||window.process.__nwjs))return!0
 if("undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/))return!1
-return"undefined"!=typeof document&&document.documentElement&&document.documentElement.style&&document.documentElement.style.WebkitAppearance||"undefined"!=typeof window&&window.console&&(window.console.firebug||window.console.exception&&window.console.table)||"undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)&&parseInt(RegExp.$1,10)>=31||"undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/)},e.storage=function(){try{return localStorage}catch(A){}}(),e.destroy=(()=>{let A=!1
+let A
+return"undefined"!=typeof document&&document.documentElement&&document.documentElement.style&&document.documentElement.style.WebkitAppearance||"undefined"!=typeof window&&window.console&&(window.console.firebug||window.console.exception&&window.console.table)||"undefined"!=typeof navigator&&navigator.userAgent&&(A=navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/))&&parseInt(A[1],10)>=31||"undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/)},e.storage=function(){try{return localStorage}catch(A){}}(),e.destroy=(()=>{let A=!1
 return()=>{A||(A=!0,console.warn("Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`."))}})(),e.colors=["#0000CC","#0000FF","#0033CC","#0033FF","#0066CC","#0066FF","#0099CC","#0099FF","#00CC00","#00CC33","#00CC66","#00CC99","#00CCCC","#00CCFF","#3300CC","#3300FF","#3333CC","#3333FF","#3366CC","#3366FF","#3399CC","#3399FF","#33CC00","#33CC33","#33CC66","#33CC99","#33CCCC","#33CCFF","#6600CC","#6600FF","#6633CC","#6633FF","#66CC00","#66CC33","#9900CC","#9900FF","#9933CC","#9933FF","#99CC00","#99CC33","#CC0000","#CC0033","#CC0066","#CC0099","#CC00CC","#CC00FF","#CC3300","#CC3333","#CC3366","#CC3399","#CC33CC","#CC33FF","#CC6600","#CC6633","#CC9900","#CC9933","#CCCC00","#CCCC33","#FF0000","#FF0033","#FF0066","#FF0099","#FF00CC","#FF00FF","#FF3300","#FF3333","#FF3366","#FF3399","#FF33CC","#FF33FF","#FF6600","#FF6633","#FF9900","#FF9933","#FFCC00","#FFCC33"],e.log=console.debug||console.log||(()=>{}),A.exports=t(736)(e)
 const{formatters:r}=A.exports
 r.j=function(A){try{return JSON.stringify(A)}catch(A){return"[UnexpectedJSONParseError]: "+A.message}}},736:(A,e,t)=>{A.exports=function(A){function e(A){let t,s,n,o=null
@@ -1044,19 +1046,25 @@ s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:
 var e={}
 if(null!=A)for(var t in A)"default"!==t&&Object.prototype.hasOwnProperty.call(A,t)&&r(e,A,t)
 return s(e,A),e},o=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
-Object.defineProperty(e,"__esModule",{value:!0}),e.downloadVersion=e.downloadVersionArchive=e.HttpError=e.HashMismatchError=e.MissingHashError=e.DownloadError=e.downloadUrl=e.hashFile=e.getMatchingVersions=void 0
+Object.defineProperty(e,"__esModule",{value:!0}),e.HttpError=e.HashMismatchError=e.MissingHashError=e.DownloadError=void 0,e.getMatchingVersions=function(A,e,t){if(e=e.toLowerCase(),["latest","*"].includes(e))return A.versions
+if(e.endsWith(".*")){const t=e.slice(0,-2)
+return A.versions.filter((A=>A.name.toLowerCase().startsWith(t)&&[".",void 0].includes(A.name[t.length])))}{const r=A.versions.find((A=>A.name.toLowerCase()===e))
+if(!r)return"never"===t?[]:["secure","insecure"].includes(t)?[{name:e,allowInsecure:"insecure"===t,userProvided:!0}]:[{name:e,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]
+if("secure"!==t){if("insecure"===t)return[{...r,allowInsecure:!0}]
+if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=B,e.downloadUrl=I,e.downloadVersionArchive=y,e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=Q.find(n,"0.0.0",w)
+if(o){if(E.info("found cached"),!e.dynamic||r)return o
+E.info("but may be updated")}const i=await y(A,e,t,void 0,s)
+if(!i)return null
+let{path:a,url:g}=i
+g.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await c.default.rename(a,a=`${a}.zip`)
+const h=g.pathname.toLowerCase().endsWith(".zip")?Q.extractZip:Q.extractTar,C=await h(a)
+return await c.default.unlink(a),await Q.cacheDir(C,n,"0.0.0",w),C}
 const i=o(t(7598)),a=o(t(3024)),c=o(t(1455)),g=t(6466),E=n(t(6977)),Q=n(t(9358)),h=t(7657),C=t(2552)
 async function B(A){const e=a.default.createReadStream(A),t=i.default.createHash("BLAKE2b512").setEncoding("hex")
 return await(0,g.pipeline)(e,t),t.read()}async function I(A,e,t,r){if(!("https:"===A.protocol)&&!t&&!e)throw new u(A)
 let s
 try{s=await Q.downloadTool(A.href,r)}catch(e){throw e instanceof Q.HTTPError?new f(A,e.httpStatusCode,{cause:e}):e}if(t){const e=await B(s)
-if(!(0,C.equalsIgnoreCase)(e,t))throw await c.default.unlink(s),new d(A,t,e)}return s}e.getMatchingVersions=function(A,e,t){if(e=e.toLowerCase(),["latest","*"].includes(e))return A.versions
-if(e.endsWith(".*")){const t=e.slice(0,-2)
-return A.versions.filter((A=>A.name.toLowerCase().startsWith(t)&&[".",void 0].includes(A.name[t.length])))}{const r=A.versions.find((A=>A.name.toLowerCase()===e))
-if(!r)return"never"===t?[]:["secure","insecure"].includes(t)?[{name:e,allowInsecure:"insecure"===t,userProvided:!0}]:[{name:e,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]
-if("secure"!==t){if("insecure"===t)return[{...r,allowInsecure:!0}]
-if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=B,e.downloadUrl=I
-class l extends Error{url
+if(!(0,C.equalsIgnoreCase)(e,t))throw await c.default.unlink(s),new d(A,t,e)}return s}class l extends Error{url
 constructor(A,e,t){super(e,t),this.url=A}}e.DownloadError=l
 class u extends l{constructor(A,e){super(A,`no hash found for insecure URL ${A.href}`,e)}}e.MissingHashError=u
 class d extends l{constructor(A,e,t,r){super(A,`expected hash ${e} but got ${t} for ${A.href}`,r)}}e.HashMismatchError=d
@@ -1070,16 +1078,7 @@ for(const A of c){E.info(`trying ${A.href}`)
 try{return{path:await I(A,!!e.allowInsecure,s&&A.origin===p?void 0:o,r),url:A}}catch(A){if(A instanceof u){a=!0,E.warning(`${A.message} for ${n}; not using this file`)
 continue}if(A instanceof d){a=!0,E.warning(`${A.message} for ${n}${e.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
 continue}if(A instanceof f){void 0!==A.httpStatusCode&&(i||=404!==A.httpStatusCode),(404===A.httpStatusCode?E.info:E.warning)(`${A.message} for ${n}`)
-continue}throw A}}return E.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}e.downloadVersionArchive=y
-const w="ia32"
-e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=Q.find(n,"0.0.0",w)
-if(o){if(E.info("found cached"),!e.dynamic||r)return o
-E.info("but may be updated")}const i=await y(A,e,t,void 0,s)
-if(!i)return null
-let{path:a,url:g}=i
-g.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await c.default.rename(a,a=`${a}.zip`)
-const h=g.pathname.toLowerCase().endsWith(".zip")?Q.extractZip:Q.extractTar,C=await h(a)
-return await c.default.unlink(a),await Q.cacheDir(C,n,"0.0.0",w),C}},6968:function(A,e,t){"use strict"
+continue}throw A}}return E.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}const w="ia32"},6968:function(A,e,t){"use strict"
 var r=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
 var s=Object.getOwnPropertyDescriptor(e,t)
 s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),s=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),n=this&&this.__importStar||function(A){if(A&&A.__esModule)return A
@@ -1123,7 +1122,7 @@ for(const A of f){I.startGroup(`using ${A.name}`)
 let e=await(0,u.downloadVersion)(l,A,R,o,r)
 if(e||"linux"!==R||(I.info("no linux version found, trying unix instead"),e=await(0,u.downloadVersion)(l,A,"unix",o,r),e&&(R="unix")),I.endGroup(),e)return await y(l,R,A.name,e,Q),void("fasmg"===l&&"false"!==i.toLowerCase()&&await w("true"===i.toLowerCase()?null:i,c,Q))
 if(!t||! --D)return void I.setFailed("maximum number of versions to try exceeded")}I.setFailed(`could not download ${A} ${e} for ${R}`)}()}catch(A){I.setFailed(B.default.inspect(A))}})()},2552:(A,e)=>{"use strict"
-Object.defineProperty(e,"__esModule",{value:!0}),e.equalsIgnoreCase=void 0,e.equalsIgnoreCase=function(A,e){return A.toLowerCase()===e.toLowerCase()}},803:(A,e,t)=>{A.exports=t(7469)},7469:(A,e,t)=>{"use strict"
+Object.defineProperty(e,"__esModule",{value:!0}),e.equalsIgnoreCase=function(A,e){return A.toLowerCase()===e.toLowerCase()}},803:(A,e,t)=>{A.exports=t(7469)},7469:(A,e,t)=>{"use strict"
 t(9278)
 var r,s=t(4756),n=t(8611),o=t(5692),i=t(4434),a=(t(2613),t(9023))
 function c(A){var e=this
@@ -2096,48 +2095,48 @@ let c=null,Q=null,h=null
 const C="include"===o.credentials||"same-origin"===o.credentials&&"basic"===o.responseTainting,B=Q.body?Q.body.length:null
 let I=null
 if(null==Q.body&&["POST","PUT"].includes(Q.method)&&(I="0"),null!=B&&(I=T(`${B}`)),null!=I&&Q.headersList.append("content-length",I),null!=B&&Q.keepalive,Q.referrer instanceof URL&&Q.headersList.append("referer",T(Q.referrer.href)),l(Q),w(Q),Q.headersList.contains("user-agent")||Q.headersList.append("user-agent","undefined"==typeof esbuildDetection?"undici":"node"),"default"===Q.cache&&(Q.headersList.contains("if-modified-since")||Q.headersList.contains("if-none-match")||Q.headersList.contains("if-unmodified-since")||Q.headersList.contains("if-match")||Q.headersList.contains("if-range"))&&(Q.cache="no-store"),"no-cache"!==Q.cache||Q.preventNoCacheCacheControlHeaderModification||Q.headersList.contains("cache-control")||Q.headersList.append("cache-control","max-age=0"),"no-store"!==Q.cache&&"reload"!==Q.cache||(Q.headersList.contains("pragma")||Q.headersList.append("pragma","no-cache"),Q.headersList.contains("cache-control")||Q.headersList.append("cache-control","no-cache")),Q.headersList.contains("range")&&Q.headersList.append("accept-encoding","identity"),Q.headersList.contains("accept-encoding")||(J(d(Q))?Q.headersList.append("accept-encoding","br, gzip, deflate"):Q.headersList.append("accept-encoding","gzip, deflate")),Q.headersList.delete("host"),Q.cache="no-store","no-store"!==Q.mode&&Q.mode,null==h){if("only-if-cached"===Q.mode)return s("only if cached")
-const A=await async function(A,e=!1,r=!1){P(!A.controller.connection||A.controller.connection.destroyed),A.controller.connection={abort:null,destroyed:!1,destroy(A){this.destroyed||(this.destroyed=!0,this.abort?.(A??new K("The operation was aborted.","AbortError")))}}
-const o=A.request
-let c=null
-const g=A.timingInfo,Q=null
-null==Q&&(o.cache="no-store")
-o.mode
-let h=null
-if(null==o.body&&A.processRequestEndOfBody)queueMicrotask((()=>A.processRequestEndOfBody()))
-else if(null!=o.body){const e=async function*(e){S(A)||(yield e,A.processRequestBodyChunkLength?.(e.byteLength))},t=()=>{S(A)||A.processRequestEndOfBody&&A.processRequestEndOfBody()},r=e=>{S(A)||("AbortError"===e.name?A.controller.abort():A.controller.terminate(e))}
-h=async function*(){try{for await(const A of o.body.stream)yield*e(A)
-t()}catch(A){r(A)}}()}try{const{body:e,status:t,statusText:r,headersList:s,socket:n}=await u({body:h})
-if(n)c=i({status:t,statusText:r,headersList:s,socket:n})
-else{const n=e[Symbol.asyncIterator]()
-A.controller.next=()=>n.next(),c=i({status:t,statusText:r,headersList:s})}}catch(e){return"AbortError"===e.name?(A.controller.connection.destroy(),n(A,e)):s(e)}const C=()=>{A.controller.resume()},B=e=>{A.controller.abort(e)}
+const A=await async function(A){P(!A.controller.connection||A.controller.connection.destroyed),A.controller.connection={abort:null,destroyed:!1,destroy(A){this.destroyed||(this.destroyed=!0,this.abort?.(A??new K("The operation was aborted.","AbortError")))}}
+const e=A.request
+let r=null
+const o=A.timingInfo,c=null
+null==c&&(e.cache="no-store")
+e.mode
+let g=null
+if(null==e.body&&A.processRequestEndOfBody)queueMicrotask((()=>A.processRequestEndOfBody()))
+else if(null!=e.body){const t=async function*(e){S(A)||(yield e,A.processRequestBodyChunkLength?.(e.byteLength))},r=()=>{S(A)||A.processRequestEndOfBody&&A.processRequestEndOfBody()},s=e=>{S(A)||("AbortError"===e.name?A.controller.abort():A.controller.terminate(e))}
+g=async function*(){try{for await(const A of e.body.stream)yield*t(A)
+r()}catch(A){s(A)}}()}try{const{body:e,status:t,statusText:s,headersList:n,socket:o}=await I({body:g})
+if(o)r=i({status:t,statusText:s,headersList:n,socket:o})
+else{const o=e[Symbol.asyncIterator]()
+A.controller.next=()=>o.next(),r=i({status:t,statusText:s,headersList:n})}}catch(e){return"AbortError"===e.name?(A.controller.connection.destroy(),n(A,e)):s(e)}const Q=()=>{A.controller.resume()},h=e=>{A.controller.abort(e)}
 BA||(BA=t(3774).ReadableStream)
-const I=new BA({async start(e){A.controller.controller=e},async pull(A){await C(A)},async cancel(A){await B(A)}},{highWaterMark:0,size:()=>1})
-function l(e){L(A)?(c.aborted=!0,sA(I)&&A.controller.controller.error(A.controller.serializedAbortReason)):sA(I)&&A.controller.controller.error(new TypeError("terminated",{cause:U(e)?e:void 0})),A.controller.connection.destroy()}return c.body={stream:I},A.controller.on("terminated",l),A.controller.resume=async()=>{for(;;){let e,t
+const C=new BA({async start(e){A.controller.controller=e},async pull(A){await Q(A)},async cancel(A){await h(A)}},{highWaterMark:0,size:()=>1})
+function B(e){L(A)?(r.aborted=!0,sA(C)&&A.controller.controller.error(A.controller.serializedAbortReason)):sA(C)&&A.controller.controller.error(new TypeError("terminated",{cause:U(e)?e:void 0})),A.controller.connection.destroy()}return r.body={stream:C},A.controller.on("terminated",B),A.controller.resume=async()=>{for(;;){let e,t
 try{const{done:t,value:r}=await A.controller.next()
 if(L(A))break
-e=t?void 0:r}catch(r){A.controller.ended&&!g.encodedBodySize?e=void 0:(e=r,t=!0)}if(void 0===e)return v(A.controller.controller),void yA(A,c)
-if(g.decodedBodySize+=e?.byteLength??0,t)return void A.controller.terminate(e)
-if(A.controller.controller.enqueue(new Uint8Array(e)),rA(I))return void A.controller.terminate()
-if(!A.controller.controller.desiredSize)return}},c
-async function u({body:e}){const t=d(o),r=A.controller.dispatcher
-return new Promise(((s,n)=>r.dispatch({path:t.pathname+t.search,origin:t.origin,method:o.method,body:A.controller.dispatcher.isMockActive?o.body&&(o.body.source||o.body.stream):e,headers:o.headersList.entries,maxRedirections:0,upgrade:"websocket"===o.mode?"websocket":void 0},{body:null,abort:null,onConnect(e){const{connection:t}=A.controller
-t.destroyed?e(new K("The operation was aborted.","AbortError")):(A.controller.on("terminated",e),this.abort=t.abort=e)},onHeaders(A,e,t,r){if(A<200)return
-let n=[],i=""
+e=t?void 0:r}catch(r){A.controller.ended&&!o.encodedBodySize?e=void 0:(e=r,t=!0)}if(void 0===e)return v(A.controller.controller),void yA(A,r)
+if(o.decodedBodySize+=e?.byteLength??0,t)return void A.controller.terminate(e)
+if(A.controller.controller.enqueue(new Uint8Array(e)),rA(C))return void A.controller.terminate()
+if(!A.controller.controller.desiredSize)return}},r
+async function I({body:t}){const r=d(e),s=A.controller.dispatcher
+return new Promise(((n,i)=>s.dispatch({path:r.pathname+r.search,origin:r.origin,method:e.method,body:A.controller.dispatcher.isMockActive?e.body&&(e.body.source||e.body.stream):t,headers:e.headersList.entries,maxRedirections:0,upgrade:"websocket"===e.mode?"websocket":void 0},{body:null,abort:null,onConnect(e){const{connection:t}=A.controller
+t.destroyed?e(new K("The operation was aborted.","AbortError")):(A.controller.on("terminated",e),this.abort=t.abort=e)},onHeaders(A,t,r,s){if(A<200)return
+let o=[],i=""
 const c=new a
-if(Array.isArray(e))for(let A=0;A<e.length;A+=2){const t=e[A+0].toString("latin1"),r=e[A+1].toString("latin1")
-"content-encoding"===t.toLowerCase()?n=r.toLowerCase().split(",").map((A=>A.trim())):"location"===t.toLowerCase()&&(i=r),c[z].append(t,r)}else{const A=Object.keys(e)
-for(const t of A){const A=e[t]
-"content-encoding"===t.toLowerCase()?n=A.toLowerCase().split(",").map((A=>A.trim())).reverse():"location"===t.toLowerCase()&&(i=A),c[z].append(t,A)}}this.body=new AA({read:t})
-const g=[],Q="follow"===o.redirect&&i&&W.has(A)
-if("HEAD"!==o.method&&"CONNECT"!==o.method&&!q.includes(A)&&!Q)for(const A of n)if("x-gzip"===A||"gzip"===A)g.push(E.createGunzip({flush:E.constants.Z_SYNC_FLUSH,finishFlush:E.constants.Z_SYNC_FLUSH}))
+if(Array.isArray(t))for(let A=0;A<t.length;A+=2){const e=t[A+0].toString("latin1"),r=t[A+1].toString("latin1")
+"content-encoding"===e.toLowerCase()?o=r.toLowerCase().split(",").map((A=>A.trim())):"location"===e.toLowerCase()&&(i=r),c[z].append(e,r)}else{const A=Object.keys(t)
+for(const e of A){const A=t[e]
+"content-encoding"===e.toLowerCase()?o=A.toLowerCase().split(",").map((A=>A.trim())).reverse():"location"===e.toLowerCase()&&(i=A),c[z].append(e,A)}}this.body=new AA({read:r})
+const g=[],Q="follow"===e.redirect&&i&&W.has(A)
+if("HEAD"!==e.method&&"CONNECT"!==e.method&&!q.includes(A)&&!Q)for(const A of o)if("x-gzip"===A||"gzip"===A)g.push(E.createGunzip({flush:E.constants.Z_SYNC_FLUSH,finishFlush:E.constants.Z_SYNC_FLUSH}))
 else if("deflate"===A)g.push(E.createInflate())
 else{if("br"!==A){g.length=0
-break}g.push(E.createBrotliDecompress())}return s({status:A,statusText:r,headersList:c[z],body:g.length?eA(this.body,...g,(()=>{})):this.body.on("error",(()=>{}))}),!0},onData(e){if(A.controller.dump)return
+break}g.push(E.createBrotliDecompress())}return n({status:A,statusText:s,headersList:c[z],body:g.length?eA(this.body,...g,(()=>{})):this.body.on("error",(()=>{}))}),!0},onData(e){if(A.controller.dump)return
 const t=e
-return g.encodedBodySize+=t.byteLength,this.body.push(t)},onComplete(){this.abort&&A.controller.off("terminated",this.abort),A.controller.ended=!0,this.body.push(null)},onError(e){this.abort&&A.controller.off("terminated",this.abort),this.body?.destroy(e),A.controller.terminate(e),n(e)},onUpgrade(A,e,t){if(101!==A)return
+return o.encodedBodySize+=t.byteLength,this.body.push(t)},onComplete(){this.abort&&A.controller.off("terminated",this.abort),A.controller.ended=!0,this.body.push(null)},onError(e){this.abort&&A.controller.off("terminated",this.abort),this.body?.destroy(e),A.controller.terminate(e),i(e)},onUpgrade(A,e,t){if(101!==A)return
 const r=new a
 for(let A=0;A<e.length;A+=2){const t=e[A+0].toString("latin1"),s=e[A+1].toString("latin1")
-r[z].append(t,s)}return s({status:A,statusText:QA[A],headersList:r[z],socket:t}),!0}})))}}(c,C,r)
+r[z].append(t,s)}return n({status:A,statusText:QA[A],headersList:r[z],socket:t}),!0}})))}}(c,C,r)
 !j.has(Q.method)&&A.status>=200&&A.status,null==h&&(h=A)}if(h.urlList=[...Q.urlList],Q.headersList.contains("range")&&(h.rangeRequested=!0),h.requestIncludesCredentials=C,407===h.status)return"no-window"===o.window?s():S(A)?n(A):s("proxy authentication required")
 if(421===h.status&&!r&&(null==o.body||null!=o.body.source)){if(S(A))return n(A)
 A.controller.connection.destroy(),h=await RA(A,e,!0)}return h}A.exports={fetch:function(A,e={}){EA.argumentLengthCheck(arguments,1,{header:"globalThis.fetch"})
