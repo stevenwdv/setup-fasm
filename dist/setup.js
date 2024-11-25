@@ -1060,88 +1060,92 @@ return{windows:parseInt(t)<parseInt("1.54".replaceAll(".",""))?`fasmc${t}.zip`:`
 return["https://flatassembler.net/","http://fasm.sourceforge.net/archive/recent/","http://comrade.ownz.com/fasm/"].flatMap((A=>t.map((e=>A+e)))).map((A=>new URL(A)))},fasmg(A){const e=(A.alt?[A.alt,A.name]:[A.name]).map((A=>`fasmg.${A}.zip`))
 return["https://flatassembler.net/"].flatMap((A=>e.map((e=>A+e)))).map((A=>new URL(A)))},fasmarm(A,e){const t=["FASMARM_full.ZIP"]
 return"windows"===e&&t.unshift("FASMARM_win32.ZIP"),["https://arm.flatassembler.net/"].flatMap((A=>t.map((e=>A+e)))).map((A=>new URL(A)))}}},394:function(A,e,t){"use strict"
-var r=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
+var r,s=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
 var s=Object.getOwnPropertyDescriptor(e,t)
-s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),s=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),n=this&&this.__importStar||function(A){if(A&&A.__esModule)return A
+s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),n=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),o=this&&this.__importStar||(r=function(A){return r=Object.getOwnPropertyNames||function(A){var e=[]
+for(var t in A)Object.prototype.hasOwnProperty.call(A,t)&&(e[e.length]=t)
+return e},r(A)},function(A){if(A&&A.__esModule)return A
 var e={}
-if(null!=A)for(var t in A)"default"!==t&&Object.prototype.hasOwnProperty.call(A,t)&&r(e,A,t)
-return s(e,A),e},o=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
+if(null!=A)for(var t=r(A),o=0;o<t.length;o++)"default"!==t[o]&&s(e,A,t[o])
+return n(e,A),e}),i=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
 Object.defineProperty(e,"__esModule",{value:!0}),e.HttpError=e.HashMismatchError=e.MissingHashError=e.DownloadError=void 0,e.getMatchingVersions=function(A,e,t){if(e=e.toLowerCase(),["latest","*"].includes(e))return A.versions
 if(e.endsWith(".*")){const t=e.slice(0,-2)
 return A.versions.filter((A=>A.name.toLowerCase().startsWith(t)&&[".",void 0].includes(A.name[t.length])))}{const r=A.versions.find((A=>A.name.toLowerCase()===e))
 if(!r)return"never"===t?[]:["secure","insecure"].includes(t)?[{name:e,allowInsecure:"insecure"===t,userProvided:!0}]:[{name:e,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]
 if("secure"!==t){if("insecure"===t)return[{...r,allowInsecure:!0}]
-if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=B,e.downloadUrl=I,e.downloadVersionArchive=y,e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=Q.find(n,"0.0.0",w)
-if(o){if(E.info("found cached"),!e.dynamic||r)return o
-E.info("but may be updated")}const i=await y(A,e,t,void 0,s)
+if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}},e.hashFile=I,e.downloadUrl=l,e.downloadVersionArchive=w,e.downloadVersion=async function(A,e,t,r=!1,s=!1){const n=`${A}-${t}-${e.name}`,o=h.find(n,"0.0.0",m)
+if(o){if(Q.info("found cached"),!e.dynamic||r)return o
+Q.info("but may be updated")}const i=await w(A,e,t,void 0,s)
 if(!i)return null
-let{path:a,url:g}=i
-g.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await c.default.rename(a,a=`${a}.zip`)
-const h=g.pathname.toLowerCase().endsWith(".zip")?Q.extractZip:Q.extractTar,C=await h(a)
-return await c.default.unlink(a),await Q.cacheDir(C,n,"0.0.0",w),C}
-const i=o(t(7598)),a=o(t(3024)),c=o(t(1455)),g=t(6466),E=n(t(6977)),Q=n(t(9358)),h=t(7657),C=t(2552)
-async function B(A){const e=a.default.createReadStream(A),t=i.default.createHash("BLAKE2b512").setEncoding("hex")
-return await(0,g.pipeline)(e,t),t.read()}async function I(A,e,t,r){if(!("https:"===A.protocol)&&!t&&!e)throw new u(A)
+let{path:a,url:c}=i
+c.pathname.toLowerCase().endsWith(".zip")&&!a.endsWith(".zip")&&await g.default.rename(a,a=`${a}.zip`)
+const E=c.pathname.toLowerCase().endsWith(".zip")?h.extractZip:h.extractTar,C=await E(a)
+return await g.default.unlink(a),await h.cacheDir(C,n,"0.0.0",m),C}
+const a=i(t(7598)),c=i(t(3024)),g=i(t(1455)),E=t(6466),Q=o(t(6977)),h=o(t(9358)),C=t(7657),B=t(2552)
+async function I(A){const e=c.default.createReadStream(A),t=a.default.createHash("BLAKE2b512").setEncoding("hex")
+return await(0,E.pipeline)(e,t),t.read()}async function l(A,e,t,r){if(!("https:"===A.protocol)&&!t&&!e)throw new d(A)
 let s
-try{s=await Q.downloadTool(A.href,r)}catch(e){throw e instanceof Q.HTTPError?new f(A,e.httpStatusCode,{cause:e}):e}if(t){const e=await B(s)
-if(!(0,C.equalsIgnoreCase)(e,t))throw await c.default.unlink(s),new d(A,t,e)}return s}class l extends Error{url
-constructor(A,e,t){super(e,t),this.url=A}}e.DownloadError=l
-class u extends l{constructor(A,e){super(A,`no hash found for insecure URL ${A.href}`,e)}}e.MissingHashError=u
-class d extends l{constructor(A,e,t,r){super(A,`expected hash ${e} but got ${t} for ${A.href}`,r)}}e.HashMismatchError=d
-class f extends l{httpStatusCode
-constructor(A,e,t){super(A,`HTTP error${void 0!==e?` (${e})`:""} while downloading ${A.href}`,t),this.httpStatusCode=e}}e.HttpError=f
-const p="https://flatassembler.net"
-async function y(A,e,t,r,s=!1){const n=`${A} ${e.name} for ${t}`,o=(e.hashes||{})[t]
+try{s=await h.downloadTool(A.href,r)}catch(e){throw e instanceof h.HTTPError?new p(A,e.httpStatusCode,{cause:e}):e}if(t){const e=await I(s)
+if(!(0,B.equalsIgnoreCase)(e,t))throw await g.default.unlink(s),new f(A,t,e)}return s}class u extends Error{url
+constructor(A,e,t){super(e,t),this.url=A}}e.DownloadError=u
+class d extends u{constructor(A,e){super(A,`no hash found for insecure URL ${A.href}`,e)}}e.MissingHashError=d
+class f extends u{constructor(A,e,t,r){super(A,`expected hash ${e} but got ${t} for ${A.href}`,r)}}e.HashMismatchError=f
+class p extends u{httpStatusCode
+constructor(A,e,t){super(A,`HTTP error${void 0!==e?` (${e})`:""} while downloading ${A.href}`,t),this.httpStatusCode=e}}e.HttpError=p
+const y="https://flatassembler.net"
+async function w(A,e,t,r,s=!1){const n=`${A} ${e.name} for ${t}`,o=(e.hashes||{})[t]
 let i=!1,a=!1
-const c=h.getUrls[A](e,t)
-for(const A of c){E.info(`trying ${A.href}`)
-try{return{path:await I(A,!!e.allowInsecure,s&&A.origin===p?void 0:o,r),url:A}}catch(A){if(A instanceof u){a=!0,E.warning(`${A.message} for ${n}; not using this file`)
-continue}if(A instanceof d){a=!0,E.warning(`${A.message} for ${n}${e.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
-continue}if(A instanceof f){void 0!==A.httpStatusCode&&(i||=404!==A.httpStatusCode),(404===A.httpStatusCode?E.info:E.warning)(`${A.message} for ${n}`)
-continue}throw A}}return E.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}const w="ia32"},6968:function(A,e,t){"use strict"
-var r=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
+const c=C.getUrls[A](e,t)
+for(const A of c){Q.info(`trying ${A.href}`)
+try{return{path:await l(A,!!e.allowInsecure,s&&A.origin===y?void 0:o,r),url:A}}catch(A){if(A instanceof d){a=!0,Q.warning(`${A.message} for ${n}; not using this file`)
+continue}if(A instanceof f){a=!0,Q.warning(`${A.message} for ${n}${e.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
+continue}if(A instanceof p){void 0!==A.httpStatusCode&&(i||=404!==A.httpStatusCode),(404===A.httpStatusCode?Q.info:Q.warning)(`${A.message} for ${n}`)
+continue}throw A}}return Q.warning(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${A} ${e.name} not found for ${t}`)),null}const m="ia32"},6968:function(A,e,t){"use strict"
+var r,s=this&&this.__createBinding||(Object.create?function(A,e,t,r){void 0===r&&(r=t)
 var s=Object.getOwnPropertyDescriptor(e,t)
-s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),s=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),n=this&&this.__importStar||function(A){if(A&&A.__esModule)return A
+s&&!("get"in s?!e.__esModule:s.writable||s.configurable)||(s={enumerable:!0,get:function(){return e[t]}}),Object.defineProperty(A,r,s)}:function(A,e,t,r){void 0===r&&(r=t),A[r]=e[t]}),n=this&&this.__setModuleDefault||(Object.create?function(A,e){Object.defineProperty(A,"default",{enumerable:!0,value:e})}:function(A,e){A.default=e}),o=this&&this.__importStar||(r=function(A){return r=Object.getOwnPropertyNames||function(A){var e=[]
+for(var t in A)Object.prototype.hasOwnProperty.call(A,t)&&(e[e.length]=t)
+return e},r(A)},function(A){if(A&&A.__esModule)return A
 var e={}
-if(null!=A)for(var t in A)"default"!==t&&Object.prototype.hasOwnProperty.call(A,t)&&r(e,A,t)
-return s(e,A),e},o=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
+if(null!=A)for(var t=r(A),o=0;o<t.length;o++)"default"!==t[o]&&s(e,A,t[o])
+return n(e,A),e}),i=this&&this.__importDefault||function(A){return A&&A.__esModule?A:{default:A}}
 Object.defineProperty(e,"__esModule",{value:!0})
-const i=t(7598),a=o(t(3024)),c=o(t(1455)),g=o(t(4708)),E=o(t(8161)),Q=o(t(6760)),h=o(t(1708)),C=o(t(8321)),B=o(t(7975)),I=n(t(6977)),l=o(t(4662)),u=t(394),d=new URL("https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json"),f=new URL("https://github.com/tgrysztar/fasmg.git")
-const p={aix:"unix",android:"linux",cygwin:"windows",freebsd:"unix",haiku:"unix",linux:"linux",netbsd:"unix",openbsd:"unix",sunos:"unix",win32:"windows"}
-async function y(A,e,t,r,s){const n=await c.default.readdir(r),o=1===n.length&&(await c.default.stat(Q.default.join(r,n[0]))).isDirectory()?Q.default.join(r,n[0]):r
-I.addPath(o)
+const a=t(7598),c=i(t(3024)),g=i(t(1455)),E=i(t(4708)),Q=i(t(8161)),h=i(t(6760)),C=i(t(1708)),B=i(t(8321)),I=i(t(7975)),l=o(t(6977)),u=i(t(4662)),d=t(394),f=new URL("https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json"),p=new URL("https://github.com/tgrysztar/fasmg.git")
+const y={aix:"unix",android:"linux",cygwin:"windows",freebsd:"unix",haiku:"unix",linux:"linux",netbsd:"unix",openbsd:"unix",sunos:"unix",win32:"windows"}
+async function w(A,e,t,r,s){const n=await g.default.readdir(r),o=1===n.length&&(await g.default.stat(h.default.join(r,n[0]))).isDirectory()?h.default.join(r,n[0]):r
+l.addPath(o)
 {const e=[".x64","",".exe",".o"].map((e=>`${{fasm1:"fasm",fasmg:"fasmg",fasmarm:"fasmarm"}[A]}${e}`))
-await Promise.all(e.map((async A=>{const e=Q.default.join(o,A),t=await c.default.stat(e).catch((()=>null))
-t?.isFile()&&await c.default.chmod(e,73|t.mode)})))}if(s)for(const A of["INCLUDE","include"]){const e=Q.default.join(o,A)
-if((await c.default.stat(e).catch((()=>null)))?.isDirectory()){m(e)
-break}}I.setOutput("path",o),I.setOutput("edition",A),I.setOutput("version",t),I.setOutput("platform",e),I.info(`successfully installed ${A} ${t} for ${e} to ${o}`)}async function w(A,e,t){I.startGroup("downloading fasm g packages")
-const r=Q.default.join(h.default.env.RUNNER_TEMP||E.default.tmpdir(),(0,i.randomUUID)())
-await(0,l.default)().clone(f.href,r,["--filter=blob:none","--sparse","--no-checkout"]).cwd(r).checkout(A??"HEAD").raw("sparse-checkout","set","--cone","packages"),I.info("checked out fasm g packages repository")
-const s=Q.default.join(r,"packages")
-if(!(await c.default.stat(s).catch((()=>null)))?.isDirectory())throw new Error("cannot find fasm g packages directory")
-I.setOutput("fasmg-packages",s),t&&m(s)
-for(const A of e){const e=Q.default.join(s,A)
-if(!(await c.default.stat(s).catch((()=>null)))?.isDirectory())throw new Error(`fasm g package ${A} not found`)
-const t=Q.default.join(e,"include");(await c.default.stat(t).catch((()=>null)))?.isDirectory()?m(t):m(e)}I.endGroup(),I.info(`successfully installed fasm g packages to ${s}`)}function m(A){I.info(`adding to include: ${A}`)
-let e=h.default.env.INCLUDE??""
-e&&(e+=";"),e+=A,I.exportVariable("INCLUDE",e)}(async()=>{try{await async function(){const A=I.getInput("edition").toLowerCase(),e=I.getInput("version").toLowerCase(),t=I.getBooleanInput("fallback-to-previous-compatible"),r=I.getBooleanInput("ignore-official-https-hash-mismatch"),s=I.getInput("download-unknown").toLowerCase(),n=I.getInput("custom-version-list"),o=I.getBooleanInput("assume-dynamic-unchanged"),i=I.getInput("fasmg-download-packages"),c=I.getInput("fasmg-include-packages").toLowerCase().split(/,\s*/).filter((A=>A)),Q=I.getBooleanInput("set-include-envvar")
-if("fasmg"!==A&&("false"!==i.toLowerCase()||c.length))return void I.setFailed("fasm g packages option set but requested edition is not fasmg")
-if(c.length&&"false"===i.toLowerCase())return void I.setFailed("fasmg-include-packages set without fasmg-download-packages")
+await Promise.all(e.map((async A=>{const e=h.default.join(o,A),t=await g.default.stat(e).catch((()=>null))
+t?.isFile()&&await g.default.chmod(e,73|t.mode)})))}if(s)for(const A of["INCLUDE","include"]){const e=h.default.join(o,A)
+if((await g.default.stat(e).catch((()=>null)))?.isDirectory()){R(e)
+break}}l.setOutput("path",o),l.setOutput("edition",A),l.setOutput("version",t),l.setOutput("platform",e),l.info(`successfully installed ${A} ${t} for ${e} to ${o}`)}async function m(A,e,t){l.startGroup("downloading fasm g packages")
+const r=h.default.join(C.default.env.RUNNER_TEMP||Q.default.tmpdir(),(0,a.randomUUID)())
+await(0,u.default)().clone(p.href,r,["--filter=blob:none","--sparse","--no-checkout"]).cwd(r).checkout(A??"HEAD").raw("sparse-checkout","set","--cone","packages"),l.info("checked out fasm g packages repository")
+const s=h.default.join(r,"packages")
+if(!(await g.default.stat(s).catch((()=>null)))?.isDirectory())throw new Error("cannot find fasm g packages directory")
+l.setOutput("fasmg-packages",s),t&&R(s)
+for(const A of e){const e=h.default.join(s,A)
+if(!(await g.default.stat(s).catch((()=>null)))?.isDirectory())throw new Error(`fasm g package ${A} not found`)
+const t=h.default.join(e,"include");(await g.default.stat(t).catch((()=>null)))?.isDirectory()?R(t):R(e)}l.endGroup(),l.info(`successfully installed fasm g packages to ${s}`)}function R(A){l.info(`adding to include: ${A}`)
+let e=C.default.env.INCLUDE??""
+e&&(e+=";"),e+=A,l.exportVariable("INCLUDE",e)}(async()=>{try{await async function(){const A=l.getInput("edition").toLowerCase(),e=l.getInput("version").toLowerCase(),t=l.getBooleanInput("fallback-to-previous-compatible"),r=l.getBooleanInput("ignore-official-https-hash-mismatch"),s=l.getInput("download-unknown").toLowerCase(),n=l.getInput("custom-version-list"),o=l.getBooleanInput("assume-dynamic-unchanged"),i=l.getInput("fasmg-download-packages"),a=l.getInput("fasmg-include-packages").toLowerCase().split(/,\s*/).filter((A=>A)),g=l.getBooleanInput("set-include-envvar")
+if("fasmg"!==A&&("false"!==i.toLowerCase()||a.length))return void l.setFailed("fasm g packages option set but requested edition is not fasmg")
+if(a.length&&"false"===i.toLowerCase())return void l.setFailed("fasmg-include-packages set without fasmg-download-packages")
 let h
-n?(I.info("reading version list"),h=await C.default.json(a.default.createReadStream(n))):(I.info("downloading version list"),h=await new Promise(((A,e)=>{g.default.get(d,(t=>{200!==t.statusCode?e(new Error(`failed to download ${d.href}: HTTP ${t.statusCode} ${t.statusMessage}`)):A(C.default.json(t))})).on("error",(A=>e(new Error(`failed to download ${d.href}`,{cause:A}))))})))
-const B=h.editions[A]
-if(!B)return void I.setFailed(`requested edition '${A}' not found`)
-const l=A,f=(0,u.getMatchingVersions)(B,e,s)
-if(!f.length)return void I.setFailed(`requested version '${e}' not found for edition ${l}`)
-const m=E.default.platform()
-if("darwin"===m)return void I.setFailed("macOS does not support ELF binaries, so fasm is not available")
-let R=p[m]
-R||(I.warning(`unknown current platform ${m}, trying unix`),R="unix")
+n?(l.info("reading version list"),h=await B.default.json(c.default.createReadStream(n))):(l.info("downloading version list"),h=await new Promise(((A,e)=>{E.default.get(f,(t=>{200!==t.statusCode?e(new Error(`failed to download ${f.href}: HTTP ${t.statusCode} ${t.statusMessage}`)):A(B.default.json(t))})).on("error",(A=>e(new Error(`failed to download ${f.href}`,{cause:A}))))})))
+const C=h.editions[A]
+if(!C)return void l.setFailed(`requested edition '${A}' not found`)
+const I=A,u=(0,d.getMatchingVersions)(C,e,s)
+if(!u.length)return void l.setFailed(`requested version '${e}' not found for edition ${I}`)
+const p=Q.default.platform()
+if("darwin"===p)return void l.setFailed("macOS does not support ELF binaries, so fasm is not available")
+let R=y[p]
+R||(l.warning(`unknown current platform ${p}, trying unix`),R="unix")
 let D=10
-for(const A of f){I.startGroup(`using ${A.name}`)
-let e=await(0,u.downloadVersion)(l,A,R,o,r)
-if(e||"linux"!==R||(I.info("no linux version found, trying unix instead"),e=await(0,u.downloadVersion)(l,A,"unix",o,r),e&&(R="unix")),I.endGroup(),e)return await y(l,R,A.name,e,Q),void("fasmg"===l&&"false"!==i.toLowerCase()&&await w("true"===i.toLowerCase()?null:i,c,Q))
-if(!t||! --D)return void I.setFailed("maximum number of versions to try exceeded")}I.setFailed(`could not download ${A} ${e} for ${R}`)}()}catch(A){I.setFailed(B.default.inspect(A))}})()},2552:(A,e)=>{"use strict"
+for(const A of u){l.startGroup(`using ${A.name}`)
+let e=await(0,d.downloadVersion)(I,A,R,o,r)
+if(e||"linux"!==R||(l.info("no linux version found, trying unix instead"),e=await(0,d.downloadVersion)(I,A,"unix",o,r),e&&(R="unix")),l.endGroup(),e)return await w(I,R,A.name,e,g),void("fasmg"===I&&"false"!==i.toLowerCase()&&await m("true"===i.toLowerCase()?null:i,a,g))
+if(!t||! --D)return void l.setFailed("maximum number of versions to try exceeded")}l.setFailed(`could not download ${A} ${e} for ${R}`)}()}catch(A){l.setFailed(I.default.inspect(A))}})()},2552:(A,e)=>{"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.equalsIgnoreCase=function(A,e){return A.toLowerCase()===e.toLowerCase()}},803:(A,e,t)=>{A.exports=t(7469)},7469:(A,e,t)=>{"use strict"
 t(9278)
 var r,s=t(4756),n=t(8611),o=t(5692),i=t(4434),a=(t(2613),t(9023))
