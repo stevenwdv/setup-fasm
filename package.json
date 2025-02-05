@@ -19,22 +19,22 @@
 	},
 	"dependencies": {
 		"@actions/core": "^1.11.1",
-		"@actions/tool-cache": "^2.0.1",
+		"@actions/tool-cache": "^2.0.2",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1.1",
 		"simple-git": "^3.27.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.16.5",
+		"@types/node": "^20.17.17",
 		"@types/webpack": "^5.28.5",
-		"@typescript-eslint/eslint-plugin": "^8.4.0",
-		"@typescript-eslint/parser": "^8.4.0",
-		"eslint": "^9.10.0",
-		"husky": "^9.1.5",
+		"@typescript-eslint/eslint-plugin": "^8.23.0",
+		"@typescript-eslint/parser": "^8.23.0",
+		"eslint": "^9.19.0",
+		"husky": "^9.1.7",
 		"terser-webpack-plugin": "^5.3.11",
-		"ts-loader": "^9.5.1",
+		"ts-loader": "^9.5.2",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.7.2",
-		"webpack": "^5.94.0",
-		"webpack-cli": "^5.1.4"
+		"typescript": "^5.7.3",
+		"webpack": "^5.97.1",
+		"webpack-cli": "^6.0.1"
 	}
 }
