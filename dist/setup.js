@@ -475,7 +475,7 @@ const{Headers:r,HeadersList:s,fill:n}=t(7836),{extractBody:o,cloneBody:i,mixinBo
 class v{static error(){const A={settingsObject:{}},e=new v
 return e[p]=G(),e[m]=A,e[y][N]=e[p].headersList,e[y][w]="immutable",e[y][m]=A,e}static json(A,e={}){R.argumentLengthCheck(arguments,1,{header:"Response.json"}),null!==e&&(e=R.converters.ResponseInit(e))
 const t=M.encode(B(A)),r=o(t),s={settingsObject:{}},n=new v
-return n[m]=s,n[y][w]="response",n[y][m]=s,H(n,e,{body:r[0],type:"application/json"}),n}static redirect(A,e=302){const t={settingsObject:{}}
+return n[m]=s,n[y][w]="response",n[y][m]=s,x(n,e,{body:r[0],type:"application/json"}),n}static redirect(A,e=302){const t={settingsObject:{}}
 let r
 R.argumentLengthCheck(arguments,1,{header:"Response.redirect"}),A=R.converters.USVString(A),e=R.converters["unsigned short"](e)
 try{r=new URL(A,k())}catch(e){throw Object.assign(new TypeError("Failed to parse URL from "+A),{cause:e})}if(!u.has(e))throw new RangeError("Invalid status code "+e)
@@ -485,13 +485,13 @@ const n=l(b(r))
 return s[p].headersList.append("location",n),s}constructor(A=null,e={}){null!==A&&(A=R.converters.BodyInit(A)),e=R.converters.ResponseInit(e),this[m]={settingsObject:{}},this[p]=Y({}),this[y]=new r(F),this[y][w]="response",this[y][N]=this[p].headersList,this[y][m]=this[m]
 let t=null
 if(null!=A){const[e,r]=o(A)
-t={body:e,type:r}}H(this,e,t)}get type(){return R.brandCheck(this,v),this[p].type}get url(){R.brandCheck(this,v)
+t={body:e,type:r}}x(this,e,t)}get type(){return R.brandCheck(this,v),this[p].type}get url(){R.brandCheck(this,v)
 const A=this[p].urlList,e=A[A.length-1]??null
 return null===e?"":b(e,!0)}get redirected(){return R.brandCheck(this,v),this[p].urlList.length>1}get status(){return R.brandCheck(this,v),this[p].status}get ok(){return R.brandCheck(this,v),this[p].status>=200&&this[p].status<=299}get statusText(){return R.brandCheck(this,v),this[p].statusText}get headers(){return R.brandCheck(this,v),this[y]}get body(){return R.brandCheck(this,v),this[p].body?this[p].body.stream:null}get bodyUsed(){return R.brandCheck(this,v),!!this[p].body&&c.isDisturbed(this[p].body.stream)}clone(){if(R.brandCheck(this,v),this.bodyUsed||this.body&&this.body.locked)throw R.errors.exception({header:"Response.clone",message:"Body has already been consumed."})
 const A=T(this[p]),e=new v
 return e[p]=A,e[m]=this[m],e[y][N]=A.headersList,e[y][w]=this[y][w],e[y][m]=this[y][m],e}}function T(A){if(A.internalResponse)return O(T(A.internalResponse),A.type)
 const e=Y({...A,body:null})
-return null!=A.body&&(e.body=i(A.body)),e}function Y(A){return{aborted:!1,rangeRequested:!1,timingAllowPassed:!1,requestIncludesCredentials:!1,type:"default",status:200,timingInfo:null,cacheState:"",statusText:"",...A,headersList:A.headersList?new s(A.headersList):new s,urlList:A.urlList?[...A.urlList]:[]}}function G(A){return Y({type:"error",status:0,error:I(A)?A:new Error(A?String(A):A),aborted:A&&"AbortError"===A.name})}function J(A,e){return e={internalResponse:A,...e},new Proxy(A,{get:(A,t)=>t in e?e[t]:A[t],set:(A,t,r)=>(S(!(t in e)),A[t]=r,!0)})}function O(A,e){return"basic"===e?J(A,{type:"basic",headersList:A.headersList}):"cors"===e?J(A,{type:"cors",headersList:A.headersList}):"opaque"===e?J(A,{type:"opaque",urlList:Object.freeze([]),status:0,statusText:"",body:null}):"opaqueredirect"===e?J(A,{type:"opaqueredirect",status:0,statusText:"",headersList:[],body:null}):void S(!1)}function H(A,e,t){if(null!==e.status&&(e.status<200||e.status>599))throw new RangeError('init["status"] must be in the range of 200 to 599, inclusive.')
+return null!=A.body&&(e.body=i(A.body)),e}function Y(A){return{aborted:!1,rangeRequested:!1,timingAllowPassed:!1,requestIncludesCredentials:!1,type:"default",status:200,timingInfo:null,cacheState:"",statusText:"",...A,headersList:A.headersList?new s(A.headersList):new s,urlList:A.urlList?[...A.urlList]:[]}}function G(A){return Y({type:"error",status:0,error:I(A)?A:new Error(A?String(A):A),aborted:A&&"AbortError"===A.name})}function J(A,e){return e={internalResponse:A,...e},new Proxy(A,{get:(A,t)=>t in e?e[t]:A[t],set:(A,t,r)=>(S(!(t in e)),A[t]=r,!0)})}function O(A,e){return"basic"===e?J(A,{type:"basic",headersList:A.headersList}):"cors"===e?J(A,{type:"cors",headersList:A.headersList}):"opaque"===e?J(A,{type:"opaque",urlList:Object.freeze([]),status:0,statusText:"",body:null}):"opaqueredirect"===e?J(A,{type:"opaqueredirect",status:0,statusText:"",headersList:[],body:null}):void S(!1)}function x(A,e,t){if(null!==e.status&&(e.status<200||e.status>599))throw new RangeError('init["status"] must be in the range of 200 to 599, inclusive.')
 if("statusText"in e&&null!=e.statusText&&!E(String(e.statusText)))throw new TypeError("Invalid statusText")
 if("status"in e&&null!=e.status&&(A[p].status=e.status),"statusText"in e&&null!=e.statusText&&(A[p].statusText=e.statusText),"headers"in e&&null!=e.headers&&n(A[y],e.headers),t){if(d.includes(A.status))throw R.errors.exception({header:"Response constructor",message:"Invalid response status code "+A.status})
 A[p].body=t.body,null==t.type||A[p].headersList.contains("Content-Type")||A[p].headersList.append("content-type",t.type)}}a(v),Object.defineProperties(v.prototype,{type:g,url:g,status:g,ok:g,redirected:g,statusText:g,headers:g,clone:g,body:g,bodyUsed:g,[Symbol.toStringTag]:{value:"Response",configurable:!0}}),Object.defineProperties(v,{json:g,redirect:g,error:g}),R.converters.ReadableStream=R.interfaceConverter(U),R.converters.FormData=R.interfaceConverter(D),R.converters.URLSearchParams=R.interfaceConverter(URLSearchParams),R.converters.XMLHttpRequestBodyInit=function(A){return"string"==typeof A?R.converters.USVString(A):C(A)?R.converters.Blob(A,{strict:!1}):L.isArrayBuffer(A)||L.isTypedArray(A)||L.isDataView(A)?R.converters.BufferSource(A):c.isFormDataLike(A)?R.converters.FormData(A,{strict:!1}):A instanceof URLSearchParams?R.converters.URLSearchParams(A):R.converters.DOMString(A)},R.converters.BodyInit=function(A){return A instanceof U?R.converters.ReadableStream(A):A?.[Symbol.asyncIterator]?A:R.converters.XMLHttpRequestBodyInit(A)},R.converters.ResponseInit=R.dictionaryConverter([{key:"status",converter:R.converters["unsigned short"],defaultValue:200},{key:"statusText",converter:R.converters.ByteString,defaultValue:""},{key:"headers",converter:R.converters.HeadersInit}]),A.exports={makeNetworkError:G,makeResponse:Y,makeAppropriateNetworkError:function(A,e=null){return S(Q(A)),h(A)?G(Object.assign(new f("The operation was aborted.","AbortError"),{cause:e})):G(Object.assign(new f("Request was cancelled."),{cause:e}))},filterResponse:O,Response:v,cloneResponse:T}},2960:function(A,e,t){"use strict"
@@ -567,7 +567,7 @@ if(Array.isArray(A))for(let s=0;s<A.length;s+=2)E(A[s],e,t)||r.push(A[s],A[s+1])
 else if(A&&"object"==typeof A)for(const s of Object.keys(A))E(s,e,t)||r.push(s,A[s])
 else n(null==A,"headers must be an object or an array")
 return r}(this.opts.headers,303===A,this.opts.origin!==o),this.opts.path=g,this.opts.origin=o,this.opts.maxRedirections=0,this.opts.query=null,303===A&&"HEAD"!==this.opts.method&&(this.opts.method="GET",this.opts.body=null)}onData(A){if(!this.location)return this.handler.onData(A)}onComplete(A){this.location?(this.location=null,this.abort=null,this.dispatch(this.opts,this)):this.handler.onComplete(A)}onBodySent(A){this.handler.onBodySent&&this.handler.onBodySent(A)}}},3254:(A,e,t)=>{"use strict"
-const{Response:r,makeNetworkError:s,makeAppropriateNetworkError:n,filterResponse:o,makeResponse:i}=t(2675),{Headers:a}=t(7836),{Request:c,makeRequest:g}=t(4375),E=t(3106),{bytesMatch:Q,makePolicyContainer:h,clonePolicyContainer:C,requestBadPort:B,TAOCheck:I,appendRequestOriginHeader:l,responseLocationURL:u,requestCurrentURL:d,setRequestReferrerPolicyOnRedirect:f,tryUpgradeRequestToAPotentiallyTrustworthyURL:p,createOpaqueTimingInfo:y,appendFetchMetadata:w,corsCheck:m,crossOriginResourcePolicyCheck:R,determineRequestsReferrer:D,coarsenedSharedCurrentTime:k,createDeferredPromise:b,isBlobLike:N,sameOrigin:F,isCancelled:S,isAborted:L,isErrorLike:U,fullyReadBody:M,readableStreamClose:v,isomorphicEncode:T,urlIsLocal:Y,urlIsHttpHttpsScheme:G,urlHasHttpsScheme:J}=t(9064),{kState:O,kHeaders:H,kGuard:x,kRealm:V}=t(4803),P=t(2613),{safelyExtractBody:_}=t(6628),{redirectStatusSet:W,nullBodyStatus:q,safeMethodsSet:j,requestBodyHeader:X,subresourceSet:Z,DOMException:K}=t(6983),{kHeadersList:z}=t(7336),$=t(4434),{Readable:AA,pipeline:eA}=t(2203),{addAbortListener:tA,isErrored:rA,isReadable:sA,nodeMajor:nA,nodeMinor:oA}=t(7017),{dataURLProcessor:iA,serializeAMimeType:aA}=t(1895),{TransformStream:cA}=t(3774),{getGlobalDispatcher:gA}=t(1914),{webidl:EA}=t(1421),{STATUS_CODES:QA}=t(8611),hA=["GET","HEAD"]
+const{Response:r,makeNetworkError:s,makeAppropriateNetworkError:n,filterResponse:o,makeResponse:i}=t(2675),{Headers:a}=t(7836),{Request:c,makeRequest:g}=t(4375),E=t(3106),{bytesMatch:Q,makePolicyContainer:h,clonePolicyContainer:C,requestBadPort:B,TAOCheck:I,appendRequestOriginHeader:l,responseLocationURL:u,requestCurrentURL:d,setRequestReferrerPolicyOnRedirect:f,tryUpgradeRequestToAPotentiallyTrustworthyURL:p,createOpaqueTimingInfo:y,appendFetchMetadata:w,corsCheck:m,crossOriginResourcePolicyCheck:R,determineRequestsReferrer:D,coarsenedSharedCurrentTime:k,createDeferredPromise:b,isBlobLike:N,sameOrigin:F,isCancelled:S,isAborted:L,isErrorLike:U,fullyReadBody:M,readableStreamClose:v,isomorphicEncode:T,urlIsLocal:Y,urlIsHttpHttpsScheme:G,urlHasHttpsScheme:J}=t(9064),{kState:O,kHeaders:x,kGuard:H,kRealm:V}=t(4803),P=t(2613),{safelyExtractBody:_}=t(6628),{redirectStatusSet:W,nullBodyStatus:q,safeMethodsSet:j,requestBodyHeader:X,subresourceSet:Z,DOMException:K}=t(6983),{kHeadersList:z}=t(7336),$=t(4434),{Readable:AA,pipeline:eA}=t(2203),{addAbortListener:tA,isErrored:rA,isReadable:sA,nodeMajor:nA,nodeMinor:oA}=t(7017),{dataURLProcessor:iA,serializeAMimeType:aA}=t(1895),{TransformStream:cA}=t(3774),{getGlobalDispatcher:gA}=t(1914),{webidl:EA}=t(1421),{STATUS_CODES:QA}=t(8611),hA=["GET","HEAD"]
 let CA,BA=globalThis.ReadableStream
 class IA extends ${constructor(A){super(),this.dispatcher=A,this.connection=null,this.dump=!1,this.state="ongoing",this.setMaxListeners(21)}terminate(A){"ongoing"===this.state&&(this.state="terminated",this.connection?.destroy(A),this.emit("terminated",A))}abort(A){"ongoing"===this.state&&(this.state="aborted",A||(A=new K("The operation was aborted.","AbortError")),this.serializedAbortReason=A,this.connection?.destroy(A),this.emit("terminated",A))}}function lA(A,e="other"){if("error"===A.type&&A.aborted)return
 if(!A.urlList?.length)return
@@ -681,7 +681,7 @@ if(s.signal.aborted)return uA(t,n,null,s.signal.reason),t.promise
 const o=n.client.globalObject
 "ServiceWorkerGlobalScope"===o?.constructor?.name&&(n.serviceWorkers="none")
 let i=null,a=!1,g=null
-return tA(s.signal,(()=>{a=!0,P(null!=g),g.abort(s.signal.reason),uA(t,n,i,s.signal.reason)})),g=dA({request:n,processResponseEndOfBody:A=>lA(A,"fetch"),processResponse:A=>a?Promise.resolve():A.aborted?(uA(t,n,i,g.serializedAbortReason),Promise.resolve()):"error"===A.type?(t.reject(Object.assign(new TypeError("fetch failed"),{cause:A.error})),Promise.resolve()):(i=new r,i[O]=A,i[V]=null,i[H][z]=A.headersList,i[H][x]="immutable",i[H][V]=null,void t.resolve(i)),dispatcher:e.dispatcher??gA()}),t.promise},Fetch:IA,fetching:dA,finalizeAndReportTiming:lA}},3409:(A,e,t)=>{"use strict"
+return tA(s.signal,(()=>{a=!0,P(null!=g),g.abort(s.signal.reason),uA(t,n,i,s.signal.reason)})),g=dA({request:n,processResponseEndOfBody:A=>lA(A,"fetch"),processResponse:A=>a?Promise.resolve():A.aborted?(uA(t,n,i,g.serializedAbortReason),Promise.resolve()):"error"===A.type?(t.reject(Object.assign(new TypeError("fetch failed"),{cause:A.error})),Promise.resolve()):(i=new r,i[O]=A,i[V]=null,i[x][z]=A.headersList,i[x][H]="immutable",i[x][V]=null,void t.resolve(i)),dispatcher:e.dispatcher??gA()}),t.promise},Fetch:IA,fetching:dA,finalizeAndReportTiming:lA}},3409:(A,e,t)=>{"use strict"
 const{AsyncResource:r}=t(290),{InvalidArgumentError:s,RequestAbortedError:n,SocketError:o}=t(1702),i=t(7017),{addSignal:a,removeSignal:c}=t(4541)
 class g extends r{constructor(A,e){if(!A||"object"!=typeof A)throw new s("invalid opts")
 if("function"!=typeof e)throw new s("invalid callback")
@@ -719,10 +719,10 @@ A.exports.parseMIMEType=o,A.exports.serializeAMimeType=i}if(c.nodeMajor>=18&&m){
 A.exports.WebSocket=e}A.exports.request=R(E.request),A.exports.stream=R(E.stream),A.exports.pipeline=R(E.pipeline),A.exports.connect=R(E.connect),A.exports.upgrade=R(E.upgrade),A.exports.MockClient=h,A.exports.MockPool=B,A.exports.MockAgent=C,A.exports.mockErrors=I},3480:A=>{"use strict"
 A.exports=require("querystring")},3483:(A,e,t)=>{"use strict"
 const{PoolBase:r,kClients:s,kNeedDrain:n,kAddClient:o,kGetDispatcher:i}=t(4089),a=t(9350),{InvalidArgumentError:c}=t(1702),g=t(7017),{kUrl:E,kInterceptors:Q}=t(7336),h=t(5711),C=Symbol("options"),B=Symbol("connections"),I=Symbol("factory")
-function l(A,e){return new a(A,e)}A.exports=class extends r{constructor(A,{connections:e,factory:t=l,connect:r,connectTimeout:s,tls:n,maxCachedSessions:o,socketPath:i,autoSelectFamily:a,autoSelectFamilyAttemptTimeout:u,allowH2:d,...f}={}){if(super(),null!=e&&(!Number.isFinite(e)||e<0))throw new c("invalid connections")
+function l(A,e){return new a(A,e)}A.exports=class extends r{constructor(A,{connections:e,factory:t=l,connect:r,connectTimeout:n,tls:o,maxCachedSessions:i,socketPath:a,autoSelectFamily:u,autoSelectFamilyAttemptTimeout:d,allowH2:f,...p}={}){if(super(),null!=e&&(!Number.isFinite(e)||e<0))throw new c("invalid connections")
 if("function"!=typeof t)throw new c("factory must be a function.")
 if(null!=r&&"function"!=typeof r&&"object"!=typeof r)throw new c("connect must be a function or an object")
-"function"!=typeof r&&(r=h({...n,maxCachedSessions:o,allowH2:d,socketPath:i,timeout:s,...g.nodeHasAutoSelectFamily&&a?{autoSelectFamily:a,autoSelectFamilyAttemptTimeout:u}:void 0,...r})),this[Q]=f.interceptors&&f.interceptors.Pool&&Array.isArray(f.interceptors.Pool)?f.interceptors.Pool:[],this[B]=e||null,this[E]=g.parseOrigin(A),this[C]={...g.deepClone(f),connect:r,allowH2:d},this[C].interceptors=f.interceptors?{...f.interceptors}:void 0,this[I]=t}[i](){let A=this[s].find((A=>!A[n]))
+"function"!=typeof r&&(r=h({...o,maxCachedSessions:i,allowH2:f,socketPath:a,timeout:n,...g.nodeHasAutoSelectFamily&&u?{autoSelectFamily:u,autoSelectFamilyAttemptTimeout:d}:void 0,...r})),this[Q]=p.interceptors&&p.interceptors.Pool&&Array.isArray(p.interceptors.Pool)?p.interceptors.Pool:[],this[B]=e||null,this[E]=g.parseOrigin(A),this[C]={...g.deepClone(p),connect:r,allowH2:f},this[C].interceptors=p.interceptors?{...p.interceptors}:void 0,this[I]=t,this.on("connectionError",((A,e,t)=>{for(const A of e){const e=this[s].indexOf(A);-1!==e&&this[s].splice(e,1)}}))}[i](){let A=this[s].find((A=>!A[n]))
 return A||((!this[B]||this[s].length<this[B])&&(A=this[I](this[E],this[C]),this[o](A)),A)}}},3557:A=>{"use strict"
 A.exports=require("timers")},3707:A=>{"use strict"
 let e,t=Date.now()
@@ -774,7 +774,7 @@ const{UndiciError:r}=t(1702)
 class s extends r{constructor(A){super(A),Error.captureStackTrace(this,s),this.name="MockNotMatchedError",this.message=A||"The request does not match any registered mock dispatches",this.code="UND_MOCK_ERR_MOCK_NOT_MATCHED"}}A.exports={MockNotMatchedError:s}},4375:(A,e,t)=>{"use strict"
 const{extractBody:r,mixinBody:s,cloneBody:n}=t(6628),{Headers:o,fill:i,HeadersList:a}=t(7836),{FinalizationRegistry:c}=t(9875)(),g=t(7017),{isValidHTTPToken:E,sameOrigin:Q,normalizeMethod:h,makePolicyContainer:C,normalizeMethodRecord:B}=t(9064),{forbiddenMethodsSet:I,corsSafeListedMethodsSet:l,referrerPolicy:u,requestRedirect:d,requestMode:f,requestCredentials:p,requestCache:y,requestDuplex:w}=t(6983),{kEnumerableProperty:m}=g,{kHeaders:R,kSignal:D,kState:k,kGuard:b,kRealm:N}=t(4803),{webidl:F}=t(1421),{getGlobalOrigin:S}=t(1547),{URLSerializer:L}=t(1895),{kHeadersList:U,kConstruct:M}=t(7336),v=t(2613),{getMaxListeners:T,setMaxListeners:Y,getEventListeners:G,defaultMaxListeners:J}=t(4434)
 let O=globalThis.TransformStream
-const H=Symbol("abortController"),x=new c((({signal:A,abort:e})=>{A.removeEventListener("abort",e)}))
+const x=Symbol("abortController"),H=new c((({signal:A,abort:e})=>{A.removeEventListener("abort",e)}))
 class V{constructor(A,e={}){if(A===M)return
 F.argumentLengthCheck(arguments,1,{header:"Request constructor"}),A=F.converters.RequestInfo(A),e=F.converters.RequestInit(e),this[N]={settingsObject:{baseUrl:S(),get origin(){return this.baseUrl?.origin},policyContainer:C()}}
 let s=null,n=null
@@ -801,10 +801,10 @@ A=B[A]??h(A),s.method=A}void 0!==e.signal&&(u=e.signal),this[k]=s
 const w=new AbortController
 if(this[D]=w.signal,this[D][N]=this[N],null!=u){if(!u||"boolean"!=typeof u.aborted||"function"!=typeof u.addEventListener)throw new TypeError("Failed to construct 'Request': member signal is not of type AbortSignal.")
 if(u.aborted)w.abort(u.reason)
-else{this[H]=w
+else{this[x]=w
 const A=new WeakRef(w),e=function(){const e=A.deref()
 void 0!==e&&e.abort(this.reason)}
-try{("function"==typeof T&&T(u)===J||G(u,"abort").length>=J)&&Y(100,u)}catch{}g.addAbortListener(u,e),x.register(w,{signal:u,abort:e})}}if(this[R]=new o(M),this[R][U]=s.headersList,this[R][b]="request",this[R][N]=this[N],"no-cors"===y){if(!l.has(s.method))throw new TypeError(`'${s.method} is unsupported in no-cors mode.`)
+try{("function"==typeof T&&T(u)===J||G(u,"abort").length>=J)&&Y(100,u)}catch{}g.addAbortListener(u,e),H.register(w,{signal:u,abort:e})}}if(this[R]=new o(M),this[R][U]=s.headersList,this[R][b]="request",this[R][N]=this[N],"no-cors"===y){if(!l.has(s.method))throw new TypeError(`'${s.method} is unsupported in no-cors mode.`)
 this[R][b]="request-no-cors"}if(p){const A=this[R][U],t=void 0!==e.headers?e.headers:new a(A)
 if(A.clear(),t instanceof a){for(const[e,r]of t)A.append(e,r)
 A.cookies=t.cookies}else i(this[R],t)}const m=A instanceof V?A[k].body:null
@@ -877,7 +877,7 @@ return A},y=A=>p(i({},"__esModule",{value:!0}),A),w=(A,e,t)=>new Promise(((r,s)=
 i((t=t.apply(A,e)).next())})),m=d({"src/lib/errors/git-error.ts"(){r=class extends Error{constructor(A,e){super(e),this.task=A,Object.setPrototypeOf(this,new.target.prototype)}}}}),R=d({"src/lib/errors/git-response-error.ts"(){m(),s=class extends r{constructor(A,e){super(void 0,e||String(A)),this.git=A}}}})
 function D(...A){const e=new String(A)
 return n.set(e,A),e}function k(A){return A instanceof String&&n.has(A)}function b(A){return n.get(A)||[]}var N,F,S,L,U,M,v,T=d({"src/lib/args/pathspec.ts"(){n=new WeakMap}}),Y=d({"src/lib/errors/git-construct-error.ts"(){m(),N=class extends r{constructor(A,e){super(void 0,e),this.config=A}}}}),G=d({"src/lib/errors/git-plugin-error.ts"(){m(),F=class extends r{constructor(A,e,t){super(A,t),this.task=A,this.plugin=e,Object.setPrototypeOf(this,new.target.prototype)}}}}),J=d({"src/lib/errors/task-configuration-error.ts"(){m(),S=class extends r{constructor(A){super(void 0,A)}}}})
-function O(A){return"function"==typeof A?A:M}function H(A){return"function"==typeof A&&A!==M}function x(A,e){const t=A.indexOf(e)
+function O(A){return"function"==typeof A?A:M}function x(A){return"function"==typeof A&&A!==M}function H(A,e){const t=A.indexOf(e)
 return t<=0?[A,""]:[A.substr(0,t),A.substr(t+1)]}function V(A,e=0){return _(A)&&A.length>e?A[e]:void 0}function P(A,e=0){if(_(A)&&A.length>e)return A[A.length-1-e]}function _(A){return!(!A||"number"!=typeof A.length)}function W(A="",e=!0,t="\n"){return A.split(t).reduce(((A,t)=>{const r=e?t.trim():t
 return r&&A.push(r),A}),[])}function q(A,e){return W(A,!0).map((A=>e(A)))}function j(A){return(0,L.exists)(A,L.FOLDER)}function X(A,e){return Array.isArray(A)?A.includes(e)||A.push(e):A.add(e),e}function Z(A,e){return Array.isArray(A)&&!A.includes(e)&&A.push(e),A}function K(A,e){if(Array.isArray(A)){const t=A.indexOf(e)
 t>=0&&A.splice(t,1)}else A.delete(e)
@@ -897,13 +897,13 @@ for(let t=0,s=e<0?A.length:e;t<s;t++)"string|number".includes(typeof A[t])&&r.pu
 return bA(FA(A),r),t||r.push(...function(A){const e="function"==typeof P(A)
 return hA(P(A,e?1:0),iA,[])}(A)),r}function FA(A){const e=IA(P(A))
 return hA(P(A,e?1:0),BA)}function SA(A,e=!0){const t=O(P(A))
-return e||H(t)?t:void 0}var LA=d({"src/lib/utils/task-options.ts"(){yA(),QA(),T()}})
+return e||x(t)?t:void 0}var LA=d({"src/lib/utils/task-options.ts"(){yA(),QA(),T()}})
 function UA(A,e){return A(e.stdOut,e.stdErr)}function MA(A,e,t,r=!0){return z(t).forEach((t=>{for(let s=W(t,r),n=0,o=s.length;n<o;n++){const t=(A=0)=>{if(!(n+A>=o))return s[n+A]}
 e.some((({parse:e})=>e(t,A)))}})),A}var vA=d({"src/lib/utils/task-parser.ts"(){QA()}}),TA={}
-f(TA,{ExitCodes:()=>lA,GitOutputStreams:()=>uA,LineParser:()=>dA,NOOP:()=>M,NULL:()=>U,RemoteLineParser:()=>fA,append:()=>X,appendTaskOptions:()=>bA,asArray:()=>z,asCamelCase:()=>$,asFunction:()=>O,asNumber:()=>eA,asStringArray:()=>AA,bufferToString:()=>rA,callTaskParser:()=>UA,createInstanceConfig:()=>DA,delay:()=>nA,filterArray:()=>iA,filterFunction:()=>IA,filterHasLength:()=>EA,filterPlainObject:()=>BA,filterPrimitives:()=>CA,filterString:()=>aA,filterStringArray:()=>cA,filterStringOrStringArray:()=>gA,filterType:()=>hA,first:()=>V,folderExists:()=>j,forEachLineWithContent:()=>q,getTrailingOptions:()=>NA,including:()=>Z,isUserFunction:()=>H,last:()=>P,objectToString:()=>v,orVoid:()=>oA,parseStringResponse:()=>MA,pick:()=>sA,prefixedArray:()=>tA,remove:()=>K,splitOn:()=>x,toLinesWithContent:()=>W,trailingFunctionArgument:()=>SA,trailingOptionsArgument:()=>FA})
-var YA,GA,JA,OA=d({"src/lib/utils/index.ts"(){yA(),wA(),mA(),RA(),kA(),LA(),vA(),QA()}}),HA={}
-function xA(A){switch(A){case"bare":return PA()
-case"root":return VA()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:GA,parser:JA}}function VA(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:GA,parser:A=>/^\.(git)?$/.test(A.trim())}}function PA(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:GA,parser:JA}}f(HA,{CheckRepoActions:()=>YA,checkIsBareRepoTask:()=>PA,checkIsRepoRootTask:()=>VA,checkIsRepoTask:()=>xA})
+f(TA,{ExitCodes:()=>lA,GitOutputStreams:()=>uA,LineParser:()=>dA,NOOP:()=>M,NULL:()=>U,RemoteLineParser:()=>fA,append:()=>X,appendTaskOptions:()=>bA,asArray:()=>z,asCamelCase:()=>$,asFunction:()=>O,asNumber:()=>eA,asStringArray:()=>AA,bufferToString:()=>rA,callTaskParser:()=>UA,createInstanceConfig:()=>DA,delay:()=>nA,filterArray:()=>iA,filterFunction:()=>IA,filterHasLength:()=>EA,filterPlainObject:()=>BA,filterPrimitives:()=>CA,filterString:()=>aA,filterStringArray:()=>cA,filterStringOrStringArray:()=>gA,filterType:()=>hA,first:()=>V,folderExists:()=>j,forEachLineWithContent:()=>q,getTrailingOptions:()=>NA,including:()=>Z,isUserFunction:()=>x,last:()=>P,objectToString:()=>v,orVoid:()=>oA,parseStringResponse:()=>MA,pick:()=>sA,prefixedArray:()=>tA,remove:()=>K,splitOn:()=>H,toLinesWithContent:()=>W,trailingFunctionArgument:()=>SA,trailingOptionsArgument:()=>FA})
+var YA,GA,JA,OA=d({"src/lib/utils/index.ts"(){yA(),wA(),mA(),RA(),kA(),LA(),vA(),QA()}}),xA={}
+function HA(A){switch(A){case"bare":return PA()
+case"root":return VA()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:GA,parser:JA}}function VA(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:GA,parser:A=>/^\.(git)?$/.test(A.trim())}}function PA(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:GA,parser:JA}}f(xA,{CheckRepoActions:()=>YA,checkIsBareRepoTask:()=>PA,checkIsRepoRootTask:()=>VA,checkIsRepoTask:()=>HA})
 var _A,WA,qA,jA,XA=d({"src/lib/tasks/check-is-repo.ts"(){OA(),YA=(A=>(A.BARE="bare",A.IN_TREE="tree",A.IS_REPO_ROOT="root",A))(YA||{}),GA=({exitCode:A},e,t,r)=>{if(128===A&&function(A){return/(Not a git repository|Kein Git-Repository)/i.test(String(A))}(e))return t(Buffer.from("false"))
 r(e)},JA=A=>"true"===A.trim()}})
 var ZA,KA=d({"src/lib/responses/CleanSummary.ts"(){OA(),_A=class{constructor(A){this.dryRun=A,this.paths=[],this.files=[],this.folders=[]}},WA=/^[a-z]+\s*/i,qA=/^[a-z]+\s+[a-z]+\s*/i,jA=/\/$/}}),zA={}
@@ -919,7 +919,7 @@ var Ie,le=d({"src/lib/tasks/clean.ts"(){KA(),OA(),ge(),ne="Git clean interactive
 function*ue(A,e=null){const t=A.split("\0")
 for(let A=0,r=t.length-1;A<r;){const r=t[A++].replace(/^(file):/,"")
 let s=t[A++],n=e
-if(s.includes("\n")){const A=x(s,"\n")
+if(s.includes("\n")){const A=H(s,"\n")
 n=A[0],s=A[1]}yield{file:r,key:n,value:s}}}var de,fe=d({"src/lib/responses/ConfigList.ts"(){OA(),Ie=class{constructor(){this.files=[],this.values=Object.create(null)}get all(){return this._all||(this._all=this.files.reduce(((A,e)=>Object.assign(A,this.values[e])),{})),this._all}addFile(A){if(!(A in this.values)){const e=P(this.files)
 this.values[A]=e?Object.create(this.values[e]):{},this.files.push(A)}return this.values[A]}addValue(A,e,t){const r=this.addFile(A)
 r.hasOwnProperty(e)?Array.isArray(r[e])?r[e].push(t):r[e]=[r[e],t]:r[e]=t,this._all=void 0}}}})
@@ -942,9 +942,9 @@ e.add(r),(t[r]=t[r]||[]).push({line:eA(s),path:r,preview:n})})),{paths:e,results
 function Ge(A,e){const t=["reset"]
 return Oe(A)&&t.push(`--${A}`),t.push(...e),ee(t)}function Je(A){if(Oe(A))return A
 switch(typeof A){case"string":case"undefined":return"soft"}}function Oe(A){return ve.includes(A)}f(Ye,{ResetMode:()=>Me,getResetMode:()=>Je,resetTask:()=>Ge})
-var He=d({"src/lib/tasks/reset.ts"(){ge(),Me=(A=>(A.MIXED="mixed",A.SOFT="soft",A.HARD="hard",A.MERGE="merge",A.KEEP="keep",A))(Me||{}),ve=Array.from(Object.values(Me))}}),xe={}
-f(xe,{CheckRepoActions:()=>YA,CleanOptions:()=>ae,DiffNameStatus:()=>me,GitConfigScope:()=>de,GitConstructError:()=>N,GitError:()=>r,GitPluginError:()=>F,GitResponseError:()=>s,ResetMode:()=>Me,TaskConfigurationError:()=>S,grepQueryBuilder:()=>Le,pathspec:()=>D})
-var Ve=d({"src/lib/api.ts"(){T(),Y(),m(),G(),R(),J(),XA(),le(),De(),Se(),Te(),He()}})
+var xe=d({"src/lib/tasks/reset.ts"(){ge(),Me=(A=>(A.MIXED="mixed",A.SOFT="soft",A.HARD="hard",A.MERGE="merge",A.KEEP="keep",A))(Me||{}),ve=Array.from(Object.values(Me))}}),He={}
+f(He,{CheckRepoActions:()=>YA,CleanOptions:()=>ae,DiffNameStatus:()=>me,GitConfigScope:()=>de,GitConstructError:()=>N,GitError:()=>r,GitPluginError:()=>F,GitResponseError:()=>s,ResetMode:()=>Me,TaskConfigurationError:()=>S,grepQueryBuilder:()=>Le,pathspec:()=>D})
+var Ve=d({"src/lib/api.ts"(){T(),Y(),m(),G(),R(),J(),XA(),le(),De(),Se(),Te(),xe()}})
 var Pe=d({"src/lib/plugins/abort-plugin.ts"(){G()}})
 function _e({allowUnsafeProtocolOverride:A=!1,allowUnsafePack:e=!1}={}){return{type:"spawn.args",action:(t,r)=>(t.forEach(((s,n)=>{const o=n<t.length?t[n+1]:""
 A||function(A,e){if(function(A){return"string"==typeof A&&"-c"===A.trim().toLowerCase()}(A)&&/^\s*protocol(.[a-z]+)?.allow/.test(e))throw new F(void 0,"unsafe","Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol")}(s,o),e||function(A,e){if(/^\s*--(upload|receive)-pack/.test(A))throw new F(void 0,"unsafe","Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack")
@@ -1012,12 +1012,12 @@ function Tt(A){const e=["checkout",...A]
 return"-b"===e[1]&&e.includes("-B")&&(e[1]=K(e,"-B")),ee(e)}var Yt,Gt=d({"src/lib/tasks/checkout.ts"(){OA(),ge()}})
 var Jt,Ot=d({"src/lib/tasks/count-objects.ts"(){OA(),Yt=new dA(/([a-z-]+): (\d+)$/,((A,[e,t])=>{const r=$(e)
 A.hasOwnProperty(r)&&(A[r]=eA(t))}))}})
-function Ht(A){return MA({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},Jt,A)}var xt=d({"src/lib/parsers/parse-commit.ts"(){OA(),Jt=[new dA(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,((A,[e,t,r])=>{A.branch=e,A.commit=r,A.root=!!t})),new dA(/\s*Author:\s(.+)/i,((A,[e])=>{const t=e.split("<"),r=t.pop()
+function xt(A){return MA({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},Jt,A)}var Ht=d({"src/lib/parsers/parse-commit.ts"(){OA(),Jt=[new dA(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,((A,[e,t,r])=>{A.branch=e,A.commit=r,A.root=!!t})),new dA(/\s*Author:\s(.+)/i,((A,[e])=>{const t=e.split("<"),r=t.pop()
 r&&r.includes("@")&&(A.author={email:r.substr(0,r.length-1),name:t.join("<").trim()})})),new dA(/(\d+)[^,]*(?:,\s*(\d+)[^,]*)(?:,\s*(\d+))/g,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0,A.summary.insertions=parseInt(t,10)||0,A.summary.deletions=parseInt(r,10)||0})),new dA(/^(\d+)[^,]*(?:,\s*(\d+)[^(]+\(([+-]))?/,((A,[e,t,r])=>{A.summary.changes=parseInt(e,10)||0
 const s=parseInt(t,10)||0
 "-"===r?A.summary.deletions=s:"+"===r&&(A.summary.insertions=s)}))]}})
-function Vt(){return{commit(A,...e){const t=SA(arguments),r=function(A){return!gA(A)&&Ae("git.commit: requires the commit message to be supplied as a string/string[]")}(A)||function(A,e,t){return{commands:["-c","core.abbrev=40","commit",...tA(A,"-m"),...e,...t],format:"utf-8",parser:Ht}}(z(A),z(hA(e[0],gA,[])),[...hA(e[1],iA,[]),...NA(arguments,0,!0)])
-return this._runTask(r,t)}}}var Pt=d({"src/lib/tasks/commit.ts"(){xt(),OA(),ge()}})
+function Vt(){return{commit(A,...e){const t=SA(arguments),r=function(A){return!gA(A)&&Ae("git.commit: requires the commit message to be supplied as a string/string[]")}(A)||function(A,e,t){return{commands:["-c","core.abbrev=40","commit",...tA(A,"-m"),...e,...t],format:"utf-8",parser:xt}}(z(A),z(hA(e[0],gA,[])),[...hA(e[1],iA,[]),...NA(arguments,0,!0)])
+return this._runTask(r,t)}}}var Pt=d({"src/lib/tasks/commit.ts"(){Ht(),OA(),ge()}})
 var _t=d({"src/lib/tasks/first-commit.ts"(){OA(),ge()}})
 var Wt,qt,jt,Xt=d({"src/lib/tasks/hash-object.ts"(){ge()}})
 var Zt,Kt=d({"src/lib/responses/InitSummary.ts"(){Wt=class{constructor(A,e,t,r){this.bare=A,this.path=e,this.existing=t,this.gitDir=r}},qt=/^Init.+ repository in (.+)$/,jt=/^Rein.+ in (.+)$/}})
@@ -1058,8 +1058,8 @@ return{count:eA(e&&e[1]||"0"),delta:eA(t&&t[1]||"0")}}var Tr,Yr,Gr=d({"src/lib/p
 Object.assign(s,{[r]:eA(t)})})),new fA(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,((A,[e,t])=>{const r=e.toLowerCase(),s=Mr(A.remoteMessages)
 Object.assign(s,{[r]:eA(t)})})),new fA(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,((A,[e,t,r])=>{const s=Mr(A.remoteMessages)
 s.total=vr(e),s.reused=vr(t),s.packReused=eA(r)}))]}})
-function Jr(A,e){return MA({remoteMessages:new Yr},Tr,e)}var Or,Hr,xr,Vr,Pr,_r,Wr=d({"src/lib/parsers/parse-remote-messages.ts"(){OA(),Gr(),Tr=[new fA(/^remote:\s*(.+)$/,((A,[e])=>(A.remoteMessages.all.push(e.trim()),!1))),...Fr,new fA([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((A,[e])=>{A.remoteMessages.pullRequestUrl=e})),new fA([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((A,[e,t,r])=>{A.remoteMessages.vulnerabilities={count:eA(e),summary:t,url:r}}))],Yr=class{constructor(){this.all=[]}}}})
-var qr,jr,Xr,Zr=d({"src/lib/parsers/parse-pull.ts"(){Ur(),OA(),Wr(),Or=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,Hr=/^(create|delete) mode \d+ (.+)/,xr=[new dA(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((A,[e,t,r])=>{A.files.push(e),t&&(A.insertions[e]=t.length),r&&(A.deletions[e]=r.length)})),new dA(Or,((A,[e,,t,,r])=>(void 0!==t||void 0!==r)&&(A.summary.changes=+e||0,A.summary.insertions=+t||0,A.summary.deletions=+r||0,!0))),new dA(Hr,((A,[e,t])=>{X(A.files,t),X("create"===e?A.created:A.deleted,t)}))],Vr=[new dA(/^from\s(.+)$/i,((A,[e])=>{A.remote=e})),new dA(/^fatal:\s(.+)$/,((A,[e])=>{A.message=e})),new dA(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((A,[e,t,r,s])=>{A.branch.local=r,A.hash.local=e,A.branch.remote=s,A.hash.remote=t}))],Pr=(A,e)=>MA(new br,xr,[A,e]),_r=(A,e)=>Object.assign(new br,Pr(A,e),Jr(0,e))}}),Kr=d({"src/lib/parsers/parse-merge.ts"(){Lr(),OA(),Zr(),qr=[new dA(/^Auto-merging\s+(.+)$/,((A,[e])=>{A.merges.push(e)})),new dA(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((A,[e,t])=>{A.conflicts.push(new Dr(e,t))})),new dA(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((A,[e,t,r])=>{A.conflicts.push(new Dr(e,t,{deleteRef:r}))})),new dA(/^CONFLICT\s+\((.+)\):/,((A,[e])=>{A.conflicts.push(new Dr(e,null))})),new dA(/^Automatic merge failed;\s+(.+)$/,((A,[e])=>{A.result=e}))],jr=(A,e)=>Object.assign(Xr(A,e),_r(A,e)),Xr=A=>MA(new kr,qr,A)}})
+function Jr(A,e){return MA({remoteMessages:new Yr},Tr,e)}var Or,xr,Hr,Vr,Pr,_r,Wr=d({"src/lib/parsers/parse-remote-messages.ts"(){OA(),Gr(),Tr=[new fA(/^remote:\s*(.+)$/,((A,[e])=>(A.remoteMessages.all.push(e.trim()),!1))),...Fr,new fA([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],((A,[e])=>{A.remoteMessages.pullRequestUrl=e})),new fA([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],((A,[e,t,r])=>{A.remoteMessages.vulnerabilities={count:eA(e),summary:t,url:r}}))],Yr=class{constructor(){this.all=[]}}}})
+var qr,jr,Xr,Zr=d({"src/lib/parsers/parse-pull.ts"(){Ur(),OA(),Wr(),Or=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,xr=/^(create|delete) mode \d+ (.+)/,Hr=[new dA(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,((A,[e,t,r])=>{A.files.push(e),t&&(A.insertions[e]=t.length),r&&(A.deletions[e]=r.length)})),new dA(Or,((A,[e,,t,,r])=>(void 0!==t||void 0!==r)&&(A.summary.changes=+e||0,A.summary.insertions=+t||0,A.summary.deletions=+r||0,!0))),new dA(xr,((A,[e,t])=>{X(A.files,t),X("create"===e?A.created:A.deleted,t)}))],Vr=[new dA(/^from\s(.+)$/i,((A,[e])=>{A.remote=e})),new dA(/^fatal:\s(.+)$/,((A,[e])=>{A.message=e})),new dA(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,((A,[e,t,r,s])=>{A.branch.local=r,A.hash.local=e,A.branch.remote=s,A.hash.remote=t}))],Pr=(A,e)=>MA(new br,Hr,[A,e]),_r=(A,e)=>Object.assign(new br,Pr(A,e),Jr(0,e))}}),Kr=d({"src/lib/parsers/parse-merge.ts"(){Lr(),OA(),Zr(),qr=[new dA(/^Auto-merging\s+(.+)$/,((A,[e])=>{A.merges.push(e)})),new dA(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,((A,[e,t])=>{A.conflicts.push(new Dr(e,t))})),new dA(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,((A,[e,t,r])=>{A.conflicts.push(new Dr(e,t,{deleteRef:r}))})),new dA(/^CONFLICT\s+\((.+)\):/,((A,[e])=>{A.conflicts.push(new Dr(e,null))})),new dA(/^Automatic merge failed;\s+(.+)$/,((A,[e])=>{A.result=e}))],jr=(A,e)=>Object.assign(Xr(A,e),_r(A,e)),Xr=A=>MA(new kr,qr,A)}})
 function zr(A){return A.length?{commands:["merge",...A],format:"utf-8",parser(A,e){const t=jr(A,e)
 if(t.failed)throw new s(t)
 return t}}:Ae("Git.merge requires at least one option")}var $r,As,es,ts=d({"src/lib/tasks/merge.ts"(){R(),Kr(),ge()}})
@@ -1103,15 +1103,15 @@ this.logger("Attempting id=%s",A.id),A.done((()=>{this.logger("Completing id=",A
 return this.logger("Scheduling id=%s",e),this.schedule(),A}}}}),vs={}
 function Ts(A,e){return ee(["apply",...e,...A])}f(vs,{applyPatchTask:()=>Ts})
 var Ys,Gs=d({"src/lib/tasks/apply-patch.ts"(){ge()}})
-var Js,Os,Hs,xs=d({"src/lib/responses/BranchDeleteSummary.ts"(){Ys=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
-function Vs(A,e){return 1===e&&Js.test(A)}var Ps,_s,Ws=d({"src/lib/parsers/parse-branch-delete.ts"(){xs(),OA(),Js=/^error[^']+'([^']+)'/m,Os=[new dA(/(\S+)\s+\(\S+\s([^)]+)\)/,((A,[e,t])=>{const r=function(A,e){return{branch:A,hash:e,success:!0}}(e,t)
+var Js,Os,xs,Hs=d({"src/lib/responses/BranchDeleteSummary.ts"(){Ys=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
+function Vs(A,e){return 1===e&&Js.test(A)}var Ps,_s,Ws=d({"src/lib/parsers/parse-branch-delete.ts"(){Hs(),OA(),Js=/^error[^']+'([^']+)'/m,Os=[new dA(/(\S+)\s+\(\S+\s([^)]+)\)/,((A,[e,t])=>{const r=function(A,e){return{branch:A,hash:e,success:!0}}(e,t)
 A.all.push(r),A.branches[e]=r})),new dA(Js,((A,[e])=>{const t=function(A){return{branch:A,hash:null,success:!1}}(e)
-A.errors.push(t),A.all.push(t),A.branches[e]=t}))],Hs=(A,e)=>MA(new Ys,Os,[A,e])}}),qs=d({"src/lib/responses/BranchSummary.ts"(){Ps=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(A,e,t,r,s){"*"===A&&(this.detached=e,this.current=t),this.all.push(t),this.branches[t]={current:"*"===A,linkedWorkTree:"+"===A,name:t,commit:r,label:s}}}}})
+A.errors.push(t),A.all.push(t),A.branches[e]=t}))],xs=(A,e)=>MA(new Ys,Os,[A,e])}}),qs=d({"src/lib/responses/BranchSummary.ts"(){Ps=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(A,e,t,r,s){"*"===A&&(this.detached=e,this.current=t),this.all.push(t),this.branches[t]={current:"*"===A,linkedWorkTree:"+"===A,name:t,commit:r,label:s}}}}})
 function js(A){return A?A.charAt(0):""}function Xs(A){return MA(new Ps,_s,A)}var Zs=d({"src/lib/parsers/parse-branch.ts"(){qs(),OA(),_s=[new dA(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,((A,[e,t,r,s])=>{A.push(js(e),!0,t,r,s)})),new dA(new RegExp("^([*+]\\s)?(\\S+)\\s+([a-z0-9]+)\\s?(.*)$","s"),((A,[e,t,r,s])=>{A.push(js(e),!1,t,r,s)}))]}}),Ks={}
 function zs(A){const e=["-d","-D","--delete"]
 return A.some((A=>e.includes(A)))}function $s(A){const e=zs(A),t=["branch",...A]
-return 1===t.length&&t.push("-a"),t.includes("-v")||t.splice(1,0,"-v"),{format:"utf-8",commands:t,parser:(A,t)=>e?Hs(A,t).all[0]:Xs(A)}}function An(){return{format:"utf-8",commands:["branch","-v"],parser:Xs}}function en(A,e=!1){return{format:"utf-8",commands:["branch","-v",e?"-D":"-d",...A],parser:(A,e)=>Hs(A,e),onError({exitCode:A,stdOut:e},t,r,s){if(!Vs(String(t),A))return s(t)
-r(e)}}}function tn(A,e=!1){const t={format:"utf-8",commands:["branch","-v",e?"-D":"-d",A],parser:(e,t)=>Hs(e,t).branches[A],onError({exitCode:A,stdErr:e,stdOut:r},n,o,i){if(!Vs(String(n),A))return i(n)
+return 1===t.length&&t.push("-a"),t.includes("-v")||t.splice(1,0,"-v"),{format:"utf-8",commands:t,parser:(A,t)=>e?xs(A,t).all[0]:Xs(A)}}function An(){return{format:"utf-8",commands:["branch","-v"],parser:Xs}}function en(A,e=!1){return{format:"utf-8",commands:["branch","-v",e?"-D":"-d",...A],parser:(A,e)=>xs(A,e),onError({exitCode:A,stdOut:e},t,r,s){if(!Vs(String(t),A))return s(t)
+r(e)}}}function tn(A,e=!1){const t={format:"utf-8",commands:["branch","-v",e?"-D":"-d",A],parser:(e,t)=>xs(e,t).branches[A],onError({exitCode:A,stdErr:e,stdOut:r},n,o,i){if(!Vs(String(n),A))return i(n)
 throw new s(t.parser(rA(r),rA(e)),String(n))}}
 return t}f(Ks,{branchLocalTask:()=>An,branchTask:()=>$s,containsDeleteBranchCommand:()=>zs,deleteBranchTask:()=>tn,deleteBranchesTask:()=>en})
 var rn,sn=d({"src/lib/tasks/branch.ts"(){R(),Ws(),Zs(),OA()}}),nn=d({"src/lib/responses/CheckIgnore.ts"(){rn=A=>A.split(/\n/g).map((A=>A.trim())).filter((A=>!!A))}}),on={}
@@ -1142,9 +1142,9 @@ function Tn(A,e,t){return ee(["remote","add",...t,A,e])}function Yn(A){const e=[
 return A&&e.push("-v"),{commands:e,format:"utf-8",parser:A?Ln:Sn}}function Gn(A){const e=[...A]
 return"ls-remote"!==e[0]&&e.unshift("ls-remote"),ee(e)}function Jn(A){const e=[...A]
 return"remote"!==e[0]&&e.unshift("remote"),ee(e)}function On(A){return ee(["remote","remove",A])}f(vn,{addRemoteTask:()=>Tn,getRemotesTask:()=>Yn,listRemotesTask:()=>Gn,remoteTask:()=>Jn,removeRemoteTask:()=>On})
-var Hn=d({"src/lib/tasks/remote.ts"(){Mn(),ge()}}),xn={}
+var xn=d({"src/lib/tasks/remote.ts"(){Mn(),ge()}}),Hn={}
 function Vn(A={},e){const t=mr(A),r=["stash","list",...t.commands,...e],s=lr(t.splitter,t.fields,er(r))
-return pr(r)||{commands:r,format:"utf-8",parser:s}}f(xn,{stashListTask:()=>Vn})
+return pr(r)||{commands:r,format:"utf-8",parser:s}}f(Hn,{stashListTask:()=>Vn})
 var Pn=d({"src/lib/tasks/stash-list.ts"(){cr(),ur(),wr(),Sr()}}),_n={}
 function Wn(A,e){return jn(["add",A,e])}function qn(A){return jn(["init",...A])}function jn(A){const e=[...A]
 return"submodule"!==e[0]&&e.unshift("submodule"),ee(e)}function Xn(A){return jn(["update",...A])}f(_n,{addSubModuleTask:()=>Wn,initSubModuleTask:()=>qn,subModuleTask:()=>jn,updateSubModuleTask:()=>Xn})
@@ -1159,7 +1159,7 @@ const r=e?t[0]:[...t].reverse().find((A=>A.indexOf(".")>=0))
 return new Zn(t,r)}}}),ro={}
 function so(A=[]){const e=A.some((A=>/^--sort=/.test(A)))
 return{format:"utf-8",commands:["tag","-l",...A],parser:A=>Kn(A,e)}}function no(A){return{format:"utf-8",commands:["tag",A],parser:()=>({name:A})}}function oo(A,e){return{format:"utf-8",commands:["tag","-a","-m",e,A],parser:()=>({name:A})}}f(ro,{addAnnotatedTagTask:()=>oo,addTagTask:()=>no,tagListTask:()=>so})
-var io,ao,co,go=d({"src/lib/tasks/tag.ts"(){to()}}),Eo=(io={"src/git.js"(A,e){var{GitExecutor:t}=(St(),y(Ft)),{SimpleGitApi:r}=(Ls(),y(bs)),{Scheduler:s}=(Ms(),y(Us)),{configurationErrorTask:n}=(ge(),y(zA)),{asArray:o,filterArray:i,filterPrimitives:a,filterString:c,filterStringOrStringArray:g,filterType:E,getTrailingOptions:Q,trailingFunctionArgument:h,trailingOptionsArgument:C}=(OA(),y(TA)),{applyPatchTask:B}=(Gs(),y(vs)),{branchTask:I,branchLocalTask:l,deleteBranchesTask:u,deleteBranchTask:d}=(sn(),y(Ks)),{checkIgnoreTask:f}=(cn(),y(on)),{checkIsRepoTask:p}=(XA(),y(HA)),{cloneTask:w,cloneMirrorTask:m}=(Bn(),y(gn)),{cleanWithOptionsTask:R,isCleanOptionsArray:D}=(le(),y(Ee)),{diffSummaryTask:k}=(wr(),y(dr)),{fetchTask:b}=(yn(),y(un)),{moveTask:N}=(kn(),y(Rn)),{pullTask:F}=(Fn(),y(bn)),{pushTagsTask:S}=(is(),y(ss)),{addRemoteTask:L,getRemotesTask:U,listRemotesTask:M,remoteTask:v,removeRemoteTask:T}=(Hn(),y(vn)),{getResetMode:Y,resetTask:G}=(He(),y(Ye)),{stashListTask:J}=(Pn(),y(xn)),{addSubModuleTask:O,initSubModuleTask:H,subModuleTask:x,updateSubModuleTask:V}=(zn(),y(_n)),{addAnnotatedTagTask:P,addTagTask:_,tagListTask:W}=(go(),y(ro)),{straightThroughBufferTask:q,straightThroughStringTask:j}=(ge(),y(zA))
+var io,ao,co,go=d({"src/lib/tasks/tag.ts"(){to()}}),Eo=(io={"src/git.js"(A,e){var{GitExecutor:t}=(St(),y(Ft)),{SimpleGitApi:r}=(Ls(),y(bs)),{Scheduler:s}=(Ms(),y(Us)),{configurationErrorTask:n}=(ge(),y(zA)),{asArray:o,filterArray:i,filterPrimitives:a,filterString:c,filterStringOrStringArray:g,filterType:E,getTrailingOptions:Q,trailingFunctionArgument:h,trailingOptionsArgument:C}=(OA(),y(TA)),{applyPatchTask:B}=(Gs(),y(vs)),{branchTask:I,branchLocalTask:l,deleteBranchesTask:u,deleteBranchTask:d}=(sn(),y(Ks)),{checkIgnoreTask:f}=(cn(),y(on)),{checkIsRepoTask:p}=(XA(),y(xA)),{cloneTask:w,cloneMirrorTask:m}=(Bn(),y(gn)),{cleanWithOptionsTask:R,isCleanOptionsArray:D}=(le(),y(Ee)),{diffSummaryTask:k}=(wr(),y(dr)),{fetchTask:b}=(yn(),y(un)),{moveTask:N}=(kn(),y(Rn)),{pullTask:F}=(Fn(),y(bn)),{pushTagsTask:S}=(is(),y(ss)),{addRemoteTask:L,getRemotesTask:U,listRemotesTask:M,remoteTask:v,removeRemoteTask:T}=(xn(),y(vn)),{getResetMode:Y,resetTask:G}=(xe(),y(Ye)),{stashListTask:J}=(Pn(),y(Hn)),{addSubModuleTask:O,initSubModuleTask:x,subModuleTask:H,updateSubModuleTask:V}=(zn(),y(_n)),{addAnnotatedTagTask:P,addTagTask:_,tagListTask:W}=(go(),y(ro)),{straightThroughBufferTask:q,straightThroughStringTask:j}=(ge(),y(zA))
 function X(A,e){this._plugins=e,this._executor=new t(A.baseDir,new s(A.maxConcurrentProcesses),e),this._trimmed=A.trimmed}function Z(A,e,t,r){return"string"!=typeof t?n(`git.${A}() requires a string 'repoPath'`):e(t,E(r,c),Q(arguments))}(X.prototype=Object.create(r.prototype)).constructor=X,X.prototype.customBinary=function(A){return this._plugins.reconfigure("binary",A),this},X.prototype.env=function(A,e){return 1===arguments.length&&"object"==typeof A?this._executor.env=A:(this._executor.env=this._executor.env||{})[A]=e,this},X.prototype.stashList=function(A){return this._runTask(J(C(arguments)||{},i(A)&&A||[]),h(arguments))},X.prototype.clone=function(){return this._runTask(Z("clone",w,...arguments),h(arguments))},X.prototype.mirror=function(){return this._runTask(Z("mirror",m,...arguments),h(arguments))},X.prototype.mv=function(A,e){return this._runTask(N(A,e),h(arguments))},X.prototype.checkoutLatestTag=function(A){var e=this
 return this.pull((function(){e.tags((function(t,r){e.checkout(r.latest,A)}))}))},X.prototype.pull=function(A,e,t,r){return this._runTask(F(E(A,c),E(e,c),Q(arguments)),h(arguments))},X.prototype.fetch=function(A,e){return this._runTask(b(E(A,c),E(e,c),Q(arguments)),h(arguments))},X.prototype.silent=function(A){return console.warn("simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this will be an error in version 3"),this},X.prototype.tags=function(A,e){return this._runTask(W(Q(arguments)),h(arguments))},X.prototype.rebase=function(){return this._runTask(j(["rebase",...Q(arguments)]),h(arguments))},X.prototype.reset=function(A){return this._runTask(G(Y(A),Q(arguments)),h(arguments))},X.prototype.revert=function(A){const e=h(arguments)
 return"string"!=typeof A?this._runTask(n("Commit must be a string"),e):this._runTask(j(["revert",...Q(arguments,0,!0),A]),e)},X.prototype.addTag=function(A){const e="string"==typeof A?_(A):n("Git.addTag requires a tag name")
@@ -1167,7 +1167,7 @@ return this._runTask(e,h(arguments))},X.prototype.addAnnotatedTag=function(A,e){
 for(let A=0;A<t.length&&e;A++)if(!a(t[A])){t.splice(A,t.length-A)
 break}t.push(...Q(arguments,0,!0))
 var r=h(arguments)
-return t.length?this._runTask(j(t,this._trimmed),r):this._runTask(n("Raw: must supply one or more command to execute"),r)},X.prototype.submoduleAdd=function(A,e,t){return this._runTask(O(A,e),h(arguments))},X.prototype.submoduleUpdate=function(A,e){return this._runTask(V(Q(arguments,!0)),h(arguments))},X.prototype.submoduleInit=function(A,e){return this._runTask(H(Q(arguments,!0)),h(arguments))},X.prototype.subModule=function(A,e){return this._runTask(x(Q(arguments)),h(arguments))},X.prototype.listRemote=function(){return this._runTask(M(Q(arguments)),h(arguments))},X.prototype.addRemote=function(A,e,t){return this._runTask(L(A,e,Q(arguments)),h(arguments))},X.prototype.removeRemote=function(A,e){return this._runTask(T(A),h(arguments))},X.prototype.getRemotes=function(A,e){return this._runTask(U(!0===A),h(arguments))},X.prototype.remote=function(A,e){return this._runTask(v(Q(arguments)),h(arguments))},X.prototype.tag=function(A,e){const t=Q(arguments)
+return t.length?this._runTask(j(t,this._trimmed),r):this._runTask(n("Raw: must supply one or more command to execute"),r)},X.prototype.submoduleAdd=function(A,e,t){return this._runTask(O(A,e),h(arguments))},X.prototype.submoduleUpdate=function(A,e){return this._runTask(V(Q(arguments,!0)),h(arguments))},X.prototype.submoduleInit=function(A,e){return this._runTask(x(Q(arguments,!0)),h(arguments))},X.prototype.subModule=function(A,e){return this._runTask(H(Q(arguments)),h(arguments))},X.prototype.listRemote=function(){return this._runTask(M(Q(arguments)),h(arguments))},X.prototype.addRemote=function(A,e,t){return this._runTask(L(A,e,Q(arguments)),h(arguments))},X.prototype.removeRemote=function(A,e){return this._runTask(T(A),h(arguments))},X.prototype.getRemotes=function(A,e){return this._runTask(U(!0===A),h(arguments))},X.prototype.remote=function(A,e){return this._runTask(v(Q(arguments)),h(arguments))},X.prototype.tag=function(A,e){const t=Q(arguments)
 return"tag"!==t[0]&&t.unshift("tag"),this._runTask(j(t),h(arguments))},X.prototype.updateServerInfo=function(A){return this._runTask(j(["update-server-info"]),h(arguments))},X.prototype.pushTags=function(A,e){const t=S({remote:E(A,c)},Q(arguments))
 return this._runTask(t,h(arguments))},X.prototype.rm=function(A){return this._runTask(j(["rm","-f",...o(A)]),h(arguments))},X.prototype.rmKeepLocal=function(A){return this._runTask(j(["rm","--cached",...o(A)]),h(arguments))},X.prototype.catFile=function(A,e){return this._catFile("utf-8",arguments)},X.prototype.binaryCatFile=function(){return this._catFile("buffer",arguments)},X.prototype._catFile=function(A,e){var t=h(e),r=["cat-file"],s=e[0]
 if("string"==typeof s)return this._runTask(n("Git.catFile: options must be supplied as an array of strings"),t)
@@ -1179,7 +1179,7 @@ return this._runTask(e,h(arguments))},X.prototype.revparse=function(){const A=["
 return this._runTask(j(A,!0),h(arguments))},X.prototype.clean=function(A,e,t){const r=D(A),s=r&&A.join("")||E(A,c)||"",n=Q([].slice.call(arguments,r?1:0))
 return this._runTask(R(s,n),h(arguments))},X.prototype.exec=function(A){const e={commands:[],format:"utf-8",parser(){"function"==typeof A&&A()}}
 return this._runTask(e)},X.prototype.clearQueue=function(){return this},X.prototype.checkIgnore=function(A,e){return this._runTask(f(o(E(A,g,[]))),h(arguments))},X.prototype.checkIsRepo=function(A,e){return this._runTask(p(E(A,c)),h(arguments))},e.exports=X}},function(){return ao||(0,io[E(io)[0]])((ao={exports:{}}).exports,ao),ao.exports}),Qo={}
-function ho(A){return Object.defineProperties(A,{__esModule:{value:!0},default:{value:A}})}function Co(A){return Object.assign(A.bind(null),xe)}function Bo(A,e){var t
+function ho(A){return Object.defineProperties(A,{__esModule:{value:!0},default:{value:A}})}function Co(A){return Object.assign(A.bind(null),He)}function Bo(A,e){var t
 const r=new at,s=DA(A&&("string"==typeof A?{baseDir:A}:A)||{},e)
 if(!j(s.baseDir))throw new N(s,"Cannot use simple-git on a directory that does not exist")
 return Array.isArray(s.config)&&r.add(function(A){const e=tA(A,"-c")
@@ -1689,24 +1689,19 @@ if(t){const t=yield A(e,!1)
 if(!t)throw c.IS_WINDOWS?new Error(`Unable to locate executable file: ${e}. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also verify the file has a valid extension for an executable file.`):new Error(`Unable to locate executable file: ${e}. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.`)
 return t}const r=yield Q(e)
 return r&&r.length>0?r[0]:""}))},e.findInPath=Q},5753:(A,e,t)=>{"undefined"==typeof process||"renderer"===process.type||!0===process.browser||process.__nwjs?A.exports=t(7833):A.exports=t(6033)},5812:A=>{"use strict"
-A.exports={maxAttributeValueSize:1024,maxNameValuePairSize:4096}},5821:(A,e,t)=>{"use strict"
-const r=t(2613),{kHeadersList:s}=t(7336)
-let n
-A.exports={isCTLExcludingHtab:function(A){if(0===A.length)return!1
+A.exports={maxAttributeValueSize:1024,maxNameValuePairSize:4096}},5821:A=>{"use strict"
+function e(A){for(const e of A){const A=e.charCodeAt(0)
+if(A<=32||A>127||"("===e||")"===e||">"===e||"<"===e||"@"===e||","===e||";"===e||":"===e||"\\"===e||'"'===e||"/"===e||"["===e||"]"===e||"?"===e||"="===e||"{"===e||"}"===e)throw new Error("Invalid cookie name")}}function t(A){for(const e of A){const A=e.charCodeAt(0)
+if(A<33||34===A||44===A||59===A||92===A||A>126)throw new Error("Invalid header value")}}function r(A){for(const e of A){if(e.charCodeAt(0)<33||";"===e)throw new Error("Invalid cookie path")}}function s(A){"number"==typeof A&&(A=new Date(A))
+return`${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][A.getUTCDay()]}, ${A.getUTCDate().toString().padStart(2,"0")} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][A.getUTCMonth()]} ${A.getUTCFullYear()} ${A.getUTCHours().toString().padStart(2,"0")}:${A.getUTCMinutes().toString().padStart(2,"0")}:${A.getUTCSeconds().toString().padStart(2,"0")} GMT`}A.exports={isCTLExcludingHtab:function(A){if(0===A.length)return!1
 for(const e of A){const A=e.charCodeAt(0)
-if(A>=0||A<=8||A>=10||A<=31||127===A)return!1}},stringify:function(A){if(0===A.name.length)return null
-!function(A){for(const e of A){const A=e.charCodeAt(0)
-if(A<=32||A>127||"("===e||")"===e||">"===e||"<"===e||"@"===e||","===e||";"===e||":"===e||"\\"===e||'"'===e||"/"===e||"["===e||"]"===e||"?"===e||"="===e||"{"===e||"}"===e)throw new Error("Invalid cookie name")}}(A.name),function(A){for(const e of A){const A=e.charCodeAt(0)
-if(A<33||34===A||44===A||59===A||92===A||A>126)throw new Error("Invalid header value")}}(A.value)
-const e=[`${A.name}=${A.value}`]
-var t
-A.name.startsWith("__Secure-")&&(A.secure=!0),A.name.startsWith("__Host-")&&(A.secure=!0,A.domain=null,A.path="/"),A.secure&&e.push("Secure"),A.httpOnly&&e.push("HttpOnly"),"number"==typeof A.maxAge&&(!function(A){if(A<0)throw new Error("Invalid cookie max-age")}(A.maxAge),e.push(`Max-Age=${A.maxAge}`)),A.domain&&(!function(A){if(A.startsWith("-")||A.endsWith(".")||A.endsWith("-"))throw new Error("Invalid cookie domain")}(A.domain),e.push(`Domain=${A.domain}`)),A.path&&(!function(A){for(const e of A)if(e.charCodeAt(0)<33||";"===e)throw new Error("Invalid cookie path")}(A.path),e.push(`Path=${A.path}`)),A.expires&&"Invalid Date"!==A.expires.toString()&&e.push("Expires="+("number"==typeof(t=A.expires)&&(t=new Date(t)),`${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][t.getUTCDay()]}, ${t.getUTCDate().toString().padStart(2,"0")} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][t.getUTCMonth()]} ${t.getUTCFullYear()} ${t.getUTCHours().toString().padStart(2,"0")}:${t.getUTCMinutes().toString().padStart(2,"0")}:${t.getUTCSeconds().toString().padStart(2,"0")} GMT`)),A.sameSite&&e.push(`SameSite=${A.sameSite}`)
-for(const t of A.unparsed){if(!t.includes("="))throw new Error("Invalid unparsed")
-const[A,...r]=t.split("=")
-e.push(`${A.trim()}=${r.join("=")}`)}return e.join("; ")},getHeadersList:function(A){if(A[s])return A[s]
-n||(n=Object.getOwnPropertySymbols(A).find((A=>"headers list"===A.description)),r(n,"Headers cannot be parsed"))
-const e=A[n]
-return r(e),e}}},5884:A=>{"use strict"
+if(A>=0||A<=8||A>=10||A<=31||127===A)return!1}},validateCookieName:e,validateCookiePath:r,validateCookieValue:t,toIMFDate:s,stringify:function(A){if(0===A.name.length)return null
+e(A.name),t(A.value)
+const n=[`${A.name}=${A.value}`]
+A.name.startsWith("__Secure-")&&(A.secure=!0),A.name.startsWith("__Host-")&&(A.secure=!0,A.domain=null,A.path="/"),A.secure&&n.push("Secure"),A.httpOnly&&n.push("HttpOnly"),"number"==typeof A.maxAge&&(!function(A){if(A<0)throw new Error("Invalid cookie max-age")}(A.maxAge),n.push(`Max-Age=${A.maxAge}`)),A.domain&&(!function(A){if(A.startsWith("-")||A.endsWith(".")||A.endsWith("-"))throw new Error("Invalid cookie domain")}(A.domain),n.push(`Domain=${A.domain}`)),A.path&&(r(A.path),n.push(`Path=${A.path}`)),A.expires&&"Invalid Date"!==A.expires.toString()&&n.push(`Expires=${s(A.expires)}`),A.sameSite&&n.push(`SameSite=${A.sameSite}`)
+for(const e of A.unparsed){if(!e.includes("="))throw new Error("Invalid unparsed")
+const[A,...t]=e.split("=")
+n.push(`${A.trim()}=${t.join("=")}`)}return n.join("; ")}}},5884:A=>{"use strict"
 A.exports=(A,e=process.argv)=>{const t=A.startsWith("-")?"":1===A.length?"-":"--",r=e.indexOf(t+A),s=e.indexOf("--")
 return-1!==r&&(-1===s||r<s)}},5939:(A,e)=>{"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.enumToMap=void 0,e.enumToMap=function(A){const e={}
@@ -2232,46 +2227,46 @@ return"undefined"!=typeof document&&document.documentElement&&document.documentE
 return()=>{A||(A=!0,console.warn("Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`."))}})(),e.colors=["#0000CC","#0000FF","#0033CC","#0033FF","#0066CC","#0066FF","#0099CC","#0099FF","#00CC00","#00CC33","#00CC66","#00CC99","#00CCCC","#00CCFF","#3300CC","#3300FF","#3333CC","#3333FF","#3366CC","#3366FF","#3399CC","#3399FF","#33CC00","#33CC33","#33CC66","#33CC99","#33CCCC","#33CCFF","#6600CC","#6600FF","#6633CC","#6633FF","#66CC00","#66CC33","#9900CC","#9900FF","#9933CC","#9933FF","#99CC00","#99CC33","#CC0000","#CC0033","#CC0066","#CC0099","#CC00CC","#CC00FF","#CC3300","#CC3333","#CC3366","#CC3399","#CC33CC","#CC33FF","#CC6600","#CC6633","#CC9900","#CC9933","#CCCC00","#CCCC33","#FF0000","#FF0033","#FF0066","#FF0099","#FF00CC","#FF00FF","#FF3300","#FF3333","#FF3366","#FF3399","#FF33CC","#FF33FF","#FF6600","#FF6633","#FF9900","#FF9933","#FFCC00","#FFCC33"],e.log=console.debug||console.log||(()=>{}),A.exports=t(736)(e)
 const{formatters:r}=A.exports
 r.j=function(A){try{return JSON.stringify(A)}catch(A){return"[UnexpectedJSONParseError]: "+A.message}}},7836:(A,e,t)=>{"use strict"
-const{kHeadersList:r,kConstruct:s}=t(7336),{kGuard:n}=t(4803),{kEnumerableProperty:o}=t(7017),{makeIterator:i,isValidHeaderName:a,isValidHeaderValue:c}=t(9064),{webidl:g}=t(1421),E=t(2613),Q=Symbol("headers map"),h=Symbol("headers map sorted")
-function C(A){return 10===A||13===A||9===A||32===A}function B(A){let e=0,t=A.length
-for(;t>e&&C(A.charCodeAt(t-1));)--t
-for(;t>e&&C(A.charCodeAt(e));)++e
-return 0===e&&t===A.length?A:A.substring(e,t)}function I(A,e){if(Array.isArray(e))for(let t=0;t<e.length;++t){const r=e[t]
-if(2!==r.length)throw g.errors.exception({header:"Headers constructor",message:`expected name/value pair to be length 2, found ${r.length}.`})
-l(A,r[0],r[1])}else{if("object"!=typeof e||null===e)throw g.errors.conversionFailed({prefix:"Headers constructor",argument:"Argument 1",types:["sequence<sequence<ByteString>>","record<ByteString, ByteString>"]})
+const{kHeadersList:r,kConstruct:s}=t(7336),{kGuard:n}=t(4803),{kEnumerableProperty:o}=t(7017),{makeIterator:i,isValidHeaderName:a,isValidHeaderValue:c}=t(9064),g=t(9023),{webidl:E}=t(1421),Q=t(2613),h=Symbol("headers map"),C=Symbol("headers map sorted")
+function B(A){return 10===A||13===A||9===A||32===A}function I(A){let e=0,t=A.length
+for(;t>e&&B(A.charCodeAt(t-1));)--t
+for(;t>e&&B(A.charCodeAt(e));)++e
+return 0===e&&t===A.length?A:A.substring(e,t)}function l(A,e){if(Array.isArray(e))for(let t=0;t<e.length;++t){const r=e[t]
+if(2!==r.length)throw E.errors.exception({header:"Headers constructor",message:`expected name/value pair to be length 2, found ${r.length}.`})
+u(A,r[0],r[1])}else{if("object"!=typeof e||null===e)throw E.errors.conversionFailed({prefix:"Headers constructor",argument:"Argument 1",types:["sequence<sequence<ByteString>>","record<ByteString, ByteString>"]})
 {const t=Object.keys(e)
-for(let r=0;r<t.length;++r)l(A,t[r],e[t[r]])}}}function l(A,e,t){if(t=B(t),!a(e))throw g.errors.invalidArgument({prefix:"Headers.append",value:e,type:"header name"})
-if(!c(t))throw g.errors.invalidArgument({prefix:"Headers.append",value:t,type:"header value"})
+for(let r=0;r<t.length;++r)u(A,t[r],e[t[r]])}}}function u(A,e,t){if(t=I(t),!a(e))throw E.errors.invalidArgument({prefix:"Headers.append",value:e,type:"header name"})
+if(!c(t))throw E.errors.invalidArgument({prefix:"Headers.append",value:t,type:"header value"})
 if("immutable"===A[n])throw new TypeError("immutable")
-return A[n],A[r].append(e,t)}class u{cookies=null
-constructor(A){A instanceof u?(this[Q]=new Map(A[Q]),this[h]=A[h],this.cookies=null===A.cookies?null:[...A.cookies]):(this[Q]=new Map(A),this[h]=null)}contains(A){return A=A.toLowerCase(),this[Q].has(A)}clear(){this[Q].clear(),this[h]=null,this.cookies=null}append(A,e){this[h]=null
-const t=A.toLowerCase(),r=this[Q].get(t)
+return A[n],A[r].append(e,t)}class d{cookies=null
+constructor(A){A instanceof d?(this[h]=new Map(A[h]),this[C]=A[C],this.cookies=null===A.cookies?null:[...A.cookies]):(this[h]=new Map(A),this[C]=null)}contains(A){return A=A.toLowerCase(),this[h].has(A)}clear(){this[h].clear(),this[C]=null,this.cookies=null}append(A,e){this[C]=null
+const t=A.toLowerCase(),r=this[h].get(t)
 if(r){const A="cookie"===t?"; ":", "
-this[Q].set(t,{name:r.name,value:`${r.value}${A}${e}`})}else this[Q].set(t,{name:A,value:e})
-"set-cookie"===t&&(this.cookies??=[],this.cookies.push(e))}set(A,e){this[h]=null
+this[h].set(t,{name:r.name,value:`${r.value}${A}${e}`})}else this[h].set(t,{name:A,value:e})
+"set-cookie"===t&&(this.cookies??=[],this.cookies.push(e))}set(A,e){this[C]=null
 const t=A.toLowerCase()
-"set-cookie"===t&&(this.cookies=[e]),this[Q].set(t,{name:A,value:e})}delete(A){this[h]=null,"set-cookie"===(A=A.toLowerCase())&&(this.cookies=null),this[Q].delete(A)}get(A){const e=this[Q].get(A.toLowerCase())
-return void 0===e?null:e.value}*[Symbol.iterator](){for(const[A,{value:e}]of this[Q])yield[A,e]}get entries(){const A={}
-if(this[Q].size)for(const{name:e,value:t}of this[Q].values())A[e]=t
-return A}}class d{constructor(A=void 0){A!==s&&(this[r]=new u,this[n]="none",void 0!==A&&I(this,A=g.converters.HeadersInit(A)))}append(A,e){return g.brandCheck(this,d),g.argumentLengthCheck(arguments,2,{header:"Headers.append"}),l(this,A=g.converters.ByteString(A),e=g.converters.ByteString(e))}delete(A){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,1,{header:"Headers.delete"}),A=g.converters.ByteString(A),!a(A))throw g.errors.invalidArgument({prefix:"Headers.delete",value:A,type:"header name"})
+"set-cookie"===t&&(this.cookies=[e]),this[h].set(t,{name:A,value:e})}delete(A){this[C]=null,"set-cookie"===(A=A.toLowerCase())&&(this.cookies=null),this[h].delete(A)}get(A){const e=this[h].get(A.toLowerCase())
+return void 0===e?null:e.value}*[Symbol.iterator](){for(const[A,{value:e}]of this[h])yield[A,e]}get entries(){const A={}
+if(this[h].size)for(const{name:e,value:t}of this[h].values())A[e]=t
+return A}}class f{constructor(A=void 0){A!==s&&(this[r]=new d,this[n]="none",void 0!==A&&l(this,A=E.converters.HeadersInit(A)))}append(A,e){return E.brandCheck(this,f),E.argumentLengthCheck(arguments,2,{header:"Headers.append"}),u(this,A=E.converters.ByteString(A),e=E.converters.ByteString(e))}delete(A){if(E.brandCheck(this,f),E.argumentLengthCheck(arguments,1,{header:"Headers.delete"}),A=E.converters.ByteString(A),!a(A))throw E.errors.invalidArgument({prefix:"Headers.delete",value:A,type:"header name"})
 if("immutable"===this[n])throw new TypeError("immutable")
-this[n],this[r].contains(A)&&this[r].delete(A)}get(A){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,1,{header:"Headers.get"}),A=g.converters.ByteString(A),!a(A))throw g.errors.invalidArgument({prefix:"Headers.get",value:A,type:"header name"})
-return this[r].get(A)}has(A){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,1,{header:"Headers.has"}),A=g.converters.ByteString(A),!a(A))throw g.errors.invalidArgument({prefix:"Headers.has",value:A,type:"header name"})
-return this[r].contains(A)}set(A,e){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,2,{header:"Headers.set"}),A=g.converters.ByteString(A),e=B(e=g.converters.ByteString(e)),!a(A))throw g.errors.invalidArgument({prefix:"Headers.set",value:A,type:"header name"})
-if(!c(e))throw g.errors.invalidArgument({prefix:"Headers.set",value:e,type:"header value"})
+this[n],this[r].contains(A)&&this[r].delete(A)}get(A){if(E.brandCheck(this,f),E.argumentLengthCheck(arguments,1,{header:"Headers.get"}),A=E.converters.ByteString(A),!a(A))throw E.errors.invalidArgument({prefix:"Headers.get",value:A,type:"header name"})
+return this[r].get(A)}has(A){if(E.brandCheck(this,f),E.argumentLengthCheck(arguments,1,{header:"Headers.has"}),A=E.converters.ByteString(A),!a(A))throw E.errors.invalidArgument({prefix:"Headers.has",value:A,type:"header name"})
+return this[r].contains(A)}set(A,e){if(E.brandCheck(this,f),E.argumentLengthCheck(arguments,2,{header:"Headers.set"}),A=E.converters.ByteString(A),e=I(e=E.converters.ByteString(e)),!a(A))throw E.errors.invalidArgument({prefix:"Headers.set",value:A,type:"header name"})
+if(!c(e))throw E.errors.invalidArgument({prefix:"Headers.set",value:e,type:"header value"})
 if("immutable"===this[n])throw new TypeError("immutable")
-this[n],this[r].set(A,e)}getSetCookie(){g.brandCheck(this,d)
+this[n],this[r].set(A,e)}getSetCookie(){E.brandCheck(this,f)
 const A=this[r].cookies
-return A?[...A]:[]}get[h](){if(this[r][h])return this[r][h]
+return A?[...A]:[]}get[C](){if(this[r][C])return this[r][C]
 const A=[],e=[...this[r]].sort(((A,e)=>A[0]<e[0]?-1:1)),t=this[r].cookies
 for(let r=0;r<e.length;++r){const[s,n]=e[r]
 if("set-cookie"===s)for(let e=0;e<t.length;++e)A.push([s,t[e]])
-else E(null!==n),A.push([s,n])}return this[r][h]=A,A}keys(){if(g.brandCheck(this,d),"immutable"===this[n]){const A=this[h]
-return i((()=>A),"Headers","key")}return i((()=>[...this[h].values()]),"Headers","key")}values(){if(g.brandCheck(this,d),"immutable"===this[n]){const A=this[h]
-return i((()=>A),"Headers","value")}return i((()=>[...this[h].values()]),"Headers","value")}entries(){if(g.brandCheck(this,d),"immutable"===this[n]){const A=this[h]
-return i((()=>A),"Headers","key+value")}return i((()=>[...this[h].values()]),"Headers","key+value")}forEach(A,e=globalThis){if(g.brandCheck(this,d),g.argumentLengthCheck(arguments,1,{header:"Headers.forEach"}),"function"!=typeof A)throw new TypeError("Failed to execute 'forEach' on 'Headers': parameter 1 is not of type 'Function'.")
-for(const[t,r]of this)A.apply(e,[r,t,this])}[Symbol.for("nodejs.util.inspect.custom")](){return g.brandCheck(this,d),this[r]}}d.prototype[Symbol.iterator]=d.prototype.entries,Object.defineProperties(d.prototype,{append:o,delete:o,get:o,has:o,set:o,getSetCookie:o,keys:o,values:o,entries:o,forEach:o,[Symbol.iterator]:{enumerable:!1},[Symbol.toStringTag]:{value:"Headers",configurable:!0}}),g.converters.HeadersInit=function(A){if("Object"===g.util.Type(A))return A[Symbol.iterator]?g.converters["sequence<sequence<ByteString>>"](A):g.converters["record<ByteString, ByteString>"](A)
-throw g.errors.conversionFailed({prefix:"Headers constructor",argument:"Argument 1",types:["sequence<sequence<ByteString>>","record<ByteString, ByteString>"]})},A.exports={fill:I,Headers:d,HeadersList:u}},7838:(A,e,t)=>{"use strict"
+else Q(null!==n),A.push([s,n])}return this[r][C]=A,A}keys(){if(E.brandCheck(this,f),"immutable"===this[n]){const A=this[C]
+return i((()=>A),"Headers","key")}return i((()=>[...this[C].values()]),"Headers","key")}values(){if(E.brandCheck(this,f),"immutable"===this[n]){const A=this[C]
+return i((()=>A),"Headers","value")}return i((()=>[...this[C].values()]),"Headers","value")}entries(){if(E.brandCheck(this,f),"immutable"===this[n]){const A=this[C]
+return i((()=>A),"Headers","key+value")}return i((()=>[...this[C].values()]),"Headers","key+value")}forEach(A,e=globalThis){if(E.brandCheck(this,f),E.argumentLengthCheck(arguments,1,{header:"Headers.forEach"}),"function"!=typeof A)throw new TypeError("Failed to execute 'forEach' on 'Headers': parameter 1 is not of type 'Function'.")
+for(const[t,r]of this)A.apply(e,[r,t,this])}[Symbol.for("nodejs.util.inspect.custom")](){return E.brandCheck(this,f),this[r]}}f.prototype[Symbol.iterator]=f.prototype.entries,Object.defineProperties(f.prototype,{append:o,delete:o,get:o,has:o,set:o,getSetCookie:o,keys:o,values:o,entries:o,forEach:o,[Symbol.iterator]:{enumerable:!1},[Symbol.toStringTag]:{value:"Headers",configurable:!0},[g.inspect.custom]:{enumerable:!1}}),E.converters.HeadersInit=function(A){if("Object"===E.util.Type(A))return A[Symbol.iterator]?E.converters["sequence<sequence<ByteString>>"](A):E.converters["record<ByteString, ByteString>"](A)
+throw E.errors.conversionFailed({prefix:"Headers constructor",argument:"Argument 1",types:["sequence<sequence<ByteString>>","record<ByteString, ByteString>"]})},A.exports={fill:l,Headers:f,HeadersList:d}},7838:(A,e,t)=>{"use strict"
 const{getResponseData:r,buildKey:s,addMockDispatch:n}=t(9492),{kDispatches:o,kDispatchKey:i,kDefaultHeaders:a,kDefaultTrailers:c,kContentLength:g,kMockDispatch:E}=t(6464),{InvalidArgumentError:Q}=t(1702),{buildURL:h}=t(7017)
 class C{constructor(A){this[E]=A}delay(A){if("number"!=typeof A||!Number.isInteger(A)||A<=0)throw new Q("waitInMs must be a valid integer > 0")
 return this[E].delay=A,this}persist(){return this[E].persist=!0,this}times(A){if("number"!=typeof A||!Number.isInteger(A)||A<=0)throw new Q("repeatTimes must be a valid integer > 0")
@@ -2316,15 +2311,15 @@ return{name:e.trim(),version:A.trim()}})):e.isMacOS?o(void 0,void 0,void 0,(func
 const{stdout:s}=yield c.getExecOutput("sw_vers",void 0,{silent:!0}),n=null!==(e=null===(A=s.match(/ProductVersion:\s*(.+)/))||void 0===A?void 0:A[1])&&void 0!==e?e:""
 return{name:null!==(r=null===(t=s.match(/ProductName:\s*(.+)/))||void 0===t?void 0:t[1])&&void 0!==r?r:"",version:n}})):o(void 0,void 0,void 0,(function*(){const{stdout:A}=yield c.getExecOutput("lsb_release",["-i","-r","-s"],{silent:!0}),[e,t]=A.trim().split("\n")
 return{name:e,version:t}}))),{platform:e.platform,arch:e.arch,isWindows:e.isWindows,isMacOS:e.isMacOS,isLinux:e.isLinux})}))}},8125:(A,e,t)=>{"use strict"
-const{parseSetCookie:r}=t(9634),{stringify:s,getHeadersList:n}=t(5821),{webidl:o}=t(1421),{Headers:i}=t(7836)
-function a(A,e){o.argumentLengthCheck(arguments,2,{header:"setCookie"}),o.brandCheck(A,i,{strict:!1}),e=o.converters.Cookie(e)
-s(e)&&A.append("Set-Cookie",s(e))}o.converters.DeleteCookieAttributes=o.dictionaryConverter([{converter:o.nullableConverter(o.converters.DOMString),key:"path",defaultValue:null},{converter:o.nullableConverter(o.converters.DOMString),key:"domain",defaultValue:null}]),o.converters.Cookie=o.dictionaryConverter([{converter:o.converters.DOMString,key:"name"},{converter:o.converters.DOMString,key:"value"},{converter:o.nullableConverter((A=>"number"==typeof A?o.converters["unsigned long long"](A):new Date(A))),key:"expires",defaultValue:null},{converter:o.nullableConverter(o.converters["long long"]),key:"maxAge",defaultValue:null},{converter:o.nullableConverter(o.converters.DOMString),key:"domain",defaultValue:null},{converter:o.nullableConverter(o.converters.DOMString),key:"path",defaultValue:null},{converter:o.nullableConverter(o.converters.boolean),key:"secure",defaultValue:null},{converter:o.nullableConverter(o.converters.boolean),key:"httpOnly",defaultValue:null},{converter:o.converters.USVString,key:"sameSite",allowedValues:["Strict","Lax","None"]},{converter:o.sequenceConverter(o.converters.DOMString),key:"unparsed",defaultValue:[]}]),A.exports={getCookies:function(A){o.argumentLengthCheck(arguments,1,{header:"getCookies"}),o.brandCheck(A,i,{strict:!1})
+const{parseSetCookie:r}=t(9634),{stringify:s}=t(5821),{webidl:n}=t(1421),{Headers:o}=t(7836)
+function i(A,e){n.argumentLengthCheck(arguments,2,{header:"setCookie"}),n.brandCheck(A,o,{strict:!1}),e=n.converters.Cookie(e)
+s(e)&&A.append("Set-Cookie",s(e))}n.converters.DeleteCookieAttributes=n.dictionaryConverter([{converter:n.nullableConverter(n.converters.DOMString),key:"path",defaultValue:null},{converter:n.nullableConverter(n.converters.DOMString),key:"domain",defaultValue:null}]),n.converters.Cookie=n.dictionaryConverter([{converter:n.converters.DOMString,key:"name"},{converter:n.converters.DOMString,key:"value"},{converter:n.nullableConverter((A=>"number"==typeof A?n.converters["unsigned long long"](A):new Date(A))),key:"expires",defaultValue:null},{converter:n.nullableConverter(n.converters["long long"]),key:"maxAge",defaultValue:null},{converter:n.nullableConverter(n.converters.DOMString),key:"domain",defaultValue:null},{converter:n.nullableConverter(n.converters.DOMString),key:"path",defaultValue:null},{converter:n.nullableConverter(n.converters.boolean),key:"secure",defaultValue:null},{converter:n.nullableConverter(n.converters.boolean),key:"httpOnly",defaultValue:null},{converter:n.converters.USVString,key:"sameSite",allowedValues:["Strict","Lax","None"]},{converter:n.sequenceConverter(n.converters.DOMString),key:"unparsed",defaultValue:[]}]),A.exports={getCookies:function(A){n.argumentLengthCheck(arguments,1,{header:"getCookies"}),n.brandCheck(A,o,{strict:!1})
 const e=A.get("cookie"),t={}
 if(!e)return t
 for(const A of e.split(";")){const[e,...r]=A.split("=")
-t[e.trim()]=r.join("=")}return t},deleteCookie:function(A,e,t){o.argumentLengthCheck(arguments,2,{header:"deleteCookie"}),o.brandCheck(A,i,{strict:!1}),e=o.converters.DOMString(e),t=o.converters.DeleteCookieAttributes(t),a(A,{name:e,value:"",expires:new Date(0),...t})},getSetCookies:function(A){o.argumentLengthCheck(arguments,1,{header:"getSetCookies"}),o.brandCheck(A,i,{strict:!1})
-const e=n(A).cookies
-return e?e.map((A=>r(Array.isArray(A)?A[1]:A))):[]},setCookie:a}},8161:A=>{"use strict"
+t[e.trim()]=r.join("=")}return t},deleteCookie:function(A,e,t){n.argumentLengthCheck(arguments,2,{header:"deleteCookie"}),n.brandCheck(A,o,{strict:!1}),e=n.converters.DOMString(e),t=n.converters.DeleteCookieAttributes(t),i(A,{name:e,value:"",expires:new Date(0),...t})},getSetCookies:function(A){n.argumentLengthCheck(arguments,1,{header:"getSetCookies"}),n.brandCheck(A,o,{strict:!1})
+const e=A.getSetCookie()
+return e?e.map((A=>r(A))):[]},setCookie:i}},8161:A=>{"use strict"
 A.exports=require("node:os")},8167:A=>{"use strict"
 A.exports=require("worker_threads")},8253:A=>{"use strict"
 A.exports=require("util/types")},8321:A=>{"use strict"
@@ -2542,7 +2537,7 @@ A.headers.Authorization=`Bearer ${this.token}`}canHandleAuthentication(){return!
 e.PersonalAccessTokenCredentialHandler=class{constructor(A){this.token=A}prepareRequest(A){if(!A.headers)throw Error("The request has no headers")
 A.headers.Authorization=`Basic ${Buffer.from(`PAT:${this.token}`).toString("base64")}`}canHandleAuthentication(){return!1}handleAuthentication(){return t(this,void 0,void 0,(function*(){throw new Error("not implemented")}))}}},9278:A=>{"use strict"
 A.exports=require("net")},9350:(A,e,t)=>{"use strict"
-const r=t(2613),s=t(9278),n=t(8611),{pipeline:o}=t(2203),i=t(7017),a=t(3707),c=t(5636),g=t(376),{RequestContentLengthMismatchError:E,ResponseContentLengthMismatchError:Q,InvalidArgumentError:h,RequestAbortedError:C,HeadersTimeoutError:B,HeadersOverflowError:I,SocketError:l,InformationalError:u,BodyTimeoutError:d,HTTPParserError:f,ResponseExceededMaxSizeError:p,ClientDestroyedError:y}=t(1702),w=t(5711),{kUrl:m,kReset:R,kServerName:D,kClient:k,kBusy:b,kParser:N,kConnect:F,kBlocking:S,kResuming:L,kRunning:U,kPending:M,kSize:v,kWriting:T,kQueue:Y,kConnected:G,kConnecting:J,kNeedDrain:O,kNoRef:H,kKeepAliveDefaultTimeout:x,kHostHeader:V,kPendingIdx:P,kRunningIdx:_,kError:W,kPipelining:q,kSocket:j,kKeepAliveTimeoutValue:X,kMaxHeadersSize:Z,kKeepAliveMaxTimeout:K,kKeepAliveTimeoutThreshold:z,kHeadersTimeout:$,kBodyTimeout:AA,kStrictContentLength:eA,kConnector:tA,kMaxRedirections:rA,kMaxRequests:sA,kCounter:nA,kClose:oA,kDestroy:iA,kDispatch:aA,kInterceptors:cA,kLocalAddress:gA,kMaxResponseSize:EA,kHTTPConnVersion:QA,kHost:hA,kHTTP2Session:CA,kHTTP2SessionState:BA,kHTTP2BuildRequest:IA,kHTTP2CopyHeaders:lA,kHTTP1BuildRequest:uA}=t(7336)
+const r=t(2613),s=t(9278),n=t(8611),{pipeline:o}=t(2203),i=t(7017),a=t(3707),c=t(5636),g=t(376),{RequestContentLengthMismatchError:E,ResponseContentLengthMismatchError:Q,InvalidArgumentError:h,RequestAbortedError:C,HeadersTimeoutError:B,HeadersOverflowError:I,SocketError:l,InformationalError:u,BodyTimeoutError:d,HTTPParserError:f,ResponseExceededMaxSizeError:p,ClientDestroyedError:y}=t(1702),w=t(5711),{kUrl:m,kReset:R,kServerName:D,kClient:k,kBusy:b,kParser:N,kConnect:F,kBlocking:S,kResuming:L,kRunning:U,kPending:M,kSize:v,kWriting:T,kQueue:Y,kConnected:G,kConnecting:J,kNeedDrain:O,kNoRef:x,kKeepAliveDefaultTimeout:H,kHostHeader:V,kPendingIdx:P,kRunningIdx:_,kError:W,kPipelining:q,kSocket:j,kKeepAliveTimeoutValue:X,kMaxHeadersSize:Z,kKeepAliveMaxTimeout:K,kKeepAliveTimeoutThreshold:z,kHeadersTimeout:$,kBodyTimeout:AA,kStrictContentLength:eA,kConnector:tA,kMaxRedirections:rA,kMaxRequests:sA,kCounter:nA,kClose:oA,kDestroy:iA,kDispatch:aA,kInterceptors:cA,kLocalAddress:gA,kMaxResponseSize:EA,kHTTPConnVersion:QA,kHost:hA,kHTTP2Session:CA,kHTTP2SessionState:BA,kHTTP2BuildRequest:IA,kHTTP2CopyHeaders:lA,kHTTP1BuildRequest:uA}=t(7336)
 let dA
 try{dA=t(5675)}catch{dA={constants:{}}}const{constants:{HTTP2_HEADER_AUTHORITY:fA,HTTP2_HEADER_METHOD:pA,HTTP2_HEADER_PATH:yA,HTTP2_HEADER_SCHEME:wA,HTTP2_HEADER_CONTENT_LENGTH:mA,HTTP2_HEADER_EXPECT:RA,HTTP2_HEADER_STATUS:DA}}=dA
 let kA=!1
@@ -2557,24 +2552,24 @@ e[Y][e[_]++]=null,ae(e,A,t)}e[P]=e[_],r(0===e[U]),e.emit("disconnect",e[m],[e],t
 let GA=null,JA=async function(){const A=process.env.JEST_WORKER_ID?t(1805):void 0
 let e
 try{e=await WebAssembly.compile(Buffer.from(t(6335),"base64"))}catch(r){e=await WebAssembly.compile(Buffer.from(A||t(1805),"base64"))}return await WebAssembly.instantiate(e,{env:{wasm_on_url:(A,e,t)=>0,wasm_on_status:(A,e,t)=>{r.strictEqual(OA.ptr,A)
-const s=e-VA+HA.byteOffset
-return OA.onStatus(new bA(HA.buffer,s,t))||0},wasm_on_message_begin:A=>(r.strictEqual(OA.ptr,A),OA.onMessageBegin()||0),wasm_on_header_field:(A,e,t)=>{r.strictEqual(OA.ptr,A)
-const s=e-VA+HA.byteOffset
-return OA.onHeaderField(new bA(HA.buffer,s,t))||0},wasm_on_header_value:(A,e,t)=>{r.strictEqual(OA.ptr,A)
-const s=e-VA+HA.byteOffset
-return OA.onHeaderValue(new bA(HA.buffer,s,t))||0},wasm_on_headers_complete:(A,e,t,s)=>(r.strictEqual(OA.ptr,A),OA.onHeadersComplete(e,Boolean(t),Boolean(s))||0),wasm_on_body:(A,e,t)=>{r.strictEqual(OA.ptr,A)
-const s=e-VA+HA.byteOffset
-return OA.onBody(new bA(HA.buffer,s,t))||0},wasm_on_message_complete:A=>(r.strictEqual(OA.ptr,A),OA.onMessageComplete()||0)}})}()
+const s=e-VA+xA.byteOffset
+return OA.onStatus(new bA(xA.buffer,s,t))||0},wasm_on_message_begin:A=>(r.strictEqual(OA.ptr,A),OA.onMessageBegin()||0),wasm_on_header_field:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+xA.byteOffset
+return OA.onHeaderField(new bA(xA.buffer,s,t))||0},wasm_on_header_value:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+xA.byteOffset
+return OA.onHeaderValue(new bA(xA.buffer,s,t))||0},wasm_on_headers_complete:(A,e,t,s)=>(r.strictEqual(OA.ptr,A),OA.onHeadersComplete(e,Boolean(t),Boolean(s))||0),wasm_on_body:(A,e,t)=>{r.strictEqual(OA.ptr,A)
+const s=e-VA+xA.byteOffset
+return OA.onBody(new bA(xA.buffer,s,t))||0},wasm_on_message_complete:A=>(r.strictEqual(OA.ptr,A),OA.onMessageComplete()||0)}})}()
 JA.catch()
-let OA=null,HA=null,xA=0,VA=null
+let OA=null,xA=null,HA=0,VA=null
 const PA=1,_A=3
 class WA{constructor(A,e,{exports:t}){r(Number.isFinite(A[Z])&&A[Z]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(vA.TYPE.RESPONSE),this.client=A,this.socket=e,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=A[Z],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=A[EA]}setTimeout(A,e){this.timeoutType=e,A!==this.timeoutValue?(a.clearTimeout(this.timeout),A?(this.timeout=a.setTimeout(qA,A,this),this.timeout.unref&&this.timeout.unref()):this.timeout=null,this.timeoutValue=A):this.timeout&&this.timeout.refresh&&this.timeout.refresh()}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==OA),this.llhttp.llhttp_resume(this.ptr),r(2===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||YA),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const A=this.socket.read()
 if(null===A)break
 this.execute(A)}}execute(A){r(null!=this.ptr),r(null==OA),r(!this.paused)
 const{socket:e,llhttp:t}=this
-A.length>xA&&(VA&&t.free(VA),xA=4096*Math.ceil(A.length/4096),VA=t.malloc(xA)),new Uint8Array(t.memory.buffer,VA,xA).set(A)
+A.length>HA&&(VA&&t.free(VA),HA=4096*Math.ceil(A.length/4096),VA=t.malloc(HA)),new Uint8Array(t.memory.buffer,VA,HA).set(A)
 try{let r
-try{HA=A,OA=this,r=t.llhttp_execute(this.ptr,VA,A.length)}catch(A){throw A}finally{OA=null,HA=null}const s=t.llhttp_get_error_pos(this.ptr)-VA
+try{xA=A,OA=this,r=t.llhttp_execute(this.ptr,VA,A.length)}catch(A){throw A}finally{OA=null,xA=null}const s=t.llhttp_get_error_pos(this.ptr)-VA
 if(r===vA.ERROR.PAUSED_UPGRADE)this.onUpgrade(A.slice(s))
 else if(r===vA.ERROR.PAUSED)this.paused=!0,e.unshift(A.slice(s))
 else if(r!==vA.ERROR.OK){const e=t.llhttp_get_error_reason(this.ptr)
@@ -2602,7 +2597,7 @@ if("CONNECT"===c.method)return r(1===s[U]),this.upgrade=!0,2
 if(e)return r(1===s[U]),this.upgrade=!0,2
 if(r(this.headers.length%2==0),this.headers=[],this.headersSize=0,this.shouldKeepAlive&&s[q]){const A=this.keepAlive?i.parseKeepAliveTimeout(this.keepAlive):null
 if(null!=A){const e=Math.min(A-s[z],s[K])
-e<=0?n[R]=!0:s[X]=e}else s[X]=s[x]}else n[R]=!0
+e<=0?n[R]=!0:s[X]=e}else s[X]=s[H]}else n[R]=!0
 const g=!1===c.onHeaders(A,o,this.resume,a)
 return c.aborted?-1:"HEAD"===c.method||A<200?1:(n[S]&&(n[S]=!1,ee(s)),g?vA.ERROR.PAUSED:0)}onBody(A){const{client:e,socket:t,statusCode:s,maxResponseSize:n}=this
 if(t.destroyed)return-1
@@ -2634,14 +2629,14 @@ if(A.destroyed)return void i.destroy(s.on("error",(()=>{})),new y)
 A[J]=!1,r(s)
 if("h2"===s.alpnProtocol){kA||(kA=!0,process.emitWarning("H2 support is experimental, expect them to change at any time.",{code:"UNDICI-H2"}))
 const e=dA.connect(A[m],{createConnection:()=>s,peerMaxConcurrentStreams:A[BA].maxConcurrentStreams})
-A[QA]="h2",e[k]=A,e[j]=s,e.on("error",SA),e.on("frameError",LA),e.on("end",UA),e.on("goaway",MA),e.on("close",zA),e.unref(),A[CA]=e,s[CA]=e}else GA||(GA=await JA,JA=null),s[H]=!1,s[T]=!1,s[R]=!1,s[S]=!1,s[N]=new WA(A,s,GA)
+A[QA]="h2",e[k]=A,e[j]=s,e.on("error",SA),e.on("frameError",LA),e.on("end",UA),e.on("goaway",MA),e.on("close",zA),e.unref(),A[CA]=e,s[CA]=e}else GA||(GA=await JA,JA=null),s[x]=!1,s[T]=!1,s[R]=!1,s[S]=!1,s[N]=new WA(A,s,GA)
 s[nA]=0,s[sA]=A[sA],s[k]=A,s[W]=null,s.on("error",XA).on("readable",jA).on("end",KA).on("close",zA),A[j]=s,FA.connected.hasSubscribers&&FA.connected.publish({connectParams:{host:e,hostname:t,protocol:n,port:o,servername:A[D],localAddress:A[gA]},connector:A[tA],socket:s}),A.emit("connect",A[m],[A])}catch(s){if(A.destroyed)return
 if(A[J]=!1,FA.connectError.hasSubscribers&&FA.connectError.publish({connectParams:{host:e,hostname:t,protocol:n,port:o,servername:A[D],localAddress:A[gA]},connector:A[tA],error:s}),"ERR_TLS_CERT_ALTNAME_INVALID"===s.code)for(r(0===A[U]);A[M]>0&&A[Y][A[P]].servername===A[D];){const e=A[Y][A[P]++]
 ae(A,e,s)}else ZA(A,s)
 A.emit("connectionError",A[m],[A],s)}ee(A)}function Ae(A){A[O]=0,A.emit("drain",A[m],[A])}function ee(A,e){2!==A[L]&&(A[L]=2,function(A,e){for(;;){if(A.destroyed)return void r(0===A[M])
 if(A[NA]&&!A[v])return A[NA](),void(A[NA]=null)
 const t=A[j]
-if(t&&!t.destroyed&&"h2"!==t.alpnProtocol)if(0===A[v]?!t[H]&&t.unref&&(t.unref(),t[H]=!0):t[H]&&t.ref&&(t.ref(),t[H]=!1),0===A[v])t[N].timeoutType!==_A&&t[N].setTimeout(A[X],_A)
+if(t&&!t.destroyed&&"h2"!==t.alpnProtocol)if(0===A[v]?!t[x]&&t.unref&&(t.unref(),t[x]=!0):t[x]&&t.ref&&(t.ref(),t[x]=!1),0===A[v])t[N].timeoutType!==_A&&t[N].setTimeout(A[X],_A)
 else if(A[U]>0&&t[N].statusCode<200&&t[N].timeoutType!==PA){const e=A[Y][A[_]],r=null!=e.headersTimeout?e.headersTimeout:A[$]
 t[N].setTimeout(r,PA)}if(A[b])A[O]=2
 else if(2===A[O]){e?(A[O]=1,process.nextTick(Ae,A)):Ae(A)
@@ -2738,7 +2733,7 @@ if(null!=F&&(!Number.isInteger(F)||F<-1))throw new h("maxResponseSize must be a 
 if(null!=U&&(!Number.isInteger(U)||U<-1))throw new h("autoSelectFamilyAttemptTimeout must be a positive number")
 if(null!=M&&"boolean"!=typeof M)throw new h("allowH2 must be a valid boolean value")
 if(null!=v&&("number"!=typeof v||v<1))throw new h("maxConcurrentStreams must be a possitive integer, greater than 0")
-"function"!=typeof k&&(k=w({...f,maxCachedSessions:y,allowH2:M,socketPath:u,timeout:c,...i.nodeHasAutoSelectFamily&&S?{autoSelectFamily:S,autoSelectFamilyAttemptTimeout:U}:void 0,...k})),this[cA]=e&&e.Client&&Array.isArray(e.Client)?e.Client:[TA({maxRedirections:R})],this[m]=i.parseOrigin(A),this[tA]=k,this[j]=null,this[q]=null!=d?d:1,this[Z]=t||n.maxHeaderSize,this[x]=null==C?4e3:C,this[K]=null==I?6e5:I,this[z]=null==l?1e3:l,this[X]=this[x],this[D]=null,this[gA]=null!=N?N:null,this[L]=0,this[O]=0,this[V]=`host: ${this[m].hostname}${this[m].port?`:${this[m].port}`:""}\r\n`,this[AA]=null!=g?g:3e5,this[$]=null!=r?r:3e5,this[eA]=null==p||p,this[rA]=R,this[sA]=b,this[NA]=null,this[EA]=F>-1?F:-1,this[QA]="h1",this[CA]=null,this[BA]=M?{openStreams:0,maxConcurrentStreams:null!=v?v:100}:null,this[hA]=`${this[m].hostname}${this[m].port?`:${this[m].port}`:""}`,this[Y]=[],this[_]=0,this[P]=0}get pipelining(){return this[q]}set pipelining(A){this[q]=A,ee(this,!0)}get[M](){return this[Y].length-this[P]}get[U](){return this[P]-this[_]}get[v](){return this[Y].length-this[_]}get[G](){return!!this[j]&&!this[J]&&!this[j].destroyed}get[b](){const A=this[j]
+"function"!=typeof k&&(k=w({...f,maxCachedSessions:y,allowH2:M,socketPath:u,timeout:c,...i.nodeHasAutoSelectFamily&&S?{autoSelectFamily:S,autoSelectFamilyAttemptTimeout:U}:void 0,...k})),this[cA]=e&&e.Client&&Array.isArray(e.Client)?e.Client:[TA({maxRedirections:R})],this[m]=i.parseOrigin(A),this[tA]=k,this[j]=null,this[q]=null!=d?d:1,this[Z]=t||n.maxHeaderSize,this[H]=null==C?4e3:C,this[K]=null==I?6e5:I,this[z]=null==l?1e3:l,this[X]=this[H],this[D]=null,this[gA]=null!=N?N:null,this[L]=0,this[O]=0,this[V]=`host: ${this[m].hostname}${this[m].port?`:${this[m].port}`:""}\r\n`,this[AA]=null!=g?g:3e5,this[$]=null!=r?r:3e5,this[eA]=null==p||p,this[rA]=R,this[sA]=b,this[NA]=null,this[EA]=F>-1?F:-1,this[QA]="h1",this[CA]=null,this[BA]=M?{openStreams:0,maxConcurrentStreams:null!=v?v:100}:null,this[hA]=`${this[m].hostname}${this[m].port?`:${this[m].port}`:""}`,this[Y]=[],this[_]=0,this[P]=0}get pipelining(){return this[q]}set pipelining(A){this[q]=A,ee(this,!0)}get[M](){return this[Y].length-this[P]}get[U](){return this[P]-this[_]}get[v](){return this[Y].length-this[_]}get[G](){return!!this[j]&&!this[J]&&!this[j].destroyed}get[b](){const A=this[j]
 return A&&(A[R]||A[T]||A[S])||this[v]>=(this[q]||1)||this[M]>0}[F](A){$A(this),this.once("connect",A)}[aA](A,e){const t=A.origin||this[m].origin,r="h2"===this[QA]?c[IA](t,A,e):c[uA](t,A,e)
 return this[Y].push(r),this[L]||(null==i.bodyLength(r.body)&&i.isIterable(r.body)?(this[L]=1,process.nextTick(ee,this)):ee(this,!0)),this[L]&&2!==this[O]&&this[b]&&(this[O]=2),this[O]<2}async[oA](){return new Promise((A=>{this[v]?this[NA]=A:A(null)}))}async[iA](A){return new Promise((e=>{const t=this[Y].splice(this[P])
 for(let e=0;e<t.length;e++){ae(this,t[e],A)}const r=()=>{this[NA]&&(this[NA](),this[NA]=null),e()}
