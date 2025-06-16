@@ -157,8 +157,8 @@ jobs:
       - name: Check installed version
         #language=sh
         run: |
-          fasm2 2>/dev/null || true
-          fasm2 2>&1 | grep -qF 'flat assembler  version g.'
+          (fasm2 || fasm2.cmd || fasm2.bat) 2>/dev/null || true
+          (fasm2 || fasm2.cmd || fasm2.bat) 2>&1 | grep -qF 'flat assembler  version g.'
         shell: sh
 
   test-fasmarm:
