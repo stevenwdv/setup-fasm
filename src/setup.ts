@@ -139,19 +139,6 @@ async function returnVersion(edition: FasmEditionStr, platform: PlatformStr, ver
 		  : extractPath;
 	core.addPath(binPath);
 
-	{
-		const executables = ['.x64', '', '.exe', '.o'].map(ext => `${{
-			fasm1: 'fasm',
-			fasmg: 'fasmg',
-			fasmarm: 'fasmarm',
-		}[edition]}${ext}`);
-		await Promise.all(executables.map(async executable => {
-			const exePath = path.join(binPath, executable);
-			const stat    = await fsp.stat(exePath).catch(() => null);
-			if (stat?.isFile()) await fsp.chmod(exePath, stat.mode | 0o111);  // Make executable
-		}));
-	}
-
 	if (setIncludeEnvvar)
 		for (const includeName of ['INCLUDE', 'include' /*newer FASMARM*/]) {
 			const includePath = path.join(binPath, includeName);
