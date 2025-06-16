@@ -264,7 +264,7 @@ r=s+1,n++,t=n}for(;r<e.length&&"*"===e[r];)r++
 return r===e.length}return e.debug=e,e.default=e,e.coerce=function(A){if(A instanceof Error)return A.stack||A.message
 return A},e.disable=function(){const A=[...e.names,...e.skips.map((A=>"-"+A))].join(",")
 return e.enable(""),A},e.enable=function(A){e.save(A),e.namespaces=A,e.names=[],e.skips=[]
-const t=("string"==typeof A?A:"").trim().replace(" ",",").split(",").filter(Boolean)
+const t=("string"==typeof A?A:"").trim().replace(/\s+/g,",").split(",").filter(Boolean)
 for(const A of t)"-"===A[0]?e.skips.push(A.slice(1)):e.names.push(A)},e.enabled=function(A){for(const t of e.skips)if(s(A,t))return!1
 for(const t of e.names)if(s(A,t))return!0
 return!1},e.humanize=t(6585),e.destroy=function(){console.warn("Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.")},Object.keys(A).forEach((t=>{e[t]=A[t]})),e.names=[],e.skips=[],e.formatters={},e.selectColor=function(A){let t=0
@@ -1949,10 +1949,7 @@ Object.defineProperty(e,"__esModule",{value:!0})
 const a=t(7598),c=i(t(3024)),g=i(t(1455)),E=i(t(4708)),Q=i(t(8161)),h=i(t(6760)),C=i(t(1708)),B=i(t(8321)),I=i(t(7975)),l=o(t(6977)),u=i(t(4662)),d=t(394),f=new URL("https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json"),p=new URL("https://github.com/tgrysztar/fasmg.git")
 const y={aix:"unix",android:"linux",cygwin:"windows",freebsd:"unix",haiku:"unix",linux:"linux",netbsd:"unix",openbsd:"unix",sunos:"unix",win32:"windows"}
 async function w(A,e,t,r,s){const n=await g.default.readdir(r),o=1===n.length&&(await g.default.stat(h.default.join(r,n[0]))).isDirectory()?h.default.join(r,n[0]):r
-l.addPath(o)
-{const e=[".x64","",".exe",".o"].map((e=>`${{fasm1:"fasm",fasmg:"fasmg",fasmarm:"fasmarm"}[A]}${e}`))
-await Promise.all(e.map((async A=>{const e=h.default.join(o,A),t=await g.default.stat(e).catch((()=>null))
-t?.isFile()&&await g.default.chmod(e,73|t.mode)})))}if(s)for(const A of["INCLUDE","include"]){const e=h.default.join(o,A)
+if(l.addPath(o),s)for(const A of["INCLUDE","include"]){const e=h.default.join(o,A)
 if((await g.default.stat(e).catch((()=>null)))?.isDirectory()){R(e)
 break}}l.setOutput("path",o),l.setOutput("edition",A),l.setOutput("version",t),l.setOutput("platform",e),l.info(`successfully installed ${A} ${t} for ${e} to ${o}`)}async function m(A,e,t){l.startGroup("downloading fasm g packages")
 const r=h.default.join(C.default.env.RUNNER_TEMP||Q.default.tmpdir(),(0,a.randomUUID)())
@@ -2194,7 +2191,8 @@ if(ArrayBuffer.isView(A)||N.isAnyArrayBuffer(A))return r.converters.BufferSource
 Object.defineProperty(e,"__esModule",{value:!0}),e.getUrls=void 0,e.getUrls={fasm1(A,e){const t=(A.alt?[A.alt,A.name]:[A.name]).map((A=>{const t=A.replaceAll(".","")
 return{windows:parseInt(t)<parseInt("1.54".replaceAll(".",""))?`fasmc${t}.zip`:`fasmw${t}.zip`,linux:`fasm-${A}.tgz`,unix:`fasm-${A}.tar.gz`}[e]}))
 return["https://flatassembler.net/","http://fasm.sourceforge.net/archive/recent/","http://comrade.ownz.com/fasm/"].flatMap((A=>t.map((e=>A+e)))).map((A=>new URL(A)))},fasmg(A){const e=(A.alt?[A.alt,A.name]:[A.name]).map((A=>`fasmg.${A}.zip`))
-return["https://flatassembler.net/"].flatMap((A=>e.map((e=>A+e)))).map((A=>new URL(A)))},fasmarm(A,e){const t=["FASMARM_full.ZIP"]
+return["https://flatassembler.net/"].flatMap((A=>e.map((e=>A+e)))).map((A=>new URL(A)))},fasm2(){const A=["fasm2.zip"]
+return["https://flatassembler.net/"].flatMap((e=>A.map((A=>e+A)))).map((A=>new URL(A)))},fasmarm(A,e){const t=["FASMARM_full.ZIP"]
 return"windows"===e&&t.unshift("FASMARM_win32.ZIP"),["https://arm.flatassembler.net/"].flatMap((A=>t.map((e=>A+e)))).map((A=>new URL(A)))}}},7687:(A,e,t)=>{"use strict"
 const r=t(857),s=t(2018),n=t(5884),{env:o}=process
 let i
@@ -2215,7 +2213,7 @@ const t="color: "+this.color
 e.splice(1,0,t,"color: inherit")
 let r=0,s=0
 e[0].replace(/%[a-zA-Z%]/g,(A=>{"%%"!==A&&(r++,"%c"===A&&(s=r))})),e.splice(s,0,t)},e.save=function(A){try{A?e.storage.setItem("debug",A):e.storage.removeItem("debug")}catch(A){}},e.load=function(){let A
-try{A=e.storage.getItem("debug")}catch(A){}!A&&"undefined"!=typeof process&&"env"in process&&(A=process.env.DEBUG)
+try{A=e.storage.getItem("debug")||e.storage.getItem("DEBUG")}catch(A){}!A&&"undefined"!=typeof process&&"env"in process&&(A=process.env.DEBUG)
 return A},e.useColors=function(){if("undefined"!=typeof window&&window.process&&("renderer"===window.process.type||window.process.__nwjs))return!0
 if("undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/))return!1
 let A
@@ -2337,7 +2335,7 @@ this._bparser=new n("\r\n--"+A),this._bparser.on("info",(function(A,t,r,s){e._on
 const n=this
 let i,c=0,g=!0
 if(!this._part&&this._justMatched&&e){for(;this._dashes<2&&t+c<r;){if(45!==e[t+c]){this._dashes&&(s=a),this._dashes=0
-break}++c,++this._dashes}if(2===this._dashes&&(t+c<r&&0!==this.listenerCount("trailer")&&this.emit("trailer",e.slice(t+c,r)),this.reset(),this._finished=!0,0===n._parts&&(n._realFinish=!0,n.emit("finish"),n._realFinish=!1)),this._dashes)return}this._justMatched&&(this._justMatched=!1),this._part||(this._part=new o(this._partOpts),this._part._read=function(A){n._unpause()},this._isPreamble&&0!==this.listenerCount("preamble")?this.emit("preamble",this._part):!0!==this._isPreamble&&0!==this.listenerCount("part")?this.emit("part",this._part):this._ignore(),this._isPreamble||(this._inHeader=!0)),e&&t<r&&!this._ignoreData&&(this._isPreamble||!this._inHeader?(s&&(g=this._part.push(s)),g=this._part.push(e.slice(t,r)),g||(this._pause=!0)):!this._isPreamble&&this._inHeader&&(s&&this._hparser.push(s),i=this._hparser.push(e.slice(t,r)),!this._inHeader&&void 0!==i&&i<r&&this._oninfo(!1,e,t+i,r))),A&&(this._hparser.reset(),this._isPreamble?this._isPreamble=!1:t!==r&&(++this._parts,this._part.on("end",(function(){0==--n._parts&&(n._finished?(n._realFinish=!0,n.emit("finish"),n._realFinish=!1):n._unpause())}))),this._part.push(null),this._part=void 0,this._ignoreData=!1,this._justMatched=!0,this._dashes=0)},E.prototype._unpause=function(){if(this._pause&&(this._pause=!1,this._cb)){const A=this._cb
+break}++c,++this._dashes}if(2===this._dashes&&(t+c<r&&0!==this.listenerCount("trailer")&&this.emit("trailer",e.slice(t+c,r)),this.reset(),this._finished=!0,0===n._parts&&(n._realFinish=!0,n.emit("finish"),n._realFinish=!1)),this._dashes)return}this._justMatched&&(this._justMatched=!1),this._part||(this._part=new o(this._partOpts),this._part._read=function(A){n._unpause()},this._isPreamble&&0!==this.listenerCount("preamble")?this.emit("preamble",this._part):!0!==this._isPreamble&&0!==this.listenerCount("part")?this.emit("part",this._part):this._ignore(),this._isPreamble||(this._inHeader=!0)),e&&t<r&&!this._ignoreData&&(this._isPreamble||!this._inHeader?(s&&(g=this._part.push(s)),g=this._part.push(e.slice(t,r)),g||(this._pause=!0)):!this._isPreamble&&this._inHeader&&(s&&this._hparser.push(s),i=this._hparser.push(e.slice(t,r)),!this._inHeader&&void 0!==i&&i<r&&this._oninfo(!1,e,t+i,r))),A&&(this._hparser.reset(),this._isPreamble?this._isPreamble=!1:t!==r&&(++this._parts,this._part.on("end",(function(){0===--n._parts&&(n._finished?(n._realFinish=!0,n.emit("finish"),n._realFinish=!1):n._unpause())}))),this._part.push(null),this._part=void 0,this._ignoreData=!1,this._justMatched=!0,this._dashes=0)},E.prototype._unpause=function(){if(this._pause&&(this._pause=!1,this._cb)){const A=this._cb
 this._cb=void 0,A()}},A.exports=E},8474:A=>{"use strict"
 A.exports=require("node:events")},8570:(A,e,t)=>{"use strict"
 const r=t(7075).Writable,{inherits:s}=t(7975),n=t(8361),o=t(6509),i=t(4379),a=t(9384)
