@@ -4,7 +4,7 @@ description: Set up the flat assembler compiler
 
 inputs:
   edition:
-    description: Edition to install; fasm1, fasmg, or fasmarm
+    description: Edition to install; fasm1, fasmg, fasm2, or fasmarm
     required: false
     default: fasm1
   version:

@@ -17,6 +17,7 @@ jobs:
         run: npm run build
       - name: Check if setup.js up-to-date if this is not a regular push event
         if: github.event_name != 'push'
+        #language=sh
         run: git diff --exit-code -s -- dist/ || echo "::warning::setup.js should be updated"
       - name: Lint
         run: npm run lint-only
@@ -75,12 +76,14 @@ jobs:
           version: ${{ matrix.version }}
           fallback-to-previous-compatible: false
       - name: Check installed version
+        #language=sh
         run: |
           (fasm.x64 || fasm || fasm.o || FASM.EXE) 2>/dev/null || true
           (fasm.x64 || fasm || fasm.o || FASM.EXE) 2>&1 | grep -qF 'flat assembler  version ${{ steps.fasm.outputs.version }}'
         shell: sh
       - name: Check INCLUDE envvar
         if: matrix.os == 'windows-latest'
+        #language=sh
         run: |
           echo INCLUDE = $INCLUDE
           [ -d "$INCLUDE" ]
@@ -111,11 +114,13 @@ jobs:
           fasmg-download-packages: true
           fasmg-include-packages: utility, x86
       - name: Check installed version
+        #language=sh
         run: |
           (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>/dev/null || true
           (fasmg.x64 || fasmg || fasmg.o || fasmg.exe) 2>&1 | grep -qF 'flat assembler  version g.${{ steps.fasm.outputs.version }}'
         shell: sh
       - name: Check INCLUDE envvar
+        #language=sh
         run: |
           echo INCLUDE = $INCLUDE
           set -e
@@ -126,6 +131,35 @@ jobs:
           done
           [ ${#dirs[@]} -eq 3 ]  # 3 items (packages root, utility, x86)
         shell: bash
+
+  test-fasm2:
+    name: Test install latest fasm 2 version
+    needs: build-lint
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Run setup-fasm
+        id: fasm
+        uses: ./
+        with:
+          edition: fasm2
+          fallback-to-previous-compatible: false
+      - name: Check installed version
+        #language=sh
+        run: |
+          fasm2 2>/dev/null || true
+          fasm2 2>&1 | grep -qF 'flat assembler  version g.'
+        shell: sh
 
   test-fasmarm:
     name: Test install latest FASMARM version
@@ -150,11 +184,13 @@ jobs:
           edition: fasmarm
           fallback-to-previous-compatible: false
       - name: Check installed version
+        #language=sh
         run: |
           (fasmarm.x64 || fasmarm || fasmarm.o || FASMARM.EXE) 2>/dev/null || true
           (fasmarm.x64 || fasmarm || fasmarm.o || FASMARM.EXE) 2>&1 | grep -qF 'flat assembler for ARM'
         shell: sh
       - name: Check INCLUDE envvar
+        #language=sh
         run: |
           echo INCLUDE = $INCLUDE
           [ -d "$INCLUDE" ]
