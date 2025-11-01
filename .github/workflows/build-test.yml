@@ -22,7 +22,7 @@ jobs:
       - name: Lint
         run: npm run lint-only
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: dist
           path: dist/
