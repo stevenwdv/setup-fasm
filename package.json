@@ -18,7 +18,7 @@
 		"node": ">=16"
 	},
 	"dependencies": {
-		"@actions/core": "^1.11.1",
+		"@actions/core": "^2.0.1",
 		"@actions/tool-cache": "^2.0.2",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1.2",
 		"simple-git": "^3.28.0"
