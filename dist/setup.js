@@ -976,7 +976,7 @@ return t(A,s.close,s.closeTimeout),t(e,s.exit,s.exitTimeout),{close(A){r=A,s.clo
 let i=!0,a=()=>{i=!1}
 s.stdout?.on("data",a),s.stderr?.on("data",a),s.on("error",a),s.on("close",(A=>o.close(A))),s.on("exit",(A=>o.exit(A)))
 try{await o.result,i&&await z(50),n(o.exitCode)}catch(A){n(o.exitCode,A)}}}}var _e,We,qe=Q({"src/lib/plugins/completion-detection.plugin.ts"(){He=t(8100),MA(),xe=(0,He.deferred)().promise}})
-function je(A){return!A||!/^([a-z]:)?([a-z0-9/.\\_-]+)$/i.test(A)}function Xe(A,e){if(A.length<1||A.length>2)throw new y(void 0,"binary",_e)
+function je(A){return!A||!/^([a-z]:)?([a-z0-9/.\\_~-]+)$/i.test(A)}function Xe(A,e){if(A.length<1||A.length>2)throw new y(void 0,"binary",_e)
 if(A.some(je)){if(!e)throw new y(void 0,"binary",We)
 console.warn(We)}const[t,r]=A
 return{binary:t,prefix:r}}var Ze=Q({"src/lib/plugins/custom-binary.plugin.ts"(){S(),MA(),_e="Invalid value supplied for custom binary, requires a single string or an array containing either one or two strings",We="Invalid value supplied for custom binary, restricted characters must be removed or supply the unsafe.allowUnsafeCustomBinary option"}})
@@ -1089,12 +1089,12 @@ var As=Q({"src/lib/tasks/push.ts"(){Zr(),MA()}})
 var es,ts,rs,ss,ns,os=Q({"src/lib/tasks/show.ts"(){MA(),se()}}),is=Q({"src/lib/responses/FileStatusSummary.ts"(){es=/^(.+)\0(.+)$/,ts=class{constructor(A,e,t){if(this.path=A,this.index=e,this.working_dir=t,"R"===e||"R"===t){const e=es.exec(A)||[null,A,A]
 this.from=e[2]||"",this.path=e[1]||""}}}}})
 function as(A){const[e,t]=A.split(D)
-return{from:t||e,to:e}}function cs(A,e,t){return[`${A}${e}`,t]}function gs(A,...e){return e.map((e=>cs(A,e,((A,e)=>x(A.conflicted,e)))))}function Es(A,e){const t=e.trim()
-switch(" "){case t.charAt(2):return r(t.charAt(0),t.charAt(1),t.substr(3))
-case t.charAt(1):return r(" ",t.charAt(0),t.substr(2))
+return{from:t||e,to:e}}function cs(A,e,t){return[`${A}${e}`,t]}function gs(A,...e){return e.map((e=>cs(A,e,((A,e)=>A.conflicted.push(e)))))}function Es(A,e){const t=e.trim()
+switch(" "){case t.charAt(2):return r(t.charAt(0),t.charAt(1),t.slice(3))
+case t.charAt(1):return r(" ",t.charAt(0),t.slice(2))
 default:return}function r(e,t,r){const s=`${e}${t}`,n=ss.get(s)
-n&&n(A,r),"##"!==s&&"!!"!==s&&A.files.push(new ts(r,e,t))}}var Qs,hs=Q({"src/lib/responses/StatusSummary.ts"(){MA(),is(),rs=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},ss=new Map([cs(" ","A",((A,e)=>x(A.created,e))),cs(" ","D",((A,e)=>x(A.deleted,e))),cs(" ","M",((A,e)=>x(A.modified,e))),cs("A"," ",((A,e)=>x(A.created,e)&&x(A.staged,e))),cs("A","M",((A,e)=>x(A.created,e)&&x(A.staged,e)&&x(A.modified,e))),cs("D"," ",((A,e)=>x(A.deleted,e)&&x(A.staged,e))),cs("M"," ",((A,e)=>x(A.modified,e)&&x(A.staged,e))),cs("M","M",((A,e)=>x(A.modified,e)&&x(A.staged,e))),cs("R"," ",((A,e)=>{x(A.renamed,as(e))})),cs("R","M",((A,e)=>{const t=as(e)
-x(A.renamed,t),x(A.modified,t.to)})),cs("!","!",((A,e)=>{x(A.ignored=A.ignored||[],e)})),cs("?","?",((A,e)=>x(A.not_added,e))),...gs("A","A","U"),...gs("D","D","U"),...gs("U","A","D","U"),["##",(A,e)=>{let t=/ahead (\d+)/.exec(e)
+n&&n(A,r),"##"!==s&&"!!"!==s&&A.files.push(new ts(r,e,t))}}var Qs,hs=Q({"src/lib/responses/StatusSummary.ts"(){MA(),is(),rs=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},ss=new Map([cs(" ","A",((A,e)=>A.created.push(e))),cs(" ","D",((A,e)=>A.deleted.push(e))),cs(" ","M",((A,e)=>A.modified.push(e))),cs("A"," ",((A,e)=>{A.created.push(e),A.staged.push(e)})),cs("A","M",((A,e)=>{A.created.push(e),A.staged.push(e),A.modified.push(e)})),cs("D"," ",((A,e)=>{A.deleted.push(e),A.staged.push(e)})),cs("M"," ",((A,e)=>{A.modified.push(e),A.staged.push(e)})),cs("M","M",((A,e)=>{A.modified.push(e),A.staged.push(e)})),cs("R"," ",((A,e)=>{A.renamed.push(as(e))})),cs("R","M",((A,e)=>{const t=as(e)
+A.renamed.push(t),A.modified.push(t.to)})),cs("!","!",((A,e)=>{(A.ignored=A.ignored||[]).push(e)})),cs("?","?",((A,e)=>A.not_added.push(e))),...gs("A","A","U"),...gs("D","D","U"),...gs("U","A","D","U"),["##",(A,e)=>{let t=/ahead (\d+)/.exec(e)
 A.ahead=t&&+t[1]||0,t=/behind (\d+)/.exec(e),A.behind=t&&+t[1]||0,t=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(e),A.current=oA(t?.[1],tA,null),t=/\.{3}(\S*)/.exec(e),A.tracking=oA(t?.[1],tA,null),t=/\son\s(\S+?)(?=\.{3}|$)/.exec(e),t&&(A.current=oA(t?.[1],tA,A.current)),A.detached=/\(no branch\)/.test(e)}]]),ns=function(A){const e=A.split(D),t=new rs
 for(let A=0,r=e.length;A<r;){let r=e[A++].trim()
 r&&("R"===r.charAt(0)&&(r+=D+(e[A++]||"")),Es(t,r))}return t}}})
