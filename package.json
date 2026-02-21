@@ -4,6 +4,7 @@
 	"private": true,
 	"author": "stevenwdv",
 	"license": "MIT",
+	"type": "module",
 	"scripts": {
 		"build": "webpack --mode=production",
 		"start-ts": "node --require=ts-node/register ./src/setup.ts",
@@ -18,22 +19,22 @@
 		"node": ">=16"
 	},
 	"dependencies": {
-		"@actions/core": "^2.0.2",
-		"@actions/tool-cache": "^3.0.0",
+		"@actions/core": "^3.0.0",
+		"@actions/tool-cache": "^4.0.0",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1.2",
-		"simple-git": "^3.31.1"
+		"simple-git": "^3.32.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.19.1",
+		"@eslint/js": "^10.0.1",
+		"@types/node": "^20.19.33",
 		"@types/webpack": "^5.28.5",
-		"@typescript-eslint/eslint-plugin": "^8.34.1",
-		"@typescript-eslint/parser": "^8.34.1",
-		"eslint": "^9.29.0",
+		"eslint": "^10.0.1",
 		"husky": "^9.1.7",
 		"terser-webpack-plugin": "^5.3.16",
-		"ts-loader": "^9.5.2",
+		"ts-loader": "^9.5.4",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.8.3",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.56.0",
 		"webpack": "^5.105.2",
 		"webpack-cli": "^6.0.1"
 	}

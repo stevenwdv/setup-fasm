@@ -9,7 +9,7 @@ import * as toolCache from '@actions/tool-cache';
 
 import {FasmEdition, FasmEditionStr, FasmVersion, getUrls, PlatformStr} from 'fasm-versions';
 
-import {equalsIgnoreCase} from './utils';
+import {equalsIgnoreCase} from './utils.js';
 
 /** Get matching versions according to semver */
 export function getMatchingVersions(edition: FasmEdition, requestedVersion: 'latest' | string,
