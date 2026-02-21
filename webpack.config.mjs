@@ -10,7 +10,7 @@ export default (env, argv) => ({
 		setup: './src/setup.ts',
 	},
 	output: {
-		filename: '[name].js',
+		filename: '[name].cjs',
 	},
 	target: 'node',
 

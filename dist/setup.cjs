@@ -1,4 +1,4 @@
-/*! For license information please see setup.js.LICENSE.txt */
+/*! For license information please see setup.cjs.LICENSE.txt */
 (()=>{var e,A,t={8926(e,A,t){"use strict"
 Object.defineProperty(A,"__esModule",{value:!0}),function(e){for(var t in e)A.hasOwnProperty(t)||(A[t]=e[t])}(t(9423))},9423(e,A,t){"use strict"
 var r=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}}
