@@ -9,10 +9,10 @@ import consumers from 'node:stream/consumers';
 import util from 'node:util';
 
 import * as core from '@actions/core';
-import simplegit from 'simple-git';
+import {simpleGit} from 'simple-git';
 
 import {FasmData, FasmEdition, FasmEditionStr, PlatformStr} from 'fasm-versions';
-import {downloadVersion, getMatchingVersions} from './lib';
+import {downloadVersion, getMatchingVersions} from './lib.js';
 
 const versionsUrl  = new URL('https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json');
 const fasmgRepoUrl = new URL('https://github.com/tgrysztar/fasmg.git');
@@ -160,7 +160,7 @@ async function downloadFasmgPackages(
 	  checkoutRef: string | null, includePackages: string[], addDirToIncludeEnvvar: boolean) {
 	core.startGroup('downloading fasm g packages');
 	const packagesRepoDir = path.join(process.env['RUNNER_TEMP'] || os.tmpdir(), randomUUID());
-	await simplegit()
+	await simpleGit()
 		  .clone(fasmgRepoUrl.href, packagesRepoDir, ['--filter=blob:none', '--sparse', '--no-checkout'])
 		  .cwd(packagesRepoDir)
 		  .checkout(checkoutRef ?? 'HEAD')

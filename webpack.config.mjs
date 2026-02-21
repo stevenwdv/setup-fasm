@@ -16,6 +16,10 @@ export default (env, argv) => ({
 
 	resolve: {
 		extensions: ['.js', '.ts'],
+		extensionAlias: {
+			'.js': ['.ts', '.js'],
+			'.mjs': ['.mts', '.mjs'],
+		},
 	},
 
 	module: {

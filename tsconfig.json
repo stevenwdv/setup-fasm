@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"target": "ES2022",
-		"module": "CommonJS",
+		"module": "Node16",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"strict": true,
@@ -11,9 +11,12 @@
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true
 	},
 	"include": [
-		"./src/**/*.ts"
+		"./src/**/*.ts",
+		"./eslint.config.mjs",
+		"./webpack.config.mjs"
 	]
 }
