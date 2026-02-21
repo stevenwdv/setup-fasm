@@ -15,10 +15,10 @@ jobs:
       - run: npm ci
       - name: Build
         run: npm run build
-      - name: Check if setup.js up-to-date if this is not a regular push event
+      - name: Check if setup.cjs up-to-date if this is not a regular push event
         if: github.event_name != 'push'
         #language=sh
-        run: git diff --exit-code -s -- dist/ || echo "::warning::setup.js should be updated"
+        run: git diff --exit-code -s -- dist/ || echo "::warning::setup.cjs should be updated"
       - name: Lint
         run: npm run lint-only
 
@@ -29,7 +29,7 @@ jobs:
           retention-days: 1
 
   commit-build:
-    name: Commit setup.js
+    name: Commit setup.cjs
     if: github.event_name == 'push'
     needs: build-lint
     permissions:
@@ -42,10 +42,10 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Commit setup.js
+      - name: Commit setup.cjs
         uses: EndBug/add-and-commit@v9
         with:
-          message: Update setup.js
+          message: Update setup.cjs
           add: dist/
           default_author: github_actions
           author_name: Build bot
