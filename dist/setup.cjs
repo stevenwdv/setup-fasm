@@ -3154,7 +3154,7 @@ var Qi=class extends aA{constructor(e,A){super(void 0,A),this.config=e}}
 uA(),uA()
 var ui=class extends aA{constructor(e,A,t){super(e,t),this.task=e,this.plugin=A,Object.setPrototypeOf(this,new.target.prototype)}}
 function Bi({allowUnsafeProtocolOverride:e=!1,allowUnsafePack:A=!1}={}){return{type:"spawn.args",action:(t,r)=>(t.forEach((s,n)=>{const o=n<t.length?t[n+1]:""
-e||function(e,A){if(function(e){return"string"==typeof e&&"-c"===e.trim().toLowerCase()}(e)&&/^\s*protocol(.[a-z]+)?.allow/.test(A))throw new ui(void 0,"unsafe","Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol")}(s,o),A||function(e,A){if(/^\s*--(upload|receive)-pack/.test(e))throw new ui(void 0,"unsafe","Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack")
+e||function(e,A){if(function(e){return"string"==typeof e&&"-c"===e.trim().toLowerCase()}(e)&&/^\s*protocol(.[a-z]+)?.allow/i.test(A))throw new ui(void 0,"unsafe","Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol")}(s,o),A||function(e,A){if(/^\s*--(upload|receive)-pack/.test(e))throw new ui(void 0,"unsafe","Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack")
 if("clone"===A&&function(e,A){if("string"!=typeof A||!A.includes(e))return!1
 const t=A.replace(/\0g/,"").replace(/^(--no)?-{1,2}/,"")
 return/^[\dlsqvnobucj]+\b/.test(t)}("u",e))throw new ui(void 0,"unsafe","Use of clone with option -u is not permitted without enabling allowUnsafePack")
