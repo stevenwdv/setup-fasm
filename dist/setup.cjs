@@ -633,7 +633,8 @@ class Y extends Error{constructor(e,A,t){super(e),this.name="HTTPParserError",th
 class J extends t{constructor(e){super(e),this.name="ResponseExceededMaxSizeError",this.message=e||"Response content exceeded max size",this.code="UND_ERR_RES_EXCEEDED_MAX_SIZE"}static[Symbol.hasInstance](e){return e&&!0===e[x]}[x]=!0}const H=Symbol.for("undici.error.UND_ERR_REQ_RETRY")
 class V extends t{constructor(e,A,{headers:t,data:r}){super(e),this.name="RequestRetryError",this.message=e||"Request retry error",this.code="UND_ERR_REQ_RETRY",this.statusCode=A,this.data=r,this.headers=t}static[Symbol.hasInstance](e){return e&&!0===e[H]}[H]=!0}const O=Symbol.for("undici.error.UND_ERR_RESPONSE")
 class W extends t{constructor(e,A,{headers:t,data:r}){super(e),this.name="ResponseError",this.message=e||"Response error",this.code="UND_ERR_RESPONSE",this.statusCode=A,this.data=r,this.headers=t}static[Symbol.hasInstance](e){return e&&!0===e[O]}[O]=!0}const P=Symbol.for("undici.error.UND_ERR_PRX_TLS")
-class q extends t{constructor(e,A,t){super(A,{cause:e,...t??{}}),this.name="SecureProxyConnectionError",this.message=A||"Secure Proxy Connection failed",this.code="UND_ERR_PRX_TLS",this.cause=e}static[Symbol.hasInstance](e){return e&&!0===e[P]}[P]=!0}e.exports={AbortError:I,HTTPParserError:Y,UndiciError:t,HeadersTimeoutError:o,HeadersOverflowError:a,BodyTimeoutError:g,RequestContentLengthMismatchError:m,ConnectTimeoutError:s,ResponseStatusCodeError:h,InvalidArgumentError:Q,InvalidReturnValueError:B,RequestAbortedError:f,ClientDestroyedError:b,ClientClosedError:S,InformationalError:w,SocketError:M,NotSupportedError:L,ResponseContentLengthMismatchError:k,BalancedPoolMissingUpstreamError:v,ResponseExceededMaxSizeError:J,RequestRetryError:V,ResponseError:W,SecureProxyConnectionError:q}},5636(e,A,t){"use strict"
+class q extends t{constructor(e,A,t){super(A,{cause:e,...t??{}}),this.name="SecureProxyConnectionError",this.message=A||"Secure Proxy Connection failed",this.code="UND_ERR_PRX_TLS",this.cause=e}static[Symbol.hasInstance](e){return e&&!0===e[P]}[P]=!0}const _=Symbol.for("undici.error.UND_ERR_WS_MESSAGE_SIZE_EXCEEDED")
+class Z extends t{constructor(e){super(e),this.name="MessageSizeExceededError",this.message=e||"Max decompressed message size exceeded",this.code="UND_ERR_WS_MESSAGE_SIZE_EXCEEDED"}static[Symbol.hasInstance](e){return e&&!0===e[_]}get[_](){return!0}}e.exports={AbortError:I,HTTPParserError:Y,UndiciError:t,HeadersTimeoutError:o,HeadersOverflowError:a,BodyTimeoutError:g,RequestContentLengthMismatchError:m,ConnectTimeoutError:s,ResponseStatusCodeError:h,InvalidArgumentError:Q,InvalidReturnValueError:B,RequestAbortedError:f,ClientDestroyedError:b,ClientClosedError:S,InformationalError:w,SocketError:M,NotSupportedError:L,ResponseContentLengthMismatchError:k,BalancedPoolMissingUpstreamError:v,ResponseExceededMaxSizeError:J,RequestRetryError:V,ResponseError:W,SecureProxyConnectionError:q,MessageSizeExceededError:Z}},5636(e,A,t){"use strict"
 const{InvalidArgumentError:r,NotSupportedError:s}=t(1702),n=t(4589),{isValidHTTPToken:o,isValidHeaderValue:i,isStream:a,destroy:c,isBuffer:g,isFormDataLike:l,isIterable:h,isBlobLike:E,buildURL:Q,validateHandler:u,getServerName:B,normalizedMethodRecords:C}=t(7017),{channels:I}=t(2781),{headerNameLowerCasedRecord:d}=t(5032),f=/[^\u0021-\u00ff]/,p=Symbol("handler")
 function w(e,A,t){if(t&&"object"==typeof t&&!Array.isArray(t))throw new r(`invalid ${A} header`)
 if(void 0===t)return
@@ -644,23 +645,26 @@ for(let s=0;s<t.length;s++)if("string"==typeof t[s]){if(!i(t[s]))throw new r(`in
 e.push(t[s])}else if(null===t[s])e.push("")
 else{if("object"==typeof t[s])throw new r(`invalid ${A} header`)
 e.push(`${t[s]}`)}t=e}else if("string"==typeof t){if(!i(t))throw new r(`invalid ${A} header`)}else t=null===t?"":`${t}`
-if(null===e.host&&"host"===n){if("string"!=typeof t)throw new r("invalid host header")
-e.host=t}else if(null===e.contentLength&&"content-length"===n){if(e.contentLength=parseInt(t,10),!Number.isFinite(e.contentLength))throw new r("invalid content-length header")}else if(null===e.contentType&&"content-type"===n)e.contentType=t,e.headers.push(A,t)
+if("host"===n){if(null!==e.host)throw new r("duplicate host header")
+if("string"!=typeof t)throw new r("invalid host header")
+e.host=t}else if("content-length"===n){if(null!==e.contentLength)throw new r("duplicate content-length header")
+if(e.contentLength=parseInt(t,10),!Number.isFinite(e.contentLength))throw new r("invalid content-length header")}else if(null===e.contentType&&"content-type"===n)e.contentType=t,e.headers.push(A,t)
 else{if("transfer-encoding"===n||"keep-alive"===n||"upgrade"===n)throw new r(`invalid ${n} header`)
 if("connection"===n){const A="string"==typeof t?t.toLowerCase():null
 if("close"!==A&&"keep-alive"!==A)throw new r("invalid connection header")
 "close"===A&&(e.reset=!0)}else{if("expect"===n)throw new s("expect header not supported")
-e.headers.push(A,t)}}}e.exports=class{constructor(e,{path:A,method:t,body:s,headers:n,query:i,idempotent:d,blocking:y,upgrade:m,headersTimeout:D,bodyTimeout:k,reset:R,throwOnError:b,expectContinue:F,servername:S},N){if("string"!=typeof A)throw new r("path must be a string")
+e.headers.push(A,t)}}}e.exports=class{constructor(e,{path:A,method:t,body:s,headers:n,query:d,idempotent:y,blocking:m,upgrade:D,headersTimeout:k,bodyTimeout:R,reset:b,throwOnError:F,expectContinue:S,servername:N},M){if("string"!=typeof A)throw new r("path must be a string")
 if("/"!==A[0]&&!A.startsWith("http://")&&!A.startsWith("https://")&&"CONNECT"!==t)throw new r("path must be an absolute URL or start with a slash")
 if(f.test(A))throw new r("invalid request path")
 if("string"!=typeof t)throw new r("method must be a string")
 if(void 0===C[t]&&!o(t))throw new r("invalid request method")
-if(m&&"string"!=typeof m)throw new r("upgrade must be a string")
-if(null!=D&&(!Number.isFinite(D)||D<0))throw new r("invalid headersTimeout")
-if(null!=k&&(!Number.isFinite(k)||k<0))throw new r("invalid bodyTimeout")
-if(null!=R&&"boolean"!=typeof R)throw new r("invalid reset")
-if(null!=F&&"boolean"!=typeof F)throw new r("invalid expectContinue")
-if(this.headersTimeout=D,this.bodyTimeout=k,this.throwOnError=!0===b,this.method=t,this.abort=null,null==s)this.body=null
+if(D&&"string"!=typeof D)throw new r("upgrade must be a string")
+if(D&&!i(D))throw new r("invalid upgrade header")
+if(null!=k&&(!Number.isFinite(k)||k<0))throw new r("invalid headersTimeout")
+if(null!=R&&(!Number.isFinite(R)||R<0))throw new r("invalid bodyTimeout")
+if(null!=b&&"boolean"!=typeof b)throw new r("invalid reset")
+if(null!=S&&"boolean"!=typeof S)throw new r("invalid expectContinue")
+if(this.headersTimeout=k,this.bodyTimeout=R,this.throwOnError=!0===F,this.method=t,this.abort=null,null==s)this.body=null
 else if(a(s)){this.body=s
 const e=this.body._readableState
 e&&e.autoDestroy||(this.endHandler=function(){c(this)},this.body.on("end",this.endHandler)),this.errorHandler=e=>{this.abort?this.abort(e):this.error=e},this.body.on("error",this.errorHandler)}else if(g(s))this.body=s.byteLength?s:null
@@ -668,11 +672,11 @@ else if(ArrayBuffer.isView(s))this.body=s.buffer.byteLength?Buffer.from(s.buffer
 else if(s instanceof ArrayBuffer)this.body=s.byteLength?Buffer.from(s):null
 else if("string"==typeof s)this.body=s.length?Buffer.from(s):null
 else{if(!(l(s)||h(s)||E(s)))throw new r("body must be a string, a Buffer, a Readable stream, an iterable, or an async iterable")
-this.body=s}if(this.completed=!1,this.aborted=!1,this.upgrade=m||null,this.path=i?Q(A,i):A,this.origin=e,this.idempotent=null==d?"HEAD"===t||"GET"===t:d,this.blocking=null!=y&&y,this.reset=null==R?null:R,this.host=null,this.contentLength=null,this.contentType=null,this.headers=[],this.expectContinue=null!=F&&F,Array.isArray(n)){if(n.length%2!=0)throw new r("headers array must be even")
+this.body=s}if(this.completed=!1,this.aborted=!1,this.upgrade=D||null,this.path=d?Q(A,d):A,this.origin=e,this.idempotent=null==y?"HEAD"===t||"GET"===t:y,this.blocking=null!=m&&m,this.reset=null==b?null:b,this.host=null,this.contentLength=null,this.contentType=null,this.headers=[],this.expectContinue=null!=S&&S,Array.isArray(n)){if(n.length%2!=0)throw new r("headers array must be even")
 for(let e=0;e<n.length;e+=2)w(this,n[e],n[e+1])}else if(n&&"object"==typeof n)if(n[Symbol.iterator])for(const e of n){if(!Array.isArray(e)||2!==e.length)throw new r("headers must be in key-value pair format")
 w(this,e[0],e[1])}else{const e=Object.keys(n)
 for(let A=0;A<e.length;++A)w(this,e[A],n[e[A]])}else if(null!=n)throw new r("headers must be an object or an array")
-u(N,t,m),this.servername=S||B(this.host),this[p]=N,I.create.hasSubscribers&&I.create.publish({request:this})}onBodySent(e){if(this[p].onBodySent)try{return this[p].onBodySent(e)}catch(e){this.abort(e)}}onRequestSent(){if(I.bodySent.hasSubscribers&&I.bodySent.publish({request:this}),this[p].onRequestSent)try{return this[p].onRequestSent()}catch(e){this.abort(e)}}onConnect(e){if(n(!this.aborted),n(!this.completed),!this.error)return this.abort=e,this[p].onConnect(e)
+u(M,t,D),this.servername=N||B(this.host),this[p]=M,I.create.hasSubscribers&&I.create.publish({request:this})}onBodySent(e){if(this[p].onBodySent)try{return this[p].onBodySent(e)}catch(e){this.abort(e)}}onRequestSent(){if(I.bodySent.hasSubscribers&&I.bodySent.publish({request:this}),this[p].onRequestSent)try{return this[p].onRequestSent()}catch(e){this.abort(e)}}onConnect(e){if(n(!this.aborted),n(!this.completed),!this.error)return this.abort=e,this[p].onConnect(e)
 e(this.error)}onResponseStarted(){return this[p].onResponseStarted?.()}onHeaders(e,A,t,r){n(!this.aborted),n(!this.completed),I.headers.hasSubscribers&&I.headers.publish({request:this,response:{statusCode:e,headers:A,statusText:r}})
 try{return this[p].onHeaders(e,A,t,r)}catch(e){this.abort(e)}}onData(e){n(!this.aborted),n(!this.completed)
 try{return this[p].onData(e)}catch(e){return this.abort(e),!1}}onUpgrade(e,A,t){return n(!this.aborted),n(!this.completed),this[p].onUpgrade(e,A,t)}onComplete(e){this.onFinally(),n(!this.aborted),this.completed=!0,I.trailers.hasSubscribers&&I.trailers.publish({request:this,trailers:e})
@@ -2449,80 +2453,86 @@ const i=Buffer.allocUnsafe(s+o)
 i[0]=i[1]=0,i[0]|=128,i[0]=(240&i[0])+e,i[o-4]=t[0],i[o-3]=t[1],i[o-2]=t[2],i[o-1]=t[3],i[1]=n,126===n?i.writeUInt16BE(s,2):127===n&&(i[2]=i[3]=0,i.writeUIntBE(s,4,6)),i[1]|=128
 for(let e=0;e<s;++e)i[o+e]=A[e]^t[3&e]
 return i}}}},494(e,A,t){"use strict"
-const{createInflateRaw:r,Z_DEFAULT_WINDOWBITS:s}=t(8522),{isValidClientWindowBits:n}=t(7026),o=Buffer.from([0,0,255,255]),i=Symbol("kBuffer"),a=Symbol("kLength")
+const{createInflateRaw:r,Z_DEFAULT_WINDOWBITS:s}=t(8522),{isValidClientWindowBits:n}=t(7026),{MessageSizeExceededError:o}=t(1702),i=Buffer.from([0,0,255,255]),a=Symbol("kBuffer"),c=Symbol("kLength")
 e.exports={PerMessageDeflate:class{#j
 #E={}
-constructor(e){this.#E.serverNoContextTakeover=e.has("server_no_context_takeover"),this.#E.serverMaxWindowBits=e.get("server_max_window_bits")}decompress(e,A,t){if(!this.#j){let e=s
+#X
+#D=!1
+#$=null
+constructor(e,A={}){this.#E.serverNoContextTakeover=e.has("server_no_context_takeover"),this.#E.serverMaxWindowBits=e.get("server_max_window_bits"),this.#X=A.maxDecompressedMessageSize??4194304}decompress(e,A,t){if(this.#D)t(new o)
+else{if(!this.#j){let e=s
 if(this.#E.serverMaxWindowBits){if(!n(this.#E.serverMaxWindowBits))return void t(new Error("Invalid server_max_window_bits"))
-e=Number.parseInt(this.#E.serverMaxWindowBits)}this.#j=r({windowBits:e}),this.#j[i]=[],this.#j[a]=0,this.#j.on("data",e=>{this.#j[i].push(e),this.#j[a]+=e.length}),this.#j.on("error",e=>{this.#j=null,t(e)})}this.#j.write(e),A&&this.#j.write(o),this.#j.flush(()=>{const e=Buffer.concat(this.#j[i],this.#j[a])
-this.#j[i].length=0,this.#j[a]=0,t(null,e)})}}}},4951(e,A,t){"use strict"
+e=Number.parseInt(this.#E.serverMaxWindowBits)}try{this.#j=r({windowBits:e})}catch(e){return void t(e)}this.#j[a]=[],this.#j[c]=0,this.#j.on("data",e=>{if(!this.#D)if(this.#j[c]+=e.length,this.#j[c]>this.#X){if(this.#D=!0,this.#j.removeAllListeners(),this.#j.destroy(),this.#j=null,this.#$){const e=this.#$
+this.#$=null,e(new o)}}else this.#j[a].push(e)}),this.#j.on("error",e=>{this.#j=null,t(e)})}this.#$=t,this.#j.write(e),A&&this.#j.write(i),this.#j.flush(()=>{if(this.#D||!this.#j)return
+const e=Buffer.concat(this.#j[a],this.#j[c])
+this.#j[a].length=0,this.#j[c]=0,this.#$=null,t(null,e)})}}}}},4951(e,A,t){"use strict"
 const{Writable:r}=t(7075),s=t(4589),{parserStates:n,opcodes:o,states:i,emptyBuffer:a,sentCloseFrameState:c}=t(7389),{kReadyState:g,kSentClose:l,kResponse:h,kReceivedClose:E}=t(4617),{channels:Q}=t(2781),{isValidStatusCode:u,isValidOpcode:B,failWebsocketConnection:C,websocketMessageReceived:I,utf8Decode:d,isControlFrame:f,isTextBinaryFrame:p,isContinuationFrame:w}=t(7026),{WebsocketFrameSend:y}=t(9817),{closeWebSocketConnection:m}=t(242),{PerMessageDeflate:D}=t(494)
-e.exports={ByteParser:class extends r{#X=[]
-#$=0
-#K=!1
+e.exports={ByteParser:class extends r{#K=[]
+#ee=0
+#Ae=!1
 #f=n.INFO
-#ee={}
-#Ae=[]
-#te
-constructor(e,A){super(),this.ws=e,this.#te=null==A?new Map:A,this.#te.has("permessage-deflate")&&this.#te.set("permessage-deflate",new D(A))}_write(e,A,t){this.#X.push(e),this.#$+=e.length,this.#K=!0,this.run(t)}run(e){for(;this.#K;)if(this.#f===n.INFO){if(this.#$<2)return e()
+#te={}
+#re=[]
+#se
+#E
+constructor(e,A,t={}){super(),this.ws=e,this.#se=null==A?new Map:A,this.#E=t,this.#se.has("permessage-deflate")&&this.#se.set("permessage-deflate",new D(A,t))}_write(e,A,t){this.#K.push(e),this.#ee+=e.length,this.#Ae=!0,this.run(t)}run(e){for(;this.#Ae;)if(this.#f===n.INFO){if(this.#ee<2)return e()
 const A=this.consume(2),t=!!(128&A[0]),r=15&A[0],s=!(128&~A[1]),i=!t&&r!==o.CONTINUATION,a=127&A[1],c=64&A[0],g=32&A[0],l=16&A[0]
 if(!B(r))return C(this.ws,"Invalid opcode received"),e()
 if(s)return C(this.ws,"Frame cannot be masked"),e()
-if(0!==c&&!this.#te.has("permessage-deflate"))return void C(this.ws,"Expected RSV1 to be clear.")
+if(0!==c&&!this.#se.has("permessage-deflate"))return void C(this.ws,"Expected RSV1 to be clear.")
 if(0!==g||0!==l)return void C(this.ws,"RSV1, RSV2, RSV3 must be clear")
 if(i&&!p(r))return void C(this.ws,"Invalid frame type was fragmented.")
-if(p(r)&&this.#Ae.length>0)return void C(this.ws,"Expected continuation frame")
-if(this.#ee.fragmented&&i)return void C(this.ws,"Fragmented frame exceeded 125 bytes.")
+if(p(r)&&this.#re.length>0)return void C(this.ws,"Expected continuation frame")
+if(this.#te.fragmented&&i)return void C(this.ws,"Fragmented frame exceeded 125 bytes.")
 if((a>125||i)&&f(r))return void C(this.ws,"Control frame either too large or fragmented")
-if(w(r)&&0===this.#Ae.length&&!this.#ee.compressed)return void C(this.ws,"Unexpected continuation frame")
-a<=125?(this.#ee.payloadLength=a,this.#f=n.READ_DATA):126===a?this.#f=n.PAYLOADLENGTH_16:127===a&&(this.#f=n.PAYLOADLENGTH_64),p(r)&&(this.#ee.binaryType=r,this.#ee.compressed=0!==c),this.#ee.opcode=r,this.#ee.masked=s,this.#ee.fin=t,this.#ee.fragmented=i}else if(this.#f===n.PAYLOADLENGTH_16){if(this.#$<2)return e()
+if(w(r)&&0===this.#re.length&&!this.#te.compressed)return void C(this.ws,"Unexpected continuation frame")
+a<=125?(this.#te.payloadLength=a,this.#f=n.READ_DATA):126===a?this.#f=n.PAYLOADLENGTH_16:127===a&&(this.#f=n.PAYLOADLENGTH_64),p(r)&&(this.#te.binaryType=r,this.#te.compressed=0!==c),this.#te.opcode=r,this.#te.masked=s,this.#te.fin=t,this.#te.fragmented=i}else if(this.#f===n.PAYLOADLENGTH_16){if(this.#ee<2)return e()
 const A=this.consume(2)
-this.#ee.payloadLength=A.readUInt16BE(0),this.#f=n.READ_DATA}else if(this.#f===n.PAYLOADLENGTH_64){if(this.#$<8)return e()
-const A=this.consume(8),t=A.readUInt32BE(0)
-if(t>2**31-1)return void C(this.ws,"Received payload length > 2^31 bytes.")
-const r=A.readUInt32BE(4)
-this.#ee.payloadLength=(t<<8)+r,this.#f=n.READ_DATA}else if(this.#f===n.READ_DATA){if(this.#$<this.#ee.payloadLength)return e()
-const A=this.consume(this.#ee.payloadLength)
-if(f(this.#ee.opcode))this.#K=this.parseControlFrame(A),this.#f=n.INFO
-else{if(this.#ee.compressed){this.#te.get("permessage-deflate").decompress(A,this.#ee.fin,(A,t)=>{if(A)m(this.ws,1007,A.message,A.message.length)
-else{if(this.#Ae.push(t),!this.#ee.fin)return this.#f=n.INFO,this.#K=!0,void this.run(e)
-I(this.ws,this.#ee.binaryType,Buffer.concat(this.#Ae)),this.#K=!0,this.#f=n.INFO,this.#Ae.length=0,this.run(e)}}),this.#K=!1
-break}if(this.#Ae.push(A),!this.#ee.fragmented&&this.#ee.fin){const e=Buffer.concat(this.#Ae)
-I(this.ws,this.#ee.binaryType,e),this.#Ae.length=0}this.#f=n.INFO}}}consume(e){if(e>this.#$)throw new Error("Called consume() before buffers satiated.")
+this.#te.payloadLength=A.readUInt16BE(0),this.#f=n.READ_DATA}else if(this.#f===n.PAYLOADLENGTH_64){if(this.#ee<8)return e()
+const A=this.consume(8),t=A.readUInt32BE(0),r=A.readUInt32BE(4)
+if(0!==t||r>2**31-1)return void C(this.ws,"Received payload length > 2^31 bytes.")
+this.#te.payloadLength=r,this.#f=n.READ_DATA}else if(this.#f===n.READ_DATA){if(this.#ee<this.#te.payloadLength)return e()
+const A=this.consume(this.#te.payloadLength)
+if(f(this.#te.opcode))this.#Ae=this.parseControlFrame(A),this.#f=n.INFO
+else{if(this.#te.compressed){this.#se.get("permessage-deflate").decompress(A,this.#te.fin,(A,t)=>{if(A)C(this.ws,A.message)
+else{if(this.#re.push(t),!this.#te.fin)return this.#f=n.INFO,this.#Ae=!0,void this.run(e)
+I(this.ws,this.#te.binaryType,Buffer.concat(this.#re)),this.#Ae=!0,this.#f=n.INFO,this.#re.length=0,this.run(e)}}),this.#Ae=!1
+break}if(this.#re.push(A),!this.#te.fragmented&&this.#te.fin){const e=Buffer.concat(this.#re)
+I(this.ws,this.#te.binaryType,e),this.#re.length=0}this.#f=n.INFO}}}consume(e){if(e>this.#ee)throw new Error("Called consume() before buffers satiated.")
 if(0===e)return a
-if(this.#X[0].length===e)return this.#$-=this.#X[0].length,this.#X.shift()
+if(this.#K[0].length===e)return this.#ee-=this.#K[0].length,this.#K.shift()
 const A=Buffer.allocUnsafe(e)
 let t=0
-for(;t!==e;){const r=this.#X[0],{length:s}=r
-if(s+t===e){A.set(this.#X.shift(),t)
-break}if(s+t>e){A.set(r.subarray(0,e-t),t),this.#X[0]=r.subarray(e-t)
-break}A.set(this.#X.shift(),t),t+=r.length}return this.#$-=e,A}parseCloseBody(e){let A
+for(;t!==e;){const r=this.#K[0],{length:s}=r
+if(s+t===e){A.set(this.#K.shift(),t)
+break}if(s+t>e){A.set(r.subarray(0,e-t),t),this.#K[0]=r.subarray(e-t)
+break}A.set(this.#K.shift(),t),t+=r.length}return this.#ee-=e,A}parseCloseBody(e){let A
 if(s(1!==e.length),e.length>=2&&(A=e.readUInt16BE(0)),void 0!==A&&!u(A))return{code:1002,reason:"Invalid status code",error:!0}
 let t=e.subarray(2)
 239===t[0]&&187===t[1]&&191===t[2]&&(t=t.subarray(3))
-try{t=d(t)}catch{return{code:1007,reason:"Invalid UTF-8",error:!0}}return{code:A,reason:t,error:!1}}parseControlFrame(e){const{opcode:A,payloadLength:t}=this.#ee
+try{t=d(t)}catch{return{code:1007,reason:"Invalid UTF-8",error:!0}}return{code:A,reason:t,error:!1}}parseControlFrame(e){const{opcode:A,payloadLength:t}=this.#te
 if(A===o.CLOSE){if(1===t)return C(this.ws,"Received close frame with a 1-byte body."),!1
-if(this.#ee.closeInfo=this.parseCloseBody(e),this.#ee.closeInfo.error){const{code:e,reason:A}=this.#ee.closeInfo
+if(this.#te.closeInfo=this.parseCloseBody(e),this.#te.closeInfo.error){const{code:e,reason:A}=this.#te.closeInfo
 return m(this.ws,e,A,A.length),C(this.ws,A),!1}if(this.ws[l]!==c.SENT){let e=a
-this.#ee.closeInfo.code&&(e=Buffer.allocUnsafe(2),e.writeUInt16BE(this.#ee.closeInfo.code,0))
+this.#te.closeInfo.code&&(e=Buffer.allocUnsafe(2),e.writeUInt16BE(this.#te.closeInfo.code,0))
 const A=new y(e)
 this.ws[h].socket.write(A.createFrame(o.CLOSE),e=>{e||(this.ws[l]=c.SENT)})}return this.ws[g]=i.CLOSING,this.ws[E]=!0,!1}if(A===o.PING){if(!this.ws[E]){const A=new y(e)
 this.ws[h].socket.write(A.createFrame(o.PONG)),Q.ping.hasSubscribers&&Q.ping.publish({payload:e})}}else A===o.PONG&&Q.pong.hasSubscribers&&Q.pong.publish({payload:e})
-return!0}get closingInfo(){return this.#ee.closeInfo}}}},2835(e,A,t){"use strict"
+return!0}get closingInfo(){return this.#te.closeInfo}}}},2835(e,A,t){"use strict"
 const{WebsocketFrameSend:r}=t(9817),{opcodes:s,sendHints:n}=t(7389),o=t(4895),i=Buffer[Symbol.species]
 function a(e,A){return new r(function(e,A){switch(A){case n.string:return Buffer.from(e)
 case n.arrayBuffer:case n.blob:return new i(e)
-case n.typedArray:return new i(e.buffer,e.byteOffset,e.byteLength)}}(e,A)).createFrame(A===n.string?s.TEXT:s.BINARY)}e.exports={SendQueue:class{#re=new o
-#se=!1
-#ne
-constructor(e){this.#ne=e}add(e,A,t){if(t!==n.blob){const r=a(e,t)
-if(this.#se){const e={promise:null,callback:A,frame:r}
-this.#re.push(e)}else this.#ne.write(r,A)
+case n.typedArray:return new i(e.buffer,e.byteOffset,e.byteLength)}}(e,A)).createFrame(A===n.string?s.TEXT:s.BINARY)}e.exports={SendQueue:class{#ne=new o
+#oe=!1
+#ie
+constructor(e){this.#ie=e}add(e,A,t){if(t!==n.blob){const r=a(e,t)
+if(this.#oe){const e={promise:null,callback:A,frame:r}
+this.#ne.push(e)}else this.#ie.write(r,A)
 return}const r={promise:e.arrayBuffer().then(e=>{r.promise=null,r.frame=a(e,t)}),callback:A,frame:null}
-this.#re.push(r),this.#se||this.#oe()}async#oe(){this.#se=!0
-const e=this.#re
+this.#ne.push(r),this.#oe||this.#ae()}async#ae(){this.#oe=!0
+const e=this.#ne
 for(;!e.isEmpty();){const A=e.shift()
-null!==A.promise&&await A.promise,this.#ne.write(A.frame,A.callback),A.callback=A.frame=null}this.#se=!1}}}},4617(e){"use strict"
+null!==A.promise&&await A.promise,this.#ie.write(A.frame,A.callback),A.callback=A.frame=null}this.#oe=!1}}}},4617(e){"use strict"
 e.exports={kWebSocketURL:Symbol("url"),kReadyState:Symbol("ready state"),kController:Symbol("controller"),kResponse:Symbol("response"),kBinaryType:Symbol("binary type"),kSentClose:Symbol("sent close"),kReceivedClose:Symbol("received close"),kByteParser:Symbol("byte parser")}},7026(e,A,t){"use strict"
 const{kReadyState:r,kController:s,kResponse:n,kBinaryType:o,kWebSocketURL:i}=t(4617),{states:a,opcodes:c}=t(7389),{ErrorEvent:g,createFastMessageEvent:l}=t(7707),{isUtf8:h}=t(4573),{collectASequenceOfCodePointsFast:E,removeHTTPWhitespace:Q}=t(2899)
 function u(e,A,t=(e,A)=>new Event(e,A),r={}){const s=t(e,r)
@@ -2537,14 +2547,17 @@ if(A===c.TEXT)try{s=w(t)}catch{return void B(e,"Received invalid UTF-8 in text f
 return e.buffer.slice(e.byteOffset,e.byteOffset+e.byteLength)}(t))
 u("message",e,l,{origin:e[i].origin,data:s})},utf8Decode:w,isControlFrame:C,isContinuationFrame:I,isTextBinaryFrame:d,isValidOpcode:function(e){return d(e)||I(e)||C(e)},parseExtensions:function(e){const A={position:0},t=new Map
 for(;A.position<e.length;){const r=E(";",e,A),[s,n=""]=r.split("=")
-t.set(Q(s,!0,!1),Q(n,!1,!0)),A.position++}return t},isValidClientWindowBits:function(e){for(let A=0;A<e.length;A++){const t=e.charCodeAt(A)
-if(t<48||t>57)return!1}return!0}}},8055(e,A,t){"use strict"
+t.set(Q(s,!0,!1),Q(n,!1,!0)),A.position++}return t},isValidClientWindowBits:function(e){if(0===e.length)return!1
+for(let A=0;A<e.length;A++){const t=e.charCodeAt(A)
+if(t<48||t>57)return!1}const A=Number.parseInt(e,10)
+return A>=8&&A<=15}}},8055(e,A,t){"use strict"
 const{webidl:r}=t(2306),{URLSerializer:s}=t(2899),{environmentSettingsObject:n}=t(479),{staticPropertyDescriptors:o,states:i,sentCloseFrameState:a,sendHints:c}=t(7389),{kWebSocketURL:g,kReadyState:l,kController:h,kBinaryType:E,kResponse:Q,kSentClose:u,kByteParser:B}=t(4617),{isConnecting:C,isEstablished:I,isClosing:d,isValidSubprotocol:f,fireEvent:p}=t(7026),{establishWebSocketConnection:w,closeWebSocketConnection:y}=t(242),{ByteParser:m}=t(4951),{kEnumerableProperty:D,isBlobLike:k}=t(7017),{getGlobalDispatcher:R}=t(1914),{types:b}=t(7975),{ErrorEvent:F,CloseEvent:S}=t(7707),{SendQueue:N}=t(2835)
 class M extends EventTarget{#T={open:null,error:null,close:null,message:null}
-#ie=0
-#ae=""
-#te=""
-#ce
+#ce=0
+#ge=""
+#se=""
+#le
+#E
 constructor(e,A=[]){super(),r.util.markAsUncloneable(this)
 const t="WebSocket constructor"
 r.argumentLengthCheck(arguments,1,t)
@@ -2556,9 +2569,9 @@ try{i=new URL(e,o)}catch(e){throw new DOMException(e,"SyntaxError")}if("http:"==
 if(i.hash||i.href.endsWith("#"))throw new DOMException("Got fragment","SyntaxError")
 if("string"==typeof A&&(A=[A]),A.length!==new Set(A.map(e=>e.toLowerCase())).size)throw new DOMException("Invalid Sec-WebSocket-Protocol value","SyntaxError")
 if(A.length>0&&!A.every(e=>f(e)))throw new DOMException("Invalid Sec-WebSocket-Protocol value","SyntaxError")
-this[g]=new URL(i.href)
+this[g]=new URL(i.href),this.#E={maxDecompressedMessageSize:s.maxDecompressedMessageSize}
 const c=n.settingsObject
-this[h]=w(i,A,c,this,(e,A)=>this.#ge(e,A),s),this[l]=M.CONNECTING,this[u]=a.NOT_SENT,this[E]="blob"}close(e=void 0,A=void 0){r.brandCheck(this,M)
+this[h]=w(i,A,c,this,(e,A)=>this.#he(e,A),s),this[l]=M.CONNECTING,this[u]=a.NOT_SENT,this[E]="blob"}close(e=void 0,A=void 0){r.brandCheck(this,M)
 const t="WebSocket.close"
 if(void 0!==e&&(e=r.converters["unsigned short"](e,t,"code",{clamp:!0})),void 0!==A&&(A=r.converters.USVString(A,t,"reason")),void 0!==e&&1e3!==e&&(e<3e3||e>4999))throw new DOMException("invalid code","InvalidAccessError")
 let s=0
@@ -2567,14 +2580,15 @@ y(this,e,A,s)}send(e){r.brandCheck(this,M)
 const A="WebSocket.send"
 if(r.argumentLengthCheck(arguments,1,A),e=r.converters.WebSocketSendData(e,A,"data"),C(this))throw new DOMException("Sent before connected.","InvalidStateError")
 if(I(this)&&!d(this))if("string"==typeof e){const A=Buffer.byteLength(e)
-this.#ie+=A,this.#ce.add(e,()=>{this.#ie-=A},c.string)}else b.isArrayBuffer(e)?(this.#ie+=e.byteLength,this.#ce.add(e,()=>{this.#ie-=e.byteLength},c.arrayBuffer)):ArrayBuffer.isView(e)?(this.#ie+=e.byteLength,this.#ce.add(e,()=>{this.#ie-=e.byteLength},c.typedArray)):k(e)&&(this.#ie+=e.size,this.#ce.add(e,()=>{this.#ie-=e.size},c.blob))}get readyState(){return r.brandCheck(this,M),this[l]}get bufferedAmount(){return r.brandCheck(this,M),this.#ie}get url(){return r.brandCheck(this,M),s(this[g])}get extensions(){return r.brandCheck(this,M),this.#te}get protocol(){return r.brandCheck(this,M),this.#ae}get onopen(){return r.brandCheck(this,M),this.#T.open}set onopen(e){r.brandCheck(this,M),this.#T.open&&this.removeEventListener("open",this.#T.open),"function"==typeof e?(this.#T.open=e,this.addEventListener("open",e)):this.#T.open=null}get onerror(){return r.brandCheck(this,M),this.#T.error}set onerror(e){r.brandCheck(this,M),this.#T.error&&this.removeEventListener("error",this.#T.error),"function"==typeof e?(this.#T.error=e,this.addEventListener("error",e)):this.#T.error=null}get onclose(){return r.brandCheck(this,M),this.#T.close}set onclose(e){r.brandCheck(this,M),this.#T.close&&this.removeEventListener("close",this.#T.close),"function"==typeof e?(this.#T.close=e,this.addEventListener("close",e)):this.#T.close=null}get onmessage(){return r.brandCheck(this,M),this.#T.message}set onmessage(e){r.brandCheck(this,M),this.#T.message&&this.removeEventListener("message",this.#T.message),"function"==typeof e?(this.#T.message=e,this.addEventListener("message",e)):this.#T.message=null}get binaryType(){return r.brandCheck(this,M),this[E]}set binaryType(e){r.brandCheck(this,M),this[E]="blob"!==e&&"arraybuffer"!==e?"blob":e}#ge(e,A){this[Q]=e
-const t=new m(this,A)
-t.on("drain",U),t.on("error",L.bind(this)),e.socket.ws=this,this[B]=t,this.#ce=new N(e.socket),this[l]=i.OPEN
+this.#ce+=A,this.#le.add(e,()=>{this.#ce-=A},c.string)}else b.isArrayBuffer(e)?(this.#ce+=e.byteLength,this.#le.add(e,()=>{this.#ce-=e.byteLength},c.arrayBuffer)):ArrayBuffer.isView(e)?(this.#ce+=e.byteLength,this.#le.add(e,()=>{this.#ce-=e.byteLength},c.typedArray)):k(e)&&(this.#ce+=e.size,this.#le.add(e,()=>{this.#ce-=e.size},c.blob))}get readyState(){return r.brandCheck(this,M),this[l]}get bufferedAmount(){return r.brandCheck(this,M),this.#ce}get url(){return r.brandCheck(this,M),s(this[g])}get extensions(){return r.brandCheck(this,M),this.#se}get protocol(){return r.brandCheck(this,M),this.#ge}get onopen(){return r.brandCheck(this,M),this.#T.open}set onopen(e){r.brandCheck(this,M),this.#T.open&&this.removeEventListener("open",this.#T.open),"function"==typeof e?(this.#T.open=e,this.addEventListener("open",e)):this.#T.open=null}get onerror(){return r.brandCheck(this,M),this.#T.error}set onerror(e){r.brandCheck(this,M),this.#T.error&&this.removeEventListener("error",this.#T.error),"function"==typeof e?(this.#T.error=e,this.addEventListener("error",e)):this.#T.error=null}get onclose(){return r.brandCheck(this,M),this.#T.close}set onclose(e){r.brandCheck(this,M),this.#T.close&&this.removeEventListener("close",this.#T.close),"function"==typeof e?(this.#T.close=e,this.addEventListener("close",e)):this.#T.close=null}get onmessage(){return r.brandCheck(this,M),this.#T.message}set onmessage(e){r.brandCheck(this,M),this.#T.message&&this.removeEventListener("message",this.#T.message),"function"==typeof e?(this.#T.message=e,this.addEventListener("message",e)):this.#T.message=null}get binaryType(){return r.brandCheck(this,M),this[E]}set binaryType(e){r.brandCheck(this,M),this[E]="blob"!==e&&"arraybuffer"!==e?"blob":e}#he(e,A){this[Q]=e
+const t=new m(this,A,this.#E)
+t.on("drain",U),t.on("error",L.bind(this)),e.socket.ws=this,this[B]=t,this.#le=new N(e.socket),this[l]=i.OPEN
 const r=e.headersList.get("sec-websocket-extensions")
-null!==r&&(this.#te=r)
+null!==r&&(this.#se=r)
 const s=e.headersList.get("sec-websocket-protocol")
-null!==s&&(this.#ae=s),p("open",this)}}function U(){this.ws[Q].socket.resume()}function L(e){let A,t
-e instanceof S?(A=e.reason,t=e.code):A=e.message,p("error",this,()=>new F("error",{error:e,message:A})),y(this,t)}M.CONNECTING=M.prototype.CONNECTING=i.CONNECTING,M.OPEN=M.prototype.OPEN=i.OPEN,M.CLOSING=M.prototype.CLOSING=i.CLOSING,M.CLOSED=M.prototype.CLOSED=i.CLOSED,Object.defineProperties(M.prototype,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o,url:D,readyState:D,bufferedAmount:D,onopen:D,onerror:D,onclose:D,close:D,onmessage:D,binaryType:D,send:D,extensions:D,protocol:D,[Symbol.toStringTag]:{value:"WebSocket",writable:!1,enumerable:!1,configurable:!0}}),Object.defineProperties(M,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o}),r.converters["sequence<DOMString>"]=r.sequenceConverter(r.converters.DOMString),r.converters["DOMString or sequence<DOMString>"]=function(e,A,t){return"Object"===r.util.Type(e)&&Symbol.iterator in e?r.converters["sequence<DOMString>"](e):r.converters.DOMString(e,A,t)},r.converters.WebSocketInit=r.dictionaryConverter([{key:"protocols",converter:r.converters["DOMString or sequence<DOMString>"],defaultValue:()=>new Array(0)},{key:"dispatcher",converter:r.converters.any,defaultValue:()=>R()},{key:"headers",converter:r.nullableConverter(r.converters.HeadersInit)}]),r.converters["DOMString or sequence<DOMString> or WebSocketInit"]=function(e){return"Object"!==r.util.Type(e)||Symbol.iterator in e?{protocols:r.converters["DOMString or sequence<DOMString>"](e)}:r.converters.WebSocketInit(e)},r.converters.WebSocketSendData=function(e){if("Object"===r.util.Type(e)){if(k(e))return r.converters.Blob(e,{strict:!1})
+null!==s&&(this.#ge=s),p("open",this)}}function U(){this.ws[Q].socket.resume()}function L(e){let A,t
+e instanceof S?(A=e.reason,t=e.code):A=e.message,p("error",this,()=>new F("error",{error:e,message:A})),y(this,t)}M.CONNECTING=M.prototype.CONNECTING=i.CONNECTING,M.OPEN=M.prototype.OPEN=i.OPEN,M.CLOSING=M.prototype.CLOSING=i.CLOSING,M.CLOSED=M.prototype.CLOSED=i.CLOSED,Object.defineProperties(M.prototype,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o,url:D,readyState:D,bufferedAmount:D,onopen:D,onerror:D,onclose:D,close:D,onmessage:D,binaryType:D,send:D,extensions:D,protocol:D,[Symbol.toStringTag]:{value:"WebSocket",writable:!1,enumerable:!1,configurable:!0}}),Object.defineProperties(M,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o}),r.converters["sequence<DOMString>"]=r.sequenceConverter(r.converters.DOMString),r.converters["DOMString or sequence<DOMString>"]=function(e,A,t){return"Object"===r.util.Type(e)&&Symbol.iterator in e?r.converters["sequence<DOMString>"](e):r.converters.DOMString(e,A,t)},r.converters.WebSocketInit=r.dictionaryConverter([{key:"protocols",converter:r.converters["DOMString or sequence<DOMString>"],defaultValue:()=>new Array(0)},{key:"dispatcher",converter:r.converters.any,defaultValue:()=>R()},{key:"headers",converter:r.nullableConverter(r.converters.HeadersInit)},{key:"maxDecompressedMessageSize",converter:r.nullableConverter(e=>{if((e=r.converters["unsigned long long"](e))<=0)throw r.errors.exception({header:"WebSocket constructor",message:"maxDecompressedMessageSize must be greater than 0"})
+return e})}]),r.converters["DOMString or sequence<DOMString> or WebSocketInit"]=function(e){return"Object"!==r.util.Type(e)||Symbol.iterator in e?{protocols:r.converters["DOMString or sequence<DOMString>"](e)}:r.converters.WebSocketInit(e)},r.converters.WebSocketSendData=function(e){if("Object"===r.util.Type(e)){if(k(e))return r.converters.Blob(e,{strict:!1})
 if(ArrayBuffer.isView(e)||b.isArrayBuffer(e))return r.converters.BufferSource(e)}return r.converters.USVString(e)},e.exports={WebSocket:M}},2613(e){"use strict"
 e.exports=require("assert")},4434(e){"use strict"
 e.exports=require("events")},9896(e){"use strict"
