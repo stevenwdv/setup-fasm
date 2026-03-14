@@ -30,7 +30,7 @@
 		"@types/webpack": "^5.28.5",
 		"eslint": "^10.0.1",
 		"husky": "^9.1.7",
-		"terser-webpack-plugin": "^5.3.16",
+		"terser-webpack-plugin": "^5.4.0",
 		"ts-loader": "^9.5.4",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.3",
