@@ -2881,26 +2881,26 @@ if(["true","True","TRUE"].includes(t))return!0
 if(["false","False","FALSE"].includes(t))return!1
 throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${e}\nSupport boolean input list: \`true | True | TRUE | false | False | FALSE\``)}function xe(e,A){if(process.env.GITHUB_OUTPUT||"")return b("OUTPUT",F(e,A))
 process.stdout.write(d.EOL),w("set-output",{name:e},f(A))}function Je(e){process.exitCode=ve.Failure,function(e,A={}){w("error",p(A),e instanceof Error?e.toString():e)}(e)}function He(){return"1"===process.env.RUNNER_DEBUG}function Ve(e){w("debug",{},e)}function Oe(e,A={}){w("warning",p(A),e instanceof Error?e.toString():e)}function We(e){process.stdout.write(e+d.EOL)}function Pe(e){y("group",e)}function qe(){y("endgroup")}!function(e){e[e.Success=0]="Success",e[e.Failure=1]="Failure"}(ve||(ve={}))
-var _e=s(4573),Ze=s(8926)
-const ze=new WeakMap
-function je(...e){const A=new String(e)
-return ze.set(A,e),A}function Xe(e){return e instanceof String&&ze.has(e)}function $e(e){return ze.get(e)??[]}var Ke=s(5753),eA=s(8100)
-function*AA(e,A){const t="global"===A
-for(const A of e)A.isGlobal===t&&(yield A)}const tA=new Set(["--add","--edit","--remove-section","--rename-section","--replace-all","--unset","--unset-all","-e"]),rA=new Set(["--get","--get-all","--get-color","--get-colorbool","--get-regexp","--get-urlmatch","--list","-l"]),sA=new Set(["edit","remove-section","rename-section","set","unset"]),nA=new Set(["get","get-color","get-colorbool","list"])
-function oA(e=!1,A=[]){const t=A.at(0)?.toLowerCase()
-return void 0===t?null:{isWrite:e,isRead:!e,key:t,value:A.at(1)}}function iA(e){const A=e?.indexOf("=")||-1
-return!e||A<0?null:{key:e.slice(0,A).trim().toLowerCase(),value:e.slice(A+1)}}function aA({name:e}){return"-c"===e||"--config"===e?"inline":"--config-env"===e?"env":void 0}function*cA(e){for(const A of e){const e=aA(A),t=e&&iA(A.value)
-t&&(yield{...t,scope:e})}}function gA(e,A,t){const r={read:[],write:[...cA(A)]}
+var _e=s(8926)
+const Ze=new WeakMap
+function ze(...e){const A=new String(e)
+return Ze.set(A,e),A}function je(e){return e instanceof String&&Ze.has(e)}function Xe(e){return Ze.get(e)??[]}var $e=s(5753),Ke=s(8100)
+function*eA(e,A){const t="global"===A
+for(const A of e)A.isGlobal===t&&(yield A)}const AA=new Set(["--add","--edit","--remove-section","--rename-section","--replace-all","--unset","--unset-all","-e"]),tA=new Set(["--get","--get-all","--get-color","--get-colorbool","--get-regexp","--get-urlmatch","--list","-l"]),rA=new Set(["edit","remove-section","rename-section","set","unset"]),sA=new Set(["get","get-color","get-colorbool","list"])
+function nA(e=!1,A=[]){const t=A.at(0)?.toLowerCase()
+return void 0===t?null:{isWrite:e,isRead:!e,key:t,value:A.at(1)}}function oA(e){const A=e?.indexOf("=")||-1
+return!e||A<0?null:{key:e.slice(0,A).trim().toLowerCase(),value:e.slice(A+1)}}function iA({name:e}){return"-c"===e||"--config"===e?"inline":"--config-env"===e?"env":void 0}function*aA(e){for(const A of e){const e=iA(A),t=e&&oA(A.value)
+t&&(yield{...t,scope:e})}}function cA(e,A,t){const r={read:[],write:[...aA(A)]}
 return"config"===e&&function(e,A,t){if(null===t)return
 const r=function(e,A){return A.isWrite&&void 0!==A.value?{key:A.key,value:A.value,scope:e}:{key:A.key,scope:e}}(A,t)
-t.isWrite?e.write.push(r):e.read.push(r)}(r,function(e){for(const{name:A}of AA(e,"task"))switch(A){case"--global":return"global"
+t.isWrite?e.write.push(r):e.read.push(r)}(r,function(e){for(const{name:A}of eA(e,"task"))switch(A){case"--global":return"global"
 case"--system":return"system"
 case"--worktree":return"worktree"
 case"--local":return"local"
-case"--file":case"-f":return"file"}return"local"}(A),function(e,A){for(const{name:t}of AA(e,"task")){if(tA.has(t))return oA(!0,A)
-if(rA.has(t))return oA(!1,A)}const t=A.at(0)?.toLowerCase()
-return void 0===t?null:sA.has(t)?oA(!0,A.slice(1)):nA.has(t)?oA(!1,A.slice(1)):1===A.length?oA(!1,A):oA(!0,A)}(A,t)),r}const lA={short:new Map([["c",!0]])},hA={short:new Map([["C",!0],["P",!1],["h",!1],["p",!1],["v",!1],...lA.short.entries()]),long:new Set(["attr-source","config-env","exec-path","git-dir","list-cmds","namespace","super-prefix","work-tree"])},EA={clone:{short:new Map([["b",!0],["j",!0],["l",!1],["n",!1],["o",!0],["q",!1],["s",!1],["u",!0]]),long:new Set(["branch","config","jobs","origin","upload-pack","u"])},commit:{short:new Map([["C",!0],["F",!0],["c",!0],["m",!0],["t",!0]]),long:new Set(["file","message","reedit-message","reuse-message","template"])},config:{short:new Map([["e",!1],["f",!0],["l",!1]]),long:new Set(["blob","comment","default","file","type","value"])},fetch:{short:new Map,long:new Set(["upload-pack"])},pull:{short:new Map,long:new Set(["upload-pack"])},push:{short:new Map,long:new Set(["exec","receive-pack"])}},QA={short:new Map,long:new Set}
-function uA(e,A=hA){if(e.startsWith("--")){const t=e.indexOf("=")
+case"--file":case"-f":return"file"}return"local"}(A),function(e,A){for(const{name:t}of eA(e,"task")){if(AA.has(t))return nA(!0,A)
+if(tA.has(t))return nA(!1,A)}const t=A.at(0)?.toLowerCase()
+return void 0===t?null:rA.has(t)?nA(!0,A.slice(1)):sA.has(t)?nA(!1,A.slice(1)):1===A.length?nA(!1,A):nA(!0,A)}(A,t)),r}const gA={short:new Map([["c",!0]])},lA={short:new Map([["C",!0],["P",!1],["h",!1],["p",!1],["v",!1],...gA.short.entries()]),long:new Set(["attr-source","config-env","exec-path","git-dir","list-cmds","namespace","super-prefix","work-tree"])},hA={clone:{short:new Map([["b",!0],["j",!0],["l",!1],["n",!1],["o",!0],["q",!1],["s",!1],["u",!0]]),long:new Set(["branch","config","jobs","origin","upload-pack","u","template"])},commit:{short:new Map([["C",!0],["F",!0],["c",!0],["m",!0],["t",!0]]),long:new Set(["file","message","reedit-message","reuse-message","template"])},config:{short:new Map([["e",!1],["f",!0],["l",!1]]),long:new Set(["blob","comment","default","file","type","value"])},fetch:{short:new Map,long:new Set(["upload-pack"])},init:{short:new Map,long:new Set(["template"])},pull:{short:new Map,long:new Set(["upload-pack"])},push:{short:new Map,long:new Set(["exec","receive-pack"])}},EA={short:new Map,long:new Set}
+function QA(e,A=lA){if(e.startsWith("--")){const t=e.indexOf("=")
 if(t>2)return[{name:e.slice(0,t),value:e.slice(t+1),needsNext:!1}]
 const r=e.slice(2)
 return[{name:e,needsNext:A.long.has(r)}]}if(2===e.length){const t=e.charAt(1)
@@ -2908,287 +2908,295 @@ return[{name:e,needsNext:!0===A.short.get(t)}]}return function(e,A){const t=e.sl
 for(let s=0;s<t.length;s++){const n=t[s],o=A.get(n)
 if(void 0===o)return[{name:e,needsNext:!1}]
 if(o){const e=t.slice(s+1).join("")
-if(e&&![...e].every(e=>A.has(e)))return r.push({name:`-${n}`,value:e,needsNext:!1}),r}r.push({name:`-${n}`,needsNext:o})}return r}(e,A.short)}function BA(e,A,t=[]){const r=function(e){const A=EA[e??""]??QA
-return{short:new Map([...lA.short.entries(),...A.short.entries()]),long:A.long}}(A),s=[],n=[]
+if(e&&![...e].every(e=>A.has(e)))return r.push({name:`-${n}`,value:e,needsNext:!1}),r}r.push({name:`-${n}`,needsNext:o})}return r}(e,A.short)}function uA(e,A,t=[]){const r=function(e){const A=hA[e??""]??EA
+return{short:new Map([...gA.short.entries(),...A.short.entries()]),long:A.long}}(A),s=[],n=[]
 let o=0
 for(;o<e.length;){const A=e[o]
-if(Xe(A)){n.push(...$e(A)),o++
+if(je(A)){n.push(...Xe(A)),o++
 continue}const i=String(A)
 if("--"===i){for(let A=o+1;A<e.length;A++){const t=e[A]
-Xe(t)?n.push(...$e(t)):n.push(String(t))}break}if(!i.startsWith("-")||i.length<2){s.push(i),o++
-continue}const a=uA(i,r)
+je(t)?n.push(...Xe(t)):n.push(String(t))}break}if(!i.startsWith("-")||i.length<2){s.push(i),o++
+continue}const a=QA(i,r)
 let c=o+1
 for(const A of a){const r={name:A.name,value:A.value,absorbedNext:!1,isGlobal:!1}
-A.needsNext&&void 0===r.value&&c<e.length&&!Xe(e[c])&&(r.value=String(e[c]),r.absorbedNext=!0,c++),t.push(r)}o=c}return{flags:t,positionals:s,pathspecs:n}}function*CA({write:e}){for(const A of e)for(const e of dA){const t=e(A.key)
-t&&(yield t)}}function IA(e,A,t=String(e)){const r="string"==typeof e?new RegExp(`\\s*${e}`,"i"):e
-return function(e){if(r.test(e))return{category:A,message:`Configuring ${t} is not permitted without enabling ${A}`}}}const dA=[IA(/^\s*protocol(.[a-z]+)?.allow/i,"allowUnsafeProtocolOverride","protocol.allow"),IA("core.sshCommand","allowUnsafeSshCommand"),IA("core.fsmonitor","allowUnsafeFsMonitor"),IA("core.gitProxy","allowUnsafeGitProxy"),IA("core.hooksPath","allowUnsafeHooksPath"),IA("diff.external","allowUnsafeDiffExternal")]
-function*fA(e,A){for(const t of A)/^--(upload|receive)-pack/.test(t.name)&&(yield{category:"allowUnsafePack",message:"Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack"}),"clone"===e&&(/^-\w*u/.test(t.name)||"--u"===t.name)&&(yield{category:"allowUnsafePack",message:"Use of clone with option -u is not permitted without enabling allowUnsafePack"}),"push"===e&&/^--exec/.test(t.name)&&(yield{category:"allowUnsafePack",message:"Use of push with option --exec is not permitted without enabling allowUnsafePack"})}function pA(e,A,t){const r=[...fA(e,A),...CA(t)]
-return{categories:r.reduce((e,A)=>e.add(A.category),new Set),vulnerabilities:r}}function wA(...e){const{flags:A,taskIndex:t}=function(e,A=[]){let t=0
+A.needsNext&&void 0===r.value&&c<e.length&&!je(e[c])&&(r.value=String(e[c]),r.absorbedNext=!0,c++),t.push(r)}o=c}return{flags:t,positionals:s,pathspecs:n}}function*BA({write:e}){for(const A of e)for(const e of dA){const t=e(A.key)
+t&&(yield t)}}function CA(e,A,t=String(e)){const r="string"==typeof e?new RegExp(`\\s*${e.toLowerCase()}`):e
+return function(e){if(r.test(e))return{category:A,message:`Configuring ${t} is not permitted without enabling ${A}`}}}function IA(e,A){return CA(new RegExp(`\\s*${e.toLowerCase().replace(/\./g,"(..+)?.")}`),A,e)}const dA=[CA("alias","allowUnsafeAlias"),CA("core.askPass","allowUnsafeAskPass"),CA("core.editor","allowUnsafeEditor"),CA("core.fsmonitor","allowUnsafeFsMonitor"),CA("core.gitProxy","allowUnsafeGitProxy"),CA("core.hooksPath","allowUnsafeHooksPath"),CA("core.pager","allowUnsafePager"),CA("core.sshCommand","allowUnsafeSshCommand"),IA("credential.helper","allowUnsafeCredentialHelper"),IA("diff.command","allowUnsafeDiffExternal"),CA("diff.external","allowUnsafeDiffExternal"),IA("diff.textconv","allowUnsafeDiffTextConv"),IA("filter.clean","allowUnsafeFilter"),IA("filter.smudge","allowUnsafeFilter"),IA("gpg.program","allowUnsafeGpgProgram"),CA("init.templateDir","allowUnsafeTemplateDir"),IA("merge.driver","allowUnsafeMergeDriver"),IA("mergetool.path","allowUnsafeMergeDriver"),IA("mergetool.cmd","allowUnsafeMergeDriver"),IA("protocol.allow","allowUnsafeProtocolOverride"),IA("remote.receivepack","allowUnsafePack"),IA("remote.uploadpack","allowUnsafePack"),CA("sequence.editor","allowUnsafeEditor")]
+function*fA(e,A){for(const t of A)for(const A of wA){const r=A(e,t.name)
+r&&(yield r)}}function pA(e,A,t,r=String(A)){const s="string"==typeof A?new RegExp(`\\s*${A.toLowerCase()}`):A,n=`Use of ${e?`${e} with option `:""}${r} is not permitted without enabling ${t}`
+return function(A,r){if((!e||A===e)&&s.test(r))return{category:t,message:n}}}const wA=[pA(null,/--(upload|receive)-pack/,"allowUnsafePack","--upload-pack or --receive-pack"),pA("clone",/^-\w*u/,"allowUnsafePack"),pA("clone","--u","allowUnsafePack"),pA("push","--exec","allowUnsafePack"),pA(null,"--template","allowUnsafeTemplateDir")]
+function yA(e,A,t){return[...fA(e,A),...BA(t)]}function mA(...e){const{flags:A,taskIndex:t}=function(e,A=[]){let t=0
 for(;t<e.length;){const r=String(e[t])
 if(!r.startsWith("-")||r.length<2)break
-const s=uA(r)
+const s=QA(r)
 let n=t+1
 for(const t of s){const r={name:t.name,value:t.value,absorbedNext:!1,isGlobal:!0}
-t.needsNext&&void 0===r.value&&n<e.length&&(r.value=String(e[n]),r.absorbedNext=!0,n++),A.push(r)}t=n}return{flags:A,taskIndex:t}}(e),r=t<e.length?String(e[t]).toLowerCase():null,s=null!==r?e.slice(t+1):[],{positionals:n,pathspecs:o}=BA(s,r,A),i=gA(r,A,n)
-return{task:r,flags:A.map(yA),paths:o,config:i,vulnerabilities:pA(r,A,i)}}function yA({value:e,name:A}){return void 0!==e?{name:A,value:e}:{name:A}}var mA,DA,kA,RA,bA,FA,SA=s(8474),NA=Object.defineProperty,MA=Object.getOwnPropertyDescriptor,UA=Object.getOwnPropertyNames,LA=Object.prototype.hasOwnProperty,TA=(e,A)=>function(){return e&&(A=(0,e[UA(e)[0]])(e=0)),A},vA=(e,A)=>{for(var t in A)NA(e,t,{get:A[t],enumerable:!0})},GA=e=>((e,A,t,r)=>{if(A&&"object"==typeof A||"function"==typeof A)for(let s of UA(A))LA.call(e,s)||s===t||NA(e,s,{get:()=>A[s],enumerable:!(r=MA(A,s))||r.enumerable})
-return e})(NA({},"__esModule",{value:!0}),e),YA=TA({"src/lib/errors/git-error.ts"(){mA=class extends Error{constructor(e,A){super(A),this.task=e,Object.setPrototypeOf(this,new.target.prototype)}}}}),xA=TA({"src/lib/errors/git-response-error.ts"(){YA(),DA=class extends mA{constructor(e,A){super(void 0,A||String(e)),this.git=e}}}}),JA=TA({"src/lib/errors/task-configuration-error.ts"(){YA(),kA=class extends mA{constructor(e){super(void 0,e)}}}})
-function HA(e){return"function"!=typeof e?bA:e}function VA(e){return"function"==typeof e&&e!==bA}function OA(e,A){const t=e.indexOf(A)
-return t<=0?[e,""]:[e.substr(0,t),e.substr(t+1)]}function WA(e,A=0){return qA(e)&&e.length>A?e[A]:void 0}function PA(e,A=0){if(qA(e)&&e.length>A)return e[e.length-1-A]}function qA(e){return ht(e)}function _A(e="",A=!0,t="\n"){return e.split(t).reduce((e,t)=>{const r=A?t.trim():t
-return r&&e.push(r),e},[])}function ZA(e,A){return _A(e,!0).map(e=>A(e))}function zA(e){return(0,Ze.exists)(e,Ze.FOLDER)}function jA(e,A){return Array.isArray(e)?e.includes(A)||e.push(A):e.add(A),A}function XA(e,A){return Array.isArray(e)&&!e.includes(A)&&e.push(A),e}function $A(e,A){if(Array.isArray(e)){const t=e.indexOf(A)
+t.needsNext&&void 0===r.value&&n<e.length&&(r.value=String(e[n]),r.absorbedNext=!0,n++),A.push(r)}t=n}return{flags:A,taskIndex:t}}(e),r=t<e.length?String(e[t]).toLowerCase():null,s=null!==r?e.slice(t+1):[],{positionals:n,pathspecs:o}=uA(s,r,A),i=cA(r,A,n)
+return{task:r,flags:A.map(DA),paths:o,config:i,vulnerabilities:yA(r,A,i)}}function DA({value:e,name:A}){return void 0!==e?{name:A,value:e}:{name:A}}const kA={editor:"allowUnsafeEditor",git_askpass:"allowUnsafeAskPass",git_config_global:"allowUnsafeConfigPaths",git_config_system:"allowUnsafeConfigPaths",git_config_count:"allowUnsafeConfigEnvCount",git_config:"allowUnsafeConfigPaths",git_editor:"allowUnsafeEditor",git_exec_path:"allowUnsafeConfigPaths",git_external_diff:"allowUnsafeDiffExternal",git_pager:"allowUnsafePager",git_proxy_command:"allowUnsafeGitProxy",git_template_dir:"allowUnsafeTemplateDir",git_sequence_editor:"allowUnsafeEditor",git_ssh:"allowUnsafeSshCommand",git_ssh_command:"allowUnsafeSshCommand",pager:"allowUnsafePager",prefix:"allowUnsafeConfigPaths",ssh_askpass:"allowUnsafeAskPass"}
+function*RA(e){const A=parseInt(e.git_config_count??"0",10)
+for(let t=0;t<A;t++){const A=e[`git_config_key_${t}`],r=e[`git_config_value_${t}`]
+void 0!==A&&(yield{key:A.toLowerCase().trim(),value:r,scope:"env"})}}function*bA(e){for(const A of Object.keys(e))if(FA(A)){const e=kA[A]
+yield{category:e,message:`Use of "${A.toUpperCase()}" is not permitted without enabling ${e}`}}}function FA(e){return Object.hasOwn(kA,e)}function SA(e){const A=function(e){const A={}
+for(const[t,r]of Object.entries(e)){const e=t.toLowerCase().trim();(FA(e)||e.startsWith("git"))&&(A[e]=String(r))}return A}(e),t={read:[],write:[...RA(A)]}
+return{config:t,vulnerabilities:[...bA(A),...yA(null,[],t)]}}var NA,MA,UA,LA,TA,vA,GA=s(8474),YA=Object.defineProperty,xA=Object.getOwnPropertyDescriptor,JA=Object.getOwnPropertyNames,HA=Object.prototype.hasOwnProperty,VA=(e,A)=>function(){return e&&(A=(0,e[JA(e)[0]])(e=0)),A},OA=(e,A)=>{for(var t in A)YA(e,t,{get:A[t],enumerable:!0})},WA=e=>((e,A,t,r)=>{if(A&&"object"==typeof A||"function"==typeof A)for(let s of JA(A))HA.call(e,s)||s===t||YA(e,s,{get:()=>A[s],enumerable:!(r=xA(A,s))||r.enumerable})
+return e})(YA({},"__esModule",{value:!0}),e),PA=VA({"src/lib/errors/git-error.ts"(){NA=class extends Error{constructor(e,A){super(A),this.task=e,Object.setPrototypeOf(this,new.target.prototype)}}}}),qA=VA({"src/lib/errors/git-response-error.ts"(){PA(),MA=class extends NA{constructor(e,A){super(void 0,A||String(e)),this.git=e}}}}),_A=VA({"src/lib/errors/task-configuration-error.ts"(){PA(),UA=class extends NA{constructor(e){super(void 0,e)}}}})
+function ZA(e){return"function"!=typeof e?TA:e}function zA(e){return"function"==typeof e&&e!==TA}function jA(e,A){const t=e.indexOf(A)
+return t<=0?[e,""]:[e.substr(0,t),e.substr(t+1)]}function XA(e,A=0){return KA(e)&&e.length>A?e[A]:void 0}function $A(e,A=0){if(KA(e)&&e.length>A)return e[e.length-1-A]}function KA(e){return dt(e)}function et(e="",A=!0,t="\n"){return e.split(t).reduce((e,t)=>{const r=A?t.trim():t
+return r&&e.push(r),e},[])}function At(e,A){return et(e,!0).map(e=>A(e))}function tt(e){return(0,_e.exists)(e,_e.FOLDER)}function rt(e,A){return Array.isArray(e)?e.includes(A)||e.push(A):e.add(A),A}function st(e,A){return Array.isArray(e)&&!e.includes(A)&&e.push(A),e}function nt(e,A){if(Array.isArray(e)){const t=e.indexOf(A)
 t>=0&&e.splice(t,1)}else e.delete(A)
-return A}function KA(e){return Array.isArray(e)?e:[e]}function et(e){return e.replace(/[\s-]+(.)/g,(e,A)=>A.toUpperCase())}function At(e){return KA(e).map(e=>e instanceof String?e:String(e))}function tt(e,A=0){if(null==e)return A
+return A}function ot(e){return Array.isArray(e)?e:[e]}function it(e){return e.replace(/[\s-]+(.)/g,(e,A)=>A.toUpperCase())}function at(e){return ot(e).map(e=>e instanceof String?e:String(e))}function ct(e,A=0){if(null==e)return A
 const t=parseInt(e,10)
-return Number.isNaN(t)?A:t}function rt(e,A){const t=[]
+return Number.isNaN(t)?A:t}function gt(e,A){const t=[]
 for(let r=0,s=e.length;r<s;r++)t.push(A,e[r])
-return t}function st(e){return(Array.isArray(e)?_e.Buffer.concat(e):e).toString("utf-8")}function nt(e,A){const t={}
-return A.forEach(A=>{void 0!==e[A]&&(t[A]=e[A])}),t}function ot(e=0){return new Promise(A=>setTimeout(A,e))}function it(e){if(!1!==e)return e}var at,ct,gt,lt,ht,Et=TA({"src/lib/utils/util.ts"(){wt(),RA="\0",bA=()=>{},FA=Object.prototype.toString.call.bind(Object.prototype.toString)}})
-function Qt(e,A,t){return A(e)?e:arguments.length>2?t:void 0}function ut(e,A){const t=Xe(e)?"string":typeof e
-return/number|string|boolean/.test(t)&&(!A||!A.includes(t))}function Bt(e){return!!e&&"[object Object]"===FA(e)}function Ct(e){return"function"==typeof e}var It,dt,ft,pt,wt=TA({"src/lib/utils/argument-filters.ts"(){Et(),at=e=>Array.isArray(e),ct=e=>"number"==typeof e,gt=e=>"string"==typeof e||Xe(e),lt=e=>gt(e)||Array.isArray(e)&&e.every(gt),ht=e=>null!=e&&!"number|boolean|function".includes(typeof e)&&"number"==typeof e.length}}),yt=TA({"src/lib/utils/exit-codes.ts"(){It=(e=>(e[e.SUCCESS=0]="SUCCESS",e[e.ERROR=1]="ERROR",e[e.NOT_FOUND=-2]="NOT_FOUND",e[e.UNCLEAN=128]="UNCLEAN",e))(It||{})}}),mt=TA({"src/lib/utils/git-output-streams.ts"(){dt=class e{constructor(e,A){this.stdOut=e,this.stdErr=A}asStrings(){return new e(this.stdOut.toString("utf8"),this.stdErr.toString("utf8"))}}}})
-function Dt(){throw new Error("LineParser:useMatches not implemented")}var kt,Rt=TA({"src/lib/utils/line-parser.ts"(){ft=class{constructor(e,A){this.matches=[],this.useMatches=Dt,this.parse=(e,A)=>(this.resetMatches(),!!this._regExp.every((A,t)=>this.addMatch(A,t,e(t)))&&!1!==this.useMatches(A,this.prepareMatches())),this._regExp=Array.isArray(e)?e:[e],A&&(this.useMatches=A)}resetMatches(){this.matches.length=0}prepareMatches(){return this.matches}addMatch(e,A,t){const r=t&&e.exec(t)
-return r&&this.pushMatch(A,r),!!r}pushMatch(e,A){this.matches.push(...A.slice(1))}},pt=class extends ft{addMatch(e,A,t){return/^remote:\s/.test(String(t))&&super.addMatch(e,A,t)}pushMatch(e,A){(e>0||A.length>1)&&super.pushMatch(e,A)}}}})
-function bt(...e){const A=process.cwd(),t=Object.assign({baseDir:A,...kt},...e.filter(e=>"object"==typeof e&&e))
-return t.baseDir=t.baseDir||A,t.trimmed=!0===t.trimmed,t}var Ft=TA({"src/lib/utils/simple-git-options.ts"(){kt={binary:"git",maxConcurrentProcesses:5,config:[],trimmed:!1}}})
-function St(e,A=[]){return Bt(e)?Object.keys(e).reduce((A,t)=>{const r=e[t]
-if(Xe(r))A.push(r)
-else if(ut(r,["boolean"]))A.push(t+"="+r)
-else if(Array.isArray(r))for(const e of r)ut(e,["string","number"])||A.push(t+"="+e)
+return t}function lt(e){return(Array.isArray(e)?Buffer.concat(e):e).toString("utf-8")}function ht(e,A){const t={}
+return A.forEach(A=>{void 0!==e[A]&&(t[A]=e[A])}),t}function Et(e=0){return new Promise(A=>setTimeout(A,e))}function Qt(e){if(!1!==e)return e}var ut,Bt,Ct,It,dt,ft=VA({"src/lib/utils/util.ts"(){Ft(),LA="\0",TA=()=>{},vA=Object.prototype.toString.call.bind(Object.prototype.toString)}})
+function pt(e,A,t){return A(e)?e:arguments.length>2?t:void 0}function wt(e,A){const t=je(e)?"string":typeof e
+return/number|string|boolean/.test(t)&&(!A||!A.includes(t))}function yt(e){return!!e&&"[object Object]"===vA(e)}function mt(e){return"function"==typeof e}var Dt,kt,Rt,bt,Ft=VA({"src/lib/utils/argument-filters.ts"(){ft(),ut=e=>Array.isArray(e),Bt=e=>"number"==typeof e,Ct=e=>"string"==typeof e||je(e),It=e=>Ct(e)||Array.isArray(e)&&e.every(Ct),dt=e=>null!=e&&!"number|boolean|function".includes(typeof e)&&"number"==typeof e.length}}),St=VA({"src/lib/utils/exit-codes.ts"(){Dt=(e=>(e[e.SUCCESS=0]="SUCCESS",e[e.ERROR=1]="ERROR",e[e.NOT_FOUND=-2]="NOT_FOUND",e[e.UNCLEAN=128]="UNCLEAN",e))(Dt||{})}}),Nt=VA({"src/lib/utils/git-output-streams.ts"(){kt=class e{constructor(e,A){this.stdOut=e,this.stdErr=A}asStrings(){return new e(this.stdOut.toString("utf8"),this.stdErr.toString("utf8"))}}}})
+function Mt(){throw new Error("LineParser:useMatches not implemented")}var Ut,Lt=VA({"src/lib/utils/line-parser.ts"(){Rt=class{constructor(e,A){this.matches=[],this.useMatches=Mt,this.parse=(e,A)=>(this.resetMatches(),!!this._regExp.every((A,t)=>this.addMatch(A,t,e(t)))&&!1!==this.useMatches(A,this.prepareMatches())),this._regExp=Array.isArray(e)?e:[e],A&&(this.useMatches=A)}resetMatches(){this.matches.length=0}prepareMatches(){return this.matches}addMatch(e,A,t){const r=t&&e.exec(t)
+return r&&this.pushMatch(A,r),!!r}pushMatch(e,A){this.matches.push(...A.slice(1))}},bt=class extends Rt{addMatch(e,A,t){return/^remote:\s/.test(String(t))&&super.addMatch(e,A,t)}pushMatch(e,A){(e>0||A.length>1)&&super.pushMatch(e,A)}}}})
+function Tt(...e){const A=process.cwd(),t=Object.assign({baseDir:A,...Ut},...e.filter(e=>"object"==typeof e&&e))
+return t.baseDir=t.baseDir||A,t.trimmed=!0===t.trimmed,t}var vt=VA({"src/lib/utils/simple-git-options.ts"(){Ut={binary:"git",maxConcurrentProcesses:5,config:[],trimmed:!1}}})
+function Gt(e,A=[]){return yt(e)?Object.keys(e).reduce((A,t)=>{const r=e[t]
+if(je(r))A.push(r)
+else if(wt(r,["boolean"]))A.push(t+"="+r)
+else if(Array.isArray(r))for(const e of r)wt(e,["string","number"])||A.push(t+"="+e)
 else A.push(t)
-return A},A):A}function Nt(e,A=0,t=!1){const r=[]
+return A},A):A}function Yt(e,A=0,t=!1){const r=[]
 for(let t=0,s=A<0?e.length:A;t<s;t++)"string|number".includes(typeof e[t])&&r.push(String(e[t]))
-return St(Mt(e),r),t||r.push(...function(e){const A="function"==typeof PA(e)
-return At(Qt(PA(e,A?1:0),at,[]))}(e)),r}function Mt(e){const A=Ct(PA(e))
-return Qt(PA(e,A?1:0),Bt)}function Ut(e,A=!0){const t=HA(PA(e))
-return A||VA(t)?t:void 0}var Lt=TA({"src/lib/utils/task-options.ts"(){wt(),Et()}})
-function Tt(e,A){return e(A.stdOut,A.stdErr)}function vt(e,A,t,r=!0){return KA(t).forEach(t=>{for(let s=_A(t,r),n=0,o=s.length;n<o;n++){const t=(e=0)=>{if(!(n+e>=o))return s[n+e]}
-A.some(({parse:A})=>A(t,e))}}),e}var Gt=TA({"src/lib/utils/task-parser.ts"(){Et()}}),Yt={}
-vA(Yt,{ExitCodes:()=>It,GitOutputStreams:()=>dt,LineParser:()=>ft,NOOP:()=>bA,NULL:()=>RA,RemoteLineParser:()=>pt,append:()=>jA,appendTaskOptions:()=>St,asArray:()=>KA,asCamelCase:()=>et,asFunction:()=>HA,asNumber:()=>tt,asStringArray:()=>At,bufferToString:()=>st,callTaskParser:()=>Tt,createInstanceConfig:()=>bt,delay:()=>ot,filterArray:()=>at,filterFunction:()=>Ct,filterHasLength:()=>ht,filterNumber:()=>ct,filterPlainObject:()=>Bt,filterPrimitives:()=>ut,filterString:()=>gt,filterStringOrStringArray:()=>lt,filterType:()=>Qt,first:()=>WA,folderExists:()=>zA,forEachLineWithContent:()=>ZA,getTrailingOptions:()=>Nt,including:()=>XA,isUserFunction:()=>VA,last:()=>PA,objectToString:()=>FA,orVoid:()=>it,parseStringResponse:()=>vt,pick:()=>nt,prefixedArray:()=>rt,remove:()=>$A,splitOn:()=>OA,toLinesWithContent:()=>_A,trailingFunctionArgument:()=>Ut,trailingOptionsArgument:()=>Mt})
-var xt,Jt,Ht,Vt=TA({"src/lib/utils/index.ts"(){wt(),yt(),mt(),Rt(),Ft(),Lt(),Gt(),Et()}}),Ot={}
-function Wt(e){switch(e){case"bare":return qt()
-case"root":return Pt()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:Jt,parser:Ht}}function Pt(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:Jt,parser:e=>/^\.(git)?$/.test(e.trim())}}function qt(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:Jt,parser:Ht}}vA(Ot,{CheckRepoActions:()=>xt,checkIsBareRepoTask:()=>qt,checkIsRepoRootTask:()=>Pt,checkIsRepoTask:()=>Wt})
-var _t,Zt,zt,jt,Xt=TA({"src/lib/tasks/check-is-repo.ts"(){Vt(),xt=(e=>(e.BARE="bare",e.IN_TREE="tree",e.IS_REPO_ROOT="root",e))(xt||{}),Jt=({exitCode:e},A,t,r)=>{if(128===e&&function(e){return/(Not a git repository|Kein Git-Repository)/i.test(String(e))}(A))return t(Buffer.from("false"))
-r(A)},Ht=e=>"true"===e.trim()}})
-var $t,Kt=TA({"src/lib/responses/CleanSummary.ts"(){Vt(),_t=class{constructor(e){this.dryRun=e,this.paths=[],this.files=[],this.folders=[]}},Zt=/^[a-z]+\s*/i,zt=/^[a-z]+\s+[a-z]+\s*/i,jt=/\/$/}}),er={}
-function Ar(e){return{commands:$t,format:"empty",parser:e}}function tr(e){return{commands:$t,format:"empty",parser(){throw"string"==typeof e?new kA(e):e}}}function rr(e,A=!1){return{commands:e,format:"utf-8",parser:e=>A?String(e).trim():e}}function sr(e){return{commands:e,format:"buffer",parser:e=>e}}function nr(e){return"buffer"===e.format}function or(e){return"empty"===e.format||!e.commands.length}vA(er,{EMPTY_COMMANDS:()=>$t,adhocExecTask:()=>Ar,configurationErrorTask:()=>tr,isBufferTask:()=>nr,isEmptyTask:()=>or,straightThroughBufferTask:()=>sr,straightThroughStringTask:()=>rr})
-var ir,ar,cr,gr,lr,hr=TA({"src/lib/tasks/task.ts"(){JA(),$t=[]}}),Er={}
-function Qr(e,A){const{cleanMode:t,options:r,valid:s}=function(e){let A,t=[],r={cleanMode:!1,options:!0}
+return Gt(xt(e),r),t||r.push(...function(e){const A="function"==typeof $A(e)
+return at(pt($A(e,A?1:0),ut,[]))}(e)),r}function xt(e){const A=mt($A(e))
+return pt($A(e,A?1:0),yt)}function Jt(e,A=!0){const t=ZA($A(e))
+return A||zA(t)?t:void 0}var Ht=VA({"src/lib/utils/task-options.ts"(){Ft(),ft()}})
+function Vt(e,A){return e(A.stdOut,A.stdErr)}function Ot(e,A,t,r=!0){return ot(t).forEach(t=>{for(let s=et(t,r),n=0,o=s.length;n<o;n++){const t=(e=0)=>{if(!(n+e>=o))return s[n+e]}
+A.some(({parse:A})=>A(t,e))}}),e}var Wt=VA({"src/lib/utils/task-parser.ts"(){ft()}}),Pt={}
+OA(Pt,{ExitCodes:()=>Dt,GitOutputStreams:()=>kt,LineParser:()=>Rt,NOOP:()=>TA,NULL:()=>LA,RemoteLineParser:()=>bt,append:()=>rt,appendTaskOptions:()=>Gt,asArray:()=>ot,asCamelCase:()=>it,asFunction:()=>ZA,asNumber:()=>ct,asStringArray:()=>at,bufferToString:()=>lt,callTaskParser:()=>Vt,createInstanceConfig:()=>Tt,delay:()=>Et,filterArray:()=>ut,filterFunction:()=>mt,filterHasLength:()=>dt,filterNumber:()=>Bt,filterPlainObject:()=>yt,filterPrimitives:()=>wt,filterString:()=>Ct,filterStringOrStringArray:()=>It,filterType:()=>pt,first:()=>XA,folderExists:()=>tt,forEachLineWithContent:()=>At,getTrailingOptions:()=>Yt,including:()=>st,isUserFunction:()=>zA,last:()=>$A,objectToString:()=>vA,orVoid:()=>Qt,parseStringResponse:()=>Ot,pick:()=>ht,prefixedArray:()=>gt,remove:()=>nt,splitOn:()=>jA,toLinesWithContent:()=>et,trailingFunctionArgument:()=>Jt,trailingOptionsArgument:()=>xt})
+var qt,_t,Zt,zt=VA({"src/lib/utils/index.ts"(){Ft(),St(),Nt(),Lt(),vt(),Ht(),Wt(),ft()}}),jt={}
+function Xt(e){switch(e){case"bare":return Kt()
+case"root":return $t()}return{commands:["rev-parse","--is-inside-work-tree"],format:"utf-8",onError:_t,parser:Zt}}function $t(){return{commands:["rev-parse","--git-dir"],format:"utf-8",onError:_t,parser:e=>/^\.(git)?$/.test(e.trim())}}function Kt(){return{commands:["rev-parse","--is-bare-repository"],format:"utf-8",onError:_t,parser:Zt}}OA(jt,{CheckRepoActions:()=>qt,checkIsBareRepoTask:()=>Kt,checkIsRepoRootTask:()=>$t,checkIsRepoTask:()=>Xt})
+var er,Ar,tr,rr,sr=VA({"src/lib/tasks/check-is-repo.ts"(){zt(),qt=(e=>(e.BARE="bare",e.IN_TREE="tree",e.IS_REPO_ROOT="root",e))(qt||{}),_t=({exitCode:e},A,t,r)=>{if(128===e&&function(e){return/(Not a git repository|Kein Git-Repository)/i.test(String(e))}(A))return t(Buffer.from("false"))
+r(A)},Zt=e=>"true"===e.trim()}})
+var nr,or=VA({"src/lib/responses/CleanSummary.ts"(){zt(),er=class{constructor(e){this.dryRun=e,this.paths=[],this.files=[],this.folders=[]}},Ar=/^[a-z]+\s*/i,tr=/^[a-z]+\s+[a-z]+\s*/i,rr=/\/$/}}),ir={}
+function ar(e){return{commands:nr,format:"empty",parser:e}}function cr(e){return{commands:nr,format:"empty",parser(){throw"string"==typeof e?new UA(e):e}}}function gr(e,A=!1){return{commands:e,format:"utf-8",parser:e=>A?String(e).trim():e}}function lr(e){return{commands:e,format:"buffer",parser:e=>e}}function hr(e){return"buffer"===e.format}function Er(e){return"empty"===e.format||!e.commands.length}OA(ir,{EMPTY_COMMANDS:()=>nr,adhocExecTask:()=>ar,configurationErrorTask:()=>cr,isBufferTask:()=>hr,isEmptyTask:()=>Er,straightThroughBufferTask:()=>lr,straightThroughStringTask:()=>gr})
+var Qr,ur,Br,Cr,Ir,dr=VA({"src/lib/tasks/task.ts"(){_A(),nr=[]}}),fr={}
+function pr(e,A){const{cleanMode:t,options:r,valid:s}=function(e){let A,t=[],r={cleanMode:!1,options:!0}
 return e.replace(/[^a-z]i/g,"").split("").forEach(e=>{var s
-!function(e){return"f"===e||"n"===e}(e)?r.options=r.options&&(s=t[t.length]=`-${e}`,/^-[a-z]$/i.test(s)&&lr.has(s.charAt(1))):(A=e,r.cleanMode=!0)}),{cleanMode:A,options:t,valid:r}}(e)
-return t?s.options?(r.push(...A),r.some(Cr)?tr(ir):ur(t,r)):tr(cr+JSON.stringify(e)):tr(ar)}function ur(e,A){return{commands:["clean",`-${e}`,...A],format:"utf-8",parser:A=>function(e,A){const t=new _t(e),r=e?zt:Zt
-return _A(A).forEach(e=>{const A=e.replace(r,"")
-t.paths.push(A),(jt.test(A)?t.folders:t.files).push(A)}),t}("n"===e,A)}}function Br(e){return Array.isArray(e)&&e.every(e=>lr.has(e))}function Cr(e){return/^-[^\-]/.test(e)?e.indexOf("i")>0:"--interactive"===e}vA(Er,{CONFIG_ERROR_INTERACTIVE_MODE:()=>ir,CONFIG_ERROR_MODE_REQUIRED:()=>ar,CONFIG_ERROR_UNKNOWN_OPTION:()=>cr,CleanOptions:()=>gr,cleanTask:()=>ur,cleanWithOptionsTask:()=>Qr,isCleanOptionsArray:()=>Br})
-var Ir,dr=TA({"src/lib/tasks/clean.ts"(){Kt(),Vt(),hr(),ir="Git clean interactive mode is not supported",ar='Git clean mode parameter ("n" or "f") is required',cr="Git clean unknown option found in: ",gr=(e=>(e.DRY_RUN="n",e.FORCE="f",e.IGNORED_INCLUDED="x",e.IGNORED_ONLY="X",e.EXCLUDING="e",e.QUIET="q",e.RECURSIVE="d",e))(gr||{}),lr=new Set(["i",...At(Object.values(gr))])}})
-function fr(e){return e.replace(/^(file):/,"")}function*pr(e,A=null){const t=e.split("\0")
-for(let e=0,r=t.length-1;e<r;){const r=fr(t[e++])
+!function(e){return"f"===e||"n"===e}(e)?r.options=r.options&&(s=t[t.length]=`-${e}`,/^-[a-z]$/i.test(s)&&Ir.has(s.charAt(1))):(A=e,r.cleanMode=!0)}),{cleanMode:A,options:t,valid:r}}(e)
+return t?s.options?(r.push(...A),r.some(mr)?cr(Qr):wr(t,r)):cr(Br+JSON.stringify(e)):cr(ur)}function wr(e,A){return{commands:["clean",`-${e}`,...A],format:"utf-8",parser:A=>function(e,A){const t=new er(e),r=e?tr:Ar
+return et(A).forEach(e=>{const A=e.replace(r,"")
+t.paths.push(A),(rr.test(A)?t.folders:t.files).push(A)}),t}("n"===e,A)}}function yr(e){return Array.isArray(e)&&e.every(e=>Ir.has(e))}function mr(e){return/^-[^\-]/.test(e)?e.indexOf("i")>0:"--interactive"===e}OA(fr,{CONFIG_ERROR_INTERACTIVE_MODE:()=>Qr,CONFIG_ERROR_MODE_REQUIRED:()=>ur,CONFIG_ERROR_UNKNOWN_OPTION:()=>Br,CleanOptions:()=>Cr,cleanTask:()=>wr,cleanWithOptionsTask:()=>pr,isCleanOptionsArray:()=>yr})
+var Dr,kr=VA({"src/lib/tasks/clean.ts"(){or(),zt(),dr(),Qr="Git clean interactive mode is not supported",ur='Git clean mode parameter ("n" or "f") is required',Br="Git clean unknown option found in: ",Cr=(e=>(e.DRY_RUN="n",e.FORCE="f",e.IGNORED_INCLUDED="x",e.IGNORED_ONLY="X",e.EXCLUDING="e",e.QUIET="q",e.RECURSIVE="d",e))(Cr||{}),Ir=new Set(["i",...at(Object.values(Cr))])}})
+function Rr(e){return e.replace(/^(file):/,"")}function*br(e,A=null){const t=e.split("\0")
+for(let e=0,r=t.length-1;e<r;){const r=Rr(t[e++])
 let s=t[e++],n=A
-if(s.includes("\n")){const e=OA(s,"\n")
-n=e[0],s=e[1]}yield{file:r,key:n,value:s}}}var wr,yr=TA({"src/lib/responses/ConfigList.ts"(){Vt(),Ir=class{constructor(){this.files=[],this.values=Object.create(null)}get all(){return this._all||(this._all=this.files.reduce((e,A)=>Object.assign(e,this.values[A]),{})),this._all}addFile(e){if(!(e in this.values)){const A=PA(this.files)
+if(s.includes("\n")){const e=jA(s,"\n")
+n=e[0],s=e[1]}yield{file:r,key:n,value:s}}}var Fr,Sr=VA({"src/lib/responses/ConfigList.ts"(){zt(),Dr=class{constructor(){this.files=[],this.values=Object.create(null)}get all(){return this._all||(this._all=this.files.reduce((e,A)=>Object.assign(e,this.values[A]),{})),this._all}addFile(e){if(!(e in this.values)){const A=$A(this.files)
 this.values[e]=A?Object.create(this.values[A]):{},this.files.push(e)}return this.values[e]}addValue(e,A,t){const r=this.addFile(e)
 Object.hasOwn(r,A)?Array.isArray(r[A])?r[A].push(t):r[A]=[r[A],t]:r[A]=t,this._all=void 0}}}})
-function mr(e,A){return"string"==typeof e&&Object.hasOwn(wr,e)?e:A}function Dr(e,A){const t=["config","--null","--show-origin","--get-all",e]
+function Nr(e,A){return"string"==typeof e&&Object.hasOwn(Fr,e)?e:A}function Mr(e,A){const t=["config","--null","--show-origin","--get-all",e]
 return A&&t.splice(1,0,`--${A}`),{commands:t,format:"utf-8",parser:A=>function(e,A){let t=null
 const r=[],s=new Map
-for(const n of pr(e,A))n.key===A&&(r.push(t=n.value),s.has(n.file)||s.set(n.file,[]),s.get(n.file).push(t))
-return{key:A,paths:Array.from(s.keys()),scopes:s,value:t,values:r}}(A,e)}}function kr(e){const A=["config","--list","--show-origin","--null"]
-return e&&A.push(`--${e}`),{commands:A,format:"utf-8",parser:e=>function(e){const A=new Ir
-for(const t of pr(e))A.addValue(t.file,String(t.key),t.value)
-return A}(e)}}var Rr,br,Fr=TA({"src/lib/tasks/config.ts"(){yr(),Vt(),wr=(e=>(e.system="system",e.global="global",e.local="local",e.worktree="worktree",e))(wr||{})}})
-var Sr,Nr,Mr,Ur,Lr=TA({"src/lib/tasks/diff-name-status.ts"(){Rr=(e=>(e.ADDED="A",e.COPIED="C",e.DELETED="D",e.MODIFIED="M",e.RENAMED="R",e.CHANGED="T",e.UNMERGED="U",e.UNKNOWN="X",e.BROKEN="B",e))(Rr||{}),br=new Set(Object.values(Rr))}})
-function Tr(){return{grep(e){const A=Ut(arguments),t=Nt(arguments)
-for(const e of Sr)if(t.includes(e))return this._runTask(tr(`git.grep: use of "${e}" is not supported.`),A)
-"string"==typeof e&&(e=function(...e){return(new Ur).param(...e)}().param(e))
+for(const n of br(e,A))n.key===A&&(r.push(t=n.value),s.has(n.file)||s.set(n.file,[]),s.get(n.file).push(t))
+return{key:A,paths:Array.from(s.keys()),scopes:s,value:t,values:r}}(A,e)}}function Ur(e){const A=["config","--list","--show-origin","--null"]
+return e&&A.push(`--${e}`),{commands:A,format:"utf-8",parser:e=>function(e){const A=new Dr
+for(const t of br(e))A.addValue(t.file,String(t.key),t.value)
+return A}(e)}}var Lr,Tr,vr=VA({"src/lib/tasks/config.ts"(){Sr(),zt(),Fr=(e=>(e.system="system",e.global="global",e.local="local",e.worktree="worktree",e))(Fr||{})}})
+var Gr,Yr,xr,Jr,Hr=VA({"src/lib/tasks/diff-name-status.ts"(){Lr=(e=>(e.ADDED="A",e.COPIED="C",e.DELETED="D",e.MODIFIED="M",e.RENAMED="R",e.CHANGED="T",e.UNMERGED="U",e.UNKNOWN="X",e.BROKEN="B",e))(Lr||{}),Tr=new Set(Object.values(Lr))}})
+function Vr(){return{grep(e){const A=Jt(arguments),t=Yt(arguments)
+for(const e of Gr)if(t.includes(e))return this._runTask(cr(`git.grep: use of "${e}" is not supported.`),A)
+"string"==typeof e&&(e=function(...e){return(new Jr).param(...e)}().param(e))
 const r=["grep","--null","-n","--full-name",...t,...e]
 return this._runTask({commands:r,format:"utf-8",parser:e=>function(e){const A=new Set,t={}
-return ZA(e,e=>{const[r,s,n]=e.split(RA)
-A.add(r),(t[r]=t[r]||[]).push({line:tt(s),path:r,preview:n})}),{paths:A,results:t}}(e)},A)}}}var vr,Gr,Yr=TA({"src/lib/tasks/grep.ts"(){Vt(),hr(),Sr=["-h"],Nr=Symbol("grepQuery"),Ur=class{constructor(){this[Mr]=[]}*[(Mr=Nr,Symbol.iterator)](){for(const e of this[Nr])yield e}and(...e){return e.length&&this[Nr].push("--and","(",...rt(e,"-e"),")"),this}param(...e){return this[Nr].push(...rt(e,"-e")),this}}}}),xr={}
-function Jr(e,A){const t=["reset"]
-return Vr(e)&&t.push(`--${e}`),t.push(...A),rr(t)}function Hr(e){if(Vr(e))return e
-switch(typeof e){case"string":case"undefined":return"soft"}}function Vr(e){return"string"==typeof e&&Gr.includes(e)}vA(xr,{ResetMode:()=>vr,getResetMode:()=>Hr,resetTask:()=>Jr})
-var Or=TA({"src/lib/tasks/reset.ts"(){Vt(),hr(),vr=(e=>(e.MIXED="mixed",e.SOFT="soft",e.HARD="hard",e.MERGE="merge",e.KEEP="keep",e))(vr||{}),Gr=At(Object.values(vr))}})
-function Wr(e,A,t){return A&&String(A).replace(/\s*/,"")?(r,...s)=>{e(`%s ${r}`,A,...s),t&&t(r,...s)}:t?(A,...r)=>{e(A,...r),t(A,...r)}:e}function Pr(e,A,t,r=function(){return Ke("simple-git")}()){const s=e&&`[${e}]`||"",n=[],o="string"==typeof A?r.extend(A):A,i=function(e,A,{namespace:t}){if("string"==typeof e)return e
+return At(e,e=>{const[r,s,n]=e.split(LA)
+A.add(r),(t[r]=t[r]||[]).push({line:ct(s),path:r,preview:n})}),{paths:A,results:t}}(e)},A)}}}var Or,Wr,Pr=VA({"src/lib/tasks/grep.ts"(){zt(),dr(),Gr=["-h"],Yr=Symbol("grepQuery"),Jr=class{constructor(){this[xr]=[]}*[(xr=Yr,Symbol.iterator)](){for(const e of this[Yr])yield e}and(...e){return e.length&&this[Yr].push("--and","(",...gt(e,"-e"),")"),this}param(...e){return this[Yr].push(...gt(e,"-e")),this}}}}),qr={}
+function _r(e,A){const t=["reset"]
+return zr(e)&&t.push(`--${e}`),t.push(...A),gr(t)}function Zr(e){if(zr(e))return e
+switch(typeof e){case"string":case"undefined":return"soft"}}function zr(e){return"string"==typeof e&&Wr.includes(e)}OA(qr,{ResetMode:()=>Or,getResetMode:()=>Zr,resetTask:()=>_r})
+var jr=VA({"src/lib/tasks/reset.ts"(){zt(),dr(),Or=(e=>(e.MIXED="mixed",e.SOFT="soft",e.HARD="hard",e.MERGE="merge",e.KEEP="keep",e))(Or||{}),Wr=at(Object.values(Or))}})
+function Xr(e,A,t){return A&&String(A).replace(/\s*/,"")?(r,...s)=>{e(`%s ${r}`,A,...s),t&&t(r,...s)}:t?(A,...r)=>{e(A,...r),t(A,...r)}:e}function $r(e,A,t,r=function(){return $e("simple-git")}()){const s=e&&`[${e}]`||"",n=[],o="string"==typeof A?r.extend(A):A,i=function(e,A,{namespace:t}){if("string"==typeof e)return e
 const r=A&&A.namespace||""
-return r.startsWith(t)?r.substr(t.length+1):r||t}(Qt(A,gt),o,r)
-return function A(t){const n=t&&`[${t}]`||"",i=o&&Wr(o,n)||bA,c=Wr(r,`${s} ${n}`,i)
+return r.startsWith(t)?r.substr(t.length+1):r||t}(pt(A,Ct),o,r)
+return function A(t){const n=t&&`[${t}]`||"",i=o&&Xr(o,n)||TA,c=Xr(r,`${s} ${n}`,i)
 return Object.assign(o?i:c,{label:e,sibling:a,info:c,step:A})}(t)
-function a(A,t){return jA(n,Pr(e,i.replace(/^[^:]+/,A),t,r))}}var qr,_r,Zr=TA({"src/lib/git-logger.ts"(){Vt(),Ke.formatters.L=e=>String(ht(e)?e.length:"-"),Ke.formatters.B=e=>Buffer.isBuffer(e)?e.toString("utf8"):FA(e)}}),zr=TA({"src/lib/runners/tasks-pending-queue.ts"(){YA(),Zr(),qr=class e{constructor(e="GitExecutor"){this.logLabel=e,this._queue=new Map}withProgress(e){return this._queue.get(e)}createProgress(A){const t=e.getName(A.commands[0])
-return{task:A,logger:Pr(this.logLabel,t),name:t}}push(e){const A=this.createProgress(e)
+function a(A,t){return rt(n,$r(e,i.replace(/^[^:]+/,A),t,r))}}var Kr,es,As=VA({"src/lib/git-logger.ts"(){zt(),$e.formatters.L=e=>String(dt(e)?e.length:"-"),$e.formatters.B=e=>Buffer.isBuffer(e)?e.toString("utf8"):vA(e)}}),ts=VA({"src/lib/runners/tasks-pending-queue.ts"(){PA(),As(),Kr=class e{constructor(e="GitExecutor"){this.logLabel=e,this._queue=new Map}withProgress(e){return this._queue.get(e)}createProgress(A){const t=e.getName(A.commands[0])
+return{task:A,logger:$r(this.logLabel,t),name:t}}push(e){const A=this.createProgress(e)
 return A.logger("Adding task to the queue, commands = %o",e.commands),this._queue.set(e,A),A}fatal(e){for(const[A,{logger:t}]of Array.from(this._queue.entries()))A===e.task?(t.info("Failed %o",e),t("Fatal exception, any as-yet un-started tasks run through this executor will not be attempted")):t.info("A fatal exception occurred in a previous task, the queue has been purged: %o",e.message),this.complete(A)
 if(0!==this._queue.size)throw new Error(`Queue size should be zero after fatal: ${this._queue.size}`)}complete(e){this.withProgress(e)&&this._queue.delete(e)}attempt(e){const A=this.withProgress(e)
-if(!A)throw new mA(void 0,"TasksPendingQueue: attempt called for an unknown task")
+if(!A)throw new NA(void 0,"TasksPendingQueue: attempt called for an unknown task")
 return A.logger("Starting task"),A}static getName(A="empty"){return`task:${A}:${++e.counter}`}static{this.counter=0}}}})
-function jr(e,A){return{method:WA(e.commands)||"",commands:A}}function Xr(e,A,t,r){return s=>{t("%s received %L bytes",A,s),r("%B",s),e.push(s)}}var $r,Kr=TA({"src/lib/runners/git-executor-chain.ts"(){YA(),hr(),Vt(),zr(),_r=class{constructor(e,A,t){this._executor=e,this._scheduler=A,this._plugins=t,this._chain=Promise.resolve(),this._queue=new qr}get cwd(){return this._cwd||this._executor.cwd}set cwd(e){this._cwd=e}get env(){return this._executor.env}get outputHandler(){return this._executor.outputHandler}chain(){return this}push(e){return this._queue.push(e),this._chain=this._chain.then(()=>this.attemptTask(e))}async attemptTask(e){const A=await this._scheduler.next(),t=()=>this._queue.complete(e)
+function rs(e,A){return{method:XA(e.commands)||"",commands:A}}function ss(e,A,t,r){return s=>{t("%s received %L bytes",A,s),r("%B",s),e.push(s)}}var ns,os=VA({"src/lib/runners/git-executor-chain.ts"(){PA(),dr(),zt(),ts(),es=class{constructor(e,A,t){this._executor=e,this._scheduler=A,this._plugins=t,this._chain=Promise.resolve(),this._queue=new Kr}get cwd(){return this._cwd||this._executor.cwd}set cwd(e){this._cwd=e}get env(){return this._executor.env}get outputHandler(){return this._executor.outputHandler}chain(){return this}push(e){return this._queue.push(e),this._chain=this._chain.then(()=>this.attemptTask(e))}async attemptTask(e){const A=await this._scheduler.next(),t=()=>this._queue.complete(e)
 try{const{logger:A}=this._queue.attempt(e)
-return await(or(e)?this.attemptEmptyTask(e,A):this.attemptRemoteTask(e,A))}catch(A){throw this.onFatalException(e,A)}finally{t(),A()}}onFatalException(e,A){const t=A instanceof mA?Object.assign(A,{task:e}):new mA(e,A&&String(A))
-return this._chain=Promise.resolve(),this._queue.fatal(t),t}async attemptRemoteTask(e,A){const t=this._plugins.exec("spawn.binary","",jr(e,e.commands)),r=this._plugins.exec("spawn.args",[...e.commands],jr(e,e.commands)),s=await this.gitResponse(e,t,r,this.outputHandler,A.step("SPAWN")),n=await this.handleTaskData(e,r,s,A.step("HANDLE"))
-return A("passing response to task's parser as a %s",e.format),nr(e)?Tt(e.parser,n):Tt(e.parser,n.asStrings())}async attemptEmptyTask(e,A){return A("empty task bypassing child process to call to task's parser"),e.parser(this)}handleTaskData(e,A,t,r){const{exitCode:s,rejection:n,stdOut:o,stdErr:i}=t
+return await(Er(e)?this.attemptEmptyTask(e,A):this.attemptRemoteTask(e,A))}catch(A){throw this.onFatalException(e,A)}finally{t(),A()}}onFatalException(e,A){const t=A instanceof NA?Object.assign(A,{task:e}):new NA(e,A&&String(A))
+return this._chain=Promise.resolve(),this._queue.fatal(t),t}async attemptRemoteTask(e,A){const t=this._plugins.exec("spawn.binary","",rs(e,e.commands)),r=this._plugins.exec("spawn.args",[...e.commands],{...rs(e,e.commands),env:{...this.env}}),s=await this.gitResponse(e,t,r,this.outputHandler,A.step("SPAWN")),n=await this.handleTaskData(e,r,s,A.step("HANDLE"))
+return A("passing response to task's parser as a %s",e.format),hr(e)?Vt(e.parser,n):Vt(e.parser,n.asStrings())}async attemptEmptyTask(e,A){return A("empty task bypassing child process to call to task's parser"),e.parser(this)}handleTaskData(e,A,t,r){const{exitCode:s,rejection:n,stdOut:o,stdErr:i}=t
 return new Promise((a,c)=>{r("Preparing to handle process response exitCode=%d stdOut=",s)
-const{error:g}=this._plugins.exec("task.error",{error:n},{...jr(e,A),...t})
-return g&&e.onError?(r.info("exitCode=%s handling with custom error handler"),e.onError(t,g,e=>{r.info("custom error handler treated as success"),r("custom error returned a %s",FA(e)),a(new dt(Array.isArray(e)?Buffer.concat(e):e,Buffer.concat(i)))},c)):g?(r.info("handling as error: exitCode=%s stdErr=%s rejection=%o",s,i.length,n),c(g)):(r.info("retrieving task output complete"),void a(new dt(Buffer.concat(o),Buffer.concat(i))))})}async gitResponse(e,A,t,r,s){const n=s.sibling("output"),o=this._plugins.exec("spawn.options",{cwd:this.cwd,env:this.env,windowsHide:!0},jr(e,e.commands))
+const{error:g}=this._plugins.exec("task.error",{error:n},{...rs(e,A),...t})
+return g&&e.onError?(r.info("exitCode=%s handling with custom error handler"),e.onError(t,g,e=>{r.info("custom error handler treated as success"),r("custom error returned a %s",vA(e)),a(new kt(Array.isArray(e)?Buffer.concat(e):e,Buffer.concat(i)))},c)):g?(r.info("handling as error: exitCode=%s stdErr=%s rejection=%o",s,i.length,n),c(g)):(r.info("retrieving task output complete"),void a(new kt(Buffer.concat(o),Buffer.concat(i))))})}async gitResponse(e,A,t,r,s){const n=s.sibling("output"),o=this._plugins.exec("spawn.options",{cwd:this.cwd,env:this.env,windowsHide:!0},rs(e,e.commands))
 return new Promise(i=>{const a=[],c=[]
 s.info("%s %o",A,t),s("%O",o)
 let g=this._beforeSpawn(e,t)
 if(g)return i({stdOut:a,stdErr:c,exitCode:9901,rejection:g})
-this._plugins.exec("spawn.before",void 0,{...jr(e,t),kill(e){g=e||g}})
+this._plugins.exec("spawn.before",void 0,{...rs(e,t),kill(e){g=e||g}})
 const l=(0,te.spawn)(A,t,o)
-l.stdout.on("data",Xr(a,"stdOut",s,n.step("stdOut"))),l.stderr.on("data",Xr(c,"stdErr",s,n.step("stdErr"))),l.on("error",function(e,A){return t=>{A("[ERROR] child process exception %o",t),e.push(Buffer.from(String(t.stack),"ascii"))}}(c,s)),r&&(s("Passing child process stdOut/stdErr to custom outputHandler"),r(A,l.stdout,l.stderr,[...t])),this._plugins.exec("spawn.after",void 0,{...jr(e,t),spawned:l,close(e,A){i({stdOut:a,stdErr:c,exitCode:e,rejection:g||A})},kill(e){l.killed||(g=e,l.kill("SIGINT"))}})})}_beforeSpawn(e,A){let t
-return this._plugins.exec("spawn.before",void 0,{...jr(e,A),kill(e){t=e||t}}),t}}}}),es={}
-vA(es,{GitExecutor:()=>$r})
-var As=TA({"src/lib/runners/git-executor.ts"(){Kr(),$r=class{constructor(e,A,t){this.cwd=e,this._scheduler=A,this._plugins=t,this._chain=new _r(this,this._scheduler,this._plugins)}chain(){return new _r(this,this._scheduler,this._plugins)}push(e){return this._chain.push(e)}}}})
-function ts(e,A,t=bA){A.then(e=>{t(null,e)},A=>{A?.task===e&&t(A instanceof DA?function(e){let A=e=>{console.warn(`simple-git deprecation notice: accessing GitResponseError.${e} should be GitResponseError.git.${e}, this will no longer be available in version 3`),A=bA}
+l.stdout.on("data",ss(a,"stdOut",s,n.step("stdOut"))),l.stderr.on("data",ss(c,"stdErr",s,n.step("stdErr"))),l.on("error",function(e,A){return t=>{A("[ERROR] child process exception %o",t),e.push(Buffer.from(String(t.stack),"ascii"))}}(c,s)),r&&(s("Passing child process stdOut/stdErr to custom outputHandler"),r(A,l.stdout,l.stderr,[...t])),this._plugins.exec("spawn.after",void 0,{...rs(e,t),spawned:l,close(e,A){i({stdOut:a,stdErr:c,exitCode:e,rejection:g||A})},kill(e){l.killed||(g=e,l.kill("SIGINT"))}})})}_beforeSpawn(e,A){let t
+return this._plugins.exec("spawn.before",void 0,{...rs(e,A),kill(e){t=e||t}}),t}}}}),is={}
+OA(is,{GitExecutor:()=>ns})
+var as=VA({"src/lib/runners/git-executor.ts"(){os(),ns=class{constructor(e,A,t){this.cwd=e,this._scheduler=A,this._plugins=t,this._chain=new es(this,this._scheduler,this._plugins)}chain(){return new es(this,this._scheduler,this._plugins)}push(e){return this._chain.push(e)}}}})
+function cs(e,A,t=TA){A.then(e=>{t(null,e)},A=>{A?.task===e&&t(A instanceof MA?function(e){let A=e=>{console.warn(`simple-git deprecation notice: accessing GitResponseError.${e} should be GitResponseError.git.${e}, this will no longer be available in version 3`),A=TA}
 return Object.create(e,Object.getOwnPropertyNames(e.git).reduce(t,{}))
-function t(t,r){return r in e||(t[r]={enumerable:!1,configurable:!1,get:()=>(A(r),e.git[r])}),t}}(A):A,void 0)})}var rs=TA({"src/lib/task-callback.ts"(){xA(),Vt()}})
-function ss(e,A){return Ar(t=>{if(!zA(e))throw new Error(`Git.cwd: cannot change to non-directory "${e}"`)
-return(A||t).cwd=e})}var ns=TA({"src/lib/tasks/change-working-directory.ts"(){Vt(),hr()}})
-function os(e){const A=["checkout",...e]
-return"-b"===A[1]&&A.includes("-B")&&(A[1]=$A(A,"-B")),rr(A)}var is,as=TA({"src/lib/tasks/checkout.ts"(){Vt(),hr()}})
-var cs,gs=TA({"src/lib/tasks/count-objects.ts"(){Vt(),is=new ft(/([a-z-]+): (\d+)$/,(e,[A,t])=>{const r=et(A)
-Object.hasOwn(e,r)&&(e[r]=tt(t))})}})
-function ls(e){return vt({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},cs,e)}var hs=TA({"src/lib/parsers/parse-commit.ts"(){Vt(),cs=[new ft(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,(e,[A,t,r])=>{e.branch=A,e.commit=r,e.root=!!t}),new ft(/\s*Author:\s(.+)/i,(e,[A])=>{const t=A.split("<"),r=t.pop()
-r&&r.includes("@")&&(e.author={email:r.substr(0,r.length-1),name:t.join("<").trim()})}),new ft(/(\d+)[^,]*(?:,\s*(\d+)[^,]*)(?:,\s*(\d+))/g,(e,[A,t,r])=>{e.summary.changes=parseInt(A,10)||0,e.summary.insertions=parseInt(t,10)||0,e.summary.deletions=parseInt(r,10)||0}),new ft(/^(\d+)[^,]*(?:,\s*(\d+)[^(]+\(([+-]))?/,(e,[A,t,r])=>{e.summary.changes=parseInt(A,10)||0
+function t(t,r){return r in e||(t[r]={enumerable:!1,configurable:!1,get:()=>(A(r),e.git[r])}),t}}(A):A,void 0)})}var gs=VA({"src/lib/task-callback.ts"(){qA(),zt()}})
+function ls(e,A){return ar(t=>{if(!tt(e))throw new Error(`Git.cwd: cannot change to non-directory "${e}"`)
+return(A||t).cwd=e})}var hs=VA({"src/lib/tasks/change-working-directory.ts"(){zt(),dr()}})
+function Es(e){const A=["checkout",...e]
+return"-b"===A[1]&&A.includes("-B")&&(A[1]=nt(A,"-B")),gr(A)}var Qs,us=VA({"src/lib/tasks/checkout.ts"(){zt(),dr()}})
+var Bs,Cs=VA({"src/lib/tasks/count-objects.ts"(){zt(),Qs=new Rt(/([a-z-]+): (\d+)$/,(e,[A,t])=>{const r=it(A)
+Object.hasOwn(e,r)&&(e[r]=ct(t))})}})
+function Is(e){return Ot({author:null,branch:"",commit:"",root:!1,summary:{changes:0,insertions:0,deletions:0}},Bs,e)}var ds=VA({"src/lib/parsers/parse-commit.ts"(){zt(),Bs=[new Rt(/^\[([^\s]+)( \([^)]+\))? ([^\]]+)/,(e,[A,t,r])=>{e.branch=A,e.commit=r,e.root=!!t}),new Rt(/\s*Author:\s(.+)/i,(e,[A])=>{const t=A.split("<"),r=t.pop()
+r&&r.includes("@")&&(e.author={email:r.substr(0,r.length-1),name:t.join("<").trim()})}),new Rt(/(\d+)[^,]*(?:,\s*(\d+)[^,]*)(?:,\s*(\d+))/g,(e,[A,t,r])=>{e.summary.changes=parseInt(A,10)||0,e.summary.insertions=parseInt(t,10)||0,e.summary.deletions=parseInt(r,10)||0}),new Rt(/^(\d+)[^,]*(?:,\s*(\d+)[^(]+\(([+-]))?/,(e,[A,t,r])=>{e.summary.changes=parseInt(A,10)||0
 const s=parseInt(t,10)||0
 "-"===r?e.summary.deletions=s:"+"===r&&(e.summary.insertions=s)})]}})
-function Es(){return{commit(e,...A){const t=Ut(arguments),r=function(e){return!lt(e)&&tr("git.commit: requires the commit message to be supplied as a string/string[]")}(e)||function(e,A,t){return{commands:["-c","core.abbrev=40","commit",...rt(e,"-m"),...A,...t],format:"utf-8",parser:ls}}(KA(e),KA(Qt(A[0],lt,[])),[...At(Qt(A[1],at,[])),...Nt(arguments,0,!0)])
-return this._runTask(r,t)}}}var Qs=TA({"src/lib/tasks/commit.ts"(){hs(),Vt(),hr()}})
-var us=TA({"src/lib/tasks/first-commit.ts"(){Vt(),hr()}})
-var Bs,Cs,Is,ds=TA({"src/lib/tasks/hash-object.ts"(){hr()}})
-var fs,ps=TA({"src/lib/responses/InitSummary.ts"(){Bs=class{constructor(e,A,t,r){this.bare=e,this.path=A,this.existing=t,this.gitDir=r}},Cs=/^Init.+ repository in (.+)$/,Is=/^Rein.+ in (.+)$/}})
-function ws(e=!1,A,t){const r=["init",...t]
-return e&&!r.includes(fs)&&r.splice(1,0,fs),{commands:r,format:"utf-8",parser:e=>function(e,A,t){const r=String(t).trim()
+function fs(){return{commit(e,...A){const t=Jt(arguments),r=function(e){return!It(e)&&cr("git.commit: requires the commit message to be supplied as a string/string[]")}(e)||function(e,A,t){return{commands:["-c","core.abbrev=40","commit",...gt(e,"-m"),...A,...t],format:"utf-8",parser:Is}}(ot(e),ot(pt(A[0],It,[])),[...at(pt(A[1],ut,[])),...Yt(arguments,0,!0)])
+return this._runTask(r,t)}}}var ps=VA({"src/lib/tasks/commit.ts"(){ds(),zt(),dr()}})
+var ws=VA({"src/lib/tasks/first-commit.ts"(){zt(),dr()}})
+var ys,ms,Ds,ks=VA({"src/lib/tasks/hash-object.ts"(){dr()}})
+var Rs,bs=VA({"src/lib/responses/InitSummary.ts"(){ys=class{constructor(e,A,t,r){this.bare=e,this.path=A,this.existing=t,this.gitDir=r}},ms=/^Init.+ repository in (.+)$/,Ds=/^Rein.+ in (.+)$/}})
+function Fs(e=!1,A,t){const r=["init",...t]
+return e&&!r.includes(Rs)&&r.splice(1,0,Rs),{commands:r,format:"utf-8",parser:e=>function(e,A,t){const r=String(t).trim()
 let s
-if(s=Cs.exec(r))return new Bs(e,A,!1,s[1])
-if(s=Is.exec(r))return new Bs(e,A,!0,s[1])
+if(s=ms.exec(r))return new ys(e,A,!1,s[1])
+if(s=Ds.exec(r))return new ys(e,A,!0,s[1])
 let n=""
 const o=r.split(" ")
 for(;o.length;)if("in"===o.shift()){n=o.join(" ")
-break}return new Bs(e,A,/^re/i.test(r),n)}(r.includes("--bare"),A,e)}}var ys,ms=TA({"src/lib/tasks/init.ts"(){ps(),fs="--bare"}})
-function Ds(e){for(let A=0;A<e.length;A++){const t=ys.exec(e[A])
-if(t)return`--${t[1]}`}return""}function ks(e){return ys.test(e)}var Rs,bs,Fs,Ss,Ns,Ms,Us=TA({"src/lib/args/log-format.ts"(){ys=/^--(stat|numstat|name-only|name-status)(=|$)/}}),Ls=TA({"src/lib/responses/DiffSummary.ts"(){Rs=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
-function Ts(e=""){const A=Ms[e]
-return e=>vt(new Rs,A,e,!1)}var vs,Gs,Ys,xs,Js=TA({"src/lib/parsers/parse-diff-summary.ts"(){Us(),Ls(),Lr(),Vt(),bs=[new ft(/^(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,(e,[A,t,r=""])=>{e.files.push({file:A.trim(),changes:tt(t),insertions:r.replace(/[^+]/g,"").length,deletions:r.replace(/[^-]/g,"").length,binary:!1})}),new ft(/^(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,(e,[A,t,r])=>{e.files.push({file:A.trim(),before:tt(t),after:tt(r),binary:!0})}),new ft(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,(e,[A,t])=>{const r=/(\d+) i/.exec(t),s=/(\d+) d/.exec(t)
-e.changed=tt(A),e.insertions=tt(r?.[1]),e.deletions=tt(s?.[1])})],Fs=[new ft(/(\d+)\t(\d+)\t(.+)$/,(e,[A,t,r])=>{const s=tt(A),n=tt(t)
-e.changed++,e.insertions+=s,e.deletions+=n,e.files.push({file:r,changes:s+n,insertions:s,deletions:n,binary:!1})}),new ft(/-\t-\t(.+)$/,(e,[A])=>{e.changed++,e.files.push({file:A,after:0,before:0,binary:!0})})],Ss=[new ft(/(.+)$/,(e,[A])=>{e.changed++,e.files.push({file:A,changes:0,insertions:0,deletions:0,binary:!1})})],Ns=[new ft(/([ACDMRTUXB])([0-9]{0,3})\t(.[^\t]*)(\t(.[^\t]*))?$/,(e,[A,t,r,s,n])=>{var o
-e.changed++,e.files.push({file:n??r,changes:0,insertions:0,deletions:0,binary:!1,status:it((o=A,br.has(o)&&A)),from:it(!!n&&r!==n&&r),similarity:tt(t)})})],Ms={"":bs,"--stat":bs,"--numstat":Fs,"--name-status":Ns,"--name-only":Ss}}})
-function Hs(e=Ys,A=xs,t=""){const r=Ts(t)
-return function(t){const s=_A(t.trim(),!1,vs).map(function(t){const s=t.split(Gs),n=function(e,A){return A.reduce((A,t,r)=>(A[t]=e[r]||"",A),Object.create({diff:null}))}(s[0].split(e),A)
+break}return new ys(e,A,/^re/i.test(r),n)}(r.includes("--bare"),A,e)}}var Ss,Ns=VA({"src/lib/tasks/init.ts"(){bs(),Rs="--bare"}})
+function Ms(e){for(let A=0;A<e.length;A++){const t=Ss.exec(e[A])
+if(t)return`--${t[1]}`}return""}function Us(e){return Ss.test(e)}var Ls,Ts,vs,Gs,Ys,xs,Js=VA({"src/lib/args/log-format.ts"(){Ss=/^--(stat|numstat|name-only|name-status)(=|$)/}}),Hs=VA({"src/lib/responses/DiffSummary.ts"(){Ls=class{constructor(){this.changed=0,this.deletions=0,this.insertions=0,this.files=[]}}}})
+function Vs(e=""){const A=xs[e]
+return e=>Ot(new Ls,A,e,!1)}var Os,Ws,Ps,qs,_s=VA({"src/lib/parsers/parse-diff-summary.ts"(){Js(),Hs(),Hr(),zt(),Ts=[new Rt(/^(.+)\s+\|\s+(\d+)(\s+[+\-]+)?$/,(e,[A,t,r=""])=>{e.files.push({file:A.trim(),changes:ct(t),insertions:r.replace(/[^+]/g,"").length,deletions:r.replace(/[^-]/g,"").length,binary:!1})}),new Rt(/^(.+) \|\s+Bin ([0-9.]+) -> ([0-9.]+) ([a-z]+)/,(e,[A,t,r])=>{e.files.push({file:A.trim(),before:ct(t),after:ct(r),binary:!0})}),new Rt(/(\d+) files? changed\s*((?:, \d+ [^,]+){0,2})/,(e,[A,t])=>{const r=/(\d+) i/.exec(t),s=/(\d+) d/.exec(t)
+e.changed=ct(A),e.insertions=ct(r?.[1]),e.deletions=ct(s?.[1])})],vs=[new Rt(/(\d+)\t(\d+)\t(.+)$/,(e,[A,t,r])=>{const s=ct(A),n=ct(t)
+e.changed++,e.insertions+=s,e.deletions+=n,e.files.push({file:r,changes:s+n,insertions:s,deletions:n,binary:!1})}),new Rt(/-\t-\t(.+)$/,(e,[A])=>{e.changed++,e.files.push({file:A,after:0,before:0,binary:!0})})],Gs=[new Rt(/(.+)$/,(e,[A])=>{e.changed++,e.files.push({file:A,changes:0,insertions:0,deletions:0,binary:!1})})],Ys=[new Rt(/([ACDMRTUXB])([0-9]{0,3})\t(.[^\t]*)(\t(.[^\t]*))?$/,(e,[A,t,r,s,n])=>{var o
+e.changed++,e.files.push({file:n??r,changes:0,insertions:0,deletions:0,binary:!1,status:Qt((o=A,Tr.has(o)&&A)),from:Qt(!!n&&r!==n&&r),similarity:ct(t)})})],xs={"":Ts,"--stat":Ts,"--numstat":vs,"--name-status":Ys,"--name-only":Gs}}})
+function Zs(e=Ps,A=qs,t=""){const r=Vs(t)
+return function(t){const s=et(t.trim(),!1,Os).map(function(t){const s=t.split(Ws),n=function(e,A){return A.reduce((A,t,r)=>(A[t]=e[r]||"",A),Object.create({diff:null}))}(s[0].split(e),A)
 return s.length>1&&s[1].trim()&&(n.diff=r(s[1])),n})
-return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var Vs=TA({"src/lib/parsers/parse-list-log-summary.ts"(){Vt(),Js(),Us(),vs="òòòòòò ",Gs=" òò",Ys=" ò ",xs=["hash","date","message","refs","author_name","author_email"]}}),Os={}
-function Ws(e){let A=Ds(e)
+return{all:s,latest:s.length&&s[0]||null,total:s.length}}}var zs=VA({"src/lib/parsers/parse-list-log-summary.ts"(){zt(),_s(),Js(),Os="òòòòòò ",Ws=" òò",Ps=" ò ",qs=["hash","date","message","refs","author_name","author_email"]}}),js={}
+function Xs(e){let A=Ms(e)
 const t=["diff"]
-return""===A&&(A="--stat",t.push("--stat=4096")),t.push(...e),Ps(t)||{commands:t,format:"utf-8",parser:Ts(A)}}function Ps(e){const A=e.filter(ks)
-return A.length>1?tr(`Summary flags are mutually exclusive - pick one of ${A.join(",")}`):A.length&&e.includes("-z")?tr(`Summary flag ${A} parsing is not compatible with null termination option '-z'`):void 0}vA(Os,{diffSummaryTask:()=>Ws,validateLogFormatConfig:()=>Ps})
-var qs,_s=TA({"src/lib/tasks/diff.ts"(){Us(),Js(),hr()}})
-function Zs(e={},A=[]){const t=Qt(e.splitter,gt,Ys),r=Bt(e.format)?e.format:{hash:"%H",date:!1===e.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:e.multiLine?"%B":"%b",author_name:!1!==e.mailMap?"%aN":"%an",author_email:!1!==e.mailMap?"%aE":"%ae"},[s,n]=function(e,A){const t=[],r=[]
-return Object.keys(e).forEach(A=>{t.push(A),r.push(String(e[A]))}),[t,r.join(A)]}(r,t),o=[],i=[`--pretty=format:${vs}${n}${Gs}`,...A],a=e.n||e["max-count"]||e.maxCount
+return""===A&&(A="--stat",t.push("--stat=4096")),t.push(...e),$s(t)||{commands:t,format:"utf-8",parser:Vs(A)}}function $s(e){const A=e.filter(Us)
+return A.length>1?cr(`Summary flags are mutually exclusive - pick one of ${A.join(",")}`):A.length&&e.includes("-z")?cr(`Summary flag ${A} parsing is not compatible with null termination option '-z'`):void 0}OA(js,{diffSummaryTask:()=>Xs,validateLogFormatConfig:()=>$s})
+var Ks,en=VA({"src/lib/tasks/diff.ts"(){Js(),_s(),dr()}})
+function An(e={},A=[]){const t=pt(e.splitter,Ct,Ps),r=yt(e.format)?e.format:{hash:"%H",date:!1===e.strictDate?"%ai":"%aI",message:"%s",refs:"%D",body:e.multiLine?"%B":"%b",author_name:!1!==e.mailMap?"%aN":"%an",author_email:!1!==e.mailMap?"%aE":"%ae"},[s,n]=function(e,A){const t=[],r=[]
+return Object.keys(e).forEach(A=>{t.push(A),r.push(String(e[A]))}),[t,r.join(A)]}(r,t),o=[],i=[`--pretty=format:${Os}${n}${Ws}`,...A],a=e.n||e["max-count"]||e.maxCount
 if(a&&i.push(`--max-count=${a}`),e.from||e.to){const A=!1!==e.symmetric?"...":".."
 o.push(`${e.from||""}${A}${e.to||""}`)}var c
-return gt(e.file)&&i.push("--follow",je(e.file)),St((c=e,Object.keys(c).reduce((e,A)=>(A in qs||(e[A]=c[A]),e),{})),i),{fields:s,splitter:t,commands:[...i,...o]}}function zs(){return{log(...e){const A=Ut(arguments),t=Zs(Mt(arguments),At(Qt(arguments[0],at,[]))),r=function(e,A){return gt(e)&&gt(A)&&tr("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...e)||Ps(t.commands)||function(e){return function(e,A,t){const r=Hs(e,A,Ds(t))
+return Ct(e.file)&&i.push("--follow",ze(e.file)),Gt((c=e,Object.keys(c).reduce((e,A)=>(A in Ks||(e[A]=c[A]),e),{})),i),{fields:s,splitter:t,commands:[...i,...o]}}function tn(){return{log(...e){const A=Jt(arguments),t=An(xt(arguments),at(pt(arguments[0],ut,[]))),r=function(e,A){return Ct(e)&&Ct(A)&&cr("git.log(string, string) should be replaced with git.log({ from: string, to: string })")}(...e)||$s(t.commands)||function(e){return function(e,A,t){const r=Zs(e,A,Ms(t))
 return{commands:["log",...t],format:"utf-8",parser:r}}(e.splitter,e.fields,e.commands)}(t)
-return this._runTask(r,A)}}}var js,Xs,$s,Ks,en,An=TA({"src/lib/tasks/log.ts"(){Us(),Vs(),Vt(),hr(),_s(),qs=(e=>(e[e["--pretty"]=0]="--pretty",e[e["max-count"]=1]="max-count",e[e.maxCount=2]="maxCount",e[e.n=3]="n",e[e.file=4]="file",e[e.format=5]="format",e[e.from=6]="from",e[e.to=7]="to",e[e.splitter=8]="splitter",e[e.symmetric=9]="symmetric",e[e.mailMap=10]="mailMap",e[e.multiLine=11]="multiLine",e[e.strictDate=12]="strictDate",e))(qs||{})}}),tn=TA({"src/lib/responses/MergeSummary.ts"(){js=class{constructor(e,A=null,t){this.reason=e,this.file=A,this.meta=t}toString(){return`${this.file}:${this.reason}`}},Xs=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),rn=TA({"src/lib/responses/PullSummary.ts"(){$s=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},Ks=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
-function sn(e){return e.objects=e.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function nn(e){const A=/^\s*(\d+)/.exec(e),t=/delta (\d+)/i.exec(e)
-return{count:tt(A&&A[1]||"0"),delta:tt(t&&t[1]||"0")}}var on,an,cn=TA({"src/lib/parsers/parse-remote-objects.ts"(){Vt(),en=[new pt(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,(e,[A,t])=>{const r=A.toLowerCase(),s=sn(e.remoteMessages)
-Object.assign(s,{[r]:tt(t)})}),new pt(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,(e,[A,t])=>{const r=A.toLowerCase(),s=sn(e.remoteMessages)
-Object.assign(s,{[r]:tt(t)})}),new pt(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,(e,[A,t,r])=>{const s=sn(e.remoteMessages)
-s.total=nn(A),s.reused=nn(t),s.packReused=tt(r)})]}})
-function gn(e,A){return vt({remoteMessages:new an},on,A)}var ln,hn,En,Qn,un,Bn,Cn=TA({"src/lib/parsers/parse-remote-messages.ts"(){Vt(),cn(),on=[new pt(/^remote:\s*(.+)$/,(e,[A])=>(e.remoteMessages.all.push(A.trim()),!1)),...en,new pt([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],(e,[A])=>{e.remoteMessages.pullRequestUrl=A}),new pt([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],(e,[A,t,r])=>{e.remoteMessages.vulnerabilities={count:tt(A),summary:t,url:r}})],an=class{constructor(){this.all=[]}}}})
-var In,dn,fn,pn=TA({"src/lib/parsers/parse-pull.ts"(){rn(),Vt(),Cn(),ln=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,hn=/^(create|delete) mode \d+ (.+)/,En=[new ft(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,(e,[A,t,r])=>{e.files.push(A),t&&(e.insertions[A]=t.length),r&&(e.deletions[A]=r.length)}),new ft(ln,(e,[A,,t,,r])=>(void 0!==t||void 0!==r)&&(e.summary.changes=+A||0,e.summary.insertions=+t||0,e.summary.deletions=+r||0,!0)),new ft(hn,(e,[A,t])=>{jA(e.files,t),jA("create"===A?e.created:e.deleted,t)})],Qn=[new ft(/^from\s(.+)$/i,(e,[A])=>{e.remote=A}),new ft(/^fatal:\s(.+)$/,(e,[A])=>{e.message=A}),new ft(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,(e,[A,t,r,s])=>{e.branch.local=r,e.hash.local=A,e.branch.remote=s,e.hash.remote=t})],un=(e,A)=>vt(new $s,En,[e,A]),Bn=(e,A)=>Object.assign(new $s,un(e,A),gn(0,A))}}),wn=TA({"src/lib/parsers/parse-merge.ts"(){tn(),Vt(),pn(),In=[new ft(/^Auto-merging\s+(.+)$/,(e,[A])=>{e.merges.push(A)}),new ft(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,(e,[A,t])=>{e.conflicts.push(new js(A,t))}),new ft(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,(e,[A,t,r])=>{e.conflicts.push(new js(A,t,{deleteRef:r}))}),new ft(/^CONFLICT\s+\((.+)\):/,(e,[A])=>{e.conflicts.push(new js(A,null))}),new ft(/^Automatic merge failed;\s+(.+)$/,(e,[A])=>{e.result=A})],dn=(e,A)=>Object.assign(fn(e,A),Bn(e,A)),fn=e=>vt(new Xs,In,e)}})
-function yn(e){return e.length?{commands:["merge",...e],format:"utf-8",parser(e,A){const t=dn(e,A)
-if(t.failed)throw new DA(t)
-return t}}:tr("Git.merge requires at least one option")}var mn,Dn,kn,Rn=TA({"src/lib/tasks/merge.ts"(){xA(),wn(),hr()}})
-var bn=TA({"src/lib/parsers/parse-push.ts"(){Vt(),Cn(),mn=[new ft(/^Pushing to (.+)$/,(e,[A])=>{e.repo=A}),new ft(/^updating local tracking ref '(.+)'/,(e,[A])=>{e.ref={...e.ref||{},local:A}}),new ft(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,(e,[A,t,r])=>{e.pushed.push(function(e,A,t){const r=t.includes("deleted"),s=t.includes("tag")||/^refs\/tags/.test(e),n=!t.includes("new")
-return{deleted:r,tag:s,branch:!s,new:!n,alreadyUpdated:n,local:e,remote:A}}(A,t,r))}),new ft(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,(e,[A,t,r])=>{e.branch={...e.branch||{},local:A,remote:t,remoteName:r}}),new ft(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,(e,[A,t,r,s])=>{e.update={head:{local:A,remote:t},hash:{from:r,to:s}}})],Dn=(e,A)=>({...kn(e,A),...gn(0,A)}),kn=(e,A)=>vt({pushed:[]},mn,[e,A])}}),Fn={}
-function Sn(e={},A){return jA(A,"--tags"),Nn(e,A)}function Nn(e={},A){const t=["push",...A]
-return e.branch&&t.splice(1,0,e.branch),e.remote&&t.splice(1,0,e.remote),$A(t,"-v"),jA(t,"--verbose"),jA(t,"--porcelain"),{commands:t,format:"utf-8",parser:Dn}}vA(Fn,{pushTagsTask:()=>Sn,pushTask:()=>Nn})
-var Mn=TA({"src/lib/tasks/push.ts"(){bn(),Vt()}})
-var Un,Ln,Tn,vn,Gn,Yn=TA({"src/lib/tasks/show.ts"(){Vt(),hr()}}),xn=TA({"src/lib/responses/FileStatusSummary.ts"(){Un=/^(.+)\0(.+)$/,Ln=class{constructor(e,A,t){if(this.path=e,this.index=A,this.working_dir=t,"R"===A||"R"===t){const A=Un.exec(e)||[null,e,e]
+return this._runTask(r,A)}}}var rn,sn,nn,on,an,cn=VA({"src/lib/tasks/log.ts"(){Js(),zs(),zt(),dr(),en(),Ks=(e=>(e[e["--pretty"]=0]="--pretty",e[e["max-count"]=1]="max-count",e[e.maxCount=2]="maxCount",e[e.n=3]="n",e[e.file=4]="file",e[e.format=5]="format",e[e.from=6]="from",e[e.to=7]="to",e[e.splitter=8]="splitter",e[e.symmetric=9]="symmetric",e[e.mailMap=10]="mailMap",e[e.multiLine=11]="multiLine",e[e.strictDate=12]="strictDate",e))(Ks||{})}}),gn=VA({"src/lib/responses/MergeSummary.ts"(){rn=class{constructor(e,A=null,t){this.reason=e,this.file=A,this.meta=t}toString(){return`${this.file}:${this.reason}`}},sn=class{constructor(){this.conflicts=[],this.merges=[],this.result="success"}get failed(){return this.conflicts.length>0}get reason(){return this.result}toString(){return this.conflicts.length?`CONFLICTS: ${this.conflicts.join(", ")}`:"OK"}}}}),ln=VA({"src/lib/responses/PullSummary.ts"(){nn=class{constructor(){this.remoteMessages={all:[]},this.created=[],this.deleted=[],this.files=[],this.deletions={},this.insertions={},this.summary={changes:0,deletions:0,insertions:0}}},on=class{constructor(){this.remote="",this.hash={local:"",remote:""},this.branch={local:"",remote:""},this.message=""}toString(){return this.message}}}})
+function hn(e){return e.objects=e.objects||{compressing:0,counting:0,enumerating:0,packReused:0,reused:{count:0,delta:0},total:{count:0,delta:0}}}function En(e){const A=/^\s*(\d+)/.exec(e),t=/delta (\d+)/i.exec(e)
+return{count:ct(A&&A[1]||"0"),delta:ct(t&&t[1]||"0")}}var Qn,un,Bn=VA({"src/lib/parsers/parse-remote-objects.ts"(){zt(),an=[new bt(/^remote:\s*(enumerating|counting|compressing) objects: (\d+),/i,(e,[A,t])=>{const r=A.toLowerCase(),s=hn(e.remoteMessages)
+Object.assign(s,{[r]:ct(t)})}),new bt(/^remote:\s*(enumerating|counting|compressing) objects: \d+% \(\d+\/(\d+)\),/i,(e,[A,t])=>{const r=A.toLowerCase(),s=hn(e.remoteMessages)
+Object.assign(s,{[r]:ct(t)})}),new bt(/total ([^,]+), reused ([^,]+), pack-reused (\d+)/i,(e,[A,t,r])=>{const s=hn(e.remoteMessages)
+s.total=En(A),s.reused=En(t),s.packReused=ct(r)})]}})
+function Cn(e,A){return Ot({remoteMessages:new un},Qn,A)}var In,dn,fn,pn,wn,yn,mn=VA({"src/lib/parsers/parse-remote-messages.ts"(){zt(),Bn(),Qn=[new bt(/^remote:\s*(.+)$/,(e,[A])=>(e.remoteMessages.all.push(A.trim()),!1)),...an,new bt([/create a (?:pull|merge) request/i,/\s(https?:\/\/\S+)$/],(e,[A])=>{e.remoteMessages.pullRequestUrl=A}),new bt([/found (\d+) vulnerabilities.+\(([^)]+)\)/i,/\s(https?:\/\/\S+)$/],(e,[A,t,r])=>{e.remoteMessages.vulnerabilities={count:ct(A),summary:t,url:r}})],un=class{constructor(){this.all=[]}}}})
+var Dn,kn,Rn,bn=VA({"src/lib/parsers/parse-pull.ts"(){ln(),zt(),mn(),In=/(\d+)\D+((\d+)\D+\(\+\))?(\D+(\d+)\D+\(-\))?/,dn=/^(create|delete) mode \d+ (.+)/,fn=[new Rt(/^\s*(.+?)\s+\|\s+\d+\s*(\+*)(-*)/,(e,[A,t,r])=>{e.files.push(A),t&&(e.insertions[A]=t.length),r&&(e.deletions[A]=r.length)}),new Rt(In,(e,[A,,t,,r])=>(void 0!==t||void 0!==r)&&(e.summary.changes=+A||0,e.summary.insertions=+t||0,e.summary.deletions=+r||0,!0)),new Rt(dn,(e,[A,t])=>{rt(e.files,t),rt("create"===A?e.created:e.deleted,t)})],pn=[new Rt(/^from\s(.+)$/i,(e,[A])=>{e.remote=A}),new Rt(/^fatal:\s(.+)$/,(e,[A])=>{e.message=A}),new Rt(/([a-z0-9]+)\.\.([a-z0-9]+)\s+(\S+)\s+->\s+(\S+)$/,(e,[A,t,r,s])=>{e.branch.local=r,e.hash.local=A,e.branch.remote=s,e.hash.remote=t})],wn=(e,A)=>Ot(new nn,fn,[e,A]),yn=(e,A)=>Object.assign(new nn,wn(e,A),Cn(0,A))}}),Fn=VA({"src/lib/parsers/parse-merge.ts"(){gn(),zt(),bn(),Dn=[new Rt(/^Auto-merging\s+(.+)$/,(e,[A])=>{e.merges.push(A)}),new Rt(/^CONFLICT\s+\((.+)\): Merge conflict in (.+)$/,(e,[A,t])=>{e.conflicts.push(new rn(A,t))}),new Rt(/^CONFLICT\s+\((.+\/delete)\): (.+) deleted in (.+) and/,(e,[A,t,r])=>{e.conflicts.push(new rn(A,t,{deleteRef:r}))}),new Rt(/^CONFLICT\s+\((.+)\):/,(e,[A])=>{e.conflicts.push(new rn(A,null))}),new Rt(/^Automatic merge failed;\s+(.+)$/,(e,[A])=>{e.result=A})],kn=(e,A)=>Object.assign(Rn(e,A),yn(e,A)),Rn=e=>Ot(new sn,Dn,e)}})
+function Sn(e){return e.length?{commands:["merge",...e],format:"utf-8",parser(e,A){const t=kn(e,A)
+if(t.failed)throw new MA(t)
+return t}}:cr("Git.merge requires at least one option")}var Nn,Mn,Un,Ln=VA({"src/lib/tasks/merge.ts"(){qA(),Fn(),dr()}})
+var Tn=VA({"src/lib/parsers/parse-push.ts"(){zt(),mn(),Nn=[new Rt(/^Pushing to (.+)$/,(e,[A])=>{e.repo=A}),new Rt(/^updating local tracking ref '(.+)'/,(e,[A])=>{e.ref={...e.ref||{},local:A}}),new Rt(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/,(e,[A,t,r])=>{e.pushed.push(function(e,A,t){const r=t.includes("deleted"),s=t.includes("tag")||/^refs\/tags/.test(e),n=!t.includes("new")
+return{deleted:r,tag:s,branch:!s,new:!n,alreadyUpdated:n,local:e,remote:A}}(A,t,r))}),new Rt(/^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,(e,[A,t,r])=>{e.branch={...e.branch||{},local:A,remote:t,remoteName:r}}),new Rt(/^([^:]+):(\S+)\s+([a-z0-9]+)\.\.([a-z0-9]+)$/,(e,[A,t,r,s])=>{e.update={head:{local:A,remote:t},hash:{from:r,to:s}}})],Mn=(e,A)=>({...Un(e,A),...Cn(0,A)}),Un=(e,A)=>Ot({pushed:[]},Nn,[e,A])}}),vn={}
+function Gn(e={},A){return rt(A,"--tags"),Yn(e,A)}function Yn(e={},A){const t=["push",...A]
+return e.branch&&t.splice(1,0,e.branch),e.remote&&t.splice(1,0,e.remote),nt(t,"-v"),rt(t,"--verbose"),rt(t,"--porcelain"),{commands:t,format:"utf-8",parser:Mn}}OA(vn,{pushTagsTask:()=>Gn,pushTask:()=>Yn})
+var xn=VA({"src/lib/tasks/push.ts"(){Tn(),zt()}})
+var Jn,Hn,Vn,On,Wn,Pn=VA({"src/lib/tasks/show.ts"(){zt(),dr()}}),qn=VA({"src/lib/responses/FileStatusSummary.ts"(){Jn=/^(.+)\0(.+)$/,Hn=class{constructor(e,A,t){if(this.path=e,this.index=A,this.working_dir=t,"R"===A||"R"===t){const A=Jn.exec(e)||[null,e,e]
 this.from=A[2]||"",this.path=A[1]||""}}}}})
-function Jn(e){const[A,t]=e.split(RA)
-return{from:t||A,to:A}}function Hn(e,A,t){return[`${e}${A}`,t]}function Vn(e,...A){return A.map(A=>Hn(e,A,(e,A)=>e.conflicted.push(A)))}function On(e,A){const t=A.trim()
+function _n(e){const[A,t]=e.split(LA)
+return{from:t||A,to:A}}function Zn(e,A,t){return[`${e}${A}`,t]}function zn(e,...A){return A.map(A=>Zn(e,A,(e,A)=>e.conflicted.push(A)))}function jn(e,A){const t=A.trim()
 switch(" "){case t.charAt(2):return r(t.charAt(0),t.charAt(1),t.slice(3))
 case t.charAt(1):return r(" ",t.charAt(0),t.slice(2))
-default:return}function r(A,t,r){const s=`${A}${t}`,n=vn.get(s)
-n&&n(e,r),"##"!==s&&"!!"!==s&&e.files.push(new Ln(r,A,t))}}var Wn,Pn=TA({"src/lib/responses/StatusSummary.ts"(){Vt(),xn(),Tn=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},vn=new Map([Hn(" ","A",(e,A)=>e.created.push(A)),Hn(" ","D",(e,A)=>e.deleted.push(A)),Hn(" ","M",(e,A)=>e.modified.push(A)),Hn("A"," ",(e,A)=>{e.created.push(A),e.staged.push(A)}),Hn("A","M",(e,A)=>{e.created.push(A),e.staged.push(A),e.modified.push(A)}),Hn("D"," ",(e,A)=>{e.deleted.push(A),e.staged.push(A)}),Hn("M"," ",(e,A)=>{e.modified.push(A),e.staged.push(A)}),Hn("M","M",(e,A)=>{e.modified.push(A),e.staged.push(A)}),Hn("R"," ",(e,A)=>{e.renamed.push(Jn(A))}),Hn("R","M",(e,A)=>{const t=Jn(A)
-e.renamed.push(t),e.modified.push(t.to)}),Hn("!","!",(e,A)=>{(e.ignored=e.ignored||[]).push(A)}),Hn("?","?",(e,A)=>e.not_added.push(A)),...Vn("A","A","U"),...Vn("D","D","U"),...Vn("U","A","D","U"),["##",(e,A)=>{let t=/ahead (\d+)/.exec(A)
-e.ahead=t&&+t[1]||0,t=/behind (\d+)/.exec(A),e.behind=t&&+t[1]||0,t=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(A),e.current=Qt(t?.[1],gt,null),t=/\.{3}(\S*)/.exec(A),e.tracking=Qt(t?.[1],gt,null),t=/\son\s(\S+?)(?=\.{3}|$)/.exec(A),t&&(e.current=Qt(t?.[1],gt,e.current)),e.detached=/\(no branch\)/.test(A)}]]),Gn=function(e){const A=e.split(RA),t=new Tn
+default:return}function r(A,t,r){const s=`${A}${t}`,n=On.get(s)
+n&&n(e,r),"##"!==s&&"!!"!==s&&e.files.push(new Hn(r,A,t))}}var Xn,$n=VA({"src/lib/responses/StatusSummary.ts"(){zt(),qn(),Vn=class{constructor(){this.not_added=[],this.conflicted=[],this.created=[],this.deleted=[],this.ignored=void 0,this.modified=[],this.renamed=[],this.files=[],this.staged=[],this.ahead=0,this.behind=0,this.current=null,this.tracking=null,this.detached=!1,this.isClean=()=>!this.files.length}},On=new Map([Zn(" ","A",(e,A)=>e.created.push(A)),Zn(" ","D",(e,A)=>e.deleted.push(A)),Zn(" ","M",(e,A)=>e.modified.push(A)),Zn("A"," ",(e,A)=>{e.created.push(A),e.staged.push(A)}),Zn("A","M",(e,A)=>{e.created.push(A),e.staged.push(A),e.modified.push(A)}),Zn("D"," ",(e,A)=>{e.deleted.push(A),e.staged.push(A)}),Zn("M"," ",(e,A)=>{e.modified.push(A),e.staged.push(A)}),Zn("M","M",(e,A)=>{e.modified.push(A),e.staged.push(A)}),Zn("R"," ",(e,A)=>{e.renamed.push(_n(A))}),Zn("R","M",(e,A)=>{const t=_n(A)
+e.renamed.push(t),e.modified.push(t.to)}),Zn("!","!",(e,A)=>{(e.ignored=e.ignored||[]).push(A)}),Zn("?","?",(e,A)=>e.not_added.push(A)),...zn("A","A","U"),...zn("D","D","U"),...zn("U","A","D","U"),["##",(e,A)=>{let t=/ahead (\d+)/.exec(A)
+e.ahead=t&&+t[1]||0,t=/behind (\d+)/.exec(A),e.behind=t&&+t[1]||0,t=/^(.+?(?=(?:\.{3}|\s|$)))/.exec(A),e.current=pt(t?.[1],Ct,null),t=/\.{3}(\S*)/.exec(A),e.tracking=pt(t?.[1],Ct,null),t=/\son\s(\S+?)(?=\.{3}|$)/.exec(A),t&&(e.current=pt(t?.[1],Ct,e.current)),e.detached=/\(no branch\)/.test(A)}]]),Wn=function(e){const A=e.split(LA),t=new Vn
 for(let e=0,r=A.length;e<r;){let r=A[e++].trim()
-r&&("R"===r.charAt(0)&&(r+=RA+(A[e++]||"")),On(t,r))}return t}}})
-var qn,_n,Zn=TA({"src/lib/tasks/status.ts"(){Pn(),Wn=["--null","-z"]}})
-function zn(e=0,A=0,t=0,r="",s=!0){return Object.defineProperty({major:e,minor:A,patch:t,agent:r,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function jn(e){return e===qn?zn(0,0,0,"",!1):vt(zn(0,0,0,e),_n,e)}var Xn,$n,Kn=TA({"src/lib/tasks/version.ts"(){Vt(),qn="installed=false",_n=[new ft(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,(e,[A,t,r,s=""])=>{Object.assign(e,zn(tt(A),tt(t),tt(r),s))}),new ft(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,(e,[A,t,r,s=""])=>{Object.assign(e,zn(tt(A),tt(t),r,s))})]}})
-function eo(e,A,t,...r){return gt(t)?A(t,Qt(r[0],gt),Nt(arguments)):tr(`git.${e}() requires a string 'repoPath'`)}var Ao,to=TA({"src/lib/tasks/clone.ts"(){hr(),Vt(),Xn=(e,A,t)=>{const r=["clone",...t]
-return gt(e)&&r.push(je(e)),gt(A)&&r.push(je(A)),rr(r)},$n=(e,A,t)=>(jA(t,"--mirror"),Xn(e,A,t))}}),ro={}
-vA(ro,{SimpleGitApi:()=>Ao})
-var so,no,oo=TA({"src/lib/simple-git-api.ts"(){rs(),ns(),as(),gs(),Qs(),Fr(),us(),Yr(),ds(),ms(),An(),Rn(),Mn(),Yn(),Zn(),hr(),Kn(),Vt(),to(),Ao=class{constructor(e){this._executor=e}_runTask(e,A){const t=this._executor.chain(),r=t.push(e)
-return A&&ts(e,r,A),Object.create(this,{then:{value:r.then.bind(r)},catch:{value:r.catch.bind(r)},_executor:{value:t}})}add(e){return this._runTask(rr(["add",...KA(e)]),Ut(arguments))}cwd(e){const A=Ut(arguments)
-return"string"==typeof e?this._runTask(ss(e,this._executor),A):"string"==typeof e?.path?this._runTask(ss(e.path,e.root&&this._executor||void 0),A):this._runTask(tr("Git.cwd: workingDirectory must be supplied as a string"),A)}hashObject(e,A){return this._runTask(function(e,A){const t=["hash-object",e]
-return A&&t.push("-w"),rr(t,!0)}(e,!0===A),Ut(arguments))}init(e){return this._runTask(ws(!0===e,this._executor.cwd,Nt(arguments)),Ut(arguments))}merge(){return this._runTask(yn(Nt(arguments)),Ut(arguments))}mergeFromTo(e,A){return gt(e)&&gt(A)?this._runTask(yn([e,A,...Nt(arguments)]),Ut(arguments,!1)):this._runTask(tr("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(e){return this._executor.outputHandler=e,this}push(){const e=Nn({remote:Qt(arguments[0],gt),branch:Qt(arguments[1],gt)},Nt(arguments))
-return this._runTask(e,Ut(arguments))}stash(){return this._runTask(rr(["stash",...Nt(arguments)]),Ut(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...Nt(arguments).filter(e=>!Wn.includes(e))],parser:e=>Gn(e)},Ut(arguments))}},Object.assign(Ao.prototype,{checkout(){return this._runTask(os(Nt(arguments,1)),Ut(arguments))},checkoutBranch(e,A){return this._runTask(os(["-b",e,A,...Nt(arguments)]),Ut(arguments))},checkoutLocalBranch(e){return this._runTask(os(["-b",e,...Nt(arguments)]),Ut(arguments))}},{clone(e,...A){return this._runTask(eo("clone",Xn,Qt(e,gt),...A),Ut(arguments))},mirror(e,...A){return this._runTask(eo("mirror",$n,Qt(e,gt),...A),Ut(arguments))}},Es(),{addConfig(e,A,...t){return this._runTask(function(e,A,t,r){const s=["config",`--${r}`]
-return t&&s.push("--add"),s.push(e,A),{commands:s,format:"utf-8",parser:e=>e}}(e,A,!0===t[0],mr(t[1],"local")),Ut(arguments))},getConfig(e,A){return this._runTask(Dr(e,mr(A,void 0)),Ut(arguments))},listConfig(...e){return this._runTask(kr(mr(e[0],void 0)),Ut(arguments))}},{countObjects(){return this._runTask({commands:["count-objects","--verbose"],format:"utf-8",parser:e=>vt({count:0,garbage:0,inPack:0,packs:0,prunePackable:0,size:0,sizeGarbage:0,sizePack:0},[is],e)})}},{firstCommit(){return this._runTask(rr(["rev-list","--max-parents=0","HEAD"],!0),Ut(arguments))}},Tr(),zs(),{showBuffer(){const e=["show",...Nt(arguments,1)]
-return e.includes("--binary")||e.splice(1,0,"--binary"),this._runTask(sr(e),Ut(arguments))},show(){const e=["show",...Nt(arguments,1)]
-return this._runTask(rr(e),Ut(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:jn,onError(e,A,t,r){if(-2===e.exitCode)return t(Buffer.from(qn))
-r(A)}})}})}}),io={}
-vA(io,{Scheduler:()=>no})
-var ao=TA({"src/lib/runners/scheduler.ts"(){Vt(),Zr(),so=(()=>{let e=0
+r&&("R"===r.charAt(0)&&(r+=LA+(A[e++]||"")),jn(t,r))}return t}}})
+var Kn,eo,Ao=VA({"src/lib/tasks/status.ts"(){$n(),Xn=["--null","-z"]}})
+function to(e=0,A=0,t=0,r="",s=!0){return Object.defineProperty({major:e,minor:A,patch:t,agent:r,installed:s},"toString",{value(){return`${this.major}.${this.minor}.${this.patch}`},configurable:!1,enumerable:!1})}function ro(e){return e===Kn?to(0,0,0,"",!1):Ot(to(0,0,0,e),eo,e)}var so,no,oo=VA({"src/lib/tasks/version.ts"(){zt(),Kn="installed=false",eo=[new Rt(/version (\d+)\.(\d+)\.(\d+)(?:\s*\((.+)\))?/,(e,[A,t,r,s=""])=>{Object.assign(e,to(ct(A),ct(t),ct(r),s))}),new Rt(/version (\d+)\.(\d+)\.(\D+)(.+)?$/,(e,[A,t,r,s=""])=>{Object.assign(e,to(ct(A),ct(t),r,s))})]}})
+function io(e,A,t,...r){return Ct(t)?A(t,pt(r[0],Ct),Yt(arguments)):cr(`git.${e}() requires a string 'repoPath'`)}var ao,co=VA({"src/lib/tasks/clone.ts"(){dr(),zt(),so=(e,A,t)=>{const r=["clone",...t]
+return Ct(e)&&r.push(ze(e)),Ct(A)&&r.push(ze(A)),gr(r)},no=(e,A,t)=>(rt(t,"--mirror"),so(e,A,t))}}),go={}
+OA(go,{SimpleGitApi:()=>ao})
+var lo,ho,Eo=VA({"src/lib/simple-git-api.ts"(){gs(),hs(),us(),Cs(),ps(),vr(),ws(),Pr(),ks(),Ns(),cn(),Ln(),xn(),Pn(),Ao(),dr(),oo(),zt(),co(),ao=class{constructor(e){this._executor=e}_runTask(e,A){const t=this._executor.chain(),r=t.push(e)
+return A&&cs(e,r,A),Object.create(this,{then:{value:r.then.bind(r)},catch:{value:r.catch.bind(r)},_executor:{value:t}})}add(e){return this._runTask(gr(["add",...ot(e)]),Jt(arguments))}cwd(e){const A=Jt(arguments)
+return"string"==typeof e?this._runTask(ls(e,this._executor),A):"string"==typeof e?.path?this._runTask(ls(e.path,e.root&&this._executor||void 0),A):this._runTask(cr("Git.cwd: workingDirectory must be supplied as a string"),A)}hashObject(e,A){return this._runTask(function(e,A){const t=["hash-object",e]
+return A&&t.push("-w"),gr(t,!0)}(e,!0===A),Jt(arguments))}init(e){return this._runTask(Fs(!0===e,this._executor.cwd,Yt(arguments)),Jt(arguments))}merge(){return this._runTask(Sn(Yt(arguments)),Jt(arguments))}mergeFromTo(e,A){return Ct(e)&&Ct(A)?this._runTask(Sn([e,A,...Yt(arguments)]),Jt(arguments,!1)):this._runTask(cr("Git.mergeFromTo requires that the 'remote' and 'branch' arguments are supplied as strings"))}outputHandler(e){return this._executor.outputHandler=e,this}push(){const e=Yn({remote:pt(arguments[0],Ct),branch:pt(arguments[1],Ct)},Yt(arguments))
+return this._runTask(e,Jt(arguments))}stash(){return this._runTask(gr(["stash",...Yt(arguments)]),Jt(arguments))}status(){return this._runTask({format:"utf-8",commands:["status","--porcelain","-b","-u","--null",...Yt(arguments).filter(e=>!Xn.includes(e))],parser:e=>Wn(e)},Jt(arguments))}},Object.assign(ao.prototype,{checkout(){return this._runTask(Es(Yt(arguments,1)),Jt(arguments))},checkoutBranch(e,A){return this._runTask(Es(["-b",e,A,...Yt(arguments)]),Jt(arguments))},checkoutLocalBranch(e){return this._runTask(Es(["-b",e,...Yt(arguments)]),Jt(arguments))}},{clone(e,...A){return this._runTask(io("clone",so,pt(e,Ct),...A),Jt(arguments))},mirror(e,...A){return this._runTask(io("mirror",no,pt(e,Ct),...A),Jt(arguments))}},fs(),{addConfig(e,A,...t){return this._runTask(function(e,A,t,r){const s=["config",`--${r}`]
+return t&&s.push("--add"),s.push(e,A),{commands:s,format:"utf-8",parser:e=>e}}(e,A,!0===t[0],Nr(t[1],"local")),Jt(arguments))},getConfig(e,A){return this._runTask(Mr(e,Nr(A,void 0)),Jt(arguments))},listConfig(...e){return this._runTask(Ur(Nr(e[0],void 0)),Jt(arguments))}},{countObjects(){return this._runTask({commands:["count-objects","--verbose"],format:"utf-8",parser:e=>Ot({count:0,garbage:0,inPack:0,packs:0,prunePackable:0,size:0,sizeGarbage:0,sizePack:0},[Qs],e)})}},{firstCommit(){return this._runTask(gr(["rev-list","--max-parents=0","HEAD"],!0),Jt(arguments))}},Vr(),tn(),{showBuffer(){const e=["show",...Yt(arguments,1)]
+return e.includes("--binary")||e.splice(1,0,"--binary"),this._runTask(lr(e),Jt(arguments))},show(){const e=["show",...Yt(arguments,1)]
+return this._runTask(gr(e),Jt(arguments))}},{version(){return this._runTask({commands:["--version"],format:"utf-8",parser:ro,onError(e,A,t,r){if(-2===e.exitCode)return t(Buffer.from(Kn))
+r(A)}})}})}}),Qo={}
+OA(Qo,{Scheduler:()=>ho})
+var uo=VA({"src/lib/runners/scheduler.ts"(){zt(),As(),lo=(()=>{let e=0
 return()=>{e++
-const{promise:A,done:t}=(0,eA.ud)()
-return{promise:A,done:t,id:e}}})(),no=class{constructor(e=2){this.concurrency=e,this.logger=Pr("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",e)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
-const e=jA(this.running,this.pending.shift())
-this.logger("Attempting id=%s",e.id),e.done(()=>{this.logger("Completing id=",e.id),$A(this.running,e),this.schedule()})}next(){const{promise:e,id:A}=jA(this.pending,so())
-return this.logger("Scheduling id=%s",A),this.schedule(),e}}}}),co={}
-function go(e,A){return rr(["apply",...A,...e])}vA(co,{applyPatchTask:()=>go})
-var lo,ho=TA({"src/lib/tasks/apply-patch.ts"(){hr()}})
-var Eo,Qo,uo,Bo=TA({"src/lib/responses/BranchDeleteSummary.ts"(){lo=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
-function Co(e,A){return 1===A&&Eo.test(e)}var Io,fo,po,wo=TA({"src/lib/parsers/parse-branch-delete.ts"(){Bo(),Vt(),Eo=/^error[^']+'([^']+)'/m,Qo=[new ft(/(\S+)\s+\(\S+\s([^)]+)\)/,(e,[A,t])=>{const r=function(e,A){return{branch:e,hash:A,success:!0}}(A,t)
-e.all.push(r),e.branches[A]=r}),new ft(Eo,(e,[A])=>{const t=function(e){return{branch:e,hash:null,success:!1}}(A)
-e.errors.push(t),e.all.push(t),e.branches[A]=t})],uo=(e,A)=>vt(new lo,Qo,[e,A])}}),yo=TA({"src/lib/responses/BranchSummary.ts"(){Io=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(e,A,t,r,s){"*"===e&&(this.detached=A,this.current=t),this.all.push(t),this.branches[t]={current:"*"===e,linkedWorkTree:"+"===e,name:t,commit:r,label:s}}}}})
-function mo(e){return e?e.charAt(0):""}function Do(e,A=!1){return vt(new Io,A?[po]:fo,e)}var ko=TA({"src/lib/parsers/parse-branch.ts"(){yo(),Vt(),fo=[new ft(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,(e,[A,t,r,s])=>{e.push(mo(A),!0,t,r,s)}),new ft(/^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,(e,[A,t,r,s])=>{e.push(mo(A),!1,t,r,s)})],po=new ft(/^(\S+)$/s,(e,[A])=>{e.push("*",!1,A,"","")})}}),Ro={}
-function bo(e){const A=["-d","-D","--delete"]
-return e.some(e=>A.includes(e))}function Fo(e){const A=bo(e),t=e.includes("--show-current"),r=["branch",...e]
-return 1===r.length&&r.push("-a"),r.includes("-v")||r.splice(1,0,"-v"),{format:"utf-8",commands:r,parser:(e,r)=>A?uo(e,r).all[0]:Do(e,t)}}function So(){return{format:"utf-8",commands:["branch","-v"],parser:e=>Do(e)}}function No(e,A=!1){return{format:"utf-8",commands:["branch","-v",A?"-D":"-d",...e],parser:(e,A)=>uo(e,A),onError({exitCode:e,stdOut:A},t,r,s){if(!Co(String(t),e))return s(t)
-r(A)}}}function Mo(e,A=!1){const t={format:"utf-8",commands:["branch","-v",A?"-D":"-d",e],parser:(A,t)=>uo(A,t).branches[e],onError({exitCode:e,stdErr:A,stdOut:r},s,n,o){if(!Co(String(s),e))return o(s)
-throw new DA(t.parser(st(r),st(A)),String(s))}}
-return t}vA(Ro,{branchLocalTask:()=>So,branchTask:()=>Fo,containsDeleteBranchCommand:()=>bo,deleteBranchTask:()=>Mo,deleteBranchesTask:()=>No})
-var Uo,Lo=TA({"src/lib/tasks/branch.ts"(){xA(),wo(),ko(),Vt()}})
-function To(e){const A=e.trim().replace(/^["']|["']$/g,"")
-return A&&(0,l.normalize)(A)}var vo=TA({"src/lib/responses/CheckIgnore.ts"(){Uo=e=>e.split(/\n/g).map(To).filter(Boolean)}}),Go={}
-function Yo(e){return{commands:["check-ignore",...e],format:"utf-8",parser:Uo}}vA(Go,{checkIgnoreTask:()=>Yo})
-var xo,Jo=TA({"src/lib/tasks/check-ignore.ts"(){vo()}})
-function Ho(e,A){return vt({raw:e,remote:null,branches:[],tags:[],updated:[],deleted:[]},xo,[e,A])}var Vo=TA({"src/lib/parsers/parse-fetch.ts"(){Vt(),xo=[new ft(/From (.+)$/,(e,[A])=>{e.remote=A}),new ft(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,(e,[A,t])=>{e.branches.push({name:A,tracking:t})}),new ft(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,(e,[A,t])=>{e.tags.push({name:A,tracking:t})}),new ft(/- \[deleted]\s+\S+\s*-> (.+)$/,(e,[A])=>{e.deleted.push({tracking:A})}),new ft(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,(e,[A,t,r,s])=>{e.updated.push({name:r,tracking:s,to:t,from:A})})]}}),Oo={}
-function Wo(e){return/^--upload-pack(=|$)/.test(e)}function Po(e,A,t){const r=["fetch",...t]
+const{promise:A,done:t}=(0,Ke.ud)()
+return{promise:A,done:t,id:e}}})(),ho=class{constructor(e=2){this.concurrency=e,this.logger=$r("","scheduler"),this.pending=[],this.running=[],this.logger("Constructed, concurrency=%s",e)}schedule(){if(!this.pending.length||this.running.length>=this.concurrency)return void this.logger("Schedule attempt ignored, pending=%s running=%s concurrency=%s",this.pending.length,this.running.length,this.concurrency)
+const e=rt(this.running,this.pending.shift())
+this.logger("Attempting id=%s",e.id),e.done(()=>{this.logger("Completing id=",e.id),nt(this.running,e),this.schedule()})}next(){const{promise:e,id:A}=rt(this.pending,lo())
+return this.logger("Scheduling id=%s",A),this.schedule(),e}}}}),Bo={}
+function Co(e,A){return gr(["apply",...A,...e])}OA(Bo,{applyPatchTask:()=>Co})
+var Io,fo=VA({"src/lib/tasks/apply-patch.ts"(){dr()}})
+var po,wo,yo,mo=VA({"src/lib/responses/BranchDeleteSummary.ts"(){Io=class{constructor(){this.all=[],this.branches={},this.errors=[]}get success(){return!this.errors.length}}}})
+function Do(e,A){return 1===A&&po.test(e)}var ko,Ro,bo,Fo=VA({"src/lib/parsers/parse-branch-delete.ts"(){mo(),zt(),po=/^error[^']+'([^']+)'/m,wo=[new Rt(/(\S+)\s+\(\S+\s([^)]+)\)/,(e,[A,t])=>{const r=function(e,A){return{branch:e,hash:A,success:!0}}(A,t)
+e.all.push(r),e.branches[A]=r}),new Rt(po,(e,[A])=>{const t=function(e){return{branch:e,hash:null,success:!1}}(A)
+e.errors.push(t),e.all.push(t),e.branches[A]=t})],yo=(e,A)=>Ot(new Io,wo,[e,A])}}),So=VA({"src/lib/responses/BranchSummary.ts"(){ko=class{constructor(){this.all=[],this.branches={},this.current="",this.detached=!1}push(e,A,t,r,s){"*"===e&&(this.detached=A,this.current=t),this.all.push(t),this.branches[t]={current:"*"===e,linkedWorkTree:"+"===e,name:t,commit:r,label:s}}}}})
+function No(e){return e?e.charAt(0):""}function Mo(e,A=!1){return Ot(new ko,A?[bo]:Ro,e)}var Uo=VA({"src/lib/parsers/parse-branch.ts"(){So(),zt(),Ro=[new Rt(/^([*+]\s)?\((?:HEAD )?detached (?:from|at) (\S+)\)\s+([a-z0-9]+)\s(.*)$/,(e,[A,t,r,s])=>{e.push(No(A),!0,t,r,s)}),new Rt(/^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,(e,[A,t,r,s])=>{e.push(No(A),!1,t,r,s)})],bo=new Rt(/^(\S+)$/s,(e,[A])=>{e.push("*",!1,A,"","")})}}),Lo={}
+function To(e){const A=["-d","-D","--delete"]
+return e.some(e=>A.includes(e))}function vo(e){const A=To(e),t=e.includes("--show-current"),r=["branch",...e]
+return 1===r.length&&r.push("-a"),r.includes("-v")||r.splice(1,0,"-v"),{format:"utf-8",commands:r,parser:(e,r)=>A?yo(e,r).all[0]:Mo(e,t)}}function Go(){return{format:"utf-8",commands:["branch","-v"],parser:e=>Mo(e)}}function Yo(e,A=!1){return{format:"utf-8",commands:["branch","-v",A?"-D":"-d",...e],parser:(e,A)=>yo(e,A),onError({exitCode:e,stdOut:A},t,r,s){if(!Do(String(t),e))return s(t)
+r(A)}}}function xo(e,A=!1){const t={format:"utf-8",commands:["branch","-v",A?"-D":"-d",e],parser:(A,t)=>yo(A,t).branches[e],onError({exitCode:e,stdErr:A,stdOut:r},s,n,o){if(!Do(String(s),e))return o(s)
+throw new MA(t.parser(lt(r),lt(A)),String(s))}}
+return t}OA(Lo,{branchLocalTask:()=>Go,branchTask:()=>vo,containsDeleteBranchCommand:()=>To,deleteBranchTask:()=>xo,deleteBranchesTask:()=>Yo})
+var Jo,Ho=VA({"src/lib/tasks/branch.ts"(){qA(),Fo(),Uo(),zt()}})
+function Vo(e){const A=e.trim().replace(/^["']|["']$/g,"")
+return A&&(0,l.normalize)(A)}var Oo=VA({"src/lib/responses/CheckIgnore.ts"(){Jo=e=>e.split(/\n/g).map(Vo).filter(Boolean)}}),Wo={}
+function Po(e){return{commands:["check-ignore",...e],format:"utf-8",parser:Jo}}OA(Wo,{checkIgnoreTask:()=>Po})
+var qo,_o=VA({"src/lib/tasks/check-ignore.ts"(){Oo()}})
+function Zo(e,A){return Ot({raw:e,remote:null,branches:[],tags:[],updated:[],deleted:[]},qo,[e,A])}var zo=VA({"src/lib/parsers/parse-fetch.ts"(){zt(),qo=[new Rt(/From (.+)$/,(e,[A])=>{e.remote=A}),new Rt(/\* \[new branch]\s+(\S+)\s*-> (.+)$/,(e,[A,t])=>{e.branches.push({name:A,tracking:t})}),new Rt(/\* \[new tag]\s+(\S+)\s*-> (.+)$/,(e,[A,t])=>{e.tags.push({name:A,tracking:t})}),new Rt(/- \[deleted]\s+\S+\s*-> (.+)$/,(e,[A])=>{e.deleted.push({tracking:A})}),new Rt(/\s*([^.]+)\.\.(\S+)\s+(\S+)\s*-> (.+)$/,(e,[A,t,r,s])=>{e.updated.push({name:r,tracking:s,to:t,from:A})})]}}),jo={}
+function Xo(e){return/^--upload-pack(=|$)/.test(e)}function $o(e,A,t){const r=["fetch",...t]
 e&&A&&r.push(e,A)
-return r.find(Wo)?tr("git.fetch: potential exploit argument blocked."):{commands:r,format:"utf-8",parser:Ho}}vA(Oo,{fetchTask:()=>Po})
-var qo,_o=TA({"src/lib/tasks/fetch.ts"(){Vo(),hr()}})
-function Zo(e){return vt({moves:[]},qo,e)}var zo=TA({"src/lib/parsers/parse-move.ts"(){Vt(),qo=[new ft(/^Renaming (.+) to (.+)$/,(e,[A,t])=>{e.moves.push({from:A,to:t})})]}}),jo={}
-function Xo(e,A){return{commands:["mv","-v",...KA(e),A],format:"utf-8",parser:Zo}}vA(jo,{moveTask:()=>Xo})
-var $o=TA({"src/lib/tasks/move.ts"(){zo(),Vt()}}),Ko={}
-function ei(e,A,t){const r=["pull",...t]
-return e&&A&&r.splice(1,0,e,A),{commands:r,format:"utf-8",parser:(e,A)=>Bn(e,A),onError(e,A,t,r){const s=function(e,A){const t=vt(new Ks,Qn,[e,A])
-return t.message&&t}(st(e.stdOut),st(e.stdErr))
-if(s)return r(new DA(s))
-r(A)}}}vA(Ko,{pullTask:()=>ei})
-var Ai=TA({"src/lib/tasks/pull.ts"(){xA(),pn(),Vt()}})
-function ti(e){const A={}
-return si(e,([e])=>A[e]={name:e}),Object.values(A)}function ri(e){const A={}
-return si(e,([e,t,r])=>{Object.hasOwn(A,e)||(A[e]={name:e,refs:{fetch:"",push:""}}),r&&t&&(A[e].refs[r.replace(/[^a-z]/g,"")]=t)}),Object.values(A)}function si(e,A){ZA(e,e=>A(e.split(/\s+/)))}var ni=TA({"src/lib/responses/GetRemoteSummary.ts"(){Vt()}}),oi={}
-function ii(e,A,t){return rr(["remote","add",...t,e,A])}function ai(e){const A=["remote"]
-return e&&A.push("-v"),{commands:A,format:"utf-8",parser:e?ri:ti}}function ci(e){const A=[...e]
-return"ls-remote"!==A[0]&&A.unshift("ls-remote"),rr(A)}function gi(e){const A=[...e]
-return"remote"!==A[0]&&A.unshift("remote"),rr(A)}function li(e){return rr(["remote","remove",e])}vA(oi,{addRemoteTask:()=>ii,getRemotesTask:()=>ai,listRemotesTask:()=>ci,remoteTask:()=>gi,removeRemoteTask:()=>li})
-var hi=TA({"src/lib/tasks/remote.ts"(){ni(),hr()}}),Ei={}
-function Qi(e={},A){const t=Zs(e),r=["stash","list",...t.commands,...A],s=Hs(t.splitter,t.fields,Ds(r))
-return Ps(r)||{commands:r,format:"utf-8",parser:s}}vA(Ei,{stashListTask:()=>Qi})
-var ui=TA({"src/lib/tasks/stash-list.ts"(){Us(),Vs(),_s(),An()}}),Bi={}
-function Ci(e,A){return di(["add",e,A])}function Ii(e){return di(["init",...e])}function di(e){const A=[...e]
-return"submodule"!==A[0]&&A.unshift("submodule"),rr(A)}function fi(e){return di(["update",...e])}vA(Bi,{addSubModuleTask:()=>Ci,initSubModuleTask:()=>Ii,subModuleTask:()=>di,updateSubModuleTask:()=>fi})
-var pi,wi,yi=TA({"src/lib/tasks/sub-module.ts"(){hr()}})
-function mi(e,A){return e===A?0:e>A?1:-1}function Di(e){return e.trim()}function ki(e){return"string"==typeof e&&parseInt(e.replace(/^\D+/g,""),10)||0}var Ri=TA({"src/lib/responses/TagList.ts"(){pi=class{constructor(e,A){this.all=e,this.latest=A}},wi=function(e,A=!1){const t=e.split("\n").map(Di).filter(Boolean)
+return r.find(Xo)?cr("git.fetch: potential exploit argument blocked."):{commands:r,format:"utf-8",parser:Zo}}OA(jo,{fetchTask:()=>$o})
+var Ko,ei=VA({"src/lib/tasks/fetch.ts"(){zo(),dr()}})
+function Ai(e){return Ot({moves:[]},Ko,e)}var ti=VA({"src/lib/parsers/parse-move.ts"(){zt(),Ko=[new Rt(/^Renaming (.+) to (.+)$/,(e,[A,t])=>{e.moves.push({from:A,to:t})})]}}),ri={}
+function si(e,A){return{commands:["mv","-v",...ot(e),A],format:"utf-8",parser:Ai}}OA(ri,{moveTask:()=>si})
+var ni=VA({"src/lib/tasks/move.ts"(){ti(),zt()}}),oi={}
+function ii(e,A,t){const r=["pull",...t]
+return e&&A&&r.splice(1,0,e,A),{commands:r,format:"utf-8",parser:(e,A)=>yn(e,A),onError(e,A,t,r){const s=function(e,A){const t=Ot(new on,pn,[e,A])
+return t.message&&t}(lt(e.stdOut),lt(e.stdErr))
+if(s)return r(new MA(s))
+r(A)}}}OA(oi,{pullTask:()=>ii})
+var ai=VA({"src/lib/tasks/pull.ts"(){qA(),bn(),zt()}})
+function ci(e){const A={}
+return li(e,([e])=>A[e]={name:e}),Object.values(A)}function gi(e){const A={}
+return li(e,([e,t,r])=>{Object.hasOwn(A,e)||(A[e]={name:e,refs:{fetch:"",push:""}}),r&&t&&(A[e].refs[r.replace(/[^a-z]/g,"")]=t)}),Object.values(A)}function li(e,A){At(e,e=>A(e.split(/\s+/)))}var hi=VA({"src/lib/responses/GetRemoteSummary.ts"(){zt()}}),Ei={}
+function Qi(e,A,t){return gr(["remote","add",...t,e,A])}function ui(e){const A=["remote"]
+return e&&A.push("-v"),{commands:A,format:"utf-8",parser:e?gi:ci}}function Bi(e){const A=[...e]
+return"ls-remote"!==A[0]&&A.unshift("ls-remote"),gr(A)}function Ci(e){const A=[...e]
+return"remote"!==A[0]&&A.unshift("remote"),gr(A)}function Ii(e){return gr(["remote","remove",e])}OA(Ei,{addRemoteTask:()=>Qi,getRemotesTask:()=>ui,listRemotesTask:()=>Bi,remoteTask:()=>Ci,removeRemoteTask:()=>Ii})
+var di=VA({"src/lib/tasks/remote.ts"(){hi(),dr()}}),fi={}
+function pi(e={},A){const t=An(e),r=["stash","list",...t.commands,...A],s=Zs(t.splitter,t.fields,Ms(r))
+return $s(r)||{commands:r,format:"utf-8",parser:s}}OA(fi,{stashListTask:()=>pi})
+var wi=VA({"src/lib/tasks/stash-list.ts"(){Js(),zs(),en(),cn()}}),yi={}
+function mi(e,A){return ki(["add",e,A])}function Di(e){return ki(["init",...e])}function ki(e){const A=[...e]
+return"submodule"!==A[0]&&A.unshift("submodule"),gr(A)}function Ri(e){return ki(["update",...e])}OA(yi,{addSubModuleTask:()=>mi,initSubModuleTask:()=>Di,subModuleTask:()=>ki,updateSubModuleTask:()=>Ri})
+var bi,Fi,Si=VA({"src/lib/tasks/sub-module.ts"(){dr()}})
+function Ni(e,A){return e===A?0:e>A?1:-1}function Mi(e){return e.trim()}function Ui(e){return"string"==typeof e&&parseInt(e.replace(/^\D+/g,""),10)||0}var Li=VA({"src/lib/responses/TagList.ts"(){bi=class{constructor(e,A){this.all=e,this.latest=A}},Fi=function(e,A=!1){const t=e.split("\n").map(Mi).filter(Boolean)
 A||t.sort(function(e,A){const t=e.split("."),r=A.split(".")
 if(1===t.length||1===r.length)return function(e,A){const t=Number.isNaN(e)
-return t!==Number.isNaN(A)?t?1:-1:t?mi(e,A):0}(ki(t[0]),ki(r[0]))
-for(let e=0,A=Math.max(t.length,r.length);e<A;e++){const A=mi(ki(t[e]),ki(r[e]))
+return t!==Number.isNaN(A)?t?1:-1:t?Ni(e,A):0}(Ui(t[0]),Ui(r[0]))
+for(let e=0,A=Math.max(t.length,r.length);e<A;e++){const A=Ni(Ui(t[e]),Ui(r[e]))
 if(A)return A}return 0})
 const r=A?t[0]:[...t].reverse().find(e=>e.indexOf(".")>=0)
-return new pi(t,r)}}}),bi={}
-function Fi(e=[]){const A=e.some(e=>/^--sort=/.test(e))
-return{format:"utf-8",commands:["tag","-l",...e],parser:e=>wi(e,A)}}function Si(e){return{format:"utf-8",commands:["tag",e],parser:()=>({name:e})}}function Ni(e,A){return{format:"utf-8",commands:["tag","-a","-m",A,e],parser:()=>({name:e})}}vA(bi,{addAnnotatedTagTask:()=>Ni,addTagTask:()=>Si,tagListTask:()=>Fi})
-var Mi,Ui,Li=TA({"src/lib/tasks/tag.ts"(){Ri()}}),Ti=(Mi={"src/git.js"(e,A){var{GitExecutor:t}=(As(),GA(es)),{SimpleGitApi:r}=(oo(),GA(ro)),{Scheduler:s}=(ao(),GA(io)),{adhocExecTask:n,configurationErrorTask:o}=(hr(),GA(er)),{asArray:i,filterArray:a,filterPrimitives:c,filterString:g,filterStringOrStringArray:l,filterType:h,getTrailingOptions:E,trailingFunctionArgument:Q,trailingOptionsArgument:u}=(Vt(),GA(Yt)),{applyPatchTask:B}=(ho(),GA(co)),{branchTask:C,branchLocalTask:I,deleteBranchesTask:d,deleteBranchTask:f}=(Lo(),GA(Ro)),{checkIgnoreTask:p}=(Jo(),GA(Go)),{checkIsRepoTask:w}=(Xt(),GA(Ot)),{cleanWithOptionsTask:y,isCleanOptionsArray:m}=(dr(),GA(Er)),{diffSummaryTask:D}=(_s(),GA(Os)),{fetchTask:k}=(_o(),GA(Oo)),{moveTask:R}=($o(),GA(jo)),{pullTask:b}=(Ai(),GA(Ko)),{pushTagsTask:F}=(Mn(),GA(Fn)),{addRemoteTask:S,getRemotesTask:N,listRemotesTask:M,remoteTask:U,removeRemoteTask:L}=(hi(),GA(oi)),{getResetMode:T,resetTask:v}=(Or(),GA(xr)),{stashListTask:G}=(ui(),GA(Ei)),{addSubModuleTask:Y,initSubModuleTask:x,subModuleTask:J,updateSubModuleTask:H}=(yi(),GA(Bi)),{addAnnotatedTagTask:V,addTagTask:O,tagListTask:W}=(Li(),GA(bi)),{straightThroughBufferTask:P,straightThroughStringTask:q}=(hr(),GA(er))
+return new bi(t,r)}}}),Ti={}
+function vi(e=[]){const A=e.some(e=>/^--sort=/.test(e))
+return{format:"utf-8",commands:["tag","-l",...e],parser:e=>Fi(e,A)}}function Gi(e){return{format:"utf-8",commands:["tag",e],parser:()=>({name:e})}}function Yi(e,A){return{format:"utf-8",commands:["tag","-a","-m",A,e],parser:()=>({name:e})}}OA(Ti,{addAnnotatedTagTask:()=>Yi,addTagTask:()=>Gi,tagListTask:()=>vi})
+var xi,Ji,Hi=VA({"src/lib/tasks/tag.ts"(){Li()}}),Vi=(xi={"src/git.js"(e,A){var{GitExecutor:t}=(as(),WA(is)),{SimpleGitApi:r}=(Eo(),WA(go)),{Scheduler:s}=(uo(),WA(Qo)),{adhocExecTask:n,configurationErrorTask:o}=(dr(),WA(ir)),{asArray:i,filterArray:a,filterPrimitives:c,filterString:g,filterStringOrStringArray:l,filterType:h,getTrailingOptions:E,trailingFunctionArgument:Q,trailingOptionsArgument:u}=(zt(),WA(Pt)),{applyPatchTask:B}=(fo(),WA(Bo)),{branchTask:C,branchLocalTask:I,deleteBranchesTask:d,deleteBranchTask:f}=(Ho(),WA(Lo)),{checkIgnoreTask:p}=(_o(),WA(Wo)),{checkIsRepoTask:w}=(sr(),WA(jt)),{cleanWithOptionsTask:y,isCleanOptionsArray:m}=(kr(),WA(fr)),{diffSummaryTask:D}=(en(),WA(js)),{fetchTask:k}=(ei(),WA(jo)),{moveTask:R}=(ni(),WA(ri)),{pullTask:b}=(ai(),WA(oi)),{pushTagsTask:F}=(xn(),WA(vn)),{addRemoteTask:S,getRemotesTask:N,listRemotesTask:M,remoteTask:U,removeRemoteTask:L}=(di(),WA(Ei)),{getResetMode:T,resetTask:v}=(jr(),WA(qr)),{stashListTask:G}=(wi(),WA(fi)),{addSubModuleTask:Y,initSubModuleTask:x,subModuleTask:J,updateSubModuleTask:H}=(Si(),WA(yi)),{addAnnotatedTagTask:V,addTagTask:O,tagListTask:W}=(Hi(),WA(Ti)),{straightThroughBufferTask:P,straightThroughStringTask:q}=(dr(),WA(ir))
 function _(e,A){this._plugins=A,this._executor=new t(e.baseDir,new s(e.maxConcurrentProcesses),A),this._trimmed=e.trimmed}(_.prototype=Object.create(r.prototype)).constructor=_,_.prototype.customBinary=function(e){return this._plugins.reconfigure("binary",e),this},_.prototype.env=function(e,A){return 1===arguments.length&&"object"==typeof e?this._executor.env=e:(this._executor.env=this._executor.env||{})[e]=A,this},_.prototype.stashList=function(e){return this._runTask(G(u(arguments)||{},a(e)&&e||[]),Q(arguments))},_.prototype.mv=function(e,A){return this._runTask(R(e,A),Q(arguments))},_.prototype.checkoutLatestTag=function(e){var A=this
 return this.pull(function(){A.tags(function(t,r){A.checkout(r.latest,e)})})},_.prototype.pull=function(e,A,t,r){return this._runTask(b(h(e,g),h(A,g),E(arguments)),Q(arguments))},_.prototype.fetch=function(e,A){return this._runTask(k(h(e,g),h(A,g),E(arguments)),Q(arguments))},_.prototype.silent=function(e){return this._runTask(n(()=>console.warn("simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this method will be removed.")))},_.prototype.tags=function(e,A){return this._runTask(W(E(arguments)),Q(arguments))},_.prototype.rebase=function(){return this._runTask(q(["rebase",...E(arguments)]),Q(arguments))},_.prototype.reset=function(e){return this._runTask(v(T(e),E(arguments)),Q(arguments))},_.prototype.revert=function(e){const A=Q(arguments)
 return"string"!=typeof e?this._runTask(o("Commit must be a string"),A):this._runTask(q(["revert",...E(arguments,0,!0),e]),A)},_.prototype.addTag=function(e){const A="string"==typeof e?O(e):o("Git.addTag requires a tag name")
@@ -3207,145 +3215,144 @@ return this._runTask(t,Q(arguments))},_.prototype.diffSummary=function(){return 
 return this._runTask(A,Q(arguments))},_.prototype.revparse=function(){const e=["rev-parse",...E(arguments,!0)]
 return this._runTask(q(e,!0),Q(arguments))},_.prototype.clean=function(e,A,t){const r=m(e),s=r&&e.join("")||h(e,g)||"",n=E([].slice.call(arguments,r?1:0))
 return this._runTask(y(s,n),Q(arguments))},_.prototype.exec=function(e){const A={commands:[],format:"utf-8",parser(){"function"==typeof e&&e()}}
-return this._runTask(A)},_.prototype.clearQueue=function(){return this._runTask(n(()=>console.warn("simple-git deprecation notice: clearQueue() is deprecated and will be removed, switch to using the abortPlugin instead.")))},_.prototype.checkIgnore=function(e,A){return this._runTask(p(i(h(e,l,[]))),Q(arguments))},_.prototype.checkIsRepo=function(e,A){return this._runTask(w(h(e,g)),Q(arguments))},A.exports=_}},function(){return Ui||(0,Mi[UA(Mi)[0]])((Ui={exports:{}}).exports,Ui),Ui.exports})
-YA()
-var vi=class extends mA{constructor(e,A){super(void 0,A),this.config=e}}
-YA(),YA()
-var Gi=class extends mA{constructor(e,A,t){super(e,t),this.task=e,this.plugin=A,Object.setPrototypeOf(this,new.target.prototype)}}
-xA(),JA(),Xt(),dr(),Fr(),Lr(),Yr(),Or(),Vt(),Vt()
-var Yi=(0,eA.yX)().promise
-function xi({onClose:e=!0,onExit:A=50}={}){function t(e,A,t){!1!==e&&(!0===e?A.promise:A.promise.then(()=>ot(e))).then(t.done)}return{type:"spawn.after",async action(r,{spawned:s,close:n}){const o=function(){let r=-1
-const s={close:(0,eA.yX)(),closeTimeout:(0,eA.yX)(),exit:(0,eA.yX)(),exitTimeout:(0,eA.yX)()},n=Promise.race([!1===e?Yi:s.closeTimeout.promise,!1===A?Yi:s.exitTimeout.promise])
+return this._runTask(A)},_.prototype.clearQueue=function(){return this._runTask(n(()=>console.warn("simple-git deprecation notice: clearQueue() is deprecated and will be removed, switch to using the abortPlugin instead.")))},_.prototype.checkIgnore=function(e,A){return this._runTask(p(i(h(e,l,[]))),Q(arguments))},_.prototype.checkIsRepo=function(e,A){return this._runTask(w(h(e,g)),Q(arguments))},A.exports=_}},function(){return Ji||(0,xi[JA(xi)[0]])((Ji={exports:{}}).exports,Ji),Ji.exports})
+PA()
+var Oi=class extends NA{constructor(e,A){super(void 0,A),this.config=e}}
+PA(),PA()
+var Wi=class extends NA{constructor(e,A,t){super(e,t),this.task=e,this.plugin=A,Object.setPrototypeOf(this,new.target.prototype)}}
+function Pi(e={}){return{type:"spawn.args",action(A,{env:t}){for(const r of function(e,A){return[...mA(...e).vulnerabilities,...SA(A).vulnerabilities]}(A,t))if(!0!==e[r.category])throw new Wi(void 0,"unsafe",r.message)
+return A}}}qA(),_A(),sr(),kr(),vr(),Hr(),Pr(),jr(),zt(),zt()
+var qi=(0,Ke.yX)().promise
+function _i({onClose:e=!0,onExit:A=50}={}){function t(e,A,t){!1!==e&&(!0===e?A.promise:A.promise.then(()=>Et(e))).then(t.done)}return{type:"spawn.after",async action(r,{spawned:s,close:n}){const o=function(){let r=-1
+const s={close:(0,Ke.yX)(),closeTimeout:(0,Ke.yX)(),exit:(0,Ke.yX)(),exitTimeout:(0,Ke.yX)()},n=Promise.race([!1===e?qi:s.closeTimeout.promise,!1===A?qi:s.exitTimeout.promise])
 return t(e,s.close,s.closeTimeout),t(A,s.exit,s.exitTimeout),{close(e){r=e,s.close.done()},exit(e){r=e,s.exit.done()},get exitCode(){return r},result:n}}()
 let i=!0,a=()=>{i=!1}
 s.stdout?.on("data",a),s.stderr?.on("data",a),s.on("error",a),s.on("close",e=>o.close(e)),s.on("exit",e=>o.exit(e))
-try{await o.result,i&&await ot(50),n(o.exitCode)}catch(e){n(o.exitCode,e)}}}}Vt()
-var Ji="Invalid value supplied for custom binary, restricted characters must be removed or supply the unsafe.allowUnsafeCustomBinary option"
-function Hi(e){return!e||!/^([a-z]:)?([a-z0-9/.\\_~-]+)$/i.test(e)}function Vi(e,A){if(e.length<1||e.length>2)throw new Gi(void 0,"binary","Invalid value supplied for custom binary, requires a single string or an array containing either one or two strings")
-if(e.some(Hi)){if(!A)throw new Gi(void 0,"binary",Ji)
-console.warn(Ji)}const[t,r]=e
-return{binary:t,prefix:r}}function Oi(e){return!(!e.exitCode||!e.stdErr.length)}function Wi(e){return Buffer.concat([...e.stdOut,...e.stdErr])}function Pi(e=!1,A=Oi,t=Wi){return(r,s)=>!e&&r||!A(s)?r:t(s)}function qi(e){return{type:"task.error",action(A,t){const r=e(A.error,{stdErr:t.stdErr,stdOut:t.stdOut,exitCode:t.exitCode})
-return Buffer.isBuffer(r)?{error:new mA(void 0,r.toString("utf-8"))}:{error:r}}}}YA(),Vt()
-var _i=class{constructor(){this.plugins=new Set,this.events=new SA.EventEmitter}on(e,A){this.events.on(e,A)}reconfigure(e,A){this.events.emit(e,A)}append(e,A){const t=jA(this.plugins,{type:e,action:A})
+try{await o.result,i&&await Et(50),n(o.exitCode)}catch(e){n(o.exitCode,e)}}}}zt()
+var Zi="Invalid value supplied for custom binary, restricted characters must be removed or supply the unsafe.allowUnsafeCustomBinary option"
+function zi(e){return!e||!/^([a-z]:)?([a-z0-9/.\\_~-]+)$/i.test(e)}function ji(e,A){if(e.length<1||e.length>2)throw new Wi(void 0,"binary","Invalid value supplied for custom binary, requires a single string or an array containing either one or two strings")
+if(e.some(zi)){if(!A)throw new Wi(void 0,"binary",Zi)
+console.warn(Zi)}const[t,r]=e
+return{binary:t,prefix:r}}function Xi(e){return!(!e.exitCode||!e.stdErr.length)}function $i(e){return Buffer.concat([...e.stdOut,...e.stdErr])}function Ki(e=!1,A=Xi,t=$i){return(r,s)=>!e&&r||!A(s)?r:t(s)}function ea(e){return{type:"task.error",action(A,t){const r=e(A.error,{stdErr:t.stdErr,stdOut:t.stdOut,exitCode:t.exitCode})
+return Buffer.isBuffer(r)?{error:new NA(void 0,r.toString("utf-8"))}:{error:r}}}}PA(),zt()
+var Aa=class{constructor(){this.plugins=new Set,this.events=new GA.EventEmitter}on(e,A){this.events.on(e,A)}reconfigure(e,A){this.events.emit(e,A)}append(e,A){const t=rt(this.plugins,{type:e,action:A})
 return()=>this.plugins.delete(t)}add(e){const A=[]
-return KA(e).forEach(e=>e&&this.plugins.add(jA(A,e))),()=>{A.forEach(e=>this.plugins.delete(e))}}exec(e,A,t){let r=A
+return ot(e).forEach(e=>e&&this.plugins.add(rt(A,e))),()=>{A.forEach(e=>this.plugins.delete(e))}}exec(e,A,t){let r=A
 const s=Object.freeze(Object.create(t))
 for(const A of this.plugins)A.type===e&&(r=A.action(r,s))
 return r}}
-Vt(),Vt(),Vt()
-var Zi=Ti()
-function zi(e,A){const t=new _i,r=bt(e&&("string"==typeof e?{baseDir:e}:e)||{},A)
-if(!zA(r.baseDir))throw new vi(r,"Cannot use simple-git on a directory that does not exist")
-return Array.isArray(r.config)&&t.add(function(e){const A=rt(e,"-c")
-return{type:"spawn.args",action:e=>[...A,...e]}}(r.config)),t.add(function(e={}){return{type:"spawn.args",action(A){const t=wA(...A)
-for(const A of t.vulnerabilities.vulnerabilities)if(!0!==e[A.category])throw new Gi(void 0,"unsafe",A.message)
-return A}}}(r.unsafe)),t.add(xi(r.completion)),r.abort&&t.add(function(e){if(!e)return
-const A={type:"spawn.after",action(A,t){function r(){t.kill(new Gi(void 0,"abort","Abort signal received"))}e.addEventListener("abort",r),t.spawned.on("close",()=>e.removeEventListener("abort",r))}}
-return[{type:"spawn.before",action(A,t){e.aborted&&t.kill(new Gi(void 0,"abort","Abort already signaled"))}},A]}(r.abort)),r.progress&&t.add(function(e){const A="--progress",t=["checkout","clone","fetch","pull","push"]
-return[{type:"spawn.args",action:(e,r)=>t.includes(r.method)?XA(e,A):e},{type:"spawn.after",action(t,r){r.commands.includes(A)&&r.spawned.stderr?.on("data",A=>{const t=/^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(A.toString("utf8"))
+zt(),zt(),zt()
+var ta=Vi()
+function ra(e,A){const t=new Aa,r=Tt(e&&("string"==typeof e?{baseDir:e}:e)||{},A)
+if(!tt(r.baseDir))throw new Oi(r,"Cannot use simple-git on a directory that does not exist")
+return Array.isArray(r.config)&&t.add(function(e){const A=gt(e,"-c")
+return{type:"spawn.args",action:e=>[...A,...e]}}(r.config)),t.add(Pi(r.unsafe)),t.add(_i(r.completion)),r.abort&&t.add(function(e){if(!e)return
+const A={type:"spawn.after",action(A,t){function r(){t.kill(new Wi(void 0,"abort","Abort signal received"))}e.addEventListener("abort",r),t.spawned.on("close",()=>e.removeEventListener("abort",r))}}
+return[{type:"spawn.before",action(A,t){e.aborted&&t.kill(new Wi(void 0,"abort","Abort already signaled"))}},A]}(r.abort)),r.progress&&t.add(function(e){const A="--progress",t=["checkout","clone","fetch","pull","push"]
+return[{type:"spawn.args",action:(e,r)=>t.includes(r.method)?st(e,A):e},{type:"spawn.after",action(t,r){r.commands.includes(A)&&r.spawned.stderr?.on("data",A=>{const t=/^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(A.toString("utf8"))
 var s
-t&&e({method:r.method,stage:(s=t[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:tt(t[2]),processed:tt(t[3]),total:tt(t[4])})})}}]}(r.progress)),r.timeout&&t.add(function({block:e,stdErr:A=!0,stdOut:t=!0}){if(e>0)return{type:"spawn.after",action(r,s){let n
-function o(){n&&clearTimeout(n),n=setTimeout(a,e)}function i(){s.spawned.stdout?.off("data",o),s.spawned.stderr?.off("data",o),s.spawned.off("exit",i),s.spawned.off("close",i),n&&clearTimeout(n)}function a(){i(),s.kill(new Gi(void 0,"timeout","block timeout reached"))}t&&s.spawned.stdout?.on("data",o),A&&s.spawned.stderr?.on("data",o),s.spawned.on("exit",i),s.spawned.on("close",i),o()}}}(r.timeout)),r.spawnOptions&&t.add(function(e){const A=nt(e,["uid","gid"])
+t&&e({method:r.method,stage:(s=t[1],String(s.toLowerCase().split(" ",1))||"unknown"),progress:ct(t[2]),processed:ct(t[3]),total:ct(t[4])})})}}]}(r.progress)),r.timeout&&t.add(function({block:e,stdErr:A=!0,stdOut:t=!0}){if(e>0)return{type:"spawn.after",action(r,s){let n
+function o(){n&&clearTimeout(n),n=setTimeout(a,e)}function i(){s.spawned.stdout?.off("data",o),s.spawned.stderr?.off("data",o),s.spawned.off("exit",i),s.spawned.off("close",i),n&&clearTimeout(n)}function a(){i(),s.kill(new Wi(void 0,"timeout","block timeout reached"))}t&&s.spawned.stdout?.on("data",o),A&&s.spawned.stderr?.on("data",o),s.spawned.on("exit",i),s.spawned.on("close",i),o()}}}(r.timeout)),r.spawnOptions&&t.add(function(e){const A=ht(e,["uid","gid"])
 return{type:"spawn.options",action:e=>({...A,...e})}}(r.spawnOptions)),t.add({type:"spawn.args",action(e){const A=[]
 let t
 function r(e){(t=t||[]).push(...e)}for(let t=0;t<e.length;t++){const s=e[t]
-if(Xe(s))r($e(s))
-else{if("--"===s){r(e.slice(t+1).flatMap(e=>Xe(e)&&$e(e)||e))
-break}A.push(s)}}return t?[...A,"--",...t.map(String)]:A}}),t.add(qi(Pi(!0))),r.errors&&t.add(qi(r.errors)),function(e,A=["git"],t=!1){let r=Vi(KA(A),t)
-e.on("binary",e=>{r=Vi(KA(e),t)}),e.append("spawn.binary",()=>r.binary),e.append("spawn.args",e=>r.prefix?[r.prefix,...e]:e)}(t,r.binary,r.unsafe?.allowUnsafeCustomBinary),new Zi(r,t)}xA()
-var ji=zi
-const Xi=require("node:stream/promises")
-var $i=s(9589)
-const Ki=require("stream")
-var ea=s(9023),Aa=function(e,A,t,r){return new(t||(t=Promise))(function(s,n){function o(e){try{a(r.next(e))}catch(e){n(e)}}function i(e){try{a(r.throw(e))}catch(e){n(e)}}function a(e){var A
+if(je(s))r(Xe(s))
+else{if("--"===s){r(e.slice(t+1).flatMap(e=>je(e)&&Xe(e)||e))
+break}A.push(s)}}return t?[...A,"--",...t.map(String)]:A}}),t.add(ea(Ki(!0))),r.errors&&t.add(ea(r.errors)),function(e,A=["git"],t=!1){let r=ji(ot(A),t)
+e.on("binary",e=>{r=ji(ot(e),t)}),e.append("spawn.binary",()=>r.binary),e.append("spawn.args",e=>r.prefix?[r.prefix,...e]:e)}(t,r.binary,r.unsafe?.allowUnsafeCustomBinary),new ta(r,t)}qA()
+var sa=ra
+const na=require("node:stream/promises")
+var oa=s(9589)
+const ia=require("stream")
+var aa=s(9023),ca=function(e,A,t,r){return new(t||(t=Promise))(function(s,n){function o(e){try{a(r.next(e))}catch(e){n(e)}}function i(e){try{a(r.throw(e))}catch(e){n(e)}}function a(e){var A
 e.done?s(e.value):(A=e.value,A instanceof t?A:new t(function(e){e(A)})).then(o,i)}a((r=r.apply(e,A||[])).next())})}
-class ta{constructor(e,A,t){if(e<1)throw new Error("max attempts should be greater than or equal to 1")
-if(this.maxAttempts=e,this.minSeconds=Math.floor(A),this.maxSeconds=Math.floor(t),this.minSeconds>this.maxSeconds)throw new Error("min seconds should be less than or equal to max seconds")}execute(e,A){return Aa(this,void 0,void 0,function*(){let t=1
+class ga{constructor(e,A,t){if(e<1)throw new Error("max attempts should be greater than or equal to 1")
+if(this.maxAttempts=e,this.minSeconds=Math.floor(A),this.maxSeconds=Math.floor(t),this.minSeconds>this.maxSeconds)throw new Error("min seconds should be less than or equal to max seconds")}execute(e,A){return ca(this,void 0,void 0,function*(){let t=1
 for(;t<this.maxAttempts;){try{return yield e()}catch(e){if(A&&!A(e))throw e
 We(e.message)}const r=this.getSleepAmount()
-We(`Waiting ${r} seconds before trying again`),yield this.sleep(r),t++}return yield e()})}getSleepAmount(){return Math.floor(Math.random()*(this.maxSeconds-this.minSeconds+1))+this.minSeconds}sleep(e){return Aa(this,void 0,void 0,function*(){return new Promise(A=>setTimeout(A,1e3*e))})}}var ra=function(e,A,t,r){return new(t||(t=Promise))(function(s,n){function o(e){try{a(r.next(e))}catch(e){n(e)}}function i(e){try{a(r.throw(e))}catch(e){n(e)}}function a(e){var A
+We(`Waiting ${r} seconds before trying again`),yield this.sleep(r),t++}return yield e()})}getSleepAmount(){return Math.floor(Math.random()*(this.maxSeconds-this.minSeconds+1))+this.minSeconds}sleep(e){return ca(this,void 0,void 0,function*(){return new Promise(A=>setTimeout(A,1e3*e))})}}var la=function(e,A,t,r){return new(t||(t=Promise))(function(s,n){function o(e){try{a(r.next(e))}catch(e){n(e)}}function i(e){try{a(r.throw(e))}catch(e){n(e)}}function a(e){var A
 e.done?s(e.value):(A=e.value,A instanceof t?A:new t(function(e){e(A)})).then(o,i)}a((r=r.apply(e,A||[])).next())})}
-class sa extends Error{constructor(e){super(`Unexpected HTTP response: ${e}`),this.httpStatusCode=e,Object.setPrototypeOf(this,new.target.prototype)}}const na="win32"===process.platform,oa=(process.platform,"actions/tool-cache")
-function ia(e,A,t,r){return ra(this,void 0,void 0,function*(){A=A||S.join(Ba(),k.randomUUID()),yield De(S.dirname(A)),Ve(`Downloading ${e}`),Ve(`Destination ${A}`)
-const s=Ca("TEST_DOWNLOAD_TOOL_RETRY_MIN_SECONDS",10),n=Ca("TEST_DOWNLOAD_TOOL_RETRY_MAX_SECONDS",20),o=new ta(3,s,n)
-return yield o.execute(()=>ra(this,void 0,void 0,function*(){return yield function(e,A,t,r){return ra(this,void 0,void 0,function*(){if(R.existsSync(A))throw new Error(`Destination file path ${A} already exists`)
-const s=new Z(oa,[],{allowRetries:!1})
+class ha extends Error{constructor(e){super(`Unexpected HTTP response: ${e}`),this.httpStatusCode=e,Object.setPrototypeOf(this,new.target.prototype)}}const Ea="win32"===process.platform,Qa=(process.platform,"actions/tool-cache")
+function ua(e,A,t,r){return la(this,void 0,void 0,function*(){A=A||S.join(ma(),k.randomUUID()),yield De(S.dirname(A)),Ve(`Downloading ${e}`),Ve(`Destination ${A}`)
+const s=Da("TEST_DOWNLOAD_TOOL_RETRY_MIN_SECONDS",10),n=Da("TEST_DOWNLOAD_TOOL_RETRY_MAX_SECONDS",20),o=new ga(3,s,n)
+return yield o.execute(()=>la(this,void 0,void 0,function*(){return yield function(e,A,t,r){return la(this,void 0,void 0,function*(){if(R.existsSync(A))throw new Error(`Destination file path ${A} already exists`)
+const s=new Z(Qa,[],{allowRetries:!1})
 t&&(Ve("set auth"),void 0===r&&(r={}),r.authorization=t)
 const n=yield s.get(e,r)
-if(200!==n.message.statusCode){const A=new sa(n.message.statusCode)
-throw Ve(`Failed to download from "${e}". Code(${n.message.statusCode}) Message(${n.message.statusMessage})`),A}const o=ea.promisify(Ki.pipeline),i=Ca("TEST_DOWNLOAD_TOOL_RESPONSE_MESSAGE_FACTORY",()=>n.message)()
+if(200!==n.message.statusCode){const A=new ha(n.message.statusCode)
+throw Ve(`Failed to download from "${e}". Code(${n.message.statusCode}) Message(${n.message.statusMessage})`),A}const o=aa.promisify(ia.pipeline),i=Da("TEST_DOWNLOAD_TOOL_RESPONSE_MESSAGE_FACTORY",()=>n.message)()
 let a=!1
 try{return yield o(i,R.createWriteStream(A)),Ve("download complete"),a=!0,A}finally{if(!a){Ve("download failed")
-try{yield me(A)}catch(e){Ve(`Failed to delete '${A}'. ${e.message}`)}}}})}(e,A||"",t,r)}),e=>!(e instanceof sa&&e.httpStatusCode&&e.httpStatusCode<500&&408!==e.httpStatusCode&&429!==e.httpStatusCode))})}function aa(e,A){return ra(this,arguments,void 0,function*(e,A,t="xz"){if(!e)throw new Error("parameter 'file' is required")
-A=yield la(A),Ve("Checking tar --version")
+try{yield me(A)}catch(e){Ve(`Failed to delete '${A}'. ${e.message}`)}}}})}(e,A||"",t,r)}),e=>!(e instanceof ha&&e.httpStatusCode&&e.httpStatusCode<500&&408!==e.httpStatusCode&&429!==e.httpStatusCode))})}function Ba(e,A){return la(this,arguments,void 0,function*(e,A,t="xz"){if(!e)throw new Error("parameter 'file' is required")
+A=yield da(A),Ve("Checking tar --version")
 let r=""
 yield Te("tar --version",[],{ignoreReturnCode:!0,silent:!0,listeners:{stdout:e=>r+=e.toString(),stderr:e=>r+=e.toString()}}),Ve(r.trim())
 const s=r.toUpperCase().includes("GNU TAR")
 let n
 n=t instanceof Array?t:[t],He()&&!t.includes("v")&&n.push("-v")
 let o=A,i=e
-return na&&s&&(n.push("--force-local"),o=A.replace(/\\/g,"/"),i=e.replace(/\\/g,"/")),s&&(n.push("--warning=no-unknown-keyword"),n.push("--overwrite")),n.push("-C",o,"-f",i),yield Te("tar",n),A})}function ca(e,A){return ra(this,void 0,void 0,function*(){if(!e)throw new Error("parameter 'file' is required")
-return A=yield la(A),na?yield function(e,A){return ra(this,void 0,void 0,function*(){const t=e.replace(/'/g,"''").replace(/"|\n|\r/g,""),r=A.replace(/'/g,"''").replace(/"|\n|\r/g,""),s=yield ke("pwsh",!1)
+return Ea&&s&&(n.push("--force-local"),o=A.replace(/\\/g,"/"),i=e.replace(/\\/g,"/")),s&&(n.push("--warning=no-unknown-keyword"),n.push("--overwrite")),n.push("-C",o,"-f",i),yield Te("tar",n),A})}function Ca(e,A){return la(this,void 0,void 0,function*(){if(!e)throw new Error("parameter 'file' is required")
+return A=yield da(A),Ea?yield function(e,A){return la(this,void 0,void 0,function*(){const t=e.replace(/'/g,"''").replace(/"|\n|\r/g,""),r=A.replace(/'/g,"''").replace(/"|\n|\r/g,""),s=yield ke("pwsh",!1)
 if(s){const e=["-NoLogo","-NoProfile","-NonInteractive","-ExecutionPolicy","Unrestricted","-Command",["$ErrorActionPreference = 'Stop' ;","try { Add-Type -AssemblyName System.IO.Compression.ZipFile } catch { } ;",`try { [System.IO.Compression.ZipFile]::ExtractToDirectory('${t}', '${r}', $true) }`,`catch { if (($_.Exception.GetType().FullName -eq 'System.Management.Automation.MethodException') -or ($_.Exception.GetType().FullName -eq 'System.Management.Automation.RuntimeException') ){ Expand-Archive -LiteralPath '${t}' -DestinationPath '${r}' -Force } else { throw $_ } } ;`].join(" ")]
 Ve(`Using pwsh at path: ${s}`),yield Te(`"${s}"`,e)}else{const e=["-NoLogo","-Sta","-NoProfile","-NonInteractive","-ExecutionPolicy","Unrestricted","-Command",["$ErrorActionPreference = 'Stop' ;","try { Add-Type -AssemblyName System.IO.Compression.FileSystem } catch { } ;",`if ((Get-Command -Name Expand-Archive -Module Microsoft.PowerShell.Archive -ErrorAction Ignore)) { Expand-Archive -LiteralPath '${t}' -DestinationPath '${r}' -Force }`,`else {[System.IO.Compression.ZipFile]::ExtractToDirectory('${t}', '${r}', $true) }`].join(" ")],A=yield ke("powershell",!0)
-Ve(`Using powershell at path: ${A}`),yield Te(`"${A}"`,e)}})}(e,A):yield function(e,A){return ra(this,void 0,void 0,function*(){const t=yield ke("unzip",!0),r=[e]
-He()||r.unshift("-q"),r.unshift("-o"),yield Te(`"${t}"`,r,{cwd:A})})}(e,A),A})}function ga(e,A,t){if(!e)throw new Error("toolName parameter is required")
+Ve(`Using powershell at path: ${A}`),yield Te(`"${A}"`,e)}})}(e,A):yield function(e,A){return la(this,void 0,void 0,function*(){const t=yield ke("unzip",!0),r=[e]
+He()||r.unshift("-q"),r.unshift("-o"),yield Te(`"${t}"`,r,{cwd:A})})}(e,A),A})}function Ia(e,A,t){if(!e)throw new Error("toolName parameter is required")
 if(!A)throw new Error("versionSpec parameter is required")
-if(t=t||d.arch(),!Qa(A)){const r=function(e,A){const t=[]
+if(t=t||d.arch(),!wa(A)){const r=function(e,A){const t=[]
 A=A||d.arch()
-const r=S.join(ua(),e)
+const r=S.join(ya(),e)
 if(R.existsSync(r)){const e=R.readdirSync(r)
-for(const s of e)if(Qa(s)){const e=S.join(r,s,A||"")
+for(const s of e)if(wa(s)){const e=S.join(r,s,A||"")
 R.existsSync(e)&&R.existsSync(`${e}.complete`)&&t.push(s)}}return t}(e,t),s=function(e,A){let t=""
-Ve(`evaluating ${e.length} versions`),e=e.sort((e,A)=>$i.gt(e,A)?1:-1)
+Ve(`evaluating ${e.length} versions`),e=e.sort((e,A)=>oa.gt(e,A)?1:-1)
 for(let r=e.length-1;r>=0;r--){const s=e[r]
-if($i.satisfies(s,A)){t=s
+if(oa.satisfies(s,A)){t=s
 break}}Ve(t?`matched: ${t}`:"match not found")
 return t}(r,A)
 A=s}let r=""
-if(A){A=$i.clean(A)||""
-const s=S.join(ua(),e,A,t)
-Ve(`checking cache: ${s}`),R.existsSync(s)&&R.existsSync(`${s}.complete`)?(Ve(`Found tool in cache ${e} ${A} ${t}`),r=s):Ve("not found")}return r}function la(e){return ra(this,void 0,void 0,function*(){return e||(e=S.join(Ba(),k.randomUUID())),yield De(e),e})}function ha(e,A,t){return ra(this,void 0,void 0,function*(){const r=S.join(ua(),e,$i.clean(A)||A,t||"")
+if(A){A=oa.clean(A)||""
+const s=S.join(ya(),e,A,t)
+Ve(`checking cache: ${s}`),R.existsSync(s)&&R.existsSync(`${s}.complete`)?(Ve(`Found tool in cache ${e} ${A} ${t}`),r=s):Ve("not found")}return r}function da(e){return la(this,void 0,void 0,function*(){return e||(e=S.join(ma(),k.randomUUID())),yield De(e),e})}function fa(e,A,t){return la(this,void 0,void 0,function*(){const r=S.join(ya(),e,oa.clean(A)||A,t||"")
 Ve(`destination ${r}`)
 const s=`${r}.complete`
-return yield me(r),yield me(s),yield De(r),r})}function Ea(e,A,t){const r=`${S.join(ua(),e,$i.clean(A)||A,t||"")}.complete`
-R.writeFileSync(r,""),Ve("finished caching tool")}function Qa(e){const A=$i.clean(e)||""
+return yield me(r),yield me(s),yield De(r),r})}function pa(e,A,t){const r=`${S.join(ya(),e,oa.clean(A)||A,t||"")}.complete`
+R.writeFileSync(r,""),Ve("finished caching tool")}function wa(e){const A=oa.clean(e)||""
 Ve(`isExplicit: ${A}`)
-const t=null!=$i.valid(A)
-return Ve(`explicit? ${t}`),t}function ua(){const e=process.env.RUNNER_TOOL_CACHE||""
-return(0,re.ok)(e,"Expected RUNNER_TOOL_CACHE to be defined"),e}function Ba(){const e=process.env.RUNNER_TEMP||""
-return(0,re.ok)(e,"Expected RUNNER_TEMP to be defined"),e}function Ca(e,A){const t=global[e]
-return void 0!==t?t:A}var Ia=s(7657)
-async function da(e,t,s,n){if(!("https:"===e.protocol)&&!s&&!t)throw new pa(e)
+const t=null!=oa.valid(A)
+return Ve(`explicit? ${t}`),t}function ya(){const e=process.env.RUNNER_TOOL_CACHE||""
+return(0,re.ok)(e,"Expected RUNNER_TOOL_CACHE to be defined"),e}function ma(){const e=process.env.RUNNER_TEMP||""
+return(0,re.ok)(e,"Expected RUNNER_TEMP to be defined"),e}function Da(e,A){const t=global[e]
+return void 0!==t?t:A}var ka=s(7657)
+async function Ra(e,t,s,n){if(!("https:"===e.protocol)&&!s&&!t)throw new Fa(e)
 let i
-try{i=await ia(e.href,n)}catch(A){throw A instanceof sa?new ya(e,A.httpStatusCode,{cause:A}):A}if(s){const t=await async function(e){const t=r().createReadStream(e),s=A().createHash("BLAKE2b512").setEncoding("hex")
-return await(0,Xi.pipeline)(t,s),s.read()}(i)
-if(!function(e,A){return e.toLowerCase()===A.toLowerCase()}(t,s))throw await o().unlink(i),new wa(e,s,t)}return i}class fa extends Error{url
-constructor(e,A,t){super(A,t),this.url=e}}class pa extends fa{constructor(e,A){super(e,`no hash found for insecure URL ${e.href}`,A)}}class wa extends fa{constructor(e,A,t,r){super(e,`expected hash ${A} but got ${t} for ${e.href}`,r)}}class ya extends fa{httpStatusCode
-constructor(e,A,t){super(e,`HTTP error${void 0!==A?` (${A})`:""} while downloading ${e.href}`,t),this.httpStatusCode=A}}const ma="ia32"
-async function Da(e,A,t,r=!1,s=!1){const n=`${e}-${t}-${A.name}`,i=ga(n,"0.0.0",ma)
+try{i=await ua(e.href,n)}catch(A){throw A instanceof ha?new Na(e,A.httpStatusCode,{cause:A}):A}if(s){const t=await async function(e){const t=r().createReadStream(e),s=A().createHash("BLAKE2b512").setEncoding("hex")
+return await(0,na.pipeline)(t,s),s.read()}(i)
+if(!function(e,A){return e.toLowerCase()===A.toLowerCase()}(t,s))throw await o().unlink(i),new Sa(e,s,t)}return i}class ba extends Error{url
+constructor(e,A,t){super(A,t),this.url=e}}class Fa extends ba{constructor(e,A){super(e,`no hash found for insecure URL ${e.href}`,A)}}class Sa extends ba{constructor(e,A,t,r){super(e,`expected hash ${A} but got ${t} for ${e.href}`,r)}}class Na extends ba{httpStatusCode
+constructor(e,A,t){super(e,`HTTP error${void 0!==A?` (${A})`:""} while downloading ${e.href}`,t),this.httpStatusCode=A}}const Ma="ia32"
+async function Ua(e,A,t,r=!1,s=!1){const n=`${e}-${t}-${A.name}`,i=Ia(n,"0.0.0",Ma)
 if(i){if(We("found cached"),!A.dynamic||r)return i
 We("but may be updated")}const a=await async function(e,A,t,r,s=!1){const n=`${e} ${A.name} for ${t}`,o=(A.hashes||{})[t]
 let i=!1,a=!1
-const c=Ia.J[e](A,t)
+const c=ka.J[e](A,t)
 for(const e of c){We(`trying ${e.href}`)
-try{return{path:await da(e,!!A.allowInsecure,s&&"https://flatassembler.net"===e.origin?void 0:o,r),url:e}}catch(e){if(e instanceof pa){a=!0,Oe(`${e.message} for ${n}; not using this file`)
-continue}if(e instanceof wa){a=!0,Oe(`${e.message} for ${n}${A.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
-continue}if(e instanceof ya){void 0!==e.httpStatusCode&&(i||=404!==e.httpStatusCode),(404===e.httpStatusCode?We:Oe)(`${e.message} for ${n}`)
+try{return{path:await Ra(e,!!A.allowInsecure,s&&"https://flatassembler.net"===e.origin?void 0:o,r),url:e}}catch(e){if(e instanceof Fa){a=!0,Oe(`${e.message} for ${n}; not using this file`)
+continue}if(e instanceof Sa){a=!0,Oe(`${e.message} for ${n}${A.userProvided?"":", you may want to report this to the setup-fasm action maintainer"}; not using this file`)
+continue}if(e instanceof Na){void 0!==e.httpStatusCode&&(i||=404!==e.httpStatusCode),(404===e.httpStatusCode?We:Oe)(`${e.message} for ${n}`)
 continue}throw e}}return Oe(`all attempts at downloading ${n} failed; `+(a?"some hash problems were encountered":i?"some servers seem to have problems with the requests":`${e} ${A.name} not found for ${t}`)),null}(e,A,t,void 0,s)
 if(!a)return null
 let{path:c,url:g}=a
 g.pathname.toLowerCase().endsWith(".zip")&&!c.endsWith(".zip")&&await o().rename(c,c=`${c}.zip`)
-const l=g.pathname.toLowerCase().endsWith(".zip")?ca:aa,h=await l(c)
-return await o().unlink(c),await function(e,A,t,r){return ra(this,void 0,void 0,function*(){if(t=$i.clean(t)||t,r=r||d.arch(),Ve(`Caching tool ${A} ${t} ${r}`),Ve(`source dir: ${e}`),!R.statSync(e).isDirectory())throw new Error("sourceDir is not a directory")
-const s=yield ha(A,t,r)
+const l=g.pathname.toLowerCase().endsWith(".zip")?Ca:Ba,h=await l(c)
+return await o().unlink(c),await function(e,A,t,r){return la(this,void 0,void 0,function*(){if(t=oa.clean(t)||t,r=r||d.arch(),Ve(`Caching tool ${A} ${t} ${r}`),Ve(`source dir: ${e}`),!R.statSync(e).isDirectory())throw new Error("sourceDir is not a directory")
+const s=yield fa(A,t,r)
 for(const A of R.readdirSync(e)){const t=S.join(e,A)
-yield ye(t,s,{recursive:!0})}return Ea(A,t,r),s})}(h,n,"0.0.0",ma),h}const ka=new URL("https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json"),Ra=new URL("https://github.com/tgrysztar/fasmg.git")
-async function ba(){const e=Ge("edition").toLowerCase(),A=Ge("version").toLowerCase(),t=Ye("fallback-to-previous-compatible"),s=Ye("ignore-official-https-hash-mismatch"),n=Ge("download-unknown").toLowerCase(),o=Ge("custom-version-list"),i=Ye("assume-dynamic-unchanged"),c=Ge("fasmg-download-packages"),l=Ge("fasmg-include-packages").toLowerCase().split(/,\s*/).filter(e=>e),h=Ye("set-include-envvar")
+yield ye(t,s,{recursive:!0})}return pa(A,t,r),s})}(h,n,"0.0.0",Ma),h}const La=new URL("https://raw.githubusercontent.com/stevenwdv/fasm-versions/v1/fasm_versions.json"),Ta=new URL("https://github.com/tgrysztar/fasmg.git")
+async function va(){const e=Ge("edition").toLowerCase(),A=Ge("version").toLowerCase(),t=Ye("fallback-to-previous-compatible"),s=Ye("ignore-official-https-hash-mismatch"),n=Ge("download-unknown").toLowerCase(),o=Ge("custom-version-list"),i=Ye("assume-dynamic-unchanged"),c=Ge("fasmg-download-packages"),l=Ge("fasmg-include-packages").toLowerCase().split(/,\s*/).filter(e=>e),h=Ye("set-include-envvar")
 if("fasmg"!==e&&("false"!==c.toLowerCase()||l.length))return void Je("fasm g packages option set but requested edition is not fasmg")
 if(l.length&&"false"===c.toLowerCase())return void Je("fasmg-include-packages set without fasmg-download-packages")
 let E
-o?(We("reading version list"),E=await B().json(r().createReadStream(o))):(We("downloading version list"),E=await new Promise((e,A)=>{a().get(ka,t=>{200!==t.statusCode?A(new Error(`failed to download ${ka.href}: HTTP ${t.statusCode} ${t.statusMessage}`)):e(B().json(t))}).on("error",e=>A(new Error(`failed to download ${ka.href}`,{cause:e})))}))
+o?(We("reading version list"),E=await B().json(r().createReadStream(o))):(We("downloading version list"),E=await new Promise((e,A)=>{a().get(La,t=>{200!==t.statusCode?A(new Error(`failed to download ${La.href}: HTTP ${t.statusCode} ${t.statusMessage}`)):e(B().json(t))}).on("error",e=>A(new Error(`failed to download ${La.href}`,{cause:e})))}))
 const Q=E.editions[e]
 if(!Q)return void Je(`requested edition '${e}' not found`)
 const u=e,C=function(e,A,t){if(A=A.toLowerCase(),["latest","*"].includes(A))return e.versions
@@ -3357,27 +3364,27 @@ if(t)return[{...r,hashes:new Proxy({},{get:()=>t}),userProvided:!0}]}return[r]}}
 if(!C.length)return void Je(`requested version '${A}' not found for edition ${u}`)
 const I=g().platform()
 if("darwin"===I)return void Je("macOS does not support ELF binaries, so fasm is not available")
-let d=Fa[I]
+let d=Ga[I]
 d||(Oe(`unknown current platform ${I}, trying unix`),d="unix")
 let f=10
 for(const e of C){Pe(`using ${e.name}`)
-let A=await Da(u,e,d,i,s)
-if(A||"linux"!==d||(We("no linux version found, trying unix instead"),A=await Da(u,e,"unix",i,s),A&&(d="unix")),qe(),A)return await Sa(u,d,e.name,A,h),void("fasmg"===u&&"false"!==c.toLowerCase()&&await Na("true"===c.toLowerCase()?null:c,l,h))
-if(!t||! --f)return void Je("maximum number of versions to try exceeded")}Je(`could not download ${e} ${A} for ${d}`)}const Fa={aix:"unix",android:"linux",cygwin:"windows",freebsd:"unix",haiku:"unix",linux:"linux",netbsd:"unix",openbsd:"unix",sunos:"unix",win32:"windows"}
-async function Sa(e,A,t,r,s){const n=await o().readdir(r),i=1===n.length&&(await o().stat(h().join(r,n[0]))).isDirectory()?h().join(r,n[0]):r
+let A=await Ua(u,e,d,i,s)
+if(A||"linux"!==d||(We("no linux version found, trying unix instead"),A=await Ua(u,e,"unix",i,s),A&&(d="unix")),qe(),A)return await Ya(u,d,e.name,A,h),void("fasmg"===u&&"false"!==c.toLowerCase()&&await xa("true"===c.toLowerCase()?null:c,l,h))
+if(!t||! --f)return void Je("maximum number of versions to try exceeded")}Je(`could not download ${e} ${A} for ${d}`)}const Ga={aix:"unix",android:"linux",cygwin:"windows",freebsd:"unix",haiku:"unix",linux:"linux",netbsd:"unix",openbsd:"unix",sunos:"unix",win32:"windows"}
+async function Ya(e,A,t,r,s){const n=await o().readdir(r),i=1===n.length&&(await o().stat(h().join(r,n[0]))).isDirectory()?h().join(r,n[0]):r
 var a
 if(a=i,process.env.GITHUB_PATH?b("PATH",a):w("add-path",{},a),process.env.PATH=`${a}${S.delimiter}${process.env.PATH}`,s)for(const e of["INCLUDE","include"]){const A=h().join(i,e)
-if((await o().stat(A).catch(()=>null))?.isDirectory()){Ma(A)
-break}}xe("path",i),xe("edition",e),xe("version",t),xe("platform",A),We(`successfully installed ${e} ${t} for ${A} to ${i}`)}async function Na(A,t,r){Pe("downloading fasm g packages")
+if((await o().stat(A).catch(()=>null))?.isDirectory()){Ja(A)
+break}}xe("path",i),xe("edition",e),xe("version",t),xe("platform",A),We(`successfully installed ${e} ${t} for ${A} to ${i}`)}async function xa(A,t,r){Pe("downloading fasm g packages")
 const s=h().join(Q().env.RUNNER_TEMP||g().tmpdir(),(0,e.randomUUID)())
-await ji().clone(Ra.href,s,["--filter=blob:none","--sparse","--no-checkout"]).cwd(s).checkout(A??"HEAD").raw("sparse-checkout","set","--cone","packages"),We("checked out fasm g packages repository")
+await sa().clone(Ta.href,s,["--filter=blob:none","--sparse","--no-checkout"]).cwd(s).checkout(A??"HEAD").raw("sparse-checkout","set","--cone","packages"),We("checked out fasm g packages repository")
 const n=h().join(s,"packages")
 if(!(await o().stat(n).catch(()=>null))?.isDirectory())throw new Error("cannot find fasm g packages directory")
-xe("fasmg-packages",n),r&&Ma(n)
+xe("fasmg-packages",n),r&&Ja(n)
 for(const e of t){const A=h().join(n,e)
 if(!(await o().stat(n).catch(()=>null))?.isDirectory())throw new Error(`fasm g package ${e} not found`)
-const t=h().join(A,"include");(await o().stat(t).catch(()=>null))?.isDirectory()?Ma(t):Ma(A)}qe(),We(`successfully installed fasm g packages to ${n}`)}function Ma(e){We(`adding to include: ${e}`)
+const t=h().join(A,"include");(await o().stat(t).catch(()=>null))?.isDirectory()?Ja(t):Ja(A)}qe(),We(`successfully installed fasm g packages to ${n}`)}function Ja(e){We(`adding to include: ${e}`)
 let A=Q().env.INCLUDE??""
 A&&(A+=";"),A+=e,function(e,A){const t=f(A)
 if(process.env[e]=t,process.env.GITHUB_ENV||"")return b("ENV",F(e,A))
-w("set-env",{name:e},t)}("INCLUDE",A)}(async()=>{try{await ba()}catch(e){Je(I().inspect(e))}})()})()})()
+w("set-env",{name:e},t)}("INCLUDE",A)}(async()=>{try{await va()}catch(e){Je(I().inspect(e))}})()})()})()
