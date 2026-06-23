@@ -767,10 +767,10 @@ return!0},isValidHeaderValue:function(e){return!v.test(e)},isTokenCharCode:T,par
 const A=e?e.match(/^bytes (\d+)-(\d+)\/(\d+)?$/):null
 return A?{start:parseInt(A[1]),end:A[2]?parseInt(A[2]):null,size:A[3]?parseInt(A[3]):null}:null},normalizedMethodRecordsBase:Y,normalizedMethodRecords:x,isValidPort:y,isHttpOrHttpsPrefixed:m,nodeMajor:I,nodeMinor:d,safeHTTPMethods:["GET","HEAD","OPTIONS","TRACE"],wrapRequestBody:function(e){return p(e)?(0===R(e)&&e.on("data",function(){r(!1)}),"boolean"!=typeof e.readableDidRead&&(e[n]=!1,Q.prototype.on.call(e,"data",function(){this[n]=!0})),e):e&&"function"==typeof e.pipeTo||e&&"string"!=typeof e&&!ArrayBuffer.isView(e)&&k(e)?new f(e):e}}},2370(e,A,t){"use strict"
 const{InvalidArgumentError:r}=t(1702),{kClients:s,kRunning:n,kClose:o,kDestroy:i,kDispatch:a,kInterceptors:c}=t(7336),g=t(8430),l=t(977),h=t(5372),E=t(7017),Q=t(9367),u=Symbol("onConnect"),B=Symbol("onDisconnect"),C=Symbol("onConnectionError"),I=Symbol("maxRedirections"),d=Symbol("onDrain"),f=Symbol("factory"),p=Symbol("options")
-function w(e,A){return A&&1===A.connections?new h(e,A):new l(e,A)}e.exports=class extends g{constructor({factory:e=w,maxRedirections:A=0,connect:t,...n}={}){if(super(),"function"!=typeof e)throw new r("factory must be a function.")
+function w(e,A){return A&&1===A.connections?new h(e,A):new l(e,A)}e.exports=class extends g{constructor({factory:e=w,maxRedirections:A=0,connect:t,...n}={}){if("function"!=typeof e)throw new r("factory must be a function.")
 if(null!=t&&"function"!=typeof t&&"object"!=typeof t)throw new r("connect must be a function or an object")
 if(!Number.isInteger(A)||A<0)throw new r("maxRedirections must be a positive number")
-t&&"function"!=typeof t&&(t={...t}),this[c]=n.interceptors?.Agent&&Array.isArray(n.interceptors.Agent)?n.interceptors.Agent:[Q({maxRedirections:A})],this[p]={...E.deepClone(n),connect:t},this[p].interceptors=n.interceptors?{...n.interceptors}:void 0,this[I]=A,this[f]=e,this[s]=new Map,this[d]=(e,A)=>{this.emit("drain",e,[this,...A])},this[u]=(e,A)=>{this.emit("connect",e,[this,...A])},this[B]=(e,A,t)=>{this.emit("disconnect",e,[this,...A],t)},this[C]=(e,A,t)=>{this.emit("connectionError",e,[this,...A],t)}}get[n](){let e=0
+super(n),t&&"function"!=typeof t&&(t={...t}),this[c]=n.interceptors?.Agent&&Array.isArray(n.interceptors.Agent)?n.interceptors.Agent:[Q({maxRedirections:A})],this[p]={...E.deepClone(n),connect:t},this[p].interceptors=n.interceptors?{...n.interceptors}:void 0,this[I]=A,this[f]=e,this[s]=new Map,this[d]=(e,A)=>{this.emit("drain",e,[this,...A])},this[u]=(e,A)=>{this.emit("connect",e,[this,...A])},this[B]=(e,A,t)=>{this.emit("disconnect",e,[this,...A],t)},this[C]=(e,A,t)=>{this.emit("connectionError",e,[this,...A],t)}}get[n](){let e=0
 for(const A of this[s].values())e+=A[n]
 return e}[a](e,A){let t
 if(!e.origin||!("string"==typeof e.origin||e.origin instanceof URL))throw new r("opts.origin must be a non-empty string or URL.")
@@ -803,35 +803,42 @@ let e=0,A=this[o].findIndex(e=>!e[i])
 for(;e++<this[o].length;){this[d]=(this[d]+1)%this[o].length
 const e=this[o][this[d]]
 if(e[f]>this[o][A][f]&&!e[i]&&(A=this[d]),0===this[d]&&(this[I]=this[I]-this[C],this[I]<=0&&(this[I]=this[p])),e[f]>=this[I]&&!e[i])return e}return this[I]=this[o][A][f],this[d]=A,this[o][A]}}},2970(e,A,t){"use strict"
-const r=t(4589),s=t(7017),{channels:n}=t(2781),o=t(8494),{RequestContentLengthMismatchError:i,ResponseContentLengthMismatchError:a,RequestAbortedError:c,HeadersTimeoutError:g,HeadersOverflowError:l,SocketError:h,InformationalError:E,BodyTimeoutError:Q,HTTPParserError:u,ResponseExceededMaxSizeError:B}=t(1702),{kUrl:C,kReset:I,kClient:d,kParser:f,kBlocking:p,kRunning:w,kPending:y,kSize:m,kWriting:D,kQueue:k,kNoRef:R,kKeepAliveDefaultTimeout:b,kHostHeader:F,kPendingIdx:S,kRunningIdx:N,kError:M,kPipelining:U,kSocket:L,kKeepAliveTimeoutValue:T,kMaxHeadersSize:v,kKeepAliveMaxTimeout:G,kKeepAliveTimeoutThreshold:Y,kHeadersTimeout:x,kBodyTimeout:J,kStrictContentLength:H,kMaxRequests:V,kCounter:O,kMaxResponseSize:W,kOnError:P,kResume:q,kHTTPContext:_}=t(7336),Z=t(6851),z=Buffer.alloc(0),j=Buffer[Symbol.species],X=s.addListener,$=s.removeAllListeners
-let K
-let ee=null,Ae=async function(){const e=process.env.JEST_WORKER_ID?t(1805):void 0
+const r=t(4589),s=t(7017),{channels:n}=t(2781),o=t(8494),{RequestContentLengthMismatchError:i,ResponseContentLengthMismatchError:a,RequestAbortedError:c,HeadersTimeoutError:g,HeadersOverflowError:l,SocketError:h,InformationalError:E,BodyTimeoutError:Q,HTTPParserError:u,ResponseExceededMaxSizeError:B}=t(1702),{kUrl:C,kReset:I,kClient:d,kParser:f,kBlocking:p,kRunning:w,kPending:y,kSize:m,kWriting:D,kQueue:k,kNoRef:R,kKeepAliveDefaultTimeout:b,kHostHeader:F,kPendingIdx:S,kRunningIdx:N,kError:M,kPipelining:U,kSocket:L,kKeepAliveTimeoutValue:T,kMaxHeadersSize:v,kKeepAliveMaxTimeout:G,kKeepAliveTimeoutThreshold:Y,kHeadersTimeout:x,kBodyTimeout:J,kStrictContentLength:H,kMaxRequests:V,kCounter:O,kMaxResponseSize:W,kOnError:P,kResume:q,kHTTPContext:_}=t(7336),Z=t(6851),z=Buffer.alloc(0),j=Buffer[Symbol.species],X=s.addListener,$=s.removeAllListeners,K=Symbol("kIdleSocketValidation"),ee=Symbol("kIdleSocketValidationTimeout"),Ae=Symbol("kSocketUsed")
+let te
+let re=null,se=async function(){const e=process.env.JEST_WORKER_ID?t(1805):void 0
 let A
-try{A=await WebAssembly.compile(t(6335))}catch(r){A=await WebAssembly.compile(e||t(1805))}return await WebAssembly.instantiate(A,{env:{wasm_on_url:(e,A,t)=>0,wasm_on_status:(e,A,t)=>{r(te.ptr===e)
-const s=A-ne+re.byteOffset
-return te.onStatus(new j(re.buffer,s,t))||0},wasm_on_message_begin:e=>(r(te.ptr===e),te.onMessageBegin()||0),wasm_on_header_field:(e,A,t)=>{r(te.ptr===e)
-const s=A-ne+re.byteOffset
-return te.onHeaderField(new j(re.buffer,s,t))||0},wasm_on_header_value:(e,A,t)=>{r(te.ptr===e)
-const s=A-ne+re.byteOffset
-return te.onHeaderValue(new j(re.buffer,s,t))||0},wasm_on_headers_complete:(e,A,t,s)=>(r(te.ptr===e),te.onHeadersComplete(A,Boolean(t),Boolean(s))||0),wasm_on_body:(e,A,t)=>{r(te.ptr===e)
-const s=A-ne+re.byteOffset
-return te.onBody(new j(re.buffer,s,t))||0},wasm_on_message_complete:e=>(r(te.ptr===e),te.onMessageComplete()||0)}})}()
-Ae.catch()
-let te=null,re=null,se=0,ne=null
-class oe{constructor(e,A,{exports:t}){r(Number.isFinite(e[v])&&e[v]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(Z.TYPE.RESPONSE),this.client=e,this.socket=A,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=e[v],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=e[W]}setTimeout(e,A){e!==this.timeoutValue||1&A^1&this.timeoutType?(this.timeout&&(o.clearTimeout(this.timeout),this.timeout=null),e&&(1&A?this.timeout=o.setFastTimeout(ie,e,new WeakRef(this)):(this.timeout=setTimeout(ie,e,new WeakRef(this)),this.timeout.unref())),this.timeoutValue=e):this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.timeoutType=A}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==te),this.llhttp.llhttp_resume(this.ptr),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||z),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const e=this.socket.read()
+try{A=await WebAssembly.compile(t(6335))}catch(r){A=await WebAssembly.compile(e||t(1805))}return await WebAssembly.instantiate(A,{env:{wasm_on_url:(e,A,t)=>0,wasm_on_status:(e,A,t)=>{r(ne.ptr===e)
+const s=A-ae+oe.byteOffset
+return ne.onStatus(new j(oe.buffer,s,t))||0},wasm_on_message_begin:e=>(r(ne.ptr===e),ne.onMessageBegin()||0),wasm_on_header_field:(e,A,t)=>{r(ne.ptr===e)
+const s=A-ae+oe.byteOffset
+return ne.onHeaderField(new j(oe.buffer,s,t))||0},wasm_on_header_value:(e,A,t)=>{r(ne.ptr===e)
+const s=A-ae+oe.byteOffset
+return ne.onHeaderValue(new j(oe.buffer,s,t))||0},wasm_on_headers_complete:(e,A,t,s)=>(r(ne.ptr===e),ne.onHeadersComplete(A,Boolean(t),Boolean(s))||0),wasm_on_body:(e,A,t)=>{r(ne.ptr===e)
+const s=A-ae+oe.byteOffset
+return ne.onBody(new j(oe.buffer,s,t))||0},wasm_on_message_complete:e=>(r(ne.ptr===e),ne.onMessageComplete()||0)}})}()
+se.catch()
+let ne=null,oe=null,ie=0,ae=null
+class ce{constructor(e,A,{exports:t}){r(Number.isFinite(e[v])&&e[v]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(Z.TYPE.RESPONSE),this.client=e,this.socket=A,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=e[v],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=e[W]}setTimeout(e,A){e!==this.timeoutValue||1&A^1&this.timeoutType?(this.timeout&&(o.clearTimeout(this.timeout),this.timeout=null),e&&(1&A?this.timeout=o.setFastTimeout(ge,e,new WeakRef(this)):(this.timeout=setTimeout(ge,e,new WeakRef(this)),this.timeout.unref())),this.timeoutValue=e):this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.timeoutType=A}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==ne),this.llhttp.llhttp_resume(this.ptr),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||z),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const e=this.socket.read()
 if(null===e)break
-this.execute(e)}}execute(e){r(null!=this.ptr),r(null==te),r(!this.paused)
+this.execute(e)}}execute(e){r(null!=this.ptr),r(null==ne),r(!this.paused)
 const{socket:A,llhttp:t}=this
-e.length>se&&(ne&&t.free(ne),se=4096*Math.ceil(e.length/4096),ne=t.malloc(se)),new Uint8Array(t.memory.buffer,ne,se).set(e)
+e.length>ie&&(ae&&t.free(ae),ie=4096*Math.ceil(e.length/4096),ae=t.malloc(ie)),new Uint8Array(t.memory.buffer,ae,ie).set(e)
 try{let r
-try{re=e,te=this,r=t.llhttp_execute(this.ptr,ne,e.length)}catch(e){throw e}finally{te=null,re=null}const s=t.llhttp_get_error_pos(this.ptr)-ne
-if(r===Z.ERROR.PAUSED_UPGRADE)this.onUpgrade(e.slice(s))
-else if(r===Z.ERROR.PAUSED)this.paused=!0,A.unshift(e.slice(s))
-else if(r!==Z.ERROR.OK){const A=t.llhttp_get_error_reason(this.ptr)
-let n=""
-if(A){const e=new Uint8Array(t.memory.buffer,A).indexOf(0)
-n="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,A,e).toString()+")"}throw new u(n,Z.ERROR[r],e.slice(s))}}catch(e){s.destroy(A,e)}}destroy(){r(null!=this.ptr),r(null==te),this.llhttp.llhttp_free(this.ptr),this.ptr=null,this.timeout&&o.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(e){this.statusText=e.toString()}onMessageBegin(){const{socket:e,client:A}=this
+try{oe=e,ne=this,r=t.llhttp_execute(this.ptr,ae,e.length)}catch(e){throw e}finally{ne=null,oe=null}const s=t.llhttp_get_error_pos(this.ptr)-ae
+if(r!==Z.ERROR.OK){const t=e.subarray(s)
+if(r===Z.ERROR.PAUSED_UPGRADE)this.onUpgrade(t)
+else{if(r!==Z.ERROR.PAUSED)throw this.createError(r,t)
+this.paused=!0,A.unshift(t)}}}catch(e){s.destroy(A,e)}}finish(){r(null===ne),r(null!=this.ptr),r(!this.paused)
+const{llhttp:e}=this
+let A
+try{ne=this,A=e.llhttp_finish(this.ptr)}finally{ne=null}return A===Z.ERROR.OK?null:A===Z.ERROR.PAUSED||A===Z.ERROR.PAUSED_UPGRADE?(this.paused=!0,null):this.createError(A,z)}createError(e,A){const{llhttp:t,contentLength:r,bytesRead:s}=this
+if(r&&s!==parseInt(r,10))return new a
+const n=t.llhttp_get_error_reason(this.ptr)
+let o=""
+if(n){const e=new Uint8Array(t.memory.buffer,n).indexOf(0)
+o="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,n,e).toString()+")"}return new u(o,Z.ERROR[e],A)}destroy(){r(null!=this.ptr),r(null==ne),this.llhttp.llhttp_free(this.ptr),this.ptr=null,this.timeout&&o.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(e){this.statusText=e.toString()}onMessageBegin(){const{socket:e,client:A}=this
 if(e.destroyed)return-1
+if(0===A[w])return s.destroy(e,new h("bad response",s.getSocketInfo(e))),-1
 const t=A[k][A[N]]
 if(!t)return-1
 t.onResponseStarted()}onHeaderField(e){const A=this.headers.length
@@ -846,6 +853,7 @@ const a=t[k][t[N]]
 r(a),r(a.upgrade||"CONNECT"===a.method),this.statusCode=null,this.statusText="",this.shouldKeepAlive=null,this.headers=[],this.headersSize=0,n.unshift(e),n[f].destroy(),n[f]=null,n[d]=null,n[M]=null,$(n),t[L]=null,t[_]=null,t[k][t[N]++]=null,t.emit("disconnect",t[C],[t],new E("upgrade"))
 try{a.onUpgrade(i,o,n)}catch(e){s.destroy(n,e)}t[q]()}onHeadersComplete(e,A,t){const{client:n,socket:o,headers:i,statusText:a}=this
 if(o.destroyed)return-1
+if(0===n[w])return s.destroy(o,new h("bad response",s.getSocketInfo(o))),-1
 const c=n[k][n[N]]
 if(!c)return-1
 if(r(!this.upgrade),r(this.statusCode<200),100===e)return s.destroy(o,new h("bad response",s.getSocketInfo(o))),-1
@@ -866,15 +874,15 @@ if(A.destroyed&&(!t||g))return-1
 if(n)return
 r(t>=100),r(!(1&this.headers.length))
 const l=e[k][e[N]]
-return r(l),this.statusCode=null,this.statusText="",this.bytesRead=0,this.contentLength="",this.keepAlive="",this.connection="",this.headers=[],this.headersSize=0,t<200?void 0:"HEAD"!==l.method&&i&&c!==parseInt(i,10)?(s.destroy(A,new a),-1):(l.onComplete(o),e[k][e[N]++]=null,A[D]?(r(0===e[w]),s.destroy(A,new E("reset")),Z.ERROR.PAUSED):g?A[I]&&0===e[w]?(s.destroy(A,new E("reset")),Z.ERROR.PAUSED):void(null==e[U]||1===e[U]?setImmediate(()=>e[q]()):e[q]()):(s.destroy(A,new E("reset")),Z.ERROR.PAUSED))}}function ie(e){const{socket:A,timeoutType:t,client:n,paused:o}=e.deref()
-3===t?(!A[D]||A.writableNeedDrain||n[w]>1)&&(r(!o,"cannot be paused while waiting for headers"),s.destroy(A,new g)):5===t?o||s.destroy(A,new Q):8===t&&(r(0===n[w]&&n[T]),s.destroy(A,new E("socket idle timeout")))}function ae(e,A,t,n,o,i,a,c){try{A?s.isBuffer(A)&&(r(i===A.byteLength,"buffer body must have content length"),o.cork(),o.write(`${a}content-length: ${i}\r\n\r\n`,"latin1"),o.write(A),o.uncork(),n.onBodySent(A),c||!1===n.reset||(o[I]=!0)):0===i?o.write(`${a}content-length: 0\r\n\r\n`,"latin1"):(r(null===i,"no body must not have content length"),o.write(`${a}\r\n`,"latin1")),n.onRequestSent(),t[q]()}catch(A){e(A)}}async function ce(e,A,t,s,n,o,i,a){r(0!==o||0===t[w],"iterator body cannot be pipelined")
+return r(l),this.statusCode=null,this.statusText="",this.bytesRead=0,this.contentLength="",this.keepAlive="",this.connection="",this.headers=[],this.headersSize=0,t<200?void 0:"HEAD"!==l.method&&i&&c!==parseInt(i,10)?(s.destroy(A,new a),-1):(l.onComplete(o),e[k][e[N]++]=null,A[Ae]=!0,A[D]?(r(0===e[w]),s.destroy(A,new E("reset")),Z.ERROR.PAUSED):g?A[I]&&0===e[w]?(s.destroy(A,new E("reset")),Z.ERROR.PAUSED):void(null==e[U]||1===e[U]?setImmediate(()=>e[q]()):e[q]()):(s.destroy(A,new E("reset")),Z.ERROR.PAUSED))}}function ge(e){const{socket:A,timeoutType:t,client:n,paused:o}=e.deref()
+3===t?(!A[D]||A.writableNeedDrain||n[w]>1)&&(r(!o,"cannot be paused while waiting for headers"),s.destroy(A,new g)):5===t?o||s.destroy(A,new Q):8===t&&(r(0===n[w]&&n[T]),s.destroy(A,new E("socket idle timeout")))}function le(e){e[ee]&&(clearTimeout(e[ee]),e[ee]=null),e[K]=0}function he(e,A,t,n,o,i,a,c){try{A?s.isBuffer(A)&&(r(i===A.byteLength,"buffer body must have content length"),o.cork(),o.write(`${a}content-length: ${i}\r\n\r\n`,"latin1"),o.write(A),o.uncork(),n.onBodySent(A),c||!1===n.reset||(o[I]=!0)):0===i?o.write(`${a}content-length: 0\r\n\r\n`,"latin1"):(r(null===i,"no body must not have content length"),o.write(`${a}\r\n`,"latin1")),n.onRequestSent(),t[q]()}catch(A){e(A)}}async function Ee(e,A,t,s,n,o,i,a){r(0!==o||0===t[w],"iterator body cannot be pipelined")
 let c=null
 function g(){if(c){const e=c
 c=null,e()}}const l=()=>new Promise((e,A)=>{r(null===c),n[M]?A(n[M]):c=e})
 n.on("close",g).on("drain",g)
-const h=new ge({abort:e,socket:n,request:s,contentLength:o,client:t,expectsPayload:a,header:i})
+const h=new Qe({abort:e,socket:n,request:s,contentLength:o,client:t,expectsPayload:a,header:i})
 try{for await(const e of A){if(n[M])throw n[M]
-h.write(e)||await l()}h.end()}catch(e){h.destroy(e)}finally{n.off("close",g).off("drain",g)}}class ge{constructor({abort:e,socket:A,request:t,contentLength:r,client:s,expectsPayload:n,header:o}){this.socket=A,this.request=t,this.contentLength=r,this.client=s,this.bytesWritten=0,this.expectsPayload=n,this.header=o,this.abort=e,A[D]=!0}write(e){const{socket:A,request:t,contentLength:r,client:s,bytesWritten:n,expectsPayload:o,header:a}=this
+h.write(e)||await l()}h.end()}catch(e){h.destroy(e)}finally{n.off("close",g).off("drain",g)}}class Qe{constructor({abort:e,socket:A,request:t,contentLength:r,client:s,expectsPayload:n,header:o}){this.socket=A,this.request=t,this.contentLength=r,this.client=s,this.bytesWritten=0,this.expectsPayload=n,this.header=o,this.abort=e,A[D]=!0}write(e){const{socket:A,request:t,contentLength:r,client:s,bytesWritten:n,expectsPayload:o,header:a}=this
 if(A[M])throw A[M]
 if(A.destroyed)return!1
 const c=Buffer.byteLength(e)
@@ -886,12 +894,14 @@ return A.uncork(),t.onBodySent(e),g||A[f].timeout&&3===A[f].timeoutType&&A[f].ti
 if(o.onRequestSent(),e[D]=!1,e[M])throw e[M]
 if(!e.destroyed){if(0===r?s?e.write(`${n}content-length: 0\r\n\r\n`,"latin1"):e.write(`${n}\r\n`,"latin1"):null===A&&e.write("\r\n0\r\n\r\n","latin1"),null!==A&&r!==A){if(t[H])throw new i
 process.emitWarning(new i)}e[f].timeout&&3===e[f].timeoutType&&e[f].timeout.refresh&&e[f].timeout.refresh(),t[q]()}}destroy(e){const{socket:A,client:t,abort:s}=this
-A[D]=!1,e&&(r(t[w]<=1,"pipeline should only contain this request"),s(e))}}e.exports=async function(e,A){e[L]=A,ee||(ee=await Ae,Ae=null),A[R]=!1,A[D]=!1,A[I]=!1,A[p]=!1,A[f]=new oe(e,A,ee),X(A,"error",function(e){r("ERR_TLS_CERT_ALTNAME_INVALID"!==e.code)
+A[D]=!1,e&&(r(t[w]<=1,"pipeline should only contain this request"),s(e))}}e.exports=async function(e,A){e[L]=A,re||(re=await se,se=null),A[R]=!1,A[D]=!1,A[I]=!1,A[p]=!1,A[K]=0,A[ee]=null,A[Ae]=!1,A[f]=new ce(e,A,re),X(A,"error",function(e){r("ERR_TLS_CERT_ALTNAME_INVALID"!==e.code)
 const A=this[f]
-"ECONNRESET"!==e.code||!A.statusCode||A.shouldKeepAlive?(this[M]=e,this[d][P](e)):A.onMessageComplete()}),X(A,"readable",function(){const e=this[f]
+if("ECONNRESET"===e.code&&A.statusCode&&!A.shouldKeepAlive){const e=A.finish()
+return void(e&&(this[M]=e,this[d][P](e)))}this[M]=e,this[d][P](e)}),X(A,"readable",function(){const e=this[f]
 e&&e.readMore()}),X(A,"end",function(){const e=this[f]
-!e.statusCode||e.shouldKeepAlive?s.destroy(this,new h("other side closed",s.getSocketInfo(this))):e.onMessageComplete()}),X(A,"close",function(){const e=this[d],A=this[f]
-A&&(this[M]||!A.statusCode||A.shouldKeepAlive||A.onMessageComplete(),this[f].destroy(),this[f]=null)
+if(e.statusCode&&!e.shouldKeepAlive){const A=e.finish()
+return void(A&&s.destroy(this,A))}s.destroy(this,new h("other side closed",s.getSocketInfo(this)))}),X(A,"close",function(){const e=this[d],A=this[f]
+le(this),A&&(this[M]||!A.statusCode||A.shouldKeepAlive||(this[M]=A.finish()||this[M]),this[f].destroy(),this[f]=null)
 const t=this[M]||new h("closed",s.getSocketInfo(this))
 if(e[L]=null,e[_]=null,e.destroyed){r(0===e[y])
 const A=e[k].splice(e[N])
@@ -902,15 +912,17 @@ let o=!1
 return A.on("close",()=>{o=!0}),{version:"h1",defaultPipelining:1,write:(...A)=>function(e,A){const{method:o,path:a,host:g,upgrade:l,blocking:h,reset:Q}=A
 let{body:u,headers:B,contentLength:C}=A
 const d="PUT"===o||"POST"===o||"PATCH"===o||"QUERY"===o||"PROPFIND"===o||"PROPPATCH"===o
-if(s.isFormDataLike(u)){K||(K=t(8911).extractBody)
-const[e,r]=K(u)
+if(s.isFormDataLike(u)){te||(te=t(8911).extractBody)
+const[e,r]=te(u)
 null==A.contentType&&B.push("content-type",r),u=e.stream,C=e.length}else s.isBlobLike(u)&&null==A.contentType&&u.type&&B.push("content-type",u.type)
 u&&"function"==typeof u.read&&u.read(0)
 const f=s.bodyLength(u)
 C=f??C,null===C&&(C=A.contentLength)
 0!==C||d||(C=null)
 if(function(e){return"GET"!==e&&"HEAD"!==e&&"OPTIONS"!==e&&"TRACE"!==e&&"CONNECT"!==e}(o)&&C>0&&null!==A.contentLength&&A.contentLength!==C){if(e[H])return s.errorRequest(e,A,new i),!1
-process.emitWarning(new i)}const y=e[L],m=t=>{A.aborted||A.completed||(s.errorRequest(e,A,t||new c),s.destroy(u),s.destroy(y,new E("aborted")))}
+process.emitWarning(new i)}const y=e[L]
+le(y)
+const m=t=>{A.aborted||A.completed||(s.errorRequest(e,A,t||new c),s.destroy(u),s.destroy(y,new E("aborted")))}
 try{A.onConnect(m)}catch(t){s.errorRequest(e,A,t)}if(A.aborted)return!1
 "HEAD"===o&&(y[I]=!0);(l||"CONNECT"===o)&&(y[I]=!0)
 null!=Q&&(y[I]=Q)
@@ -922,19 +934,21 @@ l?k+=`connection: upgrade\r\nupgrade: ${l}\r\n`:e[U]&&!y[I]?k+="connection: keep
 if(Array.isArray(B))for(let e=0;e<B.length;e+=2){const A=B[e+0],t=B[e+1]
 if(Array.isArray(t))for(let e=0;e<t.length;e++)k+=`${A}: ${t[e]}\r\n`
 else k+=`${A}: ${t}\r\n`}n.sendHeaders.hasSubscribers&&n.sendHeaders.publish({request:A,headers:k,socket:y})
-u&&0!==f?s.isBuffer(u)?ae(m,u,e,A,y,C,k,d):s.isBlobLike(u)?"function"==typeof u.stream?ce(m,u.stream(),e,A,y,C,k,d):async function(e,A,t,s,n,o,a,c){r(o===A.size,"blob body must have content length")
+u&&0!==f?s.isBuffer(u)?he(m,u,e,A,y,C,k,d):s.isBlobLike(u)?"function"==typeof u.stream?Ee(m,u.stream(),e,A,y,C,k,d):async function(e,A,t,s,n,o,a,c){r(o===A.size,"blob body must have content length")
 try{if(null!=o&&o!==A.size)throw new i
 const e=Buffer.from(await A.arrayBuffer())
 n.cork(),n.write(`${a}content-length: ${o}\r\n\r\n`,"latin1"),n.write(e),n.uncork(),s.onBodySent(e),s.onRequestSent(),c||!1===s.reset||(n[I]=!0),t[q]()}catch(A){e(A)}}(m,u,e,A,y,C,k,d):s.isStream(u)?function(e,A,t,n,o,i,a,g){r(0!==i||0===t[w],"stream body cannot be pipelined")
 let l=!1
-const h=new ge({abort:e,socket:o,request:n,contentLength:i,client:t,expectsPayload:g,header:a}),E=function(e){if(!l)try{!h.write(e)&&this.pause&&this.pause()}catch(e){s.destroy(this,e)}},Q=function(){l||A.resume&&A.resume()},u=function(){if(queueMicrotask(()=>{A.removeListener("error",B)}),!l){const e=new c
+const h=new Qe({abort:e,socket:o,request:n,contentLength:i,client:t,expectsPayload:g,header:a}),E=function(e){if(!l)try{!h.write(e)&&this.pause&&this.pause()}catch(e){s.destroy(this,e)}},Q=function(){l||A.resume&&A.resume()},u=function(){if(queueMicrotask(()=>{A.removeListener("error",B)}),!l){const e=new c
 queueMicrotask(()=>B(e))}},B=function(e){if(!l){if(l=!0,r(o.destroyed||o[D]&&t[w]<=1),o.off("drain",Q).off("error",B),A.removeListener("data",E).removeListener("end",B).removeListener("close",u),!e)try{h.end()}catch(A){e=A}h.destroy(e),!e||"UND_ERR_INFO"===e.code&&"reset"===e.message?s.destroy(A):s.destroy(A,e)}}
 A.on("data",E).on("end",B).on("error",B).on("close",u),A.resume&&A.resume()
-o.on("drain",Q).on("error",B),A.errorEmitted??A.errored?setImmediate(()=>B(A.errored)):(A.endEmitted??A.readableEnded)&&setImmediate(()=>B(null));(A.closeEmitted??A.closed)&&setImmediate(u)}(m,u,e,A,y,C,k,d):s.isIterable(u)?ce(m,u,e,A,y,C,k,d):r(!1):ae(m,null,e,A,y,C,k,d)
+o.on("drain",Q).on("error",B),A.errorEmitted??A.errored?setImmediate(()=>B(A.errored)):(A.endEmitted??A.readableEnded)&&setImmediate(()=>B(null));(A.closeEmitted??A.closed)&&setImmediate(u)}(m,u,e,A,y,C,k,d):s.isIterable(u)?Ee(m,u,e,A,y,C,k,d):r(!1):he(m,null,e,A,y,C,k,d)
 return!0}(e,...A),resume(){!function(e){const A=e[L]
-if(A&&!A.destroyed)if(0===e[m]?!A[R]&&A.unref&&(A.unref(),A[R]=!0):A[R]&&A.ref&&(A.ref(),A[R]=!1),0===e[m])8!==A[f].timeoutType&&A[f].setTimeout(e[T],8)
+if(A&&!A.destroyed){if(0===e[m]?!A[R]&&A.unref&&(A.unref(),A[R]=!0):A[R]&&A.ref&&(A.ref(),A[R]=!1),0===e[w]&&e[y]>0&&A[Ae]){if(0===A[K])return function(e,A){A[K]=1,A[ee]=setTimeout(()=>{A[ee]=null,A[K]=2,e[L]!==A||A.destroyed||e[q]()},0),A[ee].unref?.()}(e,A),A[f].readMore(),void A.destroyed
+if(1===A[K])return A[f].readMore(),void A.destroyed}if(0===e[w]&&(A[f].readMore(),A.destroyed))return
+if(0===e[m])8!==A[f].timeoutType&&A[f].setTimeout(e[T],8)
 else if(e[w]>0&&A[f].statusCode<200&&3!==A[f].timeoutType){const t=e[k][e[N]],r=null!=t.headersTimeout?t.headersTimeout:e[x]
-A[f].setTimeout(r,3)}}(e)},destroy(e,t){o?queueMicrotask(t):A.destroy(e).on("close",t)},get destroyed(){return A.destroyed},busy(t){if(A[D]||A[I]||A[p])return!0
+A[f].setTimeout(r,3)}}}(e)},destroy(e,t){o?queueMicrotask(t):A.destroy(e).on("close",t)},get destroyed(){return A.destroyed},busy(t){if(A[D]||A[I]||A[p]||1===A[K])return!0
 if(t){if(e[w]>0&&!t.idempotent)return!0
 if(e[w]>0&&(t.upgrade||"CONNECT"===t.method))return!0
 if(e[w]>0&&0!==s.bodyLength(t.body)&&(s.isStream(t.body)||s.isAsyncIterable(t.body)||s.isFormDataLike(t.body)))return!0}return!1}}}},6695(e,A,t){"use strict"
@@ -1030,7 +1044,7 @@ e[u]=t.servername,e[X]?.destroy(new l("servername changed"),()=>{e[X]=null,ge(e)
 if(!e[X])return void ae(e)
 if(e[X].destroyed)return
 if(e[X].busy(t))return
-!t.aborted&&e[X].write(t)?e[F]++:e[y].splice(e[F],1)}}(e,A),e[d]=0,e[S]>256&&(e[y].splice(0,e[S]),e[F]-=e[S],e[S]=0))}e.exports=class extends c{constructor(e,{interceptors:A,maxHeaderSize:t,headersTimeout:r,socketTimeout:i,requestTimeout:a,connectTimeout:c,bodyTimeout:l,idleTimeout:h,keepAlive:B,keepAliveTimeout:C,maxKeepAliveTimeout:I,keepAliveMaxTimeout:f,keepAliveTimeoutThreshold:p,socketPath:w,pipelining:m,tls:D,strictContentLength:N,maxCachedSessions:O,maxRedirections:W,connect:P,maxRequestsPerClient:q,localAddress:ee,maxResponseSize:Ae,autoSelectFamily:se,autoSelectFamilyAttemptTimeout:ne,maxConcurrentStreams:ae,allowH2:ce}={}){if(super(),void 0!==B)throw new g("unsupported keepAlive, use pipelining=0 instead")
+!t.aborted&&e[X].write(t)?e[F]++:e[y].splice(e[F],1)}}(e,A),e[d]=0,e[S]>256&&(e[y].splice(0,e[S]),e[F]-=e[S],e[S]=0))}e.exports=class extends c{constructor(e,{interceptors:A,maxHeaderSize:t,headersTimeout:r,socketTimeout:i,requestTimeout:a,connectTimeout:c,bodyTimeout:l,idleTimeout:h,keepAlive:B,keepAliveTimeout:C,maxKeepAliveTimeout:I,keepAliveMaxTimeout:f,keepAliveTimeoutThreshold:p,socketPath:w,pipelining:m,tls:D,strictContentLength:N,maxCachedSessions:O,maxRedirections:W,connect:P,maxRequestsPerClient:q,localAddress:ee,maxResponseSize:Ae,autoSelectFamily:se,autoSelectFamilyAttemptTimeout:ne,maxConcurrentStreams:ae,allowH2:ce,webSocket:le}={}){if(super({webSocket:le}),void 0!==B)throw new g("unsupported keepAlive, use pipelining=0 instead")
 if(void 0!==i)throw new g("unsupported socketTimeout, use headersTimeout & bodyTimeout instead")
 if(void 0!==a)throw new g("unsupported requestTimeout, use headersTimeout & bodyTimeout instead")
 if(void 0!==h)throw new g("unsupported idleTimeout, use keepAliveTimeout instead")
@@ -1056,8 +1070,8 @@ return this[y].push(r),this[d]||(null==o.bodyLength(r.body)&&o.isIterable(r.body
 for(let A=0;A<t.length;A++){const r=t[A]
 o.errorRequest(this,r,e)}const r=()=>{this[re]&&(this[re](),this[re]=null),A(null)}
 this[X]?(this[X].destroy(e,r),this[X]=null):queueMicrotask(r),this[K]()})}}},8430(e,A,t){"use strict"
-const r=t(2414),{ClientDestroyedError:s,ClientClosedError:n,InvalidArgumentError:o}=t(1702),{kDestroy:i,kClose:a,kClosed:c,kDestroyed:g,kDispatch:l,kInterceptors:h}=t(7336),E=Symbol("onDestroyed"),Q=Symbol("onClosed"),u=Symbol("Intercepted Dispatch")
-e.exports=class extends r{constructor(){super(),this[g]=!1,this[E]=null,this[c]=!1,this[Q]=[]}get destroyed(){return this[g]}get closed(){return this[c]}get interceptors(){return this[h]}set interceptors(e){if(e)for(let A=e.length-1;A>=0;A--){if("function"!=typeof this[h][A])throw new o("interceptor must be an function")}this[h]=e}close(e){if(void 0===e)return new Promise((e,A)=>{this.close((t,r)=>t?A(t):e(r))})
+const r=t(2414),{ClientDestroyedError:s,ClientClosedError:n,InvalidArgumentError:o}=t(1702),{kDestroy:i,kClose:a,kClosed:c,kDestroyed:g,kDispatch:l,kInterceptors:h}=t(7336),E=Symbol("onDestroyed"),Q=Symbol("onClosed"),u=Symbol("Intercepted Dispatch"),B=Symbol("webSocketOptions")
+e.exports=class extends r{constructor(e){super(),this[g]=!1,this[E]=null,this[c]=!1,this[Q]=[],this[B]=e?.webSocket??{}}get webSocketOptions(){return{maxFragments:this[B].maxFragments??131072,maxPayloadSize:this[B].maxPayloadSize??134217728}}get destroyed(){return this[g]}get closed(){return this[c]}get interceptors(){return this[h]}set interceptors(e){if(e)for(let A=e.length-1;A>=0;A--){if("function"!=typeof this[h][A])throw new o("interceptor must be an function")}this[h]=e}close(e){if(void 0===e)return new Promise((e,A)=>{this.close((t,r)=>t?A(t):e(r))})
 if("function"!=typeof e)throw new o("invalid callback")
 if(this[g])return void queueMicrotask(()=>e(new s,null))
 if(this[c])return void(this[Q]?this[Q].push(e):queueMicrotask(()=>e(null,null)))
@@ -1114,13 +1128,13 @@ class t{constructor(){this.bottom=0,this.top=0,this.list=new Array(2048),this.ne
 return void 0===e?null:(this.list[this.bottom]=void 0,this.bottom=this.bottom+1&A,e)}}e.exports=class{constructor(){this.head=this.tail=new t}isEmpty(){return this.head.isEmpty()}push(e){this.head.isFull()&&(this.head=this.head.next=new t),this.head.push(e)}shift(){const e=this.tail,A=e.shift()
 return e.isEmpty()&&null!==e.next&&(this.tail=e.next),A}}},7835(e,A,t){"use strict"
 const r=t(8430),s=t(4895),{kConnected:n,kSize:o,kRunning:i,kPending:a,kQueued:c,kBusy:g,kFree:l,kUrl:h,kClose:E,kDestroy:Q,kDispatch:u}=t(7336),B=t(4279),C=Symbol("clients"),I=Symbol("needDrain"),d=Symbol("queue"),f=Symbol("closed resolve"),p=Symbol("onDrain"),w=Symbol("onConnect"),y=Symbol("onDisconnect"),m=Symbol("onConnectionError"),D=Symbol("get dispatcher"),k=Symbol("add client"),R=Symbol("remove client"),b=Symbol("stats")
-e.exports={PoolBase:class extends r{constructor(){super(),this[d]=new s,this[C]=[],this[c]=0
-const e=this
-this[p]=function(A,t){const r=e[d]
+e.exports={PoolBase:class extends r{constructor(e){super(e),this[d]=new s,this[C]=[],this[c]=0
+const A=this
+this[p]=function(e,t){const r=A[d]
 let s=!1
-for(;!s;){const A=r.shift()
-if(!A)break
-e[c]--,s=!this.dispatch(A.opts,A.handler)}this[I]=s,!this[I]&&e[I]&&(e[I]=!1,e.emit("drain",A,[e,...t])),e[f]&&r.isEmpty()&&Promise.all(e[C].map(e=>e.close())).then(e[f])},this[w]=(A,t)=>{e.emit("connect",A,[e,...t])},this[y]=(A,t,r)=>{e.emit("disconnect",A,[e,...t],r)},this[m]=(A,t,r)=>{e.emit("connectionError",A,[e,...t],r)},this[b]=new B(this)}get[g](){return this[I]}get[n](){return this[C].filter(e=>e[n]).length}get[l](){return this[C].filter(e=>e[n]&&!e[I]).length}get[a](){let e=this[c]
+for(;!s;){const e=r.shift()
+if(!e)break
+A[c]--,s=!this.dispatch(e.opts,e.handler)}this[I]=s,!this[I]&&A[I]&&(A[I]=!1,A.emit("drain",e,[A,...t])),A[f]&&r.isEmpty()&&Promise.all(A[C].map(e=>e.close())).then(A[f])},this[w]=(e,t)=>{A.emit("connect",e,[A,...t])},this[y]=(e,t,r)=>{A.emit("disconnect",e,[A,...t],r)},this[m]=(e,t,r)=>{A.emit("connectionError",e,[A,...t],r)},this[b]=new B(this)}get[g](){return this[I]}get[n](){return this[C].filter(e=>e[n]).length}get[l](){return this[C].filter(e=>e[n]&&!e[I]).length}get[a](){let e=this[c]
 for(const{[a]:A}of this[C])e+=A
 return e}get[i](){let e=0
 for(const{[i]:A}of this[C])e+=A
@@ -1132,10 +1146,10 @@ A.handler.onError(e)}await Promise.all(this[C].map(A=>A.destroy(e)))}[u](e,A){co
 return t?t.dispatch(e,A)||(t[I]=!0,this[I]=!this[D]()):(this[I]=!0,this[d].push({opts:e,handler:A}),this[c]++),!this[I]}[k](e){return e.on("drain",this[p]).on("connect",this[w]).on("disconnect",this[y]).on("connectionError",this[m]),this[C].push(e),this[I]&&queueMicrotask(()=>{this[I]&&this[p](e[h],[this,e])}),this}[R](e){e.close(()=>{const A=this[C].indexOf(e);-1!==A&&this[C].splice(A,1)}),this[I]=this[C].some(e=>!e[I]&&!0!==e.closed&&!0!==e.destroyed)}},kClients:C,kNeedDrain:I,kAddClient:k,kRemoveClient:R,kGetDispatcher:D}},4279(e,A,t){const{kFree:r,kConnected:s,kPending:n,kQueued:o,kRunning:i,kSize:a}=t(7336),c=Symbol("pool")
 e.exports=class{constructor(e){this[c]=e}get connected(){return this[c][s]}get free(){return this[c][r]}get pending(){return this[c][n]}get queued(){return this[c][o]}get running(){return this[c][i]}get size(){return this[c][a]}}},977(e,A,t){"use strict"
 const{PoolBase:r,kClients:s,kNeedDrain:n,kAddClient:o,kGetDispatcher:i}=t(7835),a=t(5372),{InvalidArgumentError:c}=t(1702),g=t(7017),{kUrl:l,kInterceptors:h}=t(7336),E=t(5711),Q=Symbol("options"),u=Symbol("connections"),B=Symbol("factory")
-function C(e,A){return new a(e,A)}e.exports=class extends r{constructor(e,{connections:A,factory:t=C,connect:r,connectTimeout:n,tls:o,maxCachedSessions:i,socketPath:a,autoSelectFamily:I,autoSelectFamilyAttemptTimeout:d,allowH2:f,...p}={}){if(super(),null!=A&&(!Number.isFinite(A)||A<0))throw new c("invalid connections")
+function C(e,A){return new a(e,A)}e.exports=class extends r{constructor(e,{connections:A,factory:t=C,connect:r,connectTimeout:n,tls:o,maxCachedSessions:i,socketPath:a,autoSelectFamily:I,autoSelectFamilyAttemptTimeout:d,allowH2:f,...p}={}){if(null!=A&&(!Number.isFinite(A)||A<0))throw new c("invalid connections")
 if("function"!=typeof t)throw new c("factory must be a function.")
 if(null!=r&&"function"!=typeof r&&"object"!=typeof r)throw new c("connect must be a function or an object")
-"function"!=typeof r&&(r=E({...o,maxCachedSessions:i,allowH2:f,socketPath:a,timeout:n,...I?{autoSelectFamily:I,autoSelectFamilyAttemptTimeout:d}:void 0,...r})),this[h]=p.interceptors?.Pool&&Array.isArray(p.interceptors.Pool)?p.interceptors.Pool:[],this[u]=A||null,this[l]=g.parseOrigin(e),this[Q]={...g.deepClone(p),connect:r,allowH2:f},this[Q].interceptors=p.interceptors?{...p.interceptors}:void 0,this[B]=t,this.on("connectionError",(e,A,t)=>{for(const e of A){const A=this[s].indexOf(e);-1!==A&&this[s].splice(A,1)}})}[i](){for(const e of this[s])if(!e[n])return e
+"function"!=typeof r&&(r=E({...o,maxCachedSessions:i,allowH2:f,socketPath:a,timeout:n,...I?{autoSelectFamily:I,autoSelectFamilyAttemptTimeout:d}:void 0,...r})),super(p),this[h]=p.interceptors?.Pool&&Array.isArray(p.interceptors.Pool)?p.interceptors.Pool:[],this[u]=A||null,this[l]=g.parseOrigin(e),this[Q]={...g.deepClone(p),connect:r,allowH2:f},this[Q].interceptors=p.interceptors?{...p.interceptors}:void 0,this[B]=t,this.on("connectionError",(e,A,t)=>{for(const e of A){const A=this[s].indexOf(e);-1!==A&&this[s].splice(A,1)}})}[i](){for(const e of this[s])if(!e[n])return e
 if(!this[u]||this[s].length<this[u]){const e=this[B](this[l],this[Q])
 return this[o](e),e}}}},1819(e,A,t){"use strict"
 const{kProxy:r,kClose:s,kDestroy:n,kDispatch:o,kInterceptors:i}=t(7336),{URL:a}=t(3136),c=t(2370),g=t(977),l=t(8430),{InvalidArgumentError:h,RequestAbortedError:E,SecureProxyConnectionError:Q}=t(1702),u=t(5711),B=t(5372),C=Symbol("proxy agent"),I=Symbol("proxy client"),d=Symbol("proxy headers"),f=Symbol("request tls settings"),p=Symbol("proxy tls settings"),w=Symbol("connect endpoint function"),y=Symbol("tunnel proxy")
@@ -1574,9 +1588,8 @@ A.maxAge=r}else if("domain"===c){let e=n
 "."===e[0]&&(e=e.slice(1)),e=e.toLowerCase(),A.domain=e}else if("path"===c){let e=""
 e=0===n.length||"/"!==n[0]?"/":n,A.path=e}else if("secure"===c)A.secure=!0
 else if("httponly"===c)A.httpOnly=!0
-else if("samesite"===c){let e="Default"
-const t=n.toLowerCase()
-t.includes("none")&&(e="None"),t.includes("strict")&&(e="Strict"),t.includes("lax")&&(e="Lax"),A.sameSite=e}else A.unparsed??=[],A.unparsed.push(`${r}=${n}`)
+else if("samesite"===c){const e=n.toLowerCase()
+"none"===e?A.sameSite="None":"strict"===e?A.sameSite="Strict":"lax"===e&&(A.sameSite="Lax")}else A.unparsed??=[],A.unparsed.push(`${r}=${n}`)
 return a(e,A)}e.exports={parseSetCookie:function(e){if(n(e))return null
 let A="",t="",s="",i=""
 if(e.includes(";")){const r={position:0}
@@ -2456,26 +2469,25 @@ return i}}}},494(e,A,t){"use strict"
 const{createInflateRaw:r,Z_DEFAULT_WINDOWBITS:s}=t(8522),{isValidClientWindowBits:n}=t(7026),{MessageSizeExceededError:o}=t(1702),i=Buffer.from([0,0,255,255]),a=Symbol("kBuffer"),c=Symbol("kLength")
 e.exports={PerMessageDeflate:class{#j
 #E={}
-#X
-#D=!1
-#$=null
-constructor(e,A={}){this.#E.serverNoContextTakeover=e.has("server_no_context_takeover"),this.#E.serverMaxWindowBits=e.get("server_max_window_bits"),this.#X=A.maxDecompressedMessageSize??4194304}decompress(e,A,t){if(this.#D)t(new o)
-else{if(!this.#j){let e=s
+#X=0
+constructor(e,A){this.#E.serverNoContextTakeover=e.has("server_no_context_takeover"),this.#E.serverMaxWindowBits=e.get("server_max_window_bits"),this.#X=A.maxPayloadSize}decompress(e,A,t){if(!this.#j){let e=s
 if(this.#E.serverMaxWindowBits){if(!n(this.#E.serverMaxWindowBits))return void t(new Error("Invalid server_max_window_bits"))
-e=Number.parseInt(this.#E.serverMaxWindowBits)}try{this.#j=r({windowBits:e})}catch(e){return void t(e)}this.#j[a]=[],this.#j[c]=0,this.#j.on("data",e=>{if(!this.#D)if(this.#j[c]+=e.length,this.#j[c]>this.#X){if(this.#D=!0,this.#j.removeAllListeners(),this.#j.destroy(),this.#j=null,this.#$){const e=this.#$
-this.#$=null,e(new o)}}else this.#j[a].push(e)}),this.#j.on("error",e=>{this.#j=null,t(e)})}this.#$=t,this.#j.write(e),A&&this.#j.write(i),this.#j.flush(()=>{if(this.#D||!this.#j)return
+e=Number.parseInt(this.#E.serverMaxWindowBits)}try{this.#j=r({windowBits:e})}catch(e){return void t(e)}this.#j[a]=[],this.#j[c]=0,this.#j.on("data",e=>{if(this.#j[c]+=e.length,this.#X>0&&this.#j[c]>this.#X)return t(new o),this.#j.removeAllListeners(),void(this.#j=null)
+this.#j[a].push(e)}),this.#j.on("error",e=>{this.#j=null,t(e)})}this.#j.write(e),A&&this.#j.write(i),this.#j.flush(()=>{if(!this.#j)return
 const e=Buffer.concat(this.#j[a],this.#j[c])
-this.#j[a].length=0,this.#j[c]=0,this.#$=null,t(null,e)})}}}}},4951(e,A,t){"use strict"
-const{Writable:r}=t(7075),s=t(4589),{parserStates:n,opcodes:o,states:i,emptyBuffer:a,sentCloseFrameState:c}=t(7389),{kReadyState:g,kSentClose:l,kResponse:h,kReceivedClose:E}=t(4617),{channels:Q}=t(2781),{isValidStatusCode:u,isValidOpcode:B,failWebsocketConnection:C,websocketMessageReceived:I,utf8Decode:d,isControlFrame:f,isTextBinaryFrame:p,isContinuationFrame:w}=t(7026),{WebsocketFrameSend:y}=t(9817),{closeWebSocketConnection:m}=t(242),{PerMessageDeflate:D}=t(494)
-e.exports={ByteParser:class extends r{#K=[]
+this.#j[a].length=0,this.#j[c]=0,t(null,e)})}}}},4951(e,A,t){"use strict"
+const{Writable:r}=t(7075),s=t(4589),{parserStates:n,opcodes:o,states:i,emptyBuffer:a,sentCloseFrameState:c}=t(7389),{kReadyState:g,kSentClose:l,kResponse:h,kReceivedClose:E}=t(4617),{channels:Q}=t(2781),{isValidStatusCode:u,isValidOpcode:B,failWebsocketConnection:C,websocketMessageReceived:I,utf8Decode:d,isControlFrame:f,isTextBinaryFrame:p,isContinuationFrame:w}=t(7026),{WebsocketFrameSend:y}=t(9817),{closeWebSocketConnection:m}=t(242),{PerMessageDeflate:D}=t(494),{MessageSizeExceededError:k}=t(1702)
+function R(e,A,t){m(e,A,t,Buffer.byteLength(t)),C(e,t)}e.exports={ByteParser:class extends r{#$=[]
+#K=0
 #ee=0
 #Ae=!1
 #f=n.INFO
 #te={}
 #re=[]
 #se
-#E
-constructor(e,A,t={}){super(),this.ws=e,this.#se=null==A?new Map:A,this.#E=t,this.#se.has("permessage-deflate")&&this.#se.set("permessage-deflate",new D(A,t))}_write(e,A,t){this.#K.push(e),this.#ee+=e.length,this.#Ae=!0,this.run(t)}run(e){for(;this.#Ae;)if(this.#f===n.INFO){if(this.#ee<2)return e()
+#ne
+#X
+constructor(e,A,t={}){super(),this.ws=e,this.#se=null==A?new Map:A,this.#ne=t.maxFragments??0,this.#X=t.maxPayloadSize??0,this.#se.has("permessage-deflate")&&this.#se.set("permessage-deflate",new D(A,t))}_write(e,A,t){this.#$.push(e),this.#ee+=e.length,this.#Ae=!0,this.run(t)}#oe(){return!(this.#X>0&&!f(this.#te.opcode)&&this.#te.payloadLength+this.#K>this.#X)||(R(this.ws,1009,"Payload size exceeds maximum allowed size"),!1)}run(e){for(;this.#Ae;)if(this.#f===n.INFO){if(this.#ee<2)return e()
 const A=this.consume(2),t=!!(128&A[0]),r=15&A[0],s=!(128&~A[1]),i=!t&&r!==o.CONTINUATION,a=127&A[1],c=64&A[0],g=32&A[0],l=16&A[0]
 if(!B(r))return C(this.ws,"Invalid opcode received"),e()
 if(s)return C(this.ws,"Frame cannot be masked"),e()
@@ -2486,27 +2498,33 @@ if(p(r)&&this.#re.length>0)return void C(this.ws,"Expected continuation frame")
 if(this.#te.fragmented&&i)return void C(this.ws,"Fragmented frame exceeded 125 bytes.")
 if((a>125||i)&&f(r))return void C(this.ws,"Control frame either too large or fragmented")
 if(w(r)&&0===this.#re.length&&!this.#te.compressed)return void C(this.ws,"Unexpected continuation frame")
-a<=125?(this.#te.payloadLength=a,this.#f=n.READ_DATA):126===a?this.#f=n.PAYLOADLENGTH_16:127===a&&(this.#f=n.PAYLOADLENGTH_64),p(r)&&(this.#te.binaryType=r,this.#te.compressed=0!==c),this.#te.opcode=r,this.#te.masked=s,this.#te.fin=t,this.#te.fragmented=i}else if(this.#f===n.PAYLOADLENGTH_16){if(this.#ee<2)return e()
+if(a<=125){if(this.#te.payloadLength=a,this.#f=n.READ_DATA,!this.#oe())return}else 126===a?this.#f=n.PAYLOADLENGTH_16:127===a&&(this.#f=n.PAYLOADLENGTH_64)
+p(r)&&(this.#te.binaryType=r,this.#te.compressed=0!==c),this.#te.opcode=r,this.#te.masked=s,this.#te.fin=t,this.#te.fragmented=i}else if(this.#f===n.PAYLOADLENGTH_16){if(this.#ee<2)return e()
 const A=this.consume(2)
-this.#te.payloadLength=A.readUInt16BE(0),this.#f=n.READ_DATA}else if(this.#f===n.PAYLOADLENGTH_64){if(this.#ee<8)return e()
+if(this.#te.payloadLength=A.readUInt16BE(0),this.#f=n.READ_DATA,!this.#oe())return}else if(this.#f===n.PAYLOADLENGTH_64){if(this.#ee<8)return e()
 const A=this.consume(8),t=A.readUInt32BE(0),r=A.readUInt32BE(4)
 if(0!==t||r>2**31-1)return void C(this.ws,"Received payload length > 2^31 bytes.")
-this.#te.payloadLength=r,this.#f=n.READ_DATA}else if(this.#f===n.READ_DATA){if(this.#ee<this.#te.payloadLength)return e()
+if(this.#te.payloadLength=r,this.#f=n.READ_DATA,!this.#oe())return}else if(this.#f===n.READ_DATA){if(this.#ee<this.#te.payloadLength)return e()
 const A=this.consume(this.#te.payloadLength)
 if(f(this.#te.opcode))this.#Ae=this.parseControlFrame(A),this.#f=n.INFO
-else{if(this.#te.compressed){this.#se.get("permessage-deflate").decompress(A,this.#te.fin,(A,t)=>{if(A)C(this.ws,A.message)
-else{if(this.#re.push(t),!this.#te.fin)return this.#f=n.INFO,this.#Ae=!0,void this.run(e)
-I(this.ws,this.#te.binaryType,Buffer.concat(this.#re)),this.#Ae=!0,this.#f=n.INFO,this.#re.length=0,this.run(e)}}),this.#Ae=!1
-break}if(this.#re.push(A),!this.#te.fragmented&&this.#te.fin){const e=Buffer.concat(this.#re)
-I(this.ws,this.#te.binaryType,e),this.#re.length=0}this.#f=n.INFO}}}consume(e){if(e>this.#ee)throw new Error("Called consume() before buffers satiated.")
+else{if(this.#te.compressed){this.#se.get("permessage-deflate").decompress(A,this.#te.fin,(A,t)=>{if(A){const e=A instanceof k?1009:1007
+return void R(this.ws,e,A.message)}if(this.writeFragments(t))if(this.#X>0&&this.#K>this.#X)R(this.ws,1009,(new k).message)
+else{if(!this.#te.fin)return this.#f=n.INFO,this.#Ae=!0,void this.run(e)
+I(this.ws,this.#te.binaryType,this.consumeFragments()),this.#Ae=!0,this.#f=n.INFO,this.run(e)}}),this.#Ae=!1
+break}if(!this.writeFragments(A))return
+if(this.#X>0&&this.#K>this.#X)return void R(this.ws,1009,(new k).message)
+!this.#te.fragmented&&this.#te.fin&&I(this.ws,this.#te.binaryType,this.consumeFragments()),this.#f=n.INFO}}}consume(e){if(e>this.#ee)throw new Error("Called consume() before buffers satiated.")
 if(0===e)return a
-if(this.#K[0].length===e)return this.#ee-=this.#K[0].length,this.#K.shift()
+if(this.#$[0].length===e)return this.#ee-=this.#$[0].length,this.#$.shift()
 const A=Buffer.allocUnsafe(e)
 let t=0
-for(;t!==e;){const r=this.#K[0],{length:s}=r
-if(s+t===e){A.set(this.#K.shift(),t)
-break}if(s+t>e){A.set(r.subarray(0,e-t),t),this.#K[0]=r.subarray(e-t)
-break}A.set(this.#K.shift(),t),t+=r.length}return this.#ee-=e,A}parseCloseBody(e){let A
+for(;t!==e;){const r=this.#$[0],{length:s}=r
+if(s+t===e){A.set(this.#$.shift(),t)
+break}if(s+t>e){A.set(r.subarray(0,e-t),t),this.#$[0]=r.subarray(e-t)
+break}A.set(this.#$.shift(),t),t+=r.length}return this.#ee-=e,A}writeFragments(e){return this.#ne>0&&this.#re.length===this.#ne?(R(this.ws,1008,"Too many message fragments"),!1):(this.#K+=e.length,this.#re.push(e),!0)}consumeFragments(){const e=this.#re
+if(1===e.length)return this.#K=0,e.shift()
+const A=Buffer.concat(e,this.#K)
+return this.#re=[],this.#K=0,A}parseCloseBody(e){let A
 if(s(1!==e.length),e.length>=2&&(A=e.readUInt16BE(0)),void 0!==A&&!u(A))return{code:1002,reason:"Invalid status code",error:!0}
 let t=e.subarray(2)
 239===t[0]&&187===t[1]&&191===t[2]&&(t=t.subarray(3))
@@ -2522,17 +2540,17 @@ return!0}get closingInfo(){return this.#te.closeInfo}}}},2835(e,A,t){"use strict
 const{WebsocketFrameSend:r}=t(9817),{opcodes:s,sendHints:n}=t(7389),o=t(4895),i=Buffer[Symbol.species]
 function a(e,A){return new r(function(e,A){switch(A){case n.string:return Buffer.from(e)
 case n.arrayBuffer:case n.blob:return new i(e)
-case n.typedArray:return new i(e.buffer,e.byteOffset,e.byteLength)}}(e,A)).createFrame(A===n.string?s.TEXT:s.BINARY)}e.exports={SendQueue:class{#ne=new o
-#oe=!1
-#ie
-constructor(e){this.#ie=e}add(e,A,t){if(t!==n.blob){const r=a(e,t)
-if(this.#oe){const e={promise:null,callback:A,frame:r}
-this.#ne.push(e)}else this.#ie.write(r,A)
+case n.typedArray:return new i(e.buffer,e.byteOffset,e.byteLength)}}(e,A)).createFrame(A===n.string?s.TEXT:s.BINARY)}e.exports={SendQueue:class{#ie=new o
+#ae=!1
+#ce
+constructor(e){this.#ce=e}add(e,A,t){if(t!==n.blob){const r=a(e,t)
+if(this.#ae){const e={promise:null,callback:A,frame:r}
+this.#ie.push(e)}else this.#ce.write(r,A)
 return}const r={promise:e.arrayBuffer().then(e=>{r.promise=null,r.frame=a(e,t)}),callback:A,frame:null}
-this.#ne.push(r),this.#oe||this.#ae()}async#ae(){this.#oe=!0
-const e=this.#ne
+this.#ie.push(r),this.#ae||this.#ge()}async#ge(){this.#ae=!0
+const e=this.#ie
 for(;!e.isEmpty();){const A=e.shift()
-null!==A.promise&&await A.promise,this.#ie.write(A.frame,A.callback),A.callback=A.frame=null}this.#oe=!1}}}},4617(e){"use strict"
+null!==A.promise&&await A.promise,this.#ce.write(A.frame,A.callback),A.callback=A.frame=null}this.#ae=!1}}}},4617(e){"use strict"
 e.exports={kWebSocketURL:Symbol("url"),kReadyState:Symbol("ready state"),kController:Symbol("controller"),kResponse:Symbol("response"),kBinaryType:Symbol("binary type"),kSentClose:Symbol("sent close"),kReceivedClose:Symbol("received close"),kByteParser:Symbol("byte parser")}},7026(e,A,t){"use strict"
 const{kReadyState:r,kController:s,kResponse:n,kBinaryType:o,kWebSocketURL:i}=t(4617),{states:a,opcodes:c}=t(7389),{ErrorEvent:g,createFastMessageEvent:l}=t(7707),{isUtf8:h}=t(4573),{collectASequenceOfCodePointsFast:E,removeHTTPWhitespace:Q}=t(2899)
 function u(e,A,t=(e,A)=>new Event(e,A),r={}){const s=t(e,r)
@@ -2553,11 +2571,10 @@ if(t<48||t>57)return!1}const A=Number.parseInt(e,10)
 return A>=8&&A<=15}}},8055(e,A,t){"use strict"
 const{webidl:r}=t(2306),{URLSerializer:s}=t(2899),{environmentSettingsObject:n}=t(479),{staticPropertyDescriptors:o,states:i,sentCloseFrameState:a,sendHints:c}=t(7389),{kWebSocketURL:g,kReadyState:l,kController:h,kBinaryType:E,kResponse:Q,kSentClose:u,kByteParser:B}=t(4617),{isConnecting:C,isEstablished:I,isClosing:d,isValidSubprotocol:f,fireEvent:p}=t(7026),{establishWebSocketConnection:w,closeWebSocketConnection:y}=t(242),{ByteParser:m}=t(4951),{kEnumerableProperty:D,isBlobLike:k}=t(7017),{getGlobalDispatcher:R}=t(1914),{types:b}=t(7975),{ErrorEvent:F,CloseEvent:S}=t(7707),{SendQueue:N}=t(2835)
 class M extends EventTarget{#T={open:null,error:null,close:null,message:null}
-#ce=0
-#ge=""
+#le=0
+#he=""
 #se=""
-#le
-#E
+#Ee
 constructor(e,A=[]){super(),r.util.markAsUncloneable(this)
 const t="WebSocket constructor"
 r.argumentLengthCheck(arguments,1,t)
@@ -2569,9 +2586,9 @@ try{i=new URL(e,o)}catch(e){throw new DOMException(e,"SyntaxError")}if("http:"==
 if(i.hash||i.href.endsWith("#"))throw new DOMException("Got fragment","SyntaxError")
 if("string"==typeof A&&(A=[A]),A.length!==new Set(A.map(e=>e.toLowerCase())).size)throw new DOMException("Invalid Sec-WebSocket-Protocol value","SyntaxError")
 if(A.length>0&&!A.every(e=>f(e)))throw new DOMException("Invalid Sec-WebSocket-Protocol value","SyntaxError")
-this[g]=new URL(i.href),this.#E={maxDecompressedMessageSize:s.maxDecompressedMessageSize}
+this[g]=new URL(i.href)
 const c=n.settingsObject
-this[h]=w(i,A,c,this,(e,A)=>this.#he(e,A),s),this[l]=M.CONNECTING,this[u]=a.NOT_SENT,this[E]="blob"}close(e=void 0,A=void 0){r.brandCheck(this,M)
+this[h]=w(i,A,c,this,(e,A)=>this.#Qe(e,A),s),this[l]=M.CONNECTING,this[u]=a.NOT_SENT,this[E]="blob"}close(e=void 0,A=void 0){r.brandCheck(this,M)
 const t="WebSocket.close"
 if(void 0!==e&&(e=r.converters["unsigned short"](e,t,"code",{clamp:!0})),void 0!==A&&(A=r.converters.USVString(A,t,"reason")),void 0!==e&&1e3!==e&&(e<3e3||e>4999))throw new DOMException("invalid code","InvalidAccessError")
 let s=0
@@ -2580,15 +2597,14 @@ y(this,e,A,s)}send(e){r.brandCheck(this,M)
 const A="WebSocket.send"
 if(r.argumentLengthCheck(arguments,1,A),e=r.converters.WebSocketSendData(e,A,"data"),C(this))throw new DOMException("Sent before connected.","InvalidStateError")
 if(I(this)&&!d(this))if("string"==typeof e){const A=Buffer.byteLength(e)
-this.#ce+=A,this.#le.add(e,()=>{this.#ce-=A},c.string)}else b.isArrayBuffer(e)?(this.#ce+=e.byteLength,this.#le.add(e,()=>{this.#ce-=e.byteLength},c.arrayBuffer)):ArrayBuffer.isView(e)?(this.#ce+=e.byteLength,this.#le.add(e,()=>{this.#ce-=e.byteLength},c.typedArray)):k(e)&&(this.#ce+=e.size,this.#le.add(e,()=>{this.#ce-=e.size},c.blob))}get readyState(){return r.brandCheck(this,M),this[l]}get bufferedAmount(){return r.brandCheck(this,M),this.#ce}get url(){return r.brandCheck(this,M),s(this[g])}get extensions(){return r.brandCheck(this,M),this.#se}get protocol(){return r.brandCheck(this,M),this.#ge}get onopen(){return r.brandCheck(this,M),this.#T.open}set onopen(e){r.brandCheck(this,M),this.#T.open&&this.removeEventListener("open",this.#T.open),"function"==typeof e?(this.#T.open=e,this.addEventListener("open",e)):this.#T.open=null}get onerror(){return r.brandCheck(this,M),this.#T.error}set onerror(e){r.brandCheck(this,M),this.#T.error&&this.removeEventListener("error",this.#T.error),"function"==typeof e?(this.#T.error=e,this.addEventListener("error",e)):this.#T.error=null}get onclose(){return r.brandCheck(this,M),this.#T.close}set onclose(e){r.brandCheck(this,M),this.#T.close&&this.removeEventListener("close",this.#T.close),"function"==typeof e?(this.#T.close=e,this.addEventListener("close",e)):this.#T.close=null}get onmessage(){return r.brandCheck(this,M),this.#T.message}set onmessage(e){r.brandCheck(this,M),this.#T.message&&this.removeEventListener("message",this.#T.message),"function"==typeof e?(this.#T.message=e,this.addEventListener("message",e)):this.#T.message=null}get binaryType(){return r.brandCheck(this,M),this[E]}set binaryType(e){r.brandCheck(this,M),this[E]="blob"!==e&&"arraybuffer"!==e?"blob":e}#he(e,A){this[Q]=e
-const t=new m(this,A,this.#E)
-t.on("drain",U),t.on("error",L.bind(this)),e.socket.ws=this,this[B]=t,this.#le=new N(e.socket),this[l]=i.OPEN
-const r=e.headersList.get("sec-websocket-extensions")
-null!==r&&(this.#se=r)
-const s=e.headersList.get("sec-websocket-protocol")
-null!==s&&(this.#ge=s),p("open",this)}}function U(){this.ws[Q].socket.resume()}function L(e){let A,t
-e instanceof S?(A=e.reason,t=e.code):A=e.message,p("error",this,()=>new F("error",{error:e,message:A})),y(this,t)}M.CONNECTING=M.prototype.CONNECTING=i.CONNECTING,M.OPEN=M.prototype.OPEN=i.OPEN,M.CLOSING=M.prototype.CLOSING=i.CLOSING,M.CLOSED=M.prototype.CLOSED=i.CLOSED,Object.defineProperties(M.prototype,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o,url:D,readyState:D,bufferedAmount:D,onopen:D,onerror:D,onclose:D,close:D,onmessage:D,binaryType:D,send:D,extensions:D,protocol:D,[Symbol.toStringTag]:{value:"WebSocket",writable:!1,enumerable:!1,configurable:!0}}),Object.defineProperties(M,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o}),r.converters["sequence<DOMString>"]=r.sequenceConverter(r.converters.DOMString),r.converters["DOMString or sequence<DOMString>"]=function(e,A,t){return"Object"===r.util.Type(e)&&Symbol.iterator in e?r.converters["sequence<DOMString>"](e):r.converters.DOMString(e,A,t)},r.converters.WebSocketInit=r.dictionaryConverter([{key:"protocols",converter:r.converters["DOMString or sequence<DOMString>"],defaultValue:()=>new Array(0)},{key:"dispatcher",converter:r.converters.any,defaultValue:()=>R()},{key:"headers",converter:r.nullableConverter(r.converters.HeadersInit)},{key:"maxDecompressedMessageSize",converter:r.nullableConverter(e=>{if((e=r.converters["unsigned long long"](e))<=0)throw r.errors.exception({header:"WebSocket constructor",message:"maxDecompressedMessageSize must be greater than 0"})
-return e})}]),r.converters["DOMString or sequence<DOMString> or WebSocketInit"]=function(e){return"Object"!==r.util.Type(e)||Symbol.iterator in e?{protocols:r.converters["DOMString or sequence<DOMString>"](e)}:r.converters.WebSocketInit(e)},r.converters.WebSocketSendData=function(e){if("Object"===r.util.Type(e)){if(k(e))return r.converters.Blob(e,{strict:!1})
+this.#le+=A,this.#Ee.add(e,()=>{this.#le-=A},c.string)}else b.isArrayBuffer(e)?(this.#le+=e.byteLength,this.#Ee.add(e,()=>{this.#le-=e.byteLength},c.arrayBuffer)):ArrayBuffer.isView(e)?(this.#le+=e.byteLength,this.#Ee.add(e,()=>{this.#le-=e.byteLength},c.typedArray)):k(e)&&(this.#le+=e.size,this.#Ee.add(e,()=>{this.#le-=e.size},c.blob))}get readyState(){return r.brandCheck(this,M),this[l]}get bufferedAmount(){return r.brandCheck(this,M),this.#le}get url(){return r.brandCheck(this,M),s(this[g])}get extensions(){return r.brandCheck(this,M),this.#se}get protocol(){return r.brandCheck(this,M),this.#he}get onopen(){return r.brandCheck(this,M),this.#T.open}set onopen(e){r.brandCheck(this,M),this.#T.open&&this.removeEventListener("open",this.#T.open),"function"==typeof e?(this.#T.open=e,this.addEventListener("open",e)):this.#T.open=null}get onerror(){return r.brandCheck(this,M),this.#T.error}set onerror(e){r.brandCheck(this,M),this.#T.error&&this.removeEventListener("error",this.#T.error),"function"==typeof e?(this.#T.error=e,this.addEventListener("error",e)):this.#T.error=null}get onclose(){return r.brandCheck(this,M),this.#T.close}set onclose(e){r.brandCheck(this,M),this.#T.close&&this.removeEventListener("close",this.#T.close),"function"==typeof e?(this.#T.close=e,this.addEventListener("close",e)):this.#T.close=null}get onmessage(){return r.brandCheck(this,M),this.#T.message}set onmessage(e){r.brandCheck(this,M),this.#T.message&&this.removeEventListener("message",this.#T.message),"function"==typeof e?(this.#T.message=e,this.addEventListener("message",e)):this.#T.message=null}get binaryType(){return r.brandCheck(this,M),this[E]}set binaryType(e){r.brandCheck(this,M),this[E]="blob"!==e&&"arraybuffer"!==e?"blob":e}#Qe(e,A){this[Q]=e
+const t=this[h]?.dispatcher?.webSocketOptions,r=t?.maxFragments,s=t?.maxPayloadSize,n=new m(this,A,{maxFragments:r,maxPayloadSize:s})
+n.on("drain",U),n.on("error",L.bind(this)),e.socket.ws=this,this[B]=n,this.#Ee=new N(e.socket),this[l]=i.OPEN
+const o=e.headersList.get("sec-websocket-extensions")
+null!==o&&(this.#se=o)
+const a=e.headersList.get("sec-websocket-protocol")
+null!==a&&(this.#he=a),p("open",this)}}function U(){this.ws[Q].socket.resume()}function L(e){let A,t
+e instanceof S?(A=e.reason,t=e.code):A=e.message,p("error",this,()=>new F("error",{error:e,message:A})),y(this,t)}M.CONNECTING=M.prototype.CONNECTING=i.CONNECTING,M.OPEN=M.prototype.OPEN=i.OPEN,M.CLOSING=M.prototype.CLOSING=i.CLOSING,M.CLOSED=M.prototype.CLOSED=i.CLOSED,Object.defineProperties(M.prototype,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o,url:D,readyState:D,bufferedAmount:D,onopen:D,onerror:D,onclose:D,close:D,onmessage:D,binaryType:D,send:D,extensions:D,protocol:D,[Symbol.toStringTag]:{value:"WebSocket",writable:!1,enumerable:!1,configurable:!0}}),Object.defineProperties(M,{CONNECTING:o,OPEN:o,CLOSING:o,CLOSED:o}),r.converters["sequence<DOMString>"]=r.sequenceConverter(r.converters.DOMString),r.converters["DOMString or sequence<DOMString>"]=function(e,A,t){return"Object"===r.util.Type(e)&&Symbol.iterator in e?r.converters["sequence<DOMString>"](e):r.converters.DOMString(e,A,t)},r.converters.WebSocketInit=r.dictionaryConverter([{key:"protocols",converter:r.converters["DOMString or sequence<DOMString>"],defaultValue:()=>new Array(0)},{key:"dispatcher",converter:r.converters.any,defaultValue:()=>R()},{key:"headers",converter:r.nullableConverter(r.converters.HeadersInit)}]),r.converters["DOMString or sequence<DOMString> or WebSocketInit"]=function(e){return"Object"!==r.util.Type(e)||Symbol.iterator in e?{protocols:r.converters["DOMString or sequence<DOMString>"](e)}:r.converters.WebSocketInit(e)},r.converters.WebSocketSendData=function(e){if("Object"===r.util.Type(e)){if(k(e))return r.converters.Blob(e,{strict:!1})
 if(ArrayBuffer.isView(e)||b.isArrayBuffer(e))return r.converters.BufferSource(e)}return r.converters.USVString(e)},e.exports={WebSocket:M}},2613(e){"use strict"
 e.exports=require("assert")},4434(e){"use strict"
 e.exports=require("events")},9896(e){"use strict"
