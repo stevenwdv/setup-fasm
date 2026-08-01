@@ -7,9 +7,7 @@ const s=t(9896),n=r(t(5753)).default("@kwsites/file-exists")
 A.exists=function(e,t=A.READABLE){return function(e,A,t){n("checking %s",e)
 try{const r=s.statSync(e)
 return r.isFile()&&A?(n("[OK] path represents a file"),!0):r.isDirectory()&&t?(n("[OK] path represents a directory"),!0):(n("[FAIL] path represents something other than a file or directory"),!1)}catch(e){if("ENOENT"===e.code)return n("[FAIL] path is not accessible: %o",e),!1
-throw n("[FATAL] %o",e),e}}(e,(t&A.FILE)>0,(t&A.FOLDER)>0)},A.FILE=1,A.FOLDER=2,A.READABLE=A.FILE+A.FOLDER},8100(e,A){"use strict"
-function t(){let e,A,t="pending"
-return{promise:new Promise((t,r)=>{e=t,A=r}),done(A){"pending"===t&&(t="resolved",e(A))},fail(e){"pending"===t&&(t="rejected",A(e))},get fulfilled(){return"pending"!==t},get status(){return t}}}A.ud=A.yX=void 0,A.yX=t,A.ud=t},7833(e,A,t){A.formatArgs=function(A){if(A[0]=(this.useColors?"%c":"")+this.namespace+(this.useColors?" %c":" ")+A[0]+(this.useColors?"%c ":" ")+"+"+e.exports.humanize(this.diff),!this.useColors)return
+throw n("[FATAL] %o",e),e}}(e,(t&A.FILE)>0,(t&A.FOLDER)>0)},A.FILE=1,A.FOLDER=2,A.READABLE=A.FILE+A.FOLDER},7833(e,A,t){A.formatArgs=function(A){if(A[0]=(this.useColors?"%c":"")+this.namespace+(this.useColors?" %c":" ")+A[0]+(this.useColors?"%c ":" ")+"+"+e.exports.humanize(this.diff),!this.useColors)return
 const t="color: "+this.color
 A.splice(1,0,t,"color: inherit")
 let r=0,s=0
@@ -388,13 +386,7 @@ if("TEAMCITY_VERSION"in o)return/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(o.TEAMCITY_
 if("truecolor"===o.COLORTERM)return 3
 if("TERM_PROGRAM"in o){const e=Number.parseInt((o.TERM_PROGRAM_VERSION||"").split(".")[0],10)
 switch(o.TERM_PROGRAM){case"iTerm.app":return e>=3?3:2
-case"Apple_Terminal":return 2}}return/-256(color)?$/i.test(o.TERM)?2:/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(o.TERM)||"COLORTERM"in o?1:c}function c(e,A={}){return function(e){return 0!==e&&{level:e,hasBasic:!0,has256:e>=2,has16m:e>=3}}(a(e,{streamIsTTY:e&&e.isTTY,...A}))}n("no-color")||n("no-colors")||n("color=false")||n("color=never")?i=0:(n("color")||n("colors")||n("color=true")||n("color=always"))&&(i=1),e.exports={supportsColor:c,stdout:c({isTTY:s.isatty(1)}),stderr:c({isTTY:s.isatty(2)})}},7657(e,A){"use strict"
-A.J=void 0,A.J={fasm1(e,A){const t=(e.alt?[e.alt,e.name]:[e.name]).map(e=>{const t=e.replaceAll(".","")
-return{windows:parseInt(t)<parseInt("1.54".replaceAll(".",""))?`fasmc${t}.zip`:`fasmw${t}.zip`,linux:`fasm-${e}.tgz`,unix:`fasm-${e}.tar.gz`}[A]})
-return["https://flatassembler.net/","http://fasm.sourceforge.net/archive/recent/","http://comrade.ownz.com/fasm/"].flatMap(e=>t.map(A=>e+A)).map(e=>new URL(e))},fasmg(e){const A=(e.alt?[e.alt,e.name]:[e.name]).map(e=>`fasmg.${e}.zip`)
-return["https://flatassembler.net/"].flatMap(e=>A.map(A=>e+A)).map(e=>new URL(e))},fasm2(){const e=["fasm2.zip"]
-return["https://flatassembler.net/"].flatMap(A=>e.map(e=>A+e)).map(e=>new URL(e))},fasmarm(e,A){const t=["FASMARM_full.ZIP"]
-return"windows"===A&&t.unshift("FASMARM_win32.ZIP"),["https://arm.flatassembler.net/"].flatMap(e=>t.map(A=>e+A)).map(e=>new URL(e))}}},803(e,A,t){e.exports=t(7469)},7469(e,A,t){"use strict"
+case"Apple_Terminal":return 2}}return/-256(color)?$/i.test(o.TERM)?2:/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(o.TERM)||"COLORTERM"in o?1:c}function c(e,A={}){return function(e){return 0!==e&&{level:e,hasBasic:!0,has256:e>=2,has16m:e>=3}}(a(e,{streamIsTTY:e&&e.isTTY,...A}))}n("no-color")||n("no-colors")||n("color=false")||n("color=never")?i=0:(n("color")||n("colors")||n("color=true")||n("color=always"))&&(i=1),e.exports={supportsColor:c,stdout:c({isTTY:s.isatty(1)}),stderr:c({isTTY:s.isatty(2)})}},803(e,A,t){e.exports=t(7469)},7469(e,A,t){"use strict"
 t(9278)
 var r,s=t(4756),n=t(8611),o=t(5692),i=t(4434),a=(t(2613),t(9023))
 function c(e){var A=this
@@ -2665,7 +2657,8 @@ const o={}
 A=A||[null,e({}),e([]),e(e)]
 for(var i=2&s&&r;("object"==typeof i||"function"==typeof i)&&!~A.indexOf(i);i=e(i))Object.getOwnPropertyNames(i).forEach(e=>o[e]=()=>r[e])
 return o.default=()=>r,t.d(n,o),n}})(),t.d=(e,A)=>{if(Array.isArray(A))for(var r=0;r<A.length;){var s=A[r++],n=A[r++]
-t.o(e,s)?0===n&&r++:0===n?Object.defineProperty(e,s,{enumerable:!0,value:A[r++]}):Object.defineProperty(e,s,{enumerable:!0,get:n})}else for(var s in A)t.o(A,s)&&!t.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:A[s]})},t.o=(e,A)=>Object.prototype.hasOwnProperty.call(e,A),t.r=e=>{Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},(()=>{"use strict"
+t.o(e,s)?0===n&&r++:0===n?Object.defineProperty(e,s,{enumerable:!0,value:A[r++]}):Object.defineProperty(e,s,{enumerable:!0,get:n})}else for(var s in A)t.o(A,s)&&!t.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:A[s]})},t.o=(e,A)=>Object.prototype.hasOwnProperty.call(e,A),t.r=e=>{Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.cjs=e=>{const A={exports:{}}
+return e.call(A.exports,A,A.exports),A.exports},(()=>{"use strict"
 var e=t(7598),A=t.n(e)
 const r=require("node:fs")
 var s=t.n(r)
@@ -2917,7 +2910,8 @@ process.stdout.write(d.EOL),w("set-output",{name:e},f(A))}function Je(e){process
 var _e=t(8926)
 const Ze=new WeakMap
 function ze(...e){const A=new String(e)
-return Ze.set(A,e),A}function je(e){return e instanceof String&&Ze.has(e)}function Xe(e){return Ze.get(e)??[]}var $e=t(5753),Ke=t(8100)
+return Ze.set(A,e),A}function je(e){return e instanceof String&&Ze.has(e)}function Xe(e){return Ze.get(e)??[]}var $e=t(5753),Ke=t.cjs(function(e,A){function t(){let e,A,t="pending"
+return{promise:new Promise((t,r)=>{e=t,A=r}),done(A){"pending"===t&&(t="resolved",e(A))},fail(e){"pending"===t&&(t="rejected",A(e))},get fulfilled(){return"pending"!==t},get status(){return t}}}A.ud=A.yX=void 0,A.yX=t,A.ud=t})
 function*eA(e,A){const t="global"===A
 for(const A of e)A.isGlobal===t&&(yield A)}const AA=new Set(["--add","--edit","--remove-section","--rename-section","--replace-all","--unset","--unset-all","-e"]),tA=new Set(["--get","--get-all","--get-color","--get-colorbool","--get-regexp","--get-urlmatch","--list","-l"]),rA=new Set(["edit","remove-section","rename-section","set","unset"]),sA=new Set(["get","get-color","get-colorbool","list"])
 function nA(e=!1,A=[]){const t=A.at(0)?.toLowerCase()
@@ -3355,7 +3349,12 @@ const t=null!=ia.valid(A)
 return Ve(`explicit? ${t}`),t}function ma(){const e=process.env.RUNNER_TOOL_CACHE||""
 return(0,re.ok)(e,"Expected RUNNER_TOOL_CACHE to be defined"),e}function Da(){const e=process.env.RUNNER_TEMP||""
 return(0,re.ok)(e,"Expected RUNNER_TEMP to be defined"),e}function ka(e,A){const t=global[e]
-return void 0!==t?t:A}var Ra=t(7657)
+return void 0!==t?t:A}var Ra=t.cjs(function(e,A){A.J=void 0,A.J={fasm1(e,A){const t=(e.alt?[e.alt,e.name]:[e.name]).map(e=>{const t=e.replaceAll(".","")
+return{windows:parseInt(t)<parseInt("1.54".replaceAll(".",""))?`fasmc${t}.zip`:`fasmw${t}.zip`,linux:`fasm-${e}.tgz`,unix:`fasm-${e}.tar.gz`}[A]})
+return["https://flatassembler.net/","http://fasm.sourceforge.net/archive/recent/","http://comrade.ownz.com/fasm/"].flatMap(e=>t.map(A=>e+A)).map(e=>new URL(e))},fasmg(e){const A=(e.alt?[e.alt,e.name]:[e.name]).map(e=>`fasmg.${e}.zip`)
+return["https://flatassembler.net/"].flatMap(e=>A.map(A=>e+A)).map(e=>new URL(e))},fasm2(){const e=["fasm2.zip"]
+return["https://flatassembler.net/"].flatMap(A=>e.map(e=>A+e)).map(e=>new URL(e))},fasmarm(e,A){const t=["FASMARM_full.ZIP"]
+return"windows"===A&&t.unshift("FASMARM_win32.ZIP"),["https://arm.flatassembler.net/"].flatMap(e=>t.map(A=>e+A)).map(e=>new URL(e))}}})
 async function ba(e,t,r,n){if(!("https:"===e.protocol)&&!r&&!t)throw new Sa(e)
 let i
 try{i=await Ba(e.href,n)}catch(A){throw A instanceof Ea?new Ma(e,A.httpStatusCode,{cause:A}):A}if(r){const t=await async function(e){const t=s().createReadStream(e),r=A().createHash("BLAKE2b512").setEncoding("hex")
