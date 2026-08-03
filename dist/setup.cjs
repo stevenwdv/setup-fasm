@@ -649,7 +649,10 @@ if(Array.isArray(t)){const e=[]
 for(let s=0;s<t.length;s++)if("string"==typeof t[s]){if(!i(t[s]))throw new r(`invalid ${A} header`)
 e.push(t[s])}else if(null===t[s])e.push("")
 else{if("object"==typeof t[s])throw new r(`invalid ${A} header`)
-e.push(`${t[s]}`)}t=e}else if("string"==typeof t){if(!i(t))throw new r(`invalid ${A} header`)}else t=null===t?"":`${t}`
+{const n=`${t[s]}`
+if(!i(n))throw new r(`invalid ${A} header`)
+e.push(n)}}t=e}else if("string"==typeof t){if(!i(t))throw new r(`invalid ${A} header`)}else if(null===t)t=""
+else if(!i(t=`${t}`))throw new r(`invalid ${A} header`)
 if("host"===n){if(null!==e.host)throw new r("duplicate host header")
 if("string"!=typeof t)throw new r("invalid host header")
 e.host=t}else if("content-length"===n){if(null!==e.contentLength)throw new r("duplicate content-length header")
@@ -808,43 +811,43 @@ let e=0,A=this[o].findIndex(e=>!e[i])
 for(;e++<this[o].length;){this[d]=(this[d]+1)%this[o].length
 const e=this[o][this[d]]
 if(e[f]>this[o][A][f]&&!e[i]&&(A=this[d]),0===this[d]&&(this[I]=this[I]-this[C],this[I]<=0&&(this[I]=this[p])),e[f]>=this[I]&&!e[i])return e}return this[I]=this[o][A][f],this[d]=A,this[o][A]}}},2970(e,A,t){"use strict"
-const r=t(4589),s=t(7017),{channels:n}=t(2781),o=t(8494),{RequestContentLengthMismatchError:i,ResponseContentLengthMismatchError:a,RequestAbortedError:c,HeadersTimeoutError:g,HeadersOverflowError:l,SocketError:h,InformationalError:E,BodyTimeoutError:Q,HTTPParserError:u,ResponseExceededMaxSizeError:B}=t(1702),{kUrl:C,kReset:I,kClient:d,kParser:f,kBlocking:p,kRunning:w,kPending:y,kSize:m,kWriting:D,kQueue:k,kNoRef:R,kKeepAliveDefaultTimeout:b,kHostHeader:F,kPendingIdx:S,kRunningIdx:N,kError:M,kPipelining:U,kSocket:L,kKeepAliveTimeoutValue:T,kMaxHeadersSize:v,kKeepAliveMaxTimeout:G,kKeepAliveTimeoutThreshold:Y,kHeadersTimeout:x,kBodyTimeout:J,kStrictContentLength:H,kMaxRequests:V,kCounter:O,kMaxResponseSize:W,kOnError:P,kResume:q,kHTTPContext:_}=t(7336),Z=t(6851),z=Buffer.alloc(0),j=Buffer[Symbol.species],X=s.addListener,$=s.removeAllListeners,K=Symbol("kIdleSocketValidation"),ee=Symbol("kIdleSocketValidationTimeout"),Ae=Symbol("kSocketUsed")
-let te
-let re=null,se=async function(){const e=process.env.JEST_WORKER_ID?t(1805):void 0
+const r=t(4589),s=t(7017),{channels:n}=t(2781),o=t(8494),{RequestContentLengthMismatchError:i,ResponseContentLengthMismatchError:a,RequestAbortedError:c,InvalidArgumentError:g,HeadersTimeoutError:l,HeadersOverflowError:h,SocketError:E,InformationalError:Q,BodyTimeoutError:u,HTTPParserError:B,ResponseExceededMaxSizeError:C}=t(1702),{kUrl:I,kReset:d,kClient:f,kParser:p,kBlocking:w,kRunning:y,kPending:m,kSize:D,kWriting:k,kQueue:R,kNoRef:b,kKeepAliveDefaultTimeout:F,kHostHeader:S,kPendingIdx:N,kRunningIdx:M,kError:U,kPipelining:L,kSocket:T,kKeepAliveTimeoutValue:v,kMaxHeadersSize:G,kKeepAliveMaxTimeout:Y,kKeepAliveTimeoutThreshold:x,kHeadersTimeout:J,kBodyTimeout:H,kStrictContentLength:V,kMaxRequests:O,kCounter:W,kMaxResponseSize:P,kOnError:q,kResume:_,kHTTPContext:Z}=t(7336),z=t(6851),j=Buffer.alloc(0),X=Buffer[Symbol.species],$=s.addListener,K=s.removeAllListeners,ee=Symbol("kIdleSocketValidation"),Ae=Symbol("kIdleSocketValidationTimeout"),te=Symbol("kSocketUsed")
+let re
+let se=null,ne=async function(){const e=process.env.JEST_WORKER_ID?t(1805):void 0
 let A
-try{A=await WebAssembly.compile(t(6335))}catch(r){A=await WebAssembly.compile(e||t(1805))}return await WebAssembly.instantiate(A,{env:{wasm_on_url:(e,A,t)=>0,wasm_on_status:(e,A,t)=>{r(ne.ptr===e)
-const s=A-ae+oe.byteOffset
-return ne.onStatus(new j(oe.buffer,s,t))||0},wasm_on_message_begin:e=>(r(ne.ptr===e),ne.onMessageBegin()||0),wasm_on_header_field:(e,A,t)=>{r(ne.ptr===e)
-const s=A-ae+oe.byteOffset
-return ne.onHeaderField(new j(oe.buffer,s,t))||0},wasm_on_header_value:(e,A,t)=>{r(ne.ptr===e)
-const s=A-ae+oe.byteOffset
-return ne.onHeaderValue(new j(oe.buffer,s,t))||0},wasm_on_headers_complete:(e,A,t,s)=>(r(ne.ptr===e),ne.onHeadersComplete(A,Boolean(t),Boolean(s))||0),wasm_on_body:(e,A,t)=>{r(ne.ptr===e)
-const s=A-ae+oe.byteOffset
-return ne.onBody(new j(oe.buffer,s,t))||0},wasm_on_message_complete:e=>(r(ne.ptr===e),ne.onMessageComplete()||0)}})}()
-se.catch()
-let ne=null,oe=null,ie=0,ae=null
-class ce{constructor(e,A,{exports:t}){r(Number.isFinite(e[v])&&e[v]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(Z.TYPE.RESPONSE),this.client=e,this.socket=A,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=e[v],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=e[W]}setTimeout(e,A){e!==this.timeoutValue||1&A^1&this.timeoutType?(this.timeout&&(o.clearTimeout(this.timeout),this.timeout=null),e&&(1&A?this.timeout=o.setFastTimeout(ge,e,new WeakRef(this)):(this.timeout=setTimeout(ge,e,new WeakRef(this)),this.timeout.unref())),this.timeoutValue=e):this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.timeoutType=A}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==ne),this.llhttp.llhttp_resume(this.ptr),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||z),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const e=this.socket.read()
+try{A=await WebAssembly.compile(t(6335))}catch(r){A=await WebAssembly.compile(e||t(1805))}return await WebAssembly.instantiate(A,{env:{wasm_on_url:(e,A,t)=>0,wasm_on_status:(e,A,t)=>{r(oe.ptr===e)
+const s=A-ce+ie.byteOffset
+return oe.onStatus(new X(ie.buffer,s,t))||0},wasm_on_message_begin:e=>(r(oe.ptr===e),oe.onMessageBegin()||0),wasm_on_header_field:(e,A,t)=>{r(oe.ptr===e)
+const s=A-ce+ie.byteOffset
+return oe.onHeaderField(new X(ie.buffer,s,t))||0},wasm_on_header_value:(e,A,t)=>{r(oe.ptr===e)
+const s=A-ce+ie.byteOffset
+return oe.onHeaderValue(new X(ie.buffer,s,t))||0},wasm_on_headers_complete:(e,A,t,s)=>(r(oe.ptr===e),oe.onHeadersComplete(A,Boolean(t),Boolean(s))||0),wasm_on_body:(e,A,t)=>{r(oe.ptr===e)
+const s=A-ce+ie.byteOffset
+return oe.onBody(new X(ie.buffer,s,t))||0},wasm_on_message_complete:e=>(r(oe.ptr===e),oe.onMessageComplete()||0)}})}()
+ne.catch()
+let oe=null,ie=null,ae=0,ce=null
+class ge{constructor(e,A,{exports:t}){r(Number.isFinite(e[G])&&e[G]>0),this.llhttp=t,this.ptr=this.llhttp.llhttp_alloc(z.TYPE.RESPONSE),this.client=e,this.socket=A,this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.statusCode=null,this.statusText="",this.upgrade=!1,this.headers=[],this.headersSize=0,this.headersMaxSize=e[G],this.shouldKeepAlive=!1,this.paused=!1,this.resume=this.resume.bind(this),this.bytesRead=0,this.keepAlive="",this.contentLength="",this.connection="",this.maxResponseSize=e[P]}setTimeout(e,A){e!==this.timeoutValue||1&A^1&this.timeoutType?(this.timeout&&(o.clearTimeout(this.timeout),this.timeout=null),e&&(1&A?this.timeout=o.setFastTimeout(le,e,new WeakRef(this)):(this.timeout=setTimeout(le,e,new WeakRef(this)),this.timeout.unref())),this.timeoutValue=e):this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.timeoutType=A}resume(){!this.socket.destroyed&&this.paused&&(r(null!=this.ptr),r(null==oe),this.llhttp.llhttp_resume(this.ptr),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),this.paused=!1,this.execute(this.socket.read()||j),this.readMore())}readMore(){for(;!this.paused&&this.ptr;){const e=this.socket.read()
 if(null===e)break
-this.execute(e)}}execute(e){r(null!=this.ptr),r(null==ne),r(!this.paused)
+this.execute(e)}}execute(e){r(null!=this.ptr),r(null==oe),r(!this.paused)
 const{socket:A,llhttp:t}=this
-e.length>ie&&(ae&&t.free(ae),ie=4096*Math.ceil(e.length/4096),ae=t.malloc(ie)),new Uint8Array(t.memory.buffer,ae,ie).set(e)
+e.length>ae&&(ce&&t.free(ce),ae=4096*Math.ceil(e.length/4096),ce=t.malloc(ae)),new Uint8Array(t.memory.buffer,ce,ae).set(e)
 try{let r
-try{oe=e,ne=this,r=t.llhttp_execute(this.ptr,ae,e.length)}catch(e){throw e}finally{ne=null,oe=null}const s=t.llhttp_get_error_pos(this.ptr)-ae
-if(r!==Z.ERROR.OK){const t=e.subarray(s)
-if(r===Z.ERROR.PAUSED_UPGRADE)this.onUpgrade(t)
-else{if(r!==Z.ERROR.PAUSED)throw this.createError(r,t)
-this.paused=!0,A.unshift(t)}}}catch(e){s.destroy(A,e)}}finish(){r(null===ne),r(null!=this.ptr),r(!this.paused)
+try{ie=e,oe=this,r=t.llhttp_execute(this.ptr,ce,e.length)}catch(e){throw e}finally{oe=null,ie=null}const s=t.llhttp_get_error_pos(this.ptr)-ce
+if(r!==z.ERROR.OK){const t=e.subarray(s)
+if(r===z.ERROR.PAUSED_UPGRADE)this.onUpgrade(t)
+else{if(r!==z.ERROR.PAUSED)throw this.createError(r,t)
+this.paused=!0,A.unshift(t)}}}catch(e){s.destroy(A,e)}}finish(){r(null===oe),r(null!=this.ptr),r(!this.paused)
 const{llhttp:e}=this
 let A
-try{ne=this,A=e.llhttp_finish(this.ptr)}finally{ne=null}return A===Z.ERROR.OK?null:A===Z.ERROR.PAUSED||A===Z.ERROR.PAUSED_UPGRADE?(this.paused=!0,null):this.createError(A,z)}createError(e,A){const{llhttp:t,contentLength:r,bytesRead:s}=this
+try{oe=this,A=e.llhttp_finish(this.ptr)}finally{oe=null}return A===z.ERROR.OK?null:A===z.ERROR.PAUSED||A===z.ERROR.PAUSED_UPGRADE?(this.paused=!0,null):this.createError(A,j)}createError(e,A){const{llhttp:t,contentLength:r,bytesRead:s}=this
 if(r&&s!==parseInt(r,10))return new a
 const n=t.llhttp_get_error_reason(this.ptr)
 let o=""
 if(n){const e=new Uint8Array(t.memory.buffer,n).indexOf(0)
-o="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,n,e).toString()+")"}return new u(o,Z.ERROR[e],A)}destroy(){r(null!=this.ptr),r(null==ne),this.llhttp.llhttp_free(this.ptr),this.ptr=null,this.timeout&&o.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(e){this.statusText=e.toString()}onMessageBegin(){const{socket:e,client:A}=this
+o="Response does not match the HTTP/1.1 protocol ("+Buffer.from(t.memory.buffer,n,e).toString()+")"}return new B(o,z.ERROR[e],A)}destroy(){r(null!=this.ptr),r(null==oe),this.llhttp.llhttp_free(this.ptr),this.ptr=null,this.timeout&&o.clearTimeout(this.timeout),this.timeout=null,this.timeoutValue=null,this.timeoutType=null,this.paused=!1}onStatus(e){this.statusText=e.toString()}onMessageBegin(){const{socket:e,client:A}=this
 if(e.destroyed)return-1
-if(0===A[w])return s.destroy(e,new h("bad response",s.getSocketInfo(e))),-1
-const t=A[k][A[N]]
+if(0===A[y])return s.destroy(e,new E("bad response",s.getSocketInfo(e))),-1
+const t=A[R][A[M]]
 if(!t)return-1
 t.onResponseStarted()}onHeaderField(e){const A=this.headers.length
 1&A?this.headers[A-1]=Buffer.concat([this.headers[A-1],e]):this.headers.push(e),this.trackHeader(e.length)}onHeaderValue(e){let A=this.headers.length
@@ -852,111 +855,113 @@ t.onResponseStarted()}onHeaderField(e){const A=this.headers.length
 const t=this.headers[A-2]
 if(10===t.length){const A=s.bufferToLowerCasedHeaderName(t)
 "keep-alive"===A?this.keepAlive+=e.toString():"connection"===A&&(this.connection+=e.toString())}else 14===t.length&&"content-length"===s.bufferToLowerCasedHeaderName(t)&&(this.contentLength+=e.toString())
-this.trackHeader(e.length)}trackHeader(e){this.headersSize+=e,this.headersSize>=this.headersMaxSize&&s.destroy(this.socket,new l)}onUpgrade(e){const{upgrade:A,client:t,socket:n,headers:o,statusCode:i}=this
-r(A),r(t[L]===n),r(!n.destroyed),r(!this.paused),r(!(1&o.length))
-const a=t[k][t[N]]
-r(a),r(a.upgrade||"CONNECT"===a.method),this.statusCode=null,this.statusText="",this.shouldKeepAlive=null,this.headers=[],this.headersSize=0,n.unshift(e),n[f].destroy(),n[f]=null,n[d]=null,n[M]=null,$(n),t[L]=null,t[_]=null,t[k][t[N]++]=null,t.emit("disconnect",t[C],[t],new E("upgrade"))
-try{a.onUpgrade(i,o,n)}catch(e){s.destroy(n,e)}t[q]()}onHeadersComplete(e,A,t){const{client:n,socket:o,headers:i,statusText:a}=this
+this.trackHeader(e.length)}trackHeader(e){this.headersSize+=e,this.headersSize>=this.headersMaxSize&&s.destroy(this.socket,new h)}onUpgrade(e){const{upgrade:A,client:t,socket:n,headers:o,statusCode:i}=this
+r(A),r(t[T]===n),r(!n.destroyed),r(!this.paused),r(!(1&o.length))
+const a=t[R][t[M]]
+r(a),r(a.upgrade||"CONNECT"===a.method),this.statusCode=null,this.statusText="",this.shouldKeepAlive=null,this.headers=[],this.headersSize=0,n.unshift(e),n[p].destroy(),n[p]=null,n[f]=null,n[U]=null,K(n),t[T]=null,t[Z]=null,t[R][t[M]++]=null,t.emit("disconnect",t[I],[t],new Q("upgrade"))
+try{a.onUpgrade(i,o,n)}catch(e){s.destroy(n,e)}t[_]()}onHeadersComplete(e,A,t){const{client:n,socket:o,headers:i,statusText:a}=this
 if(o.destroyed)return-1
-if(0===n[w])return s.destroy(o,new h("bad response",s.getSocketInfo(o))),-1
-const c=n[k][n[N]]
+if(0===n[y])return s.destroy(o,new E("bad response",s.getSocketInfo(o))),-1
+const c=n[R][n[M]]
 if(!c)return-1
-if(r(!this.upgrade),r(this.statusCode<200),100===e)return s.destroy(o,new h("bad response",s.getSocketInfo(o))),-1
-if(A&&!c.upgrade)return s.destroy(o,new h("bad upgrade",s.getSocketInfo(o))),-1
-if(r(3===this.timeoutType),this.statusCode=e,this.shouldKeepAlive=t||"HEAD"===c.method&&!o[I]&&"keep-alive"===this.connection.toLowerCase(),this.statusCode>=200){const e=null!=c.bodyTimeout?c.bodyTimeout:n[J]
+if(r(!this.upgrade),r(this.statusCode<200),100===e)return s.destroy(o,new E("bad response",s.getSocketInfo(o))),-1
+if(A&&!c.upgrade)return s.destroy(o,new E("bad upgrade",s.getSocketInfo(o))),-1
+if(r(3===this.timeoutType),this.statusCode=e,this.shouldKeepAlive=t||"HEAD"===c.method&&!o[d]&&"keep-alive"===this.connection.toLowerCase(),this.statusCode>=200){const e=null!=c.bodyTimeout?c.bodyTimeout:n[H]
 this.setTimeout(e,5)}else this.timeout&&this.timeout.refresh&&this.timeout.refresh()
-if("CONNECT"===c.method)return r(1===n[w]),this.upgrade=!0,2
-if(A)return r(1===n[w]),this.upgrade=!0,2
-if(r(!(1&this.headers.length)),this.headers=[],this.headersSize=0,this.shouldKeepAlive&&n[U]){const e=this.keepAlive?s.parseKeepAliveTimeout(this.keepAlive):null
-if(null!=e){const A=Math.min(e-n[Y],n[G])
-A<=0?o[I]=!0:n[T]=A}else n[T]=n[b]}else o[I]=!0
+if("CONNECT"===c.method)return r(1===n[y]),this.upgrade=!0,2
+if(A)return r(1===n[y]),this.upgrade=!0,2
+if(r(!(1&this.headers.length)),this.headers=[],this.headersSize=0,this.shouldKeepAlive&&n[L]){const e=this.keepAlive?s.parseKeepAliveTimeout(this.keepAlive):null
+if(null!=e){const A=Math.min(e-n[x],n[Y])
+A<=0?o[d]=!0:n[v]=A}else n[v]=n[F]}else o[d]=!0
 const g=!1===c.onHeaders(e,i,this.resume,a)
-return c.aborted?-1:"HEAD"===c.method||e<200?1:(o[p]&&(o[p]=!1,n[q]()),g?Z.ERROR.PAUSED:0)}onBody(e){const{client:A,socket:t,statusCode:n,maxResponseSize:o}=this
+return c.aborted?-1:"HEAD"===c.method||e<200?1:(o[w]&&(o[w]=!1,n[_]()),g?z.ERROR.PAUSED:0)}onBody(e){const{client:A,socket:t,statusCode:n,maxResponseSize:o}=this
 if(t.destroyed)return-1
-const i=A[k][A[N]]
-return r(i),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),r(n>=200),o>-1&&this.bytesRead+e.length>o?(s.destroy(t,new B),-1):(this.bytesRead+=e.length,!1===i.onData(e)?Z.ERROR.PAUSED:void 0)}onMessageComplete(){const{client:e,socket:A,statusCode:t,upgrade:n,headers:o,contentLength:i,bytesRead:c,shouldKeepAlive:g}=this
+const i=A[R][A[M]]
+return r(i),r(5===this.timeoutType),this.timeout&&this.timeout.refresh&&this.timeout.refresh(),r(n>=200),o>-1&&this.bytesRead+e.length>o?(s.destroy(t,new C),-1):(this.bytesRead+=e.length,!1===i.onData(e)?z.ERROR.PAUSED:void 0)}onMessageComplete(){const{client:e,socket:A,statusCode:t,upgrade:n,headers:o,contentLength:i,bytesRead:c,shouldKeepAlive:g}=this
 if(A.destroyed&&(!t||g))return-1
 if(n)return
 r(t>=100),r(!(1&this.headers.length))
-const l=e[k][e[N]]
-return r(l),this.statusCode=null,this.statusText="",this.bytesRead=0,this.contentLength="",this.keepAlive="",this.connection="",this.headers=[],this.headersSize=0,t<200?void 0:"HEAD"!==l.method&&i&&c!==parseInt(i,10)?(s.destroy(A,new a),-1):(l.onComplete(o),e[k][e[N]++]=null,A[Ae]=!0,A[D]?(r(0===e[w]),s.destroy(A,new E("reset")),Z.ERROR.PAUSED):g?A[I]&&0===e[w]?(s.destroy(A,new E("reset")),Z.ERROR.PAUSED):void(null==e[U]||1===e[U]?setImmediate(()=>e[q]()):e[q]()):(s.destroy(A,new E("reset")),Z.ERROR.PAUSED))}}function ge(e){const{socket:A,timeoutType:t,client:n,paused:o}=e.deref()
-3===t?(!A[D]||A.writableNeedDrain||n[w]>1)&&(r(!o,"cannot be paused while waiting for headers"),s.destroy(A,new g)):5===t?o||s.destroy(A,new Q):8===t&&(r(0===n[w]&&n[T]),s.destroy(A,new E("socket idle timeout")))}function le(e){e[ee]&&(clearTimeout(e[ee]),e[ee]=null),e[K]=0}function he(e,A,t,n,o,i,a,c){try{A?s.isBuffer(A)&&(r(i===A.byteLength,"buffer body must have content length"),o.cork(),o.write(`${a}content-length: ${i}\r\n\r\n`,"latin1"),o.write(A),o.uncork(),n.onBodySent(A),c||!1===n.reset||(o[I]=!0)):0===i?o.write(`${a}content-length: 0\r\n\r\n`,"latin1"):(r(null===i,"no body must not have content length"),o.write(`${a}\r\n`,"latin1")),n.onRequestSent(),t[q]()}catch(A){e(A)}}async function Ee(e,A,t,s,n,o,i,a){r(0!==o||0===t[w],"iterator body cannot be pipelined")
+const l=e[R][e[M]]
+return r(l),this.statusCode=null,this.statusText="",this.bytesRead=0,this.contentLength="",this.keepAlive="",this.connection="",this.headers=[],this.headersSize=0,t<200?void 0:"HEAD"!==l.method&&i&&c!==parseInt(i,10)?(s.destroy(A,new a),-1):(l.onComplete(o),e[R][e[M]++]=null,A[te]=!0,A[k]?(r(0===e[y]),s.destroy(A,new Q("reset")),z.ERROR.PAUSED):g?A[d]&&0===e[y]?(s.destroy(A,new Q("reset")),z.ERROR.PAUSED):void(null==e[L]||1===e[L]?setImmediate(()=>e[_]()):e[_]()):(s.destroy(A,new Q("reset")),z.ERROR.PAUSED))}}function le(e){const{socket:A,timeoutType:t,client:n,paused:o}=e.deref()
+3===t?(!A[k]||A.writableNeedDrain||n[y]>1)&&(r(!o,"cannot be paused while waiting for headers"),s.destroy(A,new l)):5===t?o||s.destroy(A,new u):8===t&&(r(0===n[y]&&n[v]),s.destroy(A,new Q("socket idle timeout")))}function he(e){e[Ae]&&(clearTimeout(e[Ae]),e[Ae]=null),e[ee]=0}function Ee(e,A,t,n,o,i,a,c){try{A?s.isBuffer(A)&&(r(i===A.byteLength,"buffer body must have content length"),o.cork(),o.write(`${a}content-length: ${i}\r\n\r\n`,"latin1"),o.write(A),o.uncork(),n.onBodySent(A),c||!1===n.reset||(o[d]=!0)):0===i?o.write(`${a}content-length: 0\r\n\r\n`,"latin1"):(r(null===i,"no body must not have content length"),o.write(`${a}\r\n`,"latin1")),n.onRequestSent(),t[_]()}catch(A){e(A)}}async function Qe(e,A,t,s,n,o,i,a){r(0!==o||0===t[y],"iterator body cannot be pipelined")
 let c=null
 function g(){if(c){const e=c
-c=null,e()}}const l=()=>new Promise((e,A)=>{r(null===c),n[M]?A(n[M]):c=e})
+c=null,e()}}const l=()=>new Promise((e,A)=>{r(null===c),n[U]?A(n[U]):c=e})
 n.on("close",g).on("drain",g)
-const h=new Qe({abort:e,socket:n,request:s,contentLength:o,client:t,expectsPayload:a,header:i})
-try{for await(const e of A){if(n[M])throw n[M]
-h.write(e)||await l()}h.end()}catch(e){h.destroy(e)}finally{n.off("close",g).off("drain",g)}}class Qe{constructor({abort:e,socket:A,request:t,contentLength:r,client:s,expectsPayload:n,header:o}){this.socket=A,this.request=t,this.contentLength=r,this.client=s,this.bytesWritten=0,this.expectsPayload=n,this.header=o,this.abort=e,A[D]=!0}write(e){const{socket:A,request:t,contentLength:r,client:s,bytesWritten:n,expectsPayload:o,header:a}=this
-if(A[M])throw A[M]
+const h=new ue({abort:e,socket:n,request:s,contentLength:o,client:t,expectsPayload:a,header:i})
+try{for await(const e of A){if(n[U])throw n[U]
+h.write(e)||await l()}h.end()}catch(e){h.destroy(e)}finally{n.off("close",g).off("drain",g)}}class ue{constructor({abort:e,socket:A,request:t,contentLength:r,client:s,expectsPayload:n,header:o}){this.socket=A,this.request=t,this.contentLength=r,this.client=s,this.bytesWritten=0,this.expectsPayload=n,this.header=o,this.abort=e,A[k]=!0}write(e){const{socket:A,request:t,contentLength:r,client:s,bytesWritten:n,expectsPayload:o,header:a}=this
+if(A[U])throw A[U]
 if(A.destroyed)return!1
 const c=Buffer.byteLength(e)
 if(!c)return!0
-if(null!==r&&n+c>r){if(s[H])throw new i
-process.emitWarning(new i)}A.cork(),0===n&&(o||!1===t.reset||(A[I]=!0),null===r?A.write(`${a}transfer-encoding: chunked\r\n`,"latin1"):A.write(`${a}content-length: ${r}\r\n\r\n`,"latin1")),null===r&&A.write(`\r\n${c.toString(16)}\r\n`,"latin1"),this.bytesWritten+=c
+if(null!==r&&n+c>r){if(s[V])throw new i
+process.emitWarning(new i)}A.cork(),0===n&&(o||!1===t.reset||(A[d]=!0),null===r?A.write(`${a}transfer-encoding: chunked\r\n`,"latin1"):A.write(`${a}content-length: ${r}\r\n\r\n`,"latin1")),null===r&&A.write(`\r\n${c.toString(16)}\r\n`,"latin1"),this.bytesWritten+=c
 const g=A.write(e)
-return A.uncork(),t.onBodySent(e),g||A[f].timeout&&3===A[f].timeoutType&&A[f].timeout.refresh&&A[f].timeout.refresh(),g}end(){const{socket:e,contentLength:A,client:t,bytesWritten:r,expectsPayload:s,header:n,request:o}=this
-if(o.onRequestSent(),e[D]=!1,e[M])throw e[M]
-if(!e.destroyed){if(0===r?s?e.write(`${n}content-length: 0\r\n\r\n`,"latin1"):e.write(`${n}\r\n`,"latin1"):null===A&&e.write("\r\n0\r\n\r\n","latin1"),null!==A&&r!==A){if(t[H])throw new i
-process.emitWarning(new i)}e[f].timeout&&3===e[f].timeoutType&&e[f].timeout.refresh&&e[f].timeout.refresh(),t[q]()}}destroy(e){const{socket:A,client:t,abort:s}=this
-A[D]=!1,e&&(r(t[w]<=1,"pipeline should only contain this request"),s(e))}}e.exports=async function(e,A){e[L]=A,re||(re=await se,se=null),A[R]=!1,A[D]=!1,A[I]=!1,A[p]=!1,A[K]=0,A[ee]=null,A[Ae]=!1,A[f]=new ce(e,A,re),X(A,"error",function(e){r("ERR_TLS_CERT_ALTNAME_INVALID"!==e.code)
-const A=this[f]
+return A.uncork(),t.onBodySent(e),g||A[p].timeout&&3===A[p].timeoutType&&A[p].timeout.refresh&&A[p].timeout.refresh(),g}end(){const{socket:e,contentLength:A,client:t,bytesWritten:r,expectsPayload:s,header:n,request:o}=this
+if(o.onRequestSent(),e[k]=!1,e[U])throw e[U]
+if(!e.destroyed){if(0===r?s?e.write(`${n}content-length: 0\r\n\r\n`,"latin1"):e.write(`${n}\r\n`,"latin1"):null===A&&e.write("\r\n0\r\n\r\n","latin1"),null!==A&&r!==A){if(t[V])throw new i
+process.emitWarning(new i)}e[p].timeout&&3===e[p].timeoutType&&e[p].timeout.refresh&&e[p].timeout.refresh(),t[_]()}}destroy(e){const{socket:A,client:t,abort:s}=this
+A[k]=!1,e&&(r(t[y]<=1,"pipeline should only contain this request"),s(e))}}e.exports=async function(e,A){e[T]=A,se||(se=await ne,ne=null),A[b]=!1,A[k]=!1,A[d]=!1,A[w]=!1,A[ee]=0,A[Ae]=null,A[te]=!1,A[p]=new ge(e,A,se),$(A,"error",function(e){r("ERR_TLS_CERT_ALTNAME_INVALID"!==e.code)
+const A=this[p]
 if("ECONNRESET"===e.code&&A.statusCode&&!A.shouldKeepAlive){const e=A.finish()
-return void(e&&(this[M]=e,this[d][P](e)))}this[M]=e,this[d][P](e)}),X(A,"readable",function(){const e=this[f]
-e&&e.readMore()}),X(A,"end",function(){const e=this[f]
+return void(e&&(this[U]=e,this[f][q](e)))}this[U]=e,this[f][q](e)}),$(A,"readable",function(){const e=this[p]
+e&&e.readMore()}),$(A,"end",function(){const e=this[p]
 if(e.statusCode&&!e.shouldKeepAlive){const A=e.finish()
-return void(A&&s.destroy(this,A))}s.destroy(this,new h("other side closed",s.getSocketInfo(this)))}),X(A,"close",function(){const e=this[d],A=this[f]
-le(this),A&&(this[M]||!A.statusCode||A.shouldKeepAlive||(this[M]=A.finish()||this[M]),this[f].destroy(),this[f]=null)
-const t=this[M]||new h("closed",s.getSocketInfo(this))
-if(e[L]=null,e[_]=null,e.destroyed){r(0===e[y])
-const A=e[k].splice(e[N])
+return void(A&&s.destroy(this,A))}s.destroy(this,new E("other side closed",s.getSocketInfo(this)))}),$(A,"close",function(){const e=this[f],A=this[p]
+he(this),A&&(this[U]||!A.statusCode||A.shouldKeepAlive||(this[U]=A.finish()||this[U]),this[p].destroy(),this[p]=null)
+const t=this[U]||new E("closed",s.getSocketInfo(this))
+if(e[T]=null,e[Z]=null,e.destroyed){r(0===e[m])
+const A=e[R].splice(e[M])
 for(let r=0;r<A.length;r++){const n=A[r]
-s.errorRequest(e,n,t)}}else if(e[w]>0&&"UND_ERR_INFO"!==t.code){const A=e[k][e[N]]
-e[k][e[N]++]=null,s.errorRequest(e,A,t)}e[S]=e[N],r(0===e[w]),e.emit("disconnect",e[C],[e],t),e[q]()})
+s.errorRequest(e,n,t)}}else if(e[y]>0&&"UND_ERR_INFO"!==t.code){const A=e[R][e[M]]
+e[R][e[M]++]=null,s.errorRequest(e,A,t)}e[N]=e[M],r(0===e[y]),e.emit("disconnect",e[I],[e],t),e[_]()})
 let o=!1
-return A.on("close",()=>{o=!0}),{version:"h1",defaultPipelining:1,write:(...A)=>function(e,A){const{method:o,path:a,host:g,upgrade:l,blocking:h,reset:Q}=A
-let{body:u,headers:B,contentLength:C}=A
-const d="PUT"===o||"POST"===o||"PATCH"===o||"QUERY"===o||"PROPFIND"===o||"PROPPATCH"===o
-if(s.isFormDataLike(u)){te||(te=t(8911).extractBody)
-const[e,r]=te(u)
-null==A.contentType&&B.push("content-type",r),u=e.stream,C=e.length}else s.isBlobLike(u)&&null==A.contentType&&u.type&&B.push("content-type",u.type)
-u&&"function"==typeof u.read&&u.read(0)
-const f=s.bodyLength(u)
-C=f??C,null===C&&(C=A.contentLength)
-0!==C||d||(C=null)
-if(function(e){return"GET"!==e&&"HEAD"!==e&&"OPTIONS"!==e&&"TRACE"!==e&&"CONNECT"!==e}(o)&&C>0&&null!==A.contentLength&&A.contentLength!==C){if(e[H])return s.errorRequest(e,A,new i),!1
-process.emitWarning(new i)}const y=e[L]
-le(y)
-const m=t=>{A.aborted||A.completed||(s.errorRequest(e,A,t||new c),s.destroy(u),s.destroy(y,new E("aborted")))}
-try{A.onConnect(m)}catch(t){s.errorRequest(e,A,t)}if(A.aborted)return!1
-"HEAD"===o&&(y[I]=!0);(l||"CONNECT"===o)&&(y[I]=!0)
-null!=Q&&(y[I]=Q)
-e[V]&&y[O]++>=e[V]&&(y[I]=!0)
-h&&(y[p]=!0)
-let k=`${o} ${a} HTTP/1.1\r\n`
-k+="string"==typeof g?`host: ${g}\r\n`:e[F]
-l?k+=`connection: upgrade\r\nupgrade: ${l}\r\n`:e[U]&&!y[I]?k+="connection: keep-alive\r\n":k+="connection: close\r\n"
-if(Array.isArray(B))for(let e=0;e<B.length;e+=2){const A=B[e+0],t=B[e+1]
-if(Array.isArray(t))for(let e=0;e<t.length;e++)k+=`${A}: ${t[e]}\r\n`
-else k+=`${A}: ${t}\r\n`}n.sendHeaders.hasSubscribers&&n.sendHeaders.publish({request:A,headers:k,socket:y})
-u&&0!==f?s.isBuffer(u)?he(m,u,e,A,y,C,k,d):s.isBlobLike(u)?"function"==typeof u.stream?Ee(m,u.stream(),e,A,y,C,k,d):async function(e,A,t,s,n,o,a,c){r(o===A.size,"blob body must have content length")
+return A.on("close",()=>{o=!0}),{version:"h1",defaultPipelining:1,write:(...A)=>function(e,A){const{method:o,path:a,host:l,upgrade:h,blocking:E,reset:u}=A
+let{body:B,headers:C,contentLength:I}=A
+const f="PUT"===o||"POST"===o||"PATCH"===o||"QUERY"===o||"PROPFIND"===o||"PROPPATCH"===o
+if(s.isFormDataLike(B)){re||(re=t(8911).extractBody)
+const[e,r]=re(B)
+null==A.contentType&&C.push("content-type",r),B=e.stream,I=e.length}else if(s.isBlobLike(B)&&null==A.contentType){const t=B.type
+if(t){const r=`${t}`
+if(!s.isValidHeaderValue(r))return s.errorRequest(e,A,new g("invalid content-type header")),!1
+C.push("content-type",r)}}B&&"function"==typeof B.read&&B.read(0)
+const p=s.bodyLength(B)
+I=p??I,null===I&&(I=A.contentLength)
+0!==I||f||(I=null)
+if(function(e){return"GET"!==e&&"HEAD"!==e&&"OPTIONS"!==e&&"TRACE"!==e&&"CONNECT"!==e}(o)&&I>0&&null!==A.contentLength&&A.contentLength!==I){if(e[V])return s.errorRequest(e,A,new i),!1
+process.emitWarning(new i)}const m=e[T]
+he(m)
+const D=t=>{A.aborted||A.completed||(s.errorRequest(e,A,t||new c),s.destroy(B),s.destroy(m,new Q("aborted")))}
+try{A.onConnect(D)}catch(t){s.errorRequest(e,A,t)}if(A.aborted)return!1
+"HEAD"===o&&(m[d]=!0);(h||"CONNECT"===o)&&(m[d]=!0)
+null!=u&&(m[d]=u)
+e[O]&&m[W]++>=e[O]&&(m[d]=!0)
+E&&(m[w]=!0)
+let R=`${o} ${a} HTTP/1.1\r\n`
+R+="string"==typeof l?`host: ${l}\r\n`:e[S]
+h?R+=`connection: upgrade\r\nupgrade: ${h}\r\n`:e[L]&&!m[d]?R+="connection: keep-alive\r\n":R+="connection: close\r\n"
+if(Array.isArray(C))for(let e=0;e<C.length;e+=2){const A=C[e+0],t=C[e+1]
+if(Array.isArray(t))for(let e=0;e<t.length;e++)R+=`${A}: ${t[e]}\r\n`
+else R+=`${A}: ${t}\r\n`}n.sendHeaders.hasSubscribers&&n.sendHeaders.publish({request:A,headers:R,socket:m})
+B&&0!==p?s.isBuffer(B)?Ee(D,B,e,A,m,I,R,f):s.isBlobLike(B)?"function"==typeof B.stream?Qe(D,B.stream(),e,A,m,I,R,f):async function(e,A,t,s,n,o,a,c){r(o===A.size,"blob body must have content length")
 try{if(null!=o&&o!==A.size)throw new i
 const e=Buffer.from(await A.arrayBuffer())
-n.cork(),n.write(`${a}content-length: ${o}\r\n\r\n`,"latin1"),n.write(e),n.uncork(),s.onBodySent(e),s.onRequestSent(),c||!1===s.reset||(n[I]=!0),t[q]()}catch(A){e(A)}}(m,u,e,A,y,C,k,d):s.isStream(u)?function(e,A,t,n,o,i,a,g){r(0!==i||0===t[w],"stream body cannot be pipelined")
+n.cork(),n.write(`${a}content-length: ${o}\r\n\r\n`,"latin1"),n.write(e),n.uncork(),s.onBodySent(e),s.onRequestSent(),c||!1===s.reset||(n[d]=!0),t[_]()}catch(A){e(A)}}(D,B,e,A,m,I,R,f):s.isStream(B)?function(e,A,t,n,o,i,a,g){r(0!==i||0===t[y],"stream body cannot be pipelined")
 let l=!1
-const h=new Qe({abort:e,socket:o,request:n,contentLength:i,client:t,expectsPayload:g,header:a}),E=function(e){if(!l)try{!h.write(e)&&this.pause&&this.pause()}catch(e){s.destroy(this,e)}},Q=function(){l||A.resume&&A.resume()},u=function(){if(queueMicrotask(()=>{A.removeListener("error",B)}),!l){const e=new c
-queueMicrotask(()=>B(e))}},B=function(e){if(!l){if(l=!0,r(o.destroyed||o[D]&&t[w]<=1),o.off("drain",Q).off("error",B),A.removeListener("data",E).removeListener("end",B).removeListener("close",u),!e)try{h.end()}catch(A){e=A}h.destroy(e),!e||"UND_ERR_INFO"===e.code&&"reset"===e.message?s.destroy(A):s.destroy(A,e)}}
+const h=new ue({abort:e,socket:o,request:n,contentLength:i,client:t,expectsPayload:g,header:a}),E=function(e){if(!l)try{!h.write(e)&&this.pause&&this.pause()}catch(e){s.destroy(this,e)}},Q=function(){l||A.resume&&A.resume()},u=function(){if(queueMicrotask(()=>{A.removeListener("error",B)}),!l){const e=new c
+queueMicrotask(()=>B(e))}},B=function(e){if(!l){if(l=!0,r(o.destroyed||o[k]&&t[y]<=1),o.off("drain",Q).off("error",B),A.removeListener("data",E).removeListener("end",B).removeListener("close",u),!e)try{h.end()}catch(A){e=A}h.destroy(e),!e||"UND_ERR_INFO"===e.code&&"reset"===e.message?s.destroy(A):s.destroy(A,e)}}
 A.on("data",E).on("end",B).on("error",B).on("close",u),A.resume&&A.resume()
-o.on("drain",Q).on("error",B),A.errorEmitted??A.errored?setImmediate(()=>B(A.errored)):(A.endEmitted??A.readableEnded)&&setImmediate(()=>B(null));(A.closeEmitted??A.closed)&&setImmediate(u)}(m,u,e,A,y,C,k,d):s.isIterable(u)?Ee(m,u,e,A,y,C,k,d):r(!1):he(m,null,e,A,y,C,k,d)
-return!0}(e,...A),resume(){!function(e){const A=e[L]
-if(A&&!A.destroyed){if(0===e[m]?!A[R]&&A.unref&&(A.unref(),A[R]=!0):A[R]&&A.ref&&(A.ref(),A[R]=!1),0===e[w]&&e[y]>0&&A[Ae]){if(0===A[K])return function(e,A){A[K]=1,A[ee]=setTimeout(()=>{A[ee]=null,A[K]=2,e[L]!==A||A.destroyed||e[q]()},0),A[ee].unref?.()}(e,A),A[f].readMore(),void A.destroyed
-if(1===A[K])return A[f].readMore(),void A.destroyed}if(0===e[w]&&(A[f].readMore(),A.destroyed))return
-if(0===e[m])8!==A[f].timeoutType&&A[f].setTimeout(e[T],8)
-else if(e[w]>0&&A[f].statusCode<200&&3!==A[f].timeoutType){const t=e[k][e[N]],r=null!=t.headersTimeout?t.headersTimeout:e[x]
-A[f].setTimeout(r,3)}}}(e)},destroy(e,t){o?queueMicrotask(t):A.destroy(e).on("close",t)},get destroyed(){return A.destroyed},busy(t){if(A[D]||A[I]||A[p]||1===A[K])return!0
-if(t){if(e[w]>0&&!t.idempotent)return!0
-if(e[w]>0&&(t.upgrade||"CONNECT"===t.method))return!0
-if(e[w]>0&&0!==s.bodyLength(t.body)&&(s.isStream(t.body)||s.isAsyncIterable(t.body)||s.isFormDataLike(t.body)))return!0}return!1}}}},6695(e,A,t){"use strict"
+o.on("drain",Q).on("error",B),A.errorEmitted??A.errored?setImmediate(()=>B(A.errored)):(A.endEmitted??A.readableEnded)&&setImmediate(()=>B(null));(A.closeEmitted??A.closed)&&setImmediate(u)}(D,B,e,A,m,I,R,f):s.isIterable(B)?Qe(D,B,e,A,m,I,R,f):r(!1):Ee(D,null,e,A,m,I,R,f)
+return!0}(e,...A),resume(){!function(e){const A=e[T]
+if(A&&!A.destroyed){if(0===e[D]?!A[b]&&A.unref&&(A.unref(),A[b]=!0):A[b]&&A.ref&&(A.ref(),A[b]=!1),0===e[y]&&e[m]>0&&A[te]){if(0===A[ee])return function(e,A){A[ee]=1,A[Ae]=setTimeout(()=>{A[Ae]=null,A[ee]=2,e[T]!==A||A.destroyed||e[_]()},0),A[Ae].unref?.()}(e,A),A[p].readMore(),void A.destroyed
+if(1===A[ee])return A[p].readMore(),void A.destroyed}if(0===e[y]&&(A[p].readMore(),A.destroyed))return
+if(0===e[D])8!==A[p].timeoutType&&A[p].setTimeout(e[v],8)
+else if(e[y]>0&&A[p].statusCode<200&&3!==A[p].timeoutType){const t=e[R][e[M]],r=null!=t.headersTimeout?t.headersTimeout:e[J]
+A[p].setTimeout(r,3)}}}(e)},destroy(e,t){o?queueMicrotask(t):A.destroy(e).on("close",t)},get destroyed(){return A.destroyed},busy(t){if(A[k]||A[d]||A[w]||1===A[ee])return!0
+if(t){if(e[y]>0&&!t.idempotent)return!0
+if(e[y]>0&&(t.upgrade||"CONNECT"===t.method))return!0
+if(e[y]>0&&0!==s.bodyLength(t.body)&&(s.isStream(t.body)||s.isAsyncIterable(t.body)||s.isFormDataLike(t.body)))return!0}return!1}}}},6695(e,A,t){"use strict"
 const r=t(4589),{pipeline:s}=t(7075),n=t(7017),{RequestContentLengthMismatchError:o,RequestAbortedError:i,SocketError:a,InformationalError:c}=t(1702),{kUrl:g,kReset:l,kClient:h,kRunning:E,kPending:Q,kQueue:u,kPendingIdx:B,kRunningIdx:C,kError:I,kSocket:d,kStrictContentLength:f,kOnError:p,kMaxConcurrentStreams:w,kHTTP2Session:y,kResume:m,kSize:D,kHTTPContext:k}=t(7336),R=Symbol("open streams")
 let b,F,S=!1
 try{F=t(2467)}catch{F={constants:{}}}const{constants:{HTTP2_HEADER_AUTHORITY:N,HTTP2_HEADER_METHOD:M,HTTP2_HEADER_PATH:U,HTTP2_HEADER_SCHEME:L,HTTP2_HEADER_CONTENT_LENGTH:T,HTTP2_HEADER_EXPECT:v,HTTP2_HEADER_STATUS:G}}=F
@@ -1212,8 +1217,12 @@ else if(e&&"object"==typeof e)for(const s of Object.keys(e))l(s,A,t)||r.push(s,e
 else n(null==e,"headers must be an object or an array")
 return r}(this.opts.headers,303===e,this.opts.origin!==o),this.opts.path=g,this.opts.origin=o,this.opts.maxRedirections=0,this.opts.query=null,303===e&&"HEAD"!==this.opts.method&&(this.opts.method="GET",this.opts.body=null)}onData(e){if(!this.location)return this.handler.onData(e)}onComplete(e){this.location?(this.location=null,this.abort=null,this.dispatch(this.opts,this)):this.handler.onComplete(e)}onBodySent(e){this.handler.onBodySent&&this.handler.onBodySent(e)}}},5245(e,A,t){"use strict"
 const r=t(4589),{kRetryHandlerDefaultRetry:s}=t(7336),{RequestRetryError:n}=t(1702),{isDisturbed:o,parseHeaders:i,parseRangeHeader:a,wrapRequestBody:c}=t(7017)
-class g{constructor(e,A){const{retryOptions:t,...r}=e,{retry:n,maxRetries:o,maxTimeout:i,minTimeout:a,timeoutFactor:l,methods:h,errorCodes:E,retryAfter:Q,statusCodes:u}=t??{}
-this.dispatch=A.dispatch,this.handler=A.handler,this.opts={...r,body:c(e.body)},this.abort=null,this.aborted=!1,this.retryOpts={retry:n??g[s],retryAfter:Q??!0,maxTimeout:i??3e4,minTimeout:a??500,timeoutFactor:l??2,maxRetries:o??5,methods:h??["GET","HEAD","OPTIONS","PUT","DELETE","TRACE"],statusCodes:u??[500,502,503,504,429],errorCodes:E??["ECONNRESET","ECONNREFUSED","ENOTFOUND","ENETDOWN","ENETUNREACH","EHOSTDOWN","EHOSTUNREACH","EPIPE","UND_ERR_SOCKET"]},this.retryCount=0,this.retryCountCheckpoint=0,this.start=0,this.end=null,this.etag=null,this.resume=null,this.handler.onConnect(e=>{this.aborted=!0,this.abort?this.abort(e):this.reason=e})}onRequestSent(){this.handler.onRequestSent&&this.handler.onRequestSent()}onUpgrade(e,A,t){this.handler.onUpgrade&&this.handler.onUpgrade(e,A,t)}onConnect(e){this.aborted?e(this.reason):this.abort=e}onBodySent(e){if(this.handler.onBodySent)return this.handler.onBodySent(e)}static[s](e,{state:A,opts:t},r){const{statusCode:s,code:n,headers:o}=e,{method:i,retryOptions:a}=t,{maxRetries:c,minTimeout:g,maxTimeout:l,timeoutFactor:h,statusCodes:E,errorCodes:Q,methods:u}=a,{counter:B}=A
+function g(e,A,t,r){const s=e["content-length"]
+if(null==s)return null
+if(!Number.isFinite(A.start)||!Number.isFinite(A.end))return null
+const o=Number(s),i=A.end-A.start+1
+return Number.isFinite(o)&&o===i?null:new n("Content-Length mismatch",t,{headers:e,data:{count:r}})}class l{constructor(e,A){const{retryOptions:t,...r}=e,{retry:n,maxRetries:o,maxTimeout:i,minTimeout:a,timeoutFactor:g,methods:h,errorCodes:E,retryAfter:Q,statusCodes:u}=t??{}
+this.dispatch=A.dispatch,this.handler=A.handler,this.opts={...r,body:c(e.body)},this.abort=null,this.aborted=!1,this.retryOpts={retry:n??l[s],retryAfter:Q??!0,maxTimeout:i??3e4,minTimeout:a??500,timeoutFactor:g??2,maxRetries:o??5,methods:h??["GET","HEAD","OPTIONS","PUT","DELETE","TRACE"],statusCodes:u??[500,502,503,504,429],errorCodes:E??["ECONNRESET","ECONNREFUSED","ENOTFOUND","ENETDOWN","ENETUNREACH","EHOSTDOWN","EHOSTUNREACH","EPIPE","UND_ERR_SOCKET"]},this.retryCount=0,this.retryCountCheckpoint=0,this.start=0,this.end=null,this.etag=null,this.resume=null,this.handler.onConnect(e=>{this.aborted=!0,this.abort?this.abort(e):this.reason=e})}onRequestSent(){this.handler.onRequestSent&&this.handler.onRequestSent()}onUpgrade(e,A,t){this.handler.onUpgrade&&this.handler.onUpgrade(e,A,t)}onConnect(e){this.aborted?e(this.reason):this.abort=e}onBodySent(e){if(this.handler.onBodySent)return this.handler.onBodySent(e)}static[s](e,{state:A,opts:t},r){const{statusCode:s,code:n,headers:o}=e,{method:i,retryOptions:a}=t,{maxRetries:c,minTimeout:g,maxTimeout:l,timeoutFactor:h,statusCodes:E,errorCodes:Q,methods:u}=a,{counter:B}=A
 if(n&&"UND_ERR_REQ_RETRY"!==n&&!Q.includes(n))return void r(e)
 if(Array.isArray(u)&&!u.includes(i))return void r(e)
 if(null!=s&&Array.isArray(E)&&!E.includes(s))return void r(e)
@@ -1228,16 +1237,20 @@ if(null!=this.resume){if(this.resume=null,206!==e&&(this.start>0||200!==e))retur
 const A=a(o["content-range"])
 if(!A)return this.abort(new n("Content-Range mismatch",e,{headers:o,data:{count:this.retryCount}})),!1
 if(null!=this.etag&&this.etag!==o.etag)return this.abort(new n("ETag mismatch",e,{headers:o,data:{count:this.retryCount}})),!1
-const{start:s,size:i,end:c=i-1}=A
-return r(this.start===s,"content-range mismatch"),r(null==this.end||this.end===c,"content-range mismatch"),this.resume=t,!0}if(null==this.end){if(206===e){const n=a(o["content-range"])
+const s=g(o,A,e,this.retryCount)
+if(null!=s)return this.abort(s),!1
+const{start:i,size:c,end:l=c-1}=A
+return r(this.start===i,"content-range mismatch"),r(null==this.end||this.end===l,"content-range mismatch"),this.resume=t,!0}if(null==this.end){if(206===e){const n=a(o["content-range"])
 if(null==n)return this.handler.onHeaders(e,A,t,s)
-const{start:i,size:c,end:g=c-1}=n
-r(null!=i&&Number.isFinite(i),"content-range mismatch"),r(null!=g&&Number.isFinite(g),"invalid content-length"),this.start=i,this.end=g}if(null==this.end){const e=o["content-length"]
+const i=g(o,n,e,this.retryCount)
+if(null!=i)return this.abort(i),!1
+const{start:c,size:l,end:h=l-1}=n
+r(null!=c&&Number.isFinite(c),"content-range mismatch"),r(null!=h&&Number.isFinite(h),"invalid content-length"),this.start=c,this.end=h}if(null==this.end){const e=o["content-length"]
 this.end=null!=e?Number(e)-1:null}return r(Number.isFinite(this.start)),r(null==this.end||Number.isFinite(this.end),"invalid content-length"),this.resume=t,this.etag=null!=o.etag?o.etag:null,null!=this.etag&&this.etag.startsWith("W/")&&(this.etag=null),this.handler.onHeaders(e,A,t,s)}const c=new n("Request failed",e,{headers:o,data:{count:this.retryCount}})
 return this.abort(c),!1}onData(e){return this.start+=e.length,this.handler.onData(e)}onComplete(e){return this.retryCount=0,this.handler.onComplete(e)}onError(e){if(this.aborted||o(this.opts.body))return this.handler.onError(e)
 this.retryCount-this.retryCountCheckpoint>0?this.retryCount=this.retryCountCheckpoint+(this.retryCount-this.retryCountCheckpoint):this.retryCount+=1,this.retryOpts.retry(e,{state:{counter:this.retryCount},opts:{retryOptions:this.retryOpts,...this.opts}},function(e){if(null!=e||this.aborted||o(this.opts.body))return this.handler.onError(e)
 if(0!==this.start){const e={range:`bytes=${this.start}-${this.end??""}`}
-null!=this.etag&&(e["if-match"]=this.etag),this.opts={...this.opts,headers:{...this.opts.headers,...e}}}try{this.retryCountCheckpoint=this.retryCount,this.dispatch(this.opts,this)}catch(e){this.handler.onError(e)}}.bind(this))}}e.exports=g},1734(e,A,t){"use strict"
+null!=this.etag&&(e["if-match"]=this.etag),this.opts={...this.opts,headers:{...this.opts.headers,...e}}}try{this.retryCountCheckpoint=this.retryCount,this.dispatch(this.opts,this)}catch(e){this.handler.onError(e)}}.bind(this))}}e.exports=l},1734(e,A,t){"use strict"
 const{isIP:r}=t(7030),{lookup:s}=t(610),n=t(1814),{InvalidArgumentError:o,InformationalError:i}=t(1702),a=Math.pow(2,31)-1
 class c{#u=0
 #B=0
@@ -1606,15 +1619,23 @@ function A(e){for(let A=0;A<e.length;++A){const t=e.charCodeAt(A)
 if(t<33||t>126||34===t||40===t||41===t||60===t||62===t||64===t||44===t||59===t||58===t||92===t||47===t||91===t||93===t||63===t||61===t||123===t||125===t)throw new Error("Invalid cookie name")}}function t(e){let A=e.length,t=0
 if('"'===e[0]){if(1===A||'"'!==e[A-1])throw new Error("Invalid cookie value");--A,++t}for(;t<A;){const A=e.charCodeAt(t++)
 if(A<33||A>126||34===A||44===A||59===A||92===A)throw new Error("Invalid cookie value")}}function r(e){for(let A=0;A<e.length;++A){const t=e.charCodeAt(A)
-if(t<32||127===t||59===t)throw new Error("Invalid cookie path")}}const s=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],n=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],o=Array(61).fill(0).map((e,A)=>A.toString().padStart(2,"0"))
-function i(e){return"number"==typeof e&&(e=new Date(e)),`${s[e.getUTCDay()]}, ${o[e.getUTCDate()]} ${n[e.getUTCMonth()]} ${e.getUTCFullYear()} ${o[e.getUTCHours()]}:${o[e.getUTCMinutes()]}:${o[e.getUTCSeconds()]} GMT`}e.exports={isCTLExcludingHtab:function(e){for(let A=0;A<e.length;++A){const t=e.charCodeAt(A)
-if(t>=0&&t<=8||t>=10&&t<=31||127===t)return!0}return!1},validateCookieName:A,validateCookiePath:r,validateCookieValue:t,toIMFDate:i,stringify:function(e){if(0===e.name.length)return null
+if(t<32||t>126||59===t)throw new Error("Invalid cookie path")}}function s(e){return e>=48&&e<=57||e>=65&&e<=90||e>=97&&e<=122}const n=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],o=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],i=Array(61).fill(0).map((e,A)=>A.toString().padStart(2,"0"))
+function a(e){return"number"==typeof e&&(e=new Date(e)),`${n[e.getUTCDay()]}, ${i[e.getUTCDate()]} ${o[e.getUTCMonth()]} ${e.getUTCFullYear()} ${i[e.getUTCHours()]}:${i[e.getUTCMinutes()]}:${i[e.getUTCSeconds()]} GMT`}e.exports={isCTLExcludingHtab:function(e){for(let A=0;A<e.length;++A){const t=e.charCodeAt(A)
+if(t>=0&&t<=8||t>=10&&t<=31||127===t)return!0}return!1},validateCookieName:A,validateCookiePath:r,validateCookieValue:t,toIMFDate:a,stringify:function(e){if(0===e.name.length)return null
 A(e.name),t(e.value)
-const s=[`${e.name}=${e.value}`]
-e.name.startsWith("__Secure-")&&(e.secure=!0),e.name.startsWith("__Host-")&&(e.secure=!0,e.domain=null,e.path="/"),e.secure&&s.push("Secure"),e.httpOnly&&s.push("HttpOnly"),"number"==typeof e.maxAge&&(!function(e){if(e<0)throw new Error("Invalid cookie max-age")}(e.maxAge),s.push(`Max-Age=${e.maxAge}`)),e.domain&&(!function(e){if(e.startsWith("-")||e.endsWith(".")||e.endsWith("-"))throw new Error("Invalid cookie domain")}(e.domain),s.push(`Domain=${e.domain}`)),e.path&&(r(e.path),s.push(`Path=${e.path}`)),e.expires&&"Invalid Date"!==e.expires.toString()&&s.push(`Expires=${i(e.expires)}`),e.sameSite&&s.push(`SameSite=${e.sameSite}`)
-for(const A of e.unparsed){if(!A.includes("="))throw new Error("Invalid unparsed")
-const[e,...t]=A.split("=")
-s.push(`${e.trim()}=${t.join("=")}`)}return s.join("; ")}}},8172(e,A,t){"use strict"
+const n=[`${e.name}=${e.value}`]
+e.name.startsWith("__Secure-")&&(e.secure=!0),e.name.startsWith("__Host-")&&(e.secure=!0,e.domain=null,e.path="/"),e.secure&&n.push("Secure"),e.httpOnly&&n.push("HttpOnly"),"number"==typeof e.maxAge&&(!function(e){if(e<0)throw new Error("Invalid cookie max-age")}(e.maxAge),n.push(`Max-Age=${e.maxAge}`)),e.domain&&(!function(e){if(" "===e)return
+if(e.length>255)throw new Error("Invalid cookie domain")
+let A=0
+for(let t=0;t<e.length;++t){const r=e.charCodeAt(t)
+if(46!==r){if(0===A&&!s(r))throw new Error("Invalid cookie domain")
+if(!s(r)&&45!==r)throw new Error("Invalid cookie domain")
+if(++A>63)throw new Error("Invalid cookie domain")}else{if(0===A)throw new Error("Invalid cookie domain")
+if(45===e.charCodeAt(t-1))throw new Error("Invalid cookie domain")
+A=0}}if(0===A||45===e.charCodeAt(e.length-1))throw new Error("Invalid cookie domain")}(e.domain),n.push(`Domain=${e.domain}`)),e.path&&(r(e.path),n.push(`Path=${e.path}`)),e.expires&&"Invalid Date"!==e.expires.toString()&&n.push(`Expires=${a(e.expires)}`),e.sameSite&&n.push(`SameSite=${e.sameSite}`)
+for(const r of e.unparsed){if(!r.includes("="))throw new Error("Invalid unparsed")
+const[e,...s]=r.split("="),o=e.trim(),i=s.join("=")
+A(o),t(i),n.push(`${o}=${i}`)}return n.join("; ")}}},8172(e,A,t){"use strict"
 const{Transform:r}=t(7075),{isASCIINumber:s,isValidLastEventId:n}=t(4960),o=[239,187,191]
 e.exports={EventSourceStream:class extends r{state=null
 checkBOM=!0
