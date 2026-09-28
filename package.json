@@ -22,7 +22,7 @@
 		"@actions/core": "^3.0.1",
 		"@actions/tool-cache": "^4.0.0",
 		"fasm-versions": "github:stevenwdv/fasm-versions#v1.2",
-		"simple-git": "^3.36.0"
+		"simple-git": "^4.0.1"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
